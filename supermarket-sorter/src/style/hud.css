@@ -3,17 +3,18 @@
    or the combo pips (relaxed). The action buttons live in a slim bottom row (.bottombar). Coach marks too. */
 .hud {
   position: absolute; left: 0; right: 0; top: 0;
-  padding: calc(var(--safe-top) + 6px) 8px 6px;
+  padding: calc(var(--safe-top) + 6px) max(8px, env(safe-area-inset-right)) 6px max(8px, env(safe-area-inset-left));
   background: linear-gradient(180deg, var(--hud) 0%, var(--hud-deep) 100%);
   box-shadow: 0 4px 0 #4A2410, 0 8px 16px rgba(60, 30, 10, 0.3);
   z-index: 3; pointer-events: none;
 }
-.hud-row { display: -webkit-box; display: flex; align-items: center; justify-content: space-between; max-width: 560px; margin: 0 auto; }
+.hud-row { display: -webkit-box; display: flex; align-items: center; justify-content: space-between; max-width: 560px; margin: 0 auto; min-width: 0; }
 .hud-sub { display: -webkit-box; display: flex; align-items: center; justify-content: center; height: 18px; margin-top: 4px; }
 .hud .pill, .hud button { pointer-events: auto; }
 .pill {
   display: -webkit-box; display: flex; align-items: center; justify-content: center;
   height: 44px; padding: 0 12px; margin: 0 3px;
+  flex: 0 1 auto; min-width: 0;                     /* the pills give way before the pause button leaves the screen */
   background: var(--hud-pill); border: 0; border-radius: 14px;
   box-shadow: inset 0 3px 0 rgba(0, 0, 0, 0.25), inset 0 -2px 0 rgba(255, 255, 255, 0.08);
   font-size: 19px; font-weight: 900; color: #FFF8EA; text-shadow: 0 2px 0 rgba(0, 0, 0, 0.35);
@@ -53,7 +54,14 @@
 .pips-row i { display: inline-block; width: 12px; height: 12px; margin-right: 5px; border-radius: 50%; background: #5A2A12; border: 2px solid #C98C4B; }
 .pips-row i.on { background: #4CD964; }
 .pips-row span { margin-left: 2px; font-size: 13px; font-weight: 900; color: #FFD23F; }
-@media (max-width: 359px) { .pill { padding: 0 8px; font-size: 16px; } .pill-mid { min-width: 88px; } .pill-score { min-width: 76px; } .pill-level { min-width: 60px; } }
+/* Narrow phones: the pills drop their fixed widths and sit on their content, so the row (four pills plus the
+   pause button in timed mode) fits 320 px without clipping. */
+@media (max-width: 399px) {
+  .pill { padding: 0 8px; margin: 0 2px; font-size: 16px; }
+  .pill-level, .pill-bunny, .pill-mid, .pill-score { min-width: 0; }
+  .pill-bunny { padding: 0 8px 0 5px; }
+  .pill-mid .pill-icon, .pill-score .star-ic, .pill-bunny .bunny-ic { width: 20px; height: 20px; margin-right: 3px; }
+}
 
 /* the slim action row at the bottom */
 .bottombar { position: absolute; left: 0; right: 0; bottom: 0; padding: 6px 8px calc(var(--safe-bottom) + 6px); display: -webkit-box; display: flex; justify-content: center; z-index: 3; pointer-events: none; }
