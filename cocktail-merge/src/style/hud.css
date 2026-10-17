@@ -1,0 +1,216 @@
+/* src/style/hud.css: coin pill, BEST / NEW BEST, Pause and Mute, NEXT box, tier strip, toasts (DESIGN 3.4,
+   3.5 item 5, 3.8). Every rect is positioned in viewport px by ui/hud.js applyLayout. */
+.hud {
+  position: fixed; top: 0; left: 0; width: 0; height: 0;
+  z-index: 3;
+  visibility: hidden;
+  pointer-events: none;
+}
+.hud > * { position: fixed; }
+
+/* ---------- coin pill ---------- */
+.hud-pill {
+  display: -webkit-box; display: flex; align-items: center;
+  padding-right: 12px;
+  background: var(--ui-cream);
+  border: 3px solid var(--ui-border);
+  border-radius: 999px;
+  box-shadow: 0 3px 0 var(--ui-shadow);
+  overflow: hidden;
+  transform-origin: 30% 50%;
+}
+.hud-score {
+  display: block;
+  width: 100%;
+  font: 800 clamp(18px, 5.6vw, 28px)/1 var(--font);
+  color: var(--ui-text);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  text-align: left;
+}
+.hud-pill.bump { animation: pill-bump 180ms ease-out; }
+@keyframes pill-bump { 0% { transform: scale(1); } 45% { transform: scale(1.12); } 100% { transform: scale(1); } }
+
+.hud-coin { z-index: 1; }
+.hud-coin canvas { width: 100%; height: 100%; filter: drop-shadow(0 2px 0 rgba(122, 74, 34, 0.35)); }
+.hud-coin.spin canvas { animation: coin-spin 300ms linear; }
+@keyframes coin-spin {
+  0% { transform: scaleX(1); } 25% { transform: scaleX(0.05); } 50% { transform: scaleX(-1); }
+  75% { transform: scaleX(0.05); } 100% { transform: scaleX(1); }
+}
+
+.hud-best, .hud-newbest {
+  font: 800 14px/20px var(--font);
+  color: var(--ui-brown);
+  text-shadow: 0 1px 0 #fff, 1px 0 0 rgba(255, 255, 255, 0.7), -1px 0 0 rgba(255, 255, 255, 0.7);
+  white-space: nowrap;
+  overflow: hidden;
+  letter-spacing: 0.5px;
+}
+.hud-newbest {
+  width: auto !important;
+  padding: 0 10px;
+  background: var(--pink);
+  color: #fff;
+  font-weight: 900;
+  text-shadow: 0 1px 0 rgba(150, 20, 60, 0.45);
+  border-radius: 999px;
+  transform-origin: 20% 50%;
+}
+.hud-newbest.pop { animation: pop-in 300ms var(--ease-back) both; }
+@keyframes pop-in { 0% { transform: scale(0); } 100% { transform: scale(1); } }
+
+/* ---------- round buttons (HUD Pause / Mute, title Mute) ---------- */
+.round-btn {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: var(--ui-cream);
+  border: 3px solid var(--ui-border);
+  box-shadow: 0 3px 0 var(--ui-shadow);
+  pointer-events: auto;
+  display: -webkit-box; display: flex; align-items: center; justify-content: center;
+  transition: transform 80ms ease-out;
+}
+.round-btn:active { transform: scale(0.92); }
+.round-btn svg {
+  width: 24px; height: 24px;
+  fill: none; stroke: var(--ui-brown); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round;
+}
+.round-btn .ic-on path:first-child, .round-btn .ic-off path:first-child { fill: var(--ui-brown); stroke-width: 2; }
+.round-btn .ic-off { display: none; }
+.round-btn.is-muted .ic-on { display: none; }
+.round-btn.is-muted .ic-off { display: block; }
+
+/* ---------- NEXT box ---------- */
+.hud-next {
+  display: -webkit-box; display: flex; align-items: center; justify-content: center;
+  background: var(--ui-card);
+  border: 3px solid var(--ui-green);
+  border-radius: 14px;
+  box-shadow: inset 0 0 0 2px #fff, 0 3px 0 rgba(76, 139, 43, 0.45);
+}
+.hud-next.appear canvas { animation: next-appear 240ms var(--ease-back) both; }
+@keyframes next-appear { 0% { transform: scale(0.5); } 100% { transform: scale(1); } }
+.hud-next-label {
+  font: 900 14px/20px var(--font);
+  color: #fff;
+  -webkit-text-stroke: 3px var(--ui-brown);
+  paint-order: stroke fill;
+  text-shadow: 0 2px 0 var(--ui-brown);
+  letter-spacing: 1px;
+  text-align: center;
+}
+
+/* ---------- tier strip (display only) ---------- */
+.strip {
+  position: fixed;
+  z-index: 1;
+  visibility: hidden;
+  pointer-events: none;
+  filter: drop-shadow(0 4px 0 rgba(122, 74, 34, 0.35));
+}
+.strip-body {
+  position: absolute; top: 0; left: 0; bottom: 0;
+  width: var(--body-w, 86%);
+  background: #FFF4E0;
+  border: 3px solid var(--ui-green);
+  border-right: 0;
+  border-radius: 999px 0 0 999px;
+}
+.strip-arrow-o, .strip-arrow {
+  position: absolute; top: 0; bottom: 0;
+  left: calc(var(--body-w, 86%) - 1px);
+  width: calc(var(--arrow-w, 6%) + 1px);
+}
+.strip-arrow-o {
+  background: var(--ui-green);
+  -webkit-clip-path: polygon(0 0, 100% 50%, 0 100%);
+  clip-path: polygon(0 0, 100% 50%, 0 100%);
+}
+.strip-arrow {
+  background: #FFF4E0;
+  -webkit-clip-path: polygon(0 3px, calc(100% - 5px) 50%, 0 calc(100% - 3px));
+  clip-path: polygon(0 3px, calc(100% - 5px) 50%, 0 calc(100% - 3px));
+}
+.strip-slots { position: absolute; top: 0; left: 0; right: 0; bottom: 0; }
+.slot {
+  position: absolute; top: 5px; bottom: 5px;
+  display: -webkit-box; display: flex; align-items: flex-end; justify-content: center;
+}
+.slot-icon { transform-origin: 50% 80%; }
+.slot[data-state="best"]::after {
+  content: ""; position: absolute; left: 18%; right: 18%; bottom: -3px; height: 3px;
+  border-radius: 2px; background: #FFC93C;
+}
+.slot[data-state="best"] .slot-icon { animation: slot-pulse 1s ease-in-out infinite alternate; }
+@keyframes slot-pulse { 0% { transform: scale(1); } 100% { transform: scale(1.06); } }
+.slot.pop .slot-icon { animation: slot-pop 400ms var(--ease-back); }
+@keyframes slot-pop { 0% { transform: scale(0); } 60% { transform: scale(1.25); } 100% { transform: scale(1); } }
+.slot::before {
+  content: ""; position: absolute; top: 0; bottom: 0; left: -30%; width: 30%;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0));
+  opacity: 0;
+}
+.slot.pop::before { animation: slot-shine 500ms ease-out 120ms; }
+@keyframes slot-shine { 0% { left: -30%; opacity: 1; } 100% { left: 100%; opacity: 0; } }
+.slot-new {
+  position: absolute; top: -16px; left: 50%;
+  margin-left: -20px; width: 40px;
+  font: 900 13px/16px var(--font); color: #fff; text-align: center;
+  -webkit-text-stroke: 3px #B8461E; paint-order: stroke fill;
+  opacity: 0;
+}
+.slot.pop .slot-new { animation: slot-new 1200ms ease-out; }
+@keyframes slot-new { 0% { opacity: 0; transform: translateY(6px); } 12% { opacity: 1; transform: translateY(0); } 80% { opacity: 1; } 100% { opacity: 0; } }
+
+/* ---------- toasts (3.5 items 5 and 6) ---------- */
+.toasts {
+  position: fixed; left: var(--stage-x); width: var(--S); top: 90px;
+  z-index: 4;
+  height: 0;
+  pointer-events: none;
+}
+.toast {
+  position: absolute; left: 50%; top: 0;
+  display: -webkit-box; display: flex; align-items: center;
+  max-width: 92%;
+  padding: 6px 16px 6px 8px;
+  background: var(--ui-card);
+  border: 3px solid var(--ui-green);
+  border-radius: 999px;
+  box-shadow: 0 4px 0 rgba(122, 74, 34, 0.35);
+  font: 900 15px/1.2 var(--font);
+  color: var(--ui-title);
+  white-space: nowrap;
+  transform: translate(-50%, -140%);
+  animation: toast 1620ms both;
+}
+.toast canvas { width: 34px; height: 34px; margin-right: 8px; flex-shrink: 0; }
+.toast span { overflow: hidden; text-overflow: ellipsis; }
+@keyframes toast {
+  0% { transform: translate(-50%, -140%); opacity: 0; animation-timing-function: var(--ease-back); }
+  13.6% { transform: translate(-50%, 0); opacity: 1; }
+  87.6% { transform: translate(-50%, 0); opacity: 1; animation-timing-function: var(--ease-in-cubic); }
+  100% { transform: translate(-50%, -140%); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .slot[data-state="best"] .slot-icon, .hud-coin.spin canvas, .hud-pill.bump { animation: none; }
+  .toast { animation-name: toast-fade; }
+  @keyframes toast-fade { 0% { opacity: 0; transform: translate(-50%, 0); } 10%, 90% { opacity: 1; transform: translate(-50%, 0); } 100% { opacity: 0; transform: translate(-50%, 0); } }
+}
+
+/* ---------- bomb (owner feature): earned by a jug burst, sits under NEXT ---------- */
+.hud-bomb { background: #FFF1D6; border-color: #7A4A22; }
+.hud-bomb svg .bomb-body { fill: #3A2A1A; stroke: #3A2A1A; }
+.hud-bomb svg .bomb-spark { fill: #FFD23F; stroke: #FF8A2B; stroke-width: 1.5; }
+.hud-bomb svg path { stroke: #7A4A22; }
+.bomb-count {
+  position: absolute; right: -6px; top: -6px; min-width: 20px; height: 20px; padding: 0 5px;
+  border-radius: 999px; background: #FF4D4D; color: #fff; border: 2px solid #fff;
+  font: 900 12px/16px var(--font); text-align: center;
+}
+.hud-bomb.armed { background: #FFD23F; border-color: #FF8A2B; animation: bomb-arm 0.8s ease-in-out infinite alternate; }
+@keyframes bomb-arm { from { transform: scale(1); } to { transform: scale(1.12); } }
+.hud-bomb.pop { animation: bomb-pop 420ms var(--ease-back, ease-out) both; }
+@keyframes bomb-pop { 0% { transform: scale(0.4); } 100% { transform: scale(1); } }

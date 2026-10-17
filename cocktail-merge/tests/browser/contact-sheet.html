@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1600">
+<title>Cocktail Contact Sheet</title>
+<!-- Review harness for the art (DESIGN 6.2). Opened by tests/browser/contact-sheet.js via file://.
+     Everything is drawn by the real CM.art code; no physics/game/render/ui/app file is loaded.
+     ?sheet=small renders the 28-px readability sheet instead of the colour sheet. -->
+<style>
+  :root {
+    --font: ui-rounded, "SF Pro Rounded", "Arial Rounded MT Bold", "Nunito", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --ink: #5A3A14; --brown: #7A4A22; --green: #4C8B2B; --cream: #FFF3D6;
+  }
+  html, body { margin: 0; padding: 0; }
+  body { background: #EBDDBF; font-family: var(--font); color: var(--ink); }
+  #sheet { position: relative; width: 1600px; height: 2100px; overflow: hidden;
+    background: linear-gradient(#F3E7CD, #E6D3AE); }
+  .cell { position: absolute; width: 480px; height: 520px; }
+  .card { position: absolute; left: 8px; top: 8px; width: 464px; height: 504px; border-radius: 18px; overflow: hidden;
+    box-shadow: 0 6px 0 rgba(122,74,34,.28), 0 10px 24px rgba(90,58,20,.18); }
+  .card canvas { position: absolute; left: 0; top: 0; }
+  .lab { position: absolute; left: 18px; right: 18px; top: 12px; height: 40px; display: flex; align-items: center; gap: 12px; }
+  .num { width: 30px; height: 30px; border-radius: 50%; background: var(--cream); border: 2px solid var(--brown);
+    font-weight: 900; font-size: 18px; display: flex; align-items: center; justify-content: center; color: var(--brown); }
+  .name { flex: 1; font-weight: 900; font-size: 23px; white-space: nowrap; }
+  .sw { display: flex; align-items: center; gap: 6px; font: 800 14px/1 ui-monospace, Menlo, Consolas, monospace; }
+  .chip { width: 20px; height: 20px; border-radius: 6px; border: 2px solid rgba(58,42,26,.35); }
+  .cap { position: absolute; font-weight: 800; font-size: 14px; color: var(--brown); letter-spacing: .5px; }
+  /* NEXT box and tier strip: the 3.4 look of the 390x844 layout, every length doubled (2x). */
+  .next { position: absolute; box-sizing: border-box; background: #FFF6E4; border: 6px solid var(--green);
+    border-radius: 28px; box-shadow: inset 0 0 0 4px #fff; display: flex; align-items: center; justify-content: center; }
+  .next-label { position: absolute; text-align: center; font-weight: 900; font-size: 28px; line-height: 40px; color: #fff;
+    letter-spacing: 2px; -webkit-text-stroke: 6px var(--brown); paint-order: stroke fill; }
+  .strip { position: absolute; }
+  .pill { position: absolute; left: 0; top: 0; box-sizing: border-box; background: #FFF4E0; border: 6px solid var(--green);
+    border-right: 0; box-shadow: 0 8px 0 rgba(122,74,34,.35); }
+  .tri { position: absolute; clip-path: polygon(0 0, 100% 50%, 0 100%); }
+  .slot { position: absolute; bottom: 0; }
+  .slot canvas { position: absolute; left: 0; bottom: 0; }
+  .underline { position: absolute; height: 6px; border-radius: 3px; background: #FFC93C; }
+  .slot-cap { position: absolute; font-size: 13px; font-weight: 800; text-align: center; color: var(--brown); }
+  #foot { position: absolute; left: 1210px; right: 60px; top: 1620px; font-size: 15px; font-weight: 700; color: var(--brown); line-height: 1.5; }
+  #foot b { font-weight: 900; }
+  #problems { color: #B3122E; }
+  /* readability sheet */
+  #small { display: inline-block; padding: 18px 22px 22px; background: #E9CF98; }
+  #small h1 { margin: 0 0 10px; font-size: 16px; font-weight: 900; }
+  #small .row { display: flex; align-items: center; gap: 18px; margin-bottom: 14px; }
+  #small .row span { font-weight: 800; font-size: 13px; width: 70px; }
+  #small canvas.zoom { image-rendering: pixelated; }
+  .grey { filter: grayscale(1); }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="../../src/dedication.js"></script>
+<script src="../../src/config.js"></script>
+<script src="../../src/projection.js"></script>
+<script src="../../src/art/glass.js"></script>
+<script src="../../src/art/garnish.js"></script>
+<script src="../../src/art/tier1-shot.js"></script>
+<script src="../../src/art/tier2-oldfashioned.js"></script>
+<script src="../../src/art/tier3-cosmo.js"></script>
+<script src="../../src/art/tier4-mojito.js"></script>
+<script src="../../src/art/tier5-margarita.js"></script>
+<script src="../../src/art/tier6-sunrise.js"></script>
+<script src="../../src/art/tier7-pinacolada.js"></script>
+<script src="../../src/art/tier8-coconut.js"></script>
+<script src="../../src/art/tier9-sangria-verde.js"></script>
+<script src="../../src/art/coin.js"></script>
+<script src="../../src/art/scenery.js"></script>
+<script src="../../src/art/overrides.js"></script>
+<script src="../../src/art/sprites.js"></script>
+<script>
+(function () {
+  'use strict';
+  var CM = window.CM, art = CM.art, P = CM.projection, CFG = CM.config;
+  var TIERS = CFG.TIERS, RULES = { DANGER_Y: CFG.TABLE.DANGER_Y }, TAU = Math.PI * 2;
+  var SMALL = /[?&]sheet=small/.test(location.search);
+  var problems = [];
+  var rootEl = document.getElementById('root');
+
+  function fail(msg, e) { problems.push(msg); console.error('contact-sheet: ' + msg, e || ''); }
+  function el(tag, cls, parent, css) {
+    var d = document.createElement(tag); if (cls) d.className = cls;
+    if (css) Object.keys(css).forEach(function (k) { d.style[k] = typeof css[k] === 'number' ? css[k] + 'px' : css[k]; });
+    if (parent) parent.appendChild(d); return d;
+  }
+  function canvas(w, h, parent, cls) { var c = el('canvas', cls, parent); c.width = Math.round(w); c.height = Math.round(h); return c; }
+  function rrect(x, a, b, w, h, r) {
+    x.beginPath(); x.moveTo(a + r, b); x.arcTo(a + w, b, a + w, b + h, r); x.arcTo(a + w, b + h, a, b + h, r);
+    x.arcTo(a, b + h, a, b, r); x.arcTo(a, b, a + w, b, r); x.closePath();
+  }
+
+  // ---- self-checks: every painter exists, does not throw, restores the ctx, stays inside its 4.2 bounds ----
+  function checkPainters() {
+    var t, rp = 40;
+    for (t = 1; t <= 9; t++) {
+      var p = art.tiers && art.tiers[t];
+      if (!p || typeof p.paint !== 'function') { fail('tier ' + t + ': CM.art.tiers[' + t + '].paint is missing'); continue; }
+      [false, true].forEach(function (icon) {
+        var b = art.glass.spriteBox(t), m = 0.5, c = document.createElement('canvas'), x, before, after;
+        c.width = Math.ceil((b.w + 2 * m) * rp); c.height = Math.ceil((b.h + 2 * m) * rp);
+        x = c.getContext('2d'); x.translate((b.ax + m) * rp, (b.ay + m) * rp);
+        before = x.getTransform().toString() + x.globalAlpha + x.globalCompositeOperation;
+        try {
+          x.save(); art.glass.applyAnchor(x, rp); p.paint(x, { glass: art.glass, garnish: art.garnish }, { icon: icon }); x.restore();
+        } catch (e) { fail('tier ' + t + (icon ? ' (icon mode)' : '') + ' painter threw: ' + (e && e.message), e); return; }
+        after = x.getTransform().toString() + x.globalAlpha + x.globalCompositeOperation;
+        if (before !== after) fail('tier ' + t + ' painter left the ctx state changed (unbalanced save/restore?)');
+        if (art.hasOverride && art.hasOverride(t)) return;          // override pictures may taint the canvas
+        var d = x.getImageData(0, 0, c.width, c.height).data, W = c.width, H = c.height, out = 0, i, px, py;
+        var x0 = m * rp, y0 = m * rp, x1 = W - m * rp, y1 = H - m * rp;
+        for (i = 3; i < d.length; i += 4) {
+          if (d[i] < 24) continue;
+          px = (i >> 2) % W; py = ((i >> 2) / W) | 0;
+          if (px < x0 - 1 || px > x1 + 1 || py < y0 - 1 || py > y1 + 1) out++;
+        }
+        if (out > 3 && !icon) fail('tier ' + t + ' paints ' + out + ' px outside its 4.2 sprite bounds');
+      });
+    }
+  }
+
+  // ---- table surface texture: a big real table (paintTable), sampled for each cell's patch ----
+  var texLay = P.computeLayout(1000, 1700, 1, { top: 0, bottom: 0 }, { coarse: false });
+  var tex = document.createElement('canvas'); tex.width = 1000; tex.height = 1700;
+  art.paintTable(tex.getContext('2d'), texLay, RULES);
+
+  function patchSource(i, w, h) {
+    var rows = [12, 34, 22, 46, 16, 40, 28, 10, 36], offs = [-60, 40, -20, 70, 0, -80, 50, -40, 20];
+    var top = P.project(texLay, 50, rows[i]).Y, maxTop = P.project(texLay, 50, 124).Y - h;
+    top = Math.max(P.project(texLay, 50, 3).Y, Math.min(top, maxTop));
+    var hw = 50 * texLay.kX * P.scaleAt(P.unprojectY(texLay, top)) - 6, off = Math.max(-(hw - w / 2), Math.min(hw - w / 2, offs[i]));
+    return { x: texLay.cx + off - w / 2, y: top };
+  }
+
+  // ---- one card: wood frame, label bar, table patch, shadow + caustic, the in-world sprite ----
+  var R96 = 96, lay390 = P.computeLayout(390, 844, 1, { top: 0, bottom: 0 }, { coarse: true });
+  function drawCard(t, cell, sprite) {
+    var W = 464, H = 504, card = el('div', 'card', cell), c = canvas(W, H, card), x = c.getContext('2d');
+    var px = 10, py = 62, pw = W - 20, ph = H - 72, src = patchSource(t - 1, pw, ph), g;
+    x.fillStyle = '#D6A465'; x.fillRect(0, 0, W, H);
+    x.strokeStyle = 'rgba(185,129,70,0.45)'; x.lineWidth = 1;
+    for (var k = 0; k < 4; k++) { x.beginPath(); x.moveTo(6, 2.5 + k * 1.5); x.lineTo(W - 6, 2.5 + k * 1.5); x.stroke(); }
+    x.fillStyle = '#FFF3D6'; rrect(x, px, 8, pw, 48, 12); x.fill();
+    x.save(); rrect(x, px, py, pw, ph, 12); x.clip();
+    x.drawImage(tex, src.x, src.y, pw, ph, px, py, pw, ph);
+    g = x.createLinearGradient(0, py, 0, py + 26); g.addColorStop(0, 'rgba(0,0,0,0.13)'); g.addColorStop(1, 'rgba(0,0,0,0)');
+    x.fillStyle = g; x.fillRect(px, py, pw, 26);
+    x.restore();
+    x.strokeStyle = '#A8743F'; x.lineWidth = 2; rrect(x, px - 1, py - 1, pw + 2, ph + 2, 13); x.stroke();
+    x.strokeStyle = '#ECC487'; x.lineWidth = 2; rrect(x, 1, 1, W - 2, H - 2, 18); x.stroke();
+    var X = W / 2, Y = 414, c80 = P.ratioAt(lay390, 80), fp = { X: X, Y: Y, rx: R96, ry: R96 * c80 };
+    art.paintShadow(x, fp, t);
+    var sc = R96 / sprite.rp;
+    x.imageSmoothingEnabled = true; x.imageSmoothingQuality = 'high';
+    x.drawImage(sprite.canvas, X - sprite.axPx * sc, Y - sprite.ayPx * sc, sprite.canvas.width * sc, sprite.canvas.height * sc);
+    var T = TIERS[t], lab = el('div', 'lab', card);
+    el('div', 'num', lab).textContent = t;
+    el('div', 'name', lab).textContent = T.name + (art.hasOverride && art.hasOverride(t) ? ' (PNG)' : '');
+    [T.color, T.accent].forEach(function (col) {
+      if (!col) return;
+      var s = el('div', 'sw', lab); el('div', 'chip', s, { background: col }); el('span', null, s).textContent = col.toUpperCase();
+    });
+  }
+
+  // ---- NEXT box and tier strip (3.4) of the 390x844 layout, doubled ----
+  function icon(parent, w, h, tier, state) { var c = canvas(w, h, parent); art.paintIcon(c, tier, state); return c; }
+  function drawNext(host, left, top) {
+    var N = lay390.hud.next.w * 2, box = el('div', 'next', host, { left: left, top: top, width: N, height: N });
+    icon(box, 0.78 * N, 0.78 * N, 3, 'run');
+    el('div', 'next-label', host, { left: left - 12, top: top + N + 4, width: N + 24 }).textContent = 'NEXT';
+    return left + N + 24;
+  }
+  var STATES = [null, 'run', 'run', 'run', 'run', 'best', 'earlier', 'earlier', 'none', 'none'];
+  function drawStrip(host, left, top) {
+    var s = lay390.strip, k = 2, H = s.h * k, bodyW = s.bodyW * k, aw = s.arrowW * k, b = 6, i;
+    var wrap = el('div', 'strip', host, { left: left, top: top, width: bodyW + aw, height: H });
+    var al = Math.atan2(H / 2, aw), ib = b / Math.cos(al), it = b / Math.sin(al);
+    el('div', 'tri', wrap, { left: bodyW, top: 8, width: aw, height: H, background: 'rgba(122,74,34,.35)' });
+    el('div', 'pill', wrap, { width: bodyW, height: H, borderRadius: (H / 2) + 'px 0 0 ' + (H / 2) + 'px' });
+    el('div', 'tri', wrap, { left: bodyW, top: 0, width: aw, height: H, background: '#4C8B2B' });
+    el('div', 'tri', wrap, { left: bodyW - 1, top: ib, width: aw - it + 1, height: H - 2 * ib, background: '#FFF4E0' });
+    var bw = s.iconBox.w * k, bh = s.iconBox.h * k, sw = s.slotW * k;
+    for (i = 1; i <= 9; i++) {
+      var sx = s.pad * k + (i - 1) * sw, slot = el('div', 'slot', wrap, { left: sx + (sw - bw) / 2, top: (H - bh) / 2, width: bw, height: bh });
+      icon(slot, bw, bh, i, STATES[i]);
+      if (STATES[i] === 'best') el('div', 'underline', wrap, { left: sx + sw * 0.2, width: sw * 0.6, top: H - 10 });
+      el('div', 'slot-cap', host, { left: left + sx, top: top + H + 14, width: sw }).textContent =
+        { run: 'colour', best: 'highest', earlier: 'dimmed', none: 'unseen' }[STATES[i]];
+    }
+  }
+
+  // ---- table slice: background + table + danger line (level 0) + a T3 in the launcher at y 144 ----
+  function drawSlice(host, left, top) {
+    var vw = 1200, vh = 960, L = P.computeLayout(vw, vh, 1, { top: 0, bottom: 0 }, { coarse: false });
+    var full = document.createElement('canvas'); full.width = vw; full.height = vh;
+    var x = full.getContext('2d');
+    art.paintBackground(x, L, vw, vh, 0);
+    art.paintTable(x, L, RULES);
+    art.paintDangerLine(x, L, RULES, 0, 0);
+    var r = TIERS[3].radius, fp = P.footprint(L, 50, 144, r);
+    art.paintShadow(x, fp, 3);
+    var sp = art.buildSprites(L, CFG.TIERS.map(function (T) { return T ? T.radius : 0; }), true)[3];
+    var sc = fp.rx / sp.rp, dx = fp.X - sp.axPx * sc, dy = fp.Y - sp.ayPx * sc, dw = sp.canvas.width * sc, dh = sp.canvas.height * sc;
+    x.imageSmoothingEnabled = true; x.imageSmoothingQuality = 'high';
+    x.drawImage(sp.canvas, dx, dy, dw, dh);
+    x.save(); x.beginPath(); x.rect(dx, dy, dw, dh); x.clip(); art.paintDangerLine(x, L, RULES, 0, 0, 0.5); x.restore();
+    var bottom = Math.min(vh, P.project(L, 50, 165).Y + 11 * L.kX + 8), y0 = bottom - 260;
+    var c = canvas(1200, 260, host); c.style.position = 'absolute'; c.style.left = left + 'px'; c.style.top = top + 'px';
+    c.style.borderRadius = '14px'; c.style.boxShadow = '0 6px 0 rgba(122,74,34,.28)';
+    c.getContext('2d').drawImage(full, 0, y0, 1200, 260, 0, 0, 1200, 260);
+    if (P.project(L, 50, RULES.DANGER_Y).Y < y0 || dy < y0) fail('table slice: the danger line or the T3 is cut off');
+  }
+
+  function buildSheet() {
+    var sheet = el('div', null, rootEl); sheet.id = 'sheet';
+    var sprites = art.buildSprites({ kX: 1, dpr: 1 }, [0, 96, 96, 96, 96, 96, 96, 96, 96, 96], true), t;
+    for (t = 1; t <= 9; t++) {
+      var cell = el('div', 'cell', sheet, { left: 80 + ((t - 1) % 3) * 480, top: 20 + Math.floor((t - 1) / 3) * 520 });
+      drawCard(t, cell, sprites[t]);
+    }
+    var rowY = 1600, coin = canvas(128, 128, sheet);
+    coin.style.position = 'absolute'; coin.style.left = '80px'; coin.style.top = (rowY + 30) + 'px';
+    art.paintCoin(coin);
+    el('div', 'cap', sheet, { left: 80, top: rowY + 166, width: 128, textAlign: 'center' }).textContent = 'coin 128 px';
+    var nx = drawNext(sheet, 80 + 128 + 40 + 12, rowY + 24);
+    el('div', 'cap', sheet, { left: nx - 150, top: rowY + 2 }).textContent = 'NEXT 2×';
+    var stripTop = rowY + 100 - lay390.strip.h;
+    drawStrip(sheet, nx + 40, stripTop);
+    el('div', 'cap', sheet, { left: nx + 40, top: stripTop - 26 }).textContent = 'tier strip 2× (390×844 layout)';
+    drawSlice(sheet, 200, 1820);   // 6.2: the row ends at 1800, so the slice spans 1820..2080
+    var foot = el('div', null, sheet); foot.id = 'foot';
+    var ov = []; for (t = 1; t <= 9; t++) if (art.hasOverride && art.hasOverride(t)) ov.push('tier-' + t + '.png');
+    foot.innerHTML = '<b>Cocktail Merge: Beach Bar</b>, art contact sheet. Cocktails at R = 96 px (in-world sprite caches), ' +
+      'NEXT and strip from the 390×844 layout at 2×, table slice of a 1200×960 layout. PNG overrides: ' +
+      (ov.length ? ov.join(', ') : 'none') + '.<div id="problems"></div>';
+    document.getElementById('problems').textContent = problems.length ? 'Problems: ' + problems.join('; ') : '';
+  }
+
+  // ---- readability sheet: every sprite 28 px tall, colour and greyscale, real size and 3x zoom ----
+  function buildSmall() {
+    var box = el('div', null, rootEl); box.id = 'small';
+    el('h1', null, box).textContent = 'Readability sheet: all 9 sprites 28 px tall (colour, greyscale; then 3× zoom of the same pixels)';
+    var cw = 44, ch = 34, n = 9, radii = [0], t, b;
+    for (t = 1; t <= 9; t++) { b = art.spriteBounds(t, false); radii.push(28 / b.h); }
+    var sprites = art.buildSprites({ kX: 1, dpr: 1 }, radii, true);
+    var src = document.createElement('canvas'); src.width = cw * n; src.height = ch;
+    var x = src.getContext('2d'); x.imageSmoothingEnabled = true; x.imageSmoothingQuality = 'high';
+    for (t = 1; t <= 9; t++) {
+      var sp = sprites[t], sc = radii[t] / sp.rp, bb = art.spriteBounds(t, false);
+      var ax = (t - 1) * cw + cw / 2, ay = ch - 3 - (bb.h - bb.ay) * radii[t];
+      x.drawImage(sp.canvas, ax - sp.axPx * sc, ay - sp.ayPx * sc, sp.canvas.width * sc, sp.canvas.height * sc);
+    }
+    [[1, ''], [1, 'grey'], [3, ''], [3, 'grey']].forEach(function (m) {
+      var row = el('div', 'row', box);
+      el('span', null, row).textContent = (m[1] ? 'grey' : 'colour') + (m[0] > 1 ? ' 3×' : '');
+      var c = canvas(src.width, src.height, row, (m[0] > 1 ? 'zoom ' : '') + m[1]);
+      c.style.width = src.width * m[0] + 'px'; c.style.height = src.height * m[0] + 'px';
+      c.getContext('2d').drawImage(src, 0, 0);
+    });
+    var nums = el('div', 'row', box); el('span', null, nums).textContent = 'tier';
+    var lab = el('div', null, nums, { display: 'flex' });
+    for (t = 1; t <= 9; t++) el('div', null, lab, { width: cw * 3, textAlign: 'center', fontWeight: 900 }).textContent = t + ' ' + TIERS[t].name;
+  }
+
+  function run() {
+    try { checkPainters(); } catch (e) { fail('self-check crashed: ' + e.message, e); }
+    try { if (SMALL) buildSmall(); else buildSheet(); } catch (e) { fail('sheet crashed: ' + e.message, e); }
+    document.body.setAttribute('data-problems', String(problems.length));
+    document.body.setAttribute('data-done', '1');
+  }
+  art.loadOverrides(1500, run, '../../');
+})();
+</script>
+</body>
+</html>

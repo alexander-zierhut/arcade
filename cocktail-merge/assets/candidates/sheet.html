@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Background candidates</title>
+<style>
+:root{--bg:#f4efe6;--card:#fff;--ink:#2a2622;--mute:#6b6259;--line:#e2d9cc;--ok:#1f7a4d;--warn:#a5520c;--bad:#b42318}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.35 system-ui,sans-serif;padding:24px}
+h1{margin:0 0 4px;font-size:24px}p.sub{margin:0 0 20px;color:var(--mute)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;display:grid;grid-template-columns:180px 1fr;gap:12px;align-items:start}
+.phone{width:180px;height:320px;border-radius:14px;overflow:hidden;border:3px solid #222;background:#cfe8f5;position:relative}
+.phone img{width:100%;height:100%;object-fit:cover;display:block}
+.phone .table{position:absolute;left:0;right:0;bottom:0;height:45%;background:repeating-linear-gradient(90deg,#9a6533 0 28px,#8a5a2c 28px 30px);opacity:.55;border-top:4px solid #6b4220}
+.full{width:100%;max-height:150px;object-fit:contain;background:#e9eef2;border-radius:6px;display:block;margin-bottom:8px}
+.num{font-weight:700;font-size:18px}.t{font-weight:600;margin:2px 0 4px}
+.meta{color:var(--mute);font-size:12px;margin:2px 0}
+.lic{display:inline-block;font-size:12px;font-weight:600;padding:2px 8px;border-radius:999px;margin-top:4px;color:#fff}
+.lic.ok{background:var(--ok)}.lic.attr{background:#2f5fa8}.lic.px{background:var(--warn)}
+.flag{color:var(--bad);font-weight:600;font-size:12px;margin-top:4px}
+.ov{background:linear-gradient(#7fd3f5,#bdeeff)}
+</style></head><body>
+<h1>Background candidates: cocktail merge game</h1>
+<p class="sub">Left: 360x640 portrait crop preview (object-fit: cover, shown at half size; translucent band = approximate wooden table area). Right: full image. Pixabay items are 1280 px previews; full-res needs a free login.</p>
+<div class="grid" id="g"></div>
+<script>
+var C=[
+["01a","01-craftpix-beach-bg3.png","CraftPix Beach 2D: scene 3 BEACH BAR","1920x1080 PNG + 5 layers","OGA-BY 3.0 (credit)","attr"],
+["01b","01-craftpix-beach-bg1.png","CraftPix Beach 2D: scene 1 palms/parasol","1920x1080 PNG + layers","OGA-BY 3.0 (credit)","attr"],
+["01c","01-craftpix-beach-bg2.png","CraftPix Beach 2D: scene 2 island/sailboat","1920x1080 PNG + layers","OGA-BY 3.0 (credit)","attr"],
+["01d","01-craftpix-beach-bg4.png","CraftPix Beach 2D: scene 4 sunset","1920x1080 PNG + layers","OGA-BY 3.0 (credit)","attr"],
+["02","02-cliptool-beach-day.png","Beach scene (SpriteAttack / 2dgameartguru), day panel","SVG crop; PNG export 3000x2000","CC0","ok"],
+["03","03-island-background-2d.png","Island Background 2D (Alucard)","2048x1200 PNG + SVG","CC-BY 3.0 (credit)","attr"],
+["04","04-quantumelle-beach-background.png","Beach background (quantumelle)","1600x1600 PNG","CC0","ok"],
+["05","05-island-background-lzubiaur.png","Island background (lzubiaur)","2048x1536 PNG + SVG","CC-BY 3.0, 'no credit required'","attr"],
+["06","06-freesvg-tropical-sea.svg","Tropical sea (freesvg 202066)","SVG 880x880","CC0 / Public Domain","ok"],
+["07","07-freesvg-tropical-beach-palms.svg","Tropical beach with palm trees (freesvg 208118)","SVG 660x660","CC0 / Public Domain","ok"],
+["08","08-freesvg-ocean-shore.svg","Ocean shore (freesvg 206288)","SVG 660x660","CC0 / Public Domain","ok"],
+["09","09-freesvg-tropical-island-distance.svg","Tropical island in the distance (freesvg 198350)","SVG 880x880","CC0 / Public Domain","ok"],
+["10","10-freesvg-a-beach.svg","A beach (freesvg 202184)","SVG 880x880","CC0 / Public Domain","ok"],
+["11","11-freesvg-tropical-setting.svg","Tropical setting (freesvg 205749)","SVG 660x660","CC0 / Public Domain","ok"],
+["12","12-openclipart-tropical-beach-ai.png","Tropical beach (liftarn, openclipart 347038)","2000x1338 PNG + traced SVG","CC0","ok","Tagged ai_art on openclipart (AI-generated)"],
+["13","13-openclipart-tiki-bar.svg","Tiki bar (SteveLambert, openclipart 6924), overlay","SVG 736x543, transparent","CC0","ok","Overlay element, not a full background",1],
+["14","14-pixabay-summer-bar-beach.jpg","Summer bar beach (KoStAsEf)","preview 1280x589 (full 3798x1749)","Pixabay Content License","px"],
+["15","15-pixabay-beach-sea-sand.jpg","Beach sea sand (aalmeidah)","preview 1280x905 (full 5657x4000)","Pixabay Content License","px"],
+["16","16-pixabay-beach-restaurant.png","Beach restaurant (dandelion_tea)","preview 1280x905 (full SVG / 1920x1357)","Pixabay Content License","px"],
+["17","17-pixabay-beach-tropical-landscape.png","Beach tropical landscape (Clker)","preview 1280x1047 (full SVG / 1920x1571)","Pixabay Content License","px"],
+["18","18-pixabay-beach-cartoon-background.jpg","Beach cartoon background (CocosICE)","preview 1280x720 (full 3000x1688)","Pixabay Content License","px"],
+["19","19-pixabay-summer-cove-ai.jpg","Summer cove (clfr21)","preview 853x1280 (full 3584x5376)","Pixabay Content License","px","Labelled AI-generated (Midjourney)"],
+["20","20-pixabay-beach-sunset-palapa.png","Beach sunset palapa (fauzan291)","preview 1280x1071 (full 3742x3132)","Pixabay Content License","px"],
+["21","21-unsplash-arashi-beach-photo.jpg","Arashi Beach, Aruba (Bernin Uben), photo","4712x3142 JPG","Unsplash License","px","Photo, fallback only"]
+];
+var g=document.getElementById('g');
+C.forEach(function(c){
+  var d=document.createElement('div');d.className='card';
+  d.innerHTML='<div class="phone'+(c[7]?' ov':'')+'"><img src="'+c[1]+'" style="'+(c[7]?'object-fit:contain':'')+'"><div class="table"></div></div>'+
+  '<div><img class="full'+(c[7]?' ov':'')+'" src="'+c[1]+'"><div class="num">'+c[0]+'</div><div class="t">'+c[2]+'</div>'+
+  '<div class="meta">'+c[1]+'</div><div class="meta">'+c[3]+'</div><span class="lic '+c[5]+'">'+c[4]+'</span>'+(c[6]?'<div class="flag">'+c[6]+'</div>':'')+'</div>';
+  g.appendChild(d);
+});
+</script></body></html>

@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=2400">
+<title>Background Scenes</title>
+<!-- Review harness for src/art/backgrounds.js. Opened by tests/browser/backgrounds.js via file://.
+     Row 1: every scene (plus the procedural fallback) at 390x844 (safe areas 47/34), with the table, the roof
+     and the tallest glasses (T7, T9, T8, radii x0.8) standing on the far edge at y = r, to judge the headroom.
+     Rows 2-3: the same at 1280x800, drawn at 0.6x. The cloud layer of the beach-bar scene is drawn at t = 0. -->
+<style>
+  html, body { margin: 0; padding: 0; background: #2A2018; color: #FFF3D6; font: 700 16px/1.2 system-ui, sans-serif; }
+  #sheet { position: relative; width: 2400px; height: 1900px; }
+  .lab { position: absolute; padding: 4px 8px; background: rgba(0,0,0,.55); border-radius: 6px; }
+  canvas { position: absolute; }
+</style>
+</head>
+<body>
+<div id="sheet"></div>
+<script src="../../src/dedication.js"></script>
+<script src="../../src/config.js"></script>
+<script src="../../src/projection.js"></script>
+<script src="../../src/art/glass.js"></script>
+<script src="../../src/art/garnish.js"></script>
+<script src="../../src/art/tier1-shot.js"></script>
+<script src="../../src/art/tier2-oldfashioned.js"></script>
+<script src="../../src/art/tier3-cosmo.js"></script>
+<script src="../../src/art/tier4-mojito.js"></script>
+<script src="../../src/art/tier5-margarita.js"></script>
+<script src="../../src/art/tier6-sunrise.js"></script>
+<script src="../../src/art/tier7-pinacolada.js"></script>
+<script src="../../src/art/tier8-coconut.js"></script>
+<script src="../../src/art/tier9-sangria-verde.js"></script>
+<script src="../../src/art/coin.js"></script>
+<script src="../../src/art/scenery.js"></script>
+<script src="../../src/art/backgrounds.js"></script>
+<script src="../../src/art/sprites.js"></script>
+<script>
+(function () {
+  'use strict';
+  var CM = window.CM, art = CM.art, bg = art.backgrounds, P = CM.projection;
+  var sheet = document.getElementById('sheet');
+  bg.setBase('../../');
+  var RSCALE = 0.8;
+  var scenes = bg.list().map(function (s) { return s.key; }).concat(['procedural']);
+
+  function label(text, x, y) {
+    var d = document.createElement('div'); d.className = 'lab'; d.textContent = text;
+    d.style.left = x + 'px'; d.style.top = y + 'px'; sheet.appendChild(d);
+  }
+  function glasses(ctx, lay) {
+    var T = CM.config.TIERS;
+    [[7, 22], [9, 50], [8, 80]].forEach(function (g) {
+      var r = T[g[0]].radius * RSCALE, fp = P.footprint(lay, g[1], r, r);
+      art.paintShadow(ctx, fp, g[0]);
+      ctx.save(); ctx.translate(fp.X, fp.Y); art.paintTier(ctx, g[0], fp.rx); ctx.restore();
+    });
+  }
+  function render(key, vw, vh, safe, coarse) {
+    var lay = P.computeLayout(vw, vh, 1, safe, { coarse: coarse });
+    var m = Math.ceil(12 * lay.uiK);
+    var c = document.createElement('canvas'); c.width = vw; c.height = vh;
+    var ctx = c.getContext('2d');
+    var b = document.createElement('canvas'); b.width = vw + 2 * m; b.height = vh + 2 * m;
+    var bctx = b.getContext('2d');
+    ctx.fillStyle = '#F2D6A2'; ctx.fillRect(0, 0, vw, vh);
+    var image = key !== 'procedural' && bg.paint(bctx, lay, vw, vh, m);
+    if (!image) art.paintBackground(bctx, lay, vw, vh, m, { static: true });
+    ctx.drawImage(b, -m, -m);
+    if (image) bg.paintLive(ctx, lay, vw, vh, 0, false);
+    else art.paintBackgroundLive(ctx, lay, vw, vh, 0, true);
+    art.paintTable(ctx, lay);
+    glasses(ctx, lay);
+    art.paintRoof(ctx, lay, vw);
+    ctx.strokeStyle = 'rgba(255,0,0,0.6)'; ctx.setLineDash([6, 4]);       // horizon target 0.55 farY
+    ctx.beginPath(); ctx.moveTo(0, 0.55 * lay.farY); ctx.lineTo(18, 0.55 * lay.farY); ctx.stroke();
+    return c;
+  }
+  function place(c, x, y, s) {
+    var o = document.createElement('canvas'); o.width = Math.round(c.width * s); o.height = Math.round(c.height * s);
+    o.getContext('2d').drawImage(c, 0, 0, o.width, o.height);
+    o.style.left = x + 'px'; o.style.top = y + 'px'; sheet.appendChild(o);
+  }
+  function step(i) {
+    if (i >= scenes.length) { document.body.setAttribute('data-done', '1'); return; }
+    var key = scenes[i];
+    function draw() {
+      var col = i * 400;
+      place(render(key, 390, 844, { top: 47, bottom: 34 }, true), col, 0, 1);
+      label(key + ' 390x844 (' + (key === 'procedural' ? 'fallback' : bg.state()) + ')', col + 6, 100);
+      var lx = (i % 3) * 790, ly = 860 + Math.floor(i / 3) * 500;
+      place(render(key, 1280, 800, { top: 0, bottom: 0 }, false), lx, ly, 0.6);
+      label(key + ' 1280x800', lx + 6, ly + 6);
+      step(i + 1);
+    }
+    if (key === 'procedural') draw(); else bg.setScene(key, draw);
+  }
+  try { step(0); } catch (e) { console.error(e); document.body.setAttribute('data-done', '1'); }
+})();
+</script>
+</body>
+</html>

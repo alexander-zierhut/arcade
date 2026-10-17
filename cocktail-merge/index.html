@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="format-detection" content="telephone=no">
+<meta name="theme-color" content="#6CC9F2">
+<title>Cocktail Merge: Beach Bar</title>
+<meta name="description" content="Drop and merge cocktails on a beach bar table. A physics-based merge game for your browser, free and without ads.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Cocktail Merge: Beach Bar">
+<meta property="og:description" content="Drop and merge cocktails on a beach bar table. A physics-based merge game for your browser, free and without ads.">
+<meta property="og:url" content="https://alexander-zierhut.github.io/arcade/cocktail-merge/">
+<meta property="og:image" content="https://alexander-zierhut.github.io/arcade/cocktail-merge/assets/icons/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Cocktail Merge app icon on a sky-blue background">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Cocktail Merge: Beach Bar">
+<meta name="twitter:description" content="Drop and merge cocktails on a beach bar table. A physics-based merge game for your browser, free and without ads.">
+<meta name="twitter:image" content="https://alexander-zierhut.github.io/arcade/cocktail-merge/assets/icons/og-image.png">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="64x64" href="assets/icons/favicon-64.png">
+<link rel="shortcut icon" href="assets/icons/favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.png">
+<link rel="stylesheet" href="src/style/base.css">
+<link rel="stylesheet" href="src/style/hud.css">
+<link rel="stylesheet" href="src/style/overlays.css">
+</head>
+<body>
+<!-- ui-shell-begin (tests/browser/ui-check.js copies everything up to ui-shell-end) -->
+<canvas id="game-bg" aria-hidden="true"></canvas>
+<canvas id="game" tabindex="-1" aria-label="Cocktail Merge game table"></canvas>
+<div id="strip" class="strip" aria-hidden="true">
+  <div class="strip-arrow-o"></div><div class="strip-arrow"></div>
+  <div class="strip-body"></div>
+  <div id="strip-slots" class="strip-slots"></div>
+</div>
+<div id="input" class="input-layer"></div>
+<div id="hud" class="hud">
+  <div id="hud-pill" class="hud-pill"><span id="hud-score" class="hud-score">0</span></div>
+  <div id="hud-coin" class="hud-coin"><canvas id="hud-coin-c"></canvas></div>
+  <div id="hud-best" class="hud-best">BEST 0</div>
+  <div id="hud-newbest" class="hud-newbest" hidden>NEW BEST!</div>
+  <button id="btn-pause" class="round-btn" type="button" tabindex="-1" aria-label="Pause">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6v12M15 6v12"/></svg>
+  </button>
+  <button id="btn-mute" class="round-btn js-mute" type="button" tabindex="-1" aria-label="Sound on">
+    <svg class="ic-on" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/></svg>
+    <svg class="ic-off" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M15.5 9.5l5 5M20.5 9.5l-5 5"/></svg>
+  </button>
+  <div id="hud-next" class="hud-next"><canvas id="hud-next-c"></canvas></div>
+  <div id="hud-next-label" class="hud-next-label">NEXT</div>
+  <button id="btn-bomb" class="round-btn hud-bomb" type="button" tabindex="-1" aria-label="Bomb: clear part of the table" hidden>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="14" r="7" class="bomb-body"/><path d="M14.5 8.5l2-2.5M16.5 6l1.5-1.5"/><circle cx="18.6" cy="3.9" r="1.1" class="bomb-spark"/></svg>
+    <span id="bomb-count" class="bomb-count">1</span>
+  </button>
+</div>
+<div id="toasts" class="toasts" aria-live="polite"></div>
+
+<div id="overlays" class="overlays">
+  <section id="ov-title" class="ov ov-title" hidden inert aria-label="Title">
+    <button class="round-btn js-mute title-mute" type="button" data-act="mute" aria-label="Sound on">
+      <svg class="ic-on" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/></svg>
+      <svg class="ic-off" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M15.5 9.5l5 5M20.5 9.5l-5 5"/></svg>
+    </button>
+    <div id="title-col" class="title-col">
+      <div id="tag-wrap" class="tag-wrap">
+        <div id="tag-ribbon" class="tag-ribbon"></div>
+        <div class="tag-pin"></div>
+        <div class="tag-bow" aria-hidden="true"><i class="tail tail-l"></i><i class="tail tail-r"></i><i class="loop loop-l"></i><i class="loop loop-r"></i><i class="knot"></i></div>
+        <div class="tag-card">
+          <div class="tag-hole"></div>
+          <p id="tag-text" class="tag-text"></p>
+          <svg class="tag-heart" viewBox="0 0 24 22" aria-hidden="true"><path d="M12 20.5C5 15.2 1.5 11.6 1.5 7.4A5 5 0 0 1 6.6 2.2c2.2 0 4 1.2 5.4 3.2 1.4-2 3.2-3.2 5.4-3.2a5 5 0 0 1 5.1 5.2c0 4.2-3.5 7.8-10.5 13.1z"/></svg>
+        </div>
+      </div>
+      <div class="logo">
+        <h1 id="logo-title" class="logo-title">Cocktail Merge</h1>
+        <div class="ribbon ribbon-green"><span id="logo-sub">Beach Bar</span></div>
+      </div>
+      <button id="title-icons" class="icon-row" type="button" data-act="collection" aria-label="Your cocktail collection"></button>
+      <div class="btn-col">
+        <button class="btn btn-primary btn-continue" type="button" data-act="continue" data-primary>Continue<small id="continue-score"></small></button>
+        <button class="btn btn-secondary" type="button" data-act="newgame" data-arm="Tap again to start over">New Game</button>
+        <button class="btn btn-primary" type="button" data-act="play" data-primary>Play</button>
+      </div>
+      <p id="title-stats" class="stats"></p>
+      <div id="title-howto" class="howto-card js-howto"></div>
+      <div class="chip-row">
+        <button id="chip-howto" class="chip" type="button" data-act="howto">How to play</button>
+        <button class="chip" type="button" data-act="collection">Collection</button>
+        <button class="chip" type="button" data-act="settings">Settings</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="ov-pause" class="ov ov-modal" hidden inert aria-label="Paused">
+    <div class="card scroll">
+      <h2 class="card-title">Paused</h2>
+      <p class="card-line js-score"></p>
+      <div class="btn-col">
+        <button class="btn btn-primary" type="button" data-act="resume" data-primary>Resume</button>
+        <button class="btn btn-secondary" type="button" data-act="restart" data-arm="Tap again to restart">Restart</button>
+        <button class="btn btn-secondary" type="button" data-act="quit">Quit to Title</button>
+      </div>
+      <div class="settings js-settings"></div>
+      <h3 class="card-sub">Collection</h3>
+      <div class="collection js-collection"></div>
+      <p class="keys-help">P pause · M mute · R restart</p>
+    </div>
+  </section>
+
+  <section id="ov-win" class="ov ov-modal" hidden inert aria-label="You won">
+    <div class="card card-win scroll">
+      <div class="ribbon ribbon-yellow"><h2 class="card-title win-title">Sangria Verde!</h2></div>
+      <div class="win-jug"><div class="sunburst"></div><canvas id="win-jug-c" class="win-jug-c"></canvas></div>
+      <p class="card-line">You mixed the ultimate pitcher!</p>
+      <p class="card-line card-score js-score"></p>
+      <p class="card-line js-best"></p>
+      <div class="newbest-ribbon js-newbest" hidden>NEW BEST!</div>
+      <div class="btn-col">
+        <button class="btn btn-primary" type="button" data-act="keep" data-primary>Keep Playing</button>
+        <button class="btn btn-secondary" type="button" data-act="newgame-win">New Game</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="ov-over" class="ov ov-modal" hidden inert aria-label="Game over">
+    <div class="card scroll">
+      <h2 class="card-title">Last Call!</h2>
+      <p class="card-line">The table is full.</p>
+      <p class="card-line card-score js-score"></p>
+      <p class="card-line js-best"></p>
+      <div class="newbest-ribbon js-newbest" hidden>NEW BEST!</div>
+      <div class="highest"><span>Highest drink:</span><canvas id="over-icon-c" class="highest-c"></canvas><b id="over-name"></b></div>
+      <div class="btn-col">
+        <button class="btn btn-primary" type="button" data-act="again" data-primary>Play Again</button>
+        <button class="btn btn-secondary" type="button" data-act="title">Title</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="ov-oops" class="ov ov-modal" hidden inert aria-label="Error">
+    <div class="card">
+      <h2 class="card-title">Oops! The bar tipped over.</h2>
+      <p class="card-line">Your best score is safe.</p>
+      <div class="btn-col">
+        <button class="btn btn-primary" type="button" data-act="restart-oops" data-primary>Restart</button>
+        <button class="btn btn-secondary" type="button" data-act="title">Title</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="ov-rotate" class="ov ov-rotate" hidden inert aria-label="Turn your phone upright">
+    <div class="rotate-card">
+      <svg class="rotate-phone" viewBox="0 0 64 64" aria-hidden="true"><rect x="20" y="6" width="24" height="44" rx="5"/><path d="M29 44h6"/><path class="arrow" d="M8 40a24 24 0 0 0 20 18M24 54l4 4-5 2"/></svg>
+      <p>Turn your phone upright to play</p>
+    </div>
+  </section>
+
+  <section id="ov-howto" class="ov ov-modal ov-sheet" hidden inert aria-label="How to play">
+    <div class="card scroll">
+      <h2 class="card-title">How to play</h2>
+      <div class="howto-card js-howto"></div>
+      <div class="btn-col"><button class="btn btn-primary" type="button" data-act="close" data-primary>Close</button></div>
+    </div>
+  </section>
+
+  <section id="ov-settings" class="ov ov-modal ov-sheet" hidden inert aria-label="Settings">
+    <div class="card scroll">
+      <h2 class="card-title">Settings</h2>
+      <div class="settings js-settings"></div>
+      <button class="chip chip-small export-perf" type="button" data-act="exportPerf" title="Downloads a .json file with frame timings for troubleshooting">Export debug report</button>
+      <p class="credit credit-card js-credit"></p>
+      <div class="btn-col"><button class="btn btn-primary" type="button" data-act="close" data-primary>Close</button></div>
+    </div>
+  </section>
+
+  <section id="ov-collection" class="ov ov-modal ov-sheet" hidden inert aria-label="Collection">
+    <div class="card scroll">
+      <h2 class="card-title">Collection</h2>
+      <p class="card-line js-collected"></p>
+      <div class="collection js-collection"></div>
+      <div class="btn-col"><button class="btn btn-primary" type="button" data-act="close" data-primary>Close</button></div>
+    </div>
+  </section>
+</div>
+<div id="safe-probe" class="safe-probe" aria-hidden="true"></div>
+<!-- ui-shell-end -->
+
+<script src="src/dedication.js"></script>
+<script src="src/config.js"></script>
+<script src="src/physics.js"></script>
+<script src="src/projection.js"></script>
+<script src="src/game/spawn.js"></script>
+<script src="src/game/merge.js"></script>
+<script src="src/game/danger.js"></script>
+<script src="src/game/aim.js"></script>
+<script src="src/game/state.js"></script>
+<script src="src/game/save.js"></script>
+<script src="src/game/chime.js"></script>
+<script src="src/game/bomb.js"></script>
+<script src="src/game/game.js"></script>
+<script src="src/art/glass.js"></script>
+<script src="src/art/garnish.js"></script>
+<script src="src/art/tier1-shot.js"></script>
+<script src="src/art/tier2-oldfashioned.js"></script>
+<script src="src/art/tier3-cosmo.js"></script>
+<script src="src/art/tier4-mojito.js"></script>
+<script src="src/art/tier5-margarita.js"></script>
+<script src="src/art/tier6-sunrise.js"></script>
+<script src="src/art/tier7-pinacolada.js"></script>
+<script src="src/art/tier8-coconut.js"></script>
+<script src="src/art/tier9-sangria-verde.js"></script>
+<script src="src/art/coin.js"></script>
+<script src="src/art/scenery.js"></script>
+<script src="src/art/overrides.js"></script>
+<script src="src/art/sprites.js"></script>
+<script src="src/art/backgrounds.js"></script>
+<script src="src/render/fx.js"></script>
+<script src="src/render/fxdraw.js"></script>
+<script src="src/render/guides.js"></script>
+<script src="src/render/frame.js"></script>
+<script src="src/audio/engine.js"></script>
+<script src="src/audio/sounds.js"></script>
+<script src="src/audio/music.js"></script>
+<script src="src/ui/storage.js"></script>
+<script src="src/ui/input.js"></script>
+<script src="src/ui/hud.js"></script>
+<script src="src/ui/overlays.js"></script>
+<script src="src/app/loop.js"></script>
+<script src="src/app/perf.js"></script>
+<script src="src/app/dispatch.js"></script>
+<script src="src/app/attract.js"></script>
+<script src="src/app/states.js"></script>
+<script src="src/app/scenarios.js"></script>
+<script src="src/main.js"></script>
+<script>
+/* Boot guard (DESIGN 5.2): one sentinel per source file; any failure shows a readable card instead of a
+   blank page. src/dedication.js is deliberately not listed (config falls back to a default text).
+   On success it calls CM.main.boot() exactly once. */
+(function () {
+  'use strict';
+  var R = typeof globalThis !== 'undefined' ? globalThis : this;
+  var CM = R.CM;
+  function f(x) { return typeof x === 'function'; }
+  var CHECKS = [
+    ['src/config.js',        function () { return !!CM.config.TIERS; }],
+    ['src/physics.js',       function () { return f(CM.physics.stepWorld); }],
+    ['src/projection.js',    function () { return f(CM.projection.computeLayout); }],
+    ['src/game/spawn.js',    function () { return !!CM.gameParts.spawn; }],
+    ['src/game/merge.js',    function () { return !!CM.gameParts.merge; }],
+    ['src/game/danger.js',   function () { return !!CM.gameParts.danger; }],
+    ['src/game/aim.js',      function () { return !!CM.gameParts.aim; }],
+    ['src/game/bomb.js',     function () { return !!CM.gameParts.bomb; }],
+    ['src/game/state.js',    function () { return !!CM.gameParts.state; }],
+    ['src/game/save.js',     function () { return !!CM.gameParts.save; }],
+    ['src/game/chime.js',    function () { return !!CM.gameParts.chime; }],
+    ['src/game/game.js',     function () { return f(CM.game.tick); }],
+    ['src/art/glass.js',     function () { return !!CM.art.glass; }],
+    ['src/art/garnish.js',   function () { return f(CM.art.garnish.citrusWheel); }],
+    ['src/art/coin.js',      function () { return f(CM.art.paintCoin); }],
+    ['src/art/scenery.js',   function () { return f(CM.art.paintTable) && f(CM.art.paintShadow); }],
+    ['src/art/overrides.js', function () { return f(CM.art.loadOverrides); }],
+    ['src/art/sprites.js',   function () { return f(CM.art.paintTier) && f(CM.art.buildSprites); }],
+    ['src/art/backgrounds.js', function () { return f(CM.art.backgrounds.pick); }],
+    ['src/render/fx.js',     function () { return f(CM.render.fx.consume); }],
+    ['src/render/fxdraw.js', function () { return f(CM.render.fxdraw.rays); }],
+    ['src/render/guides.js', function () { return f(CM.render.guides.aim); }],
+    ['src/render/frame.js',  function () { return f(CM.render.draw); }],
+    ['src/audio/engine.js',  function () { return f(CM.audio.init); }],
+    ['src/audio/sounds.js',  function () { return f(CM.audio.consume); }],
+    ['src/audio/music.js',   function () { return f(CM.audio.music.setEnabled); }],
+    ['src/ui/storage.js',    function () { return f(CM.ui.storage.load); }],
+    ['src/ui/input.js',      function () { return f(CM.ui.input.attach); }],
+    ['src/ui/hud.js',        function () { return f(CM.ui.setHud); }],
+    ['src/ui/overlays.js',   function () { return f(CM.ui.showOverlay); }],
+    ['src/app/loop.js',      function () { return !!CM.app.ctx && f(CM.app.frame); }],
+    ['src/app/dispatch.js',  function () { return f(CM.app.dispatch); }],
+    ['src/app/attract.js',   function () { return f(CM.app.attract.step); }],
+    ['src/app/states.js',    function () { return f(CM.app.setState); }],
+    ['src/main.js',          function () { return f(CM.main.boot); }]
+  ];
+  ['shot', 'oldfashioned', 'cosmo', 'mojito', 'margarita', 'sunrise', 'pinacolada', 'coconut', 'sangria-verde']
+    .forEach(function (name, i) {
+      CHECKS.push(['src/art/tier' + (i + 1) + '-' + name + '.js', function () { return f(CM.art.tiers[i + 1].paint); }]);
+    });
+
+  function showCard(failed) {
+    var d = document, body = d.body;
+    while (body.firstChild) body.removeChild(body.firstChild);
+    body.className = 'boot-failed';
+    var card = d.createElement('div'); card.className = 'boot-card'; card.setAttribute('role', 'alert');
+    var h = d.createElement('h1'); h.textContent = 'The game could not start.';
+    var p = d.createElement('p');
+    p.textContent = 'If you just edited src/dedication.js, check that the text is between two backticks. ' +
+      'If you just uploaded the game, check that the whole src/ folder was uploaded.';
+    var m = d.createElement('p'); m.className = 'boot-missing'; m.textContent = 'Missing or broken:';
+    var pre = d.createElement('pre'); pre.textContent = failed.join('\n');
+    card.appendChild(h); card.appendChild(p); card.appendChild(m); card.appendChild(pre);
+    body.appendChild(card);
+  }
+
+  var failed = [];
+  CHECKS.forEach(function (c) {
+    var ok = false;
+    try { ok = !!c[1](); } catch (e) { ok = false; }
+    if (!ok) failed.push(c[0]);
+  });
+  if (failed.length) { showCard(failed); return; }
+  try { CM.main.boot(); }
+  catch (e) {
+    if (R.console) R.console.error(e);
+    showCard(['src/main.js (boot failed: ' + (e && e.message ? e.message : String(e)) + ')']);
+  }
+})();
+</script>
+</body>
+</html>

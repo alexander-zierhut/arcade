@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<title>Render Check</title>
+<base href="../../">   <!-- the project root, so asset paths resolve exactly as from index.html -->
+<!-- Headless review harness for the render pipeline (DESIGN 5.10). Opened by tests/browser/render-check.js via file://.
+     Loads the full script order of 5.1 (main.js's auto-boot is disabled with CM.bootFailed), stages a game with
+     CM.game.createGame + debugAddBody, fires a few merge events into render.fx and draws one frame with
+     CM.render.draw. Query: ?scene=<background key>|proc  &state=play|danger|win|cancel  &numbers=1  &debug=1 -->
+<style>
+  html, body { margin: 0; padding: 0; overflow: hidden; background: #000; }
+  canvas { position: absolute; left: 0; top: 0; }
+  .hud { position: absolute; box-sizing: border-box; border: 2px dashed rgba(255,255,255,0.55); border-radius: 10px;
+    background: rgba(255,246,228,0.25); }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<script>var CM = { bootFailed: true };   // the harness drives render itself; main.js must not boot</script>
+<script>
+  (function () {
+    var files = ['dedication', 'config', 'physics', 'projection',
+      'game/spawn', 'game/merge', 'game/danger', 'game/aim', 'game/state', 'game/save', 'game/chime', 'game/bomb', 'game/game',
+      'art/glass', 'art/garnish', 'art/tier1-shot', 'art/tier2-oldfashioned', 'art/tier3-cosmo', 'art/tier4-mojito',
+      'art/tier5-margarita', 'art/tier6-sunrise', 'art/tier7-pinacolada', 'art/tier8-coconut', 'art/tier9-sangria-verde',
+      'art/coin', 'art/scenery', 'art/backgrounds', 'art/overrides', 'art/sprites',
+      'render/fx', 'render/fxdraw', 'render/guides', 'render/frame',
+      'audio/engine', 'audio/sounds', 'ui/storage', 'ui/input', 'ui/hud', 'ui/overlays',
+      'app/loop', 'app/dispatch', 'app/attract', 'app/states', 'main'];
+    files.forEach(function (f) { document.write('<script src="src/' + f + '.js"><\/script>'); });
+  })();
+</script>
+<script>
+(function () {
+  'use strict';
+  var q = {};
+  location.search.replace(/[?&]([^=&]+)=([^&]*)/g, function (_, k, v) { q[k] = decodeURIComponent(v); });
+  var state = q.state || 'play';
+  function done(msg) { document.body.setAttribute('data-msg', msg || 'ok'); document.body.setAttribute('data-done', '1'); }
+  function rngf(seed) { var a = seed >>> 0; return function () { a = (a + 0x6D2B79F5) >>> 0; var t = a;
+    t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+
+  function stage() {
+    var tiersAll = null;
+    var vw = innerWidth, vh = innerHeight, cv = document.getElementById('c');
+    var lay = CM.projection.computeLayout(vw, vh, devicePixelRatio || 1, { top: 0, bottom: 0 }, { coarse: true });
+    var g = CM.game.createGame(7, { mode: q.mode || 'relaxed', mergeEnabled: false }), r = rngf(11), i, t;
+    // A pile like the reference: ~40 drinks packed at the far half, bigger tiers mixed in.
+    var tiers = [9, 8, 7, 7, 6, 6, 6, 5, 5, 5, 5, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 3, 4, 1];
+    for (i = 0; i < tiers.length; i++) {              // greedy "drop" packing from the far wall, then settle
+      t = tiers[i];
+      var R = g.rules.RADII[t], y, x, ok = false, x0 = r() * 20;
+      for (y = R; y < 120 && !ok; y += 0.5) {
+        for (x = R + ((x0 + y * 7) % (100 - 2 * R)); x <= 100 - R && !ok; x += 1) {
+          ok = g.bodies.every(function (b) { var dx = b.x - x, dy = b.y - y; return dx * dx + dy * dy >= (b.r + R) * (b.r + R); });
+          if (ok) CM.game.debugAddBody(g, t, x, y, 0, 0, { age: 300, cleared: true });
+        }
+      }
+    }
+    for (i = 0; i < 480; i++) CM.game.tick(g);
+    g.phase = 'ready'; g.cooldown = 0;
+    var h50 = CM.game.firstHit(g, 50, g.rules.RADII[3]);
+    g.current = h50.tier >= 1 && h50.tier <= 4 ? h50.tier : 3; g.next = 2;
+    CM.game.setAim(g, 50);
+    if (state === 'danger') {
+      CM.game.debugAddBody(g, 5, 30, g.rules.DANGER_Y - 2, 0, 0, { age: 400, cleared: true });
+      g.dangerTicks = Math.round(g.rules.GRACE_TICKS * 0.45); g.dangerLevel = 2; g.overIds = [g.bodies[g.bodies.length - 1].id];
+    }
+    var app = { state: 'PLAY', game: g, attract: null, lay: lay, save: { best: 1200, showNumbers: q.numbers === '1' },
+      intents: { cancel: state === 'cancel' }, bgKey: null, dprCap: 2, stats: { fps: 60, steps: 4, simMs: 0.4, workMs: 3 }, errors: {} };
+    CM.app = CM.app || {}; CM.app.ctx = app;
+    cv.style.width = vw + 'px'; cv.style.height = vh + 'px';
+    CM.render.init(cv); CM.render.resize(lay);
+    ['coin', 'pill', 'best', 'pause', 'mute', 'next'].forEach(function (n) { box(lay.hud[n], lay.stage.x); });
+    box({ x: lay.strip.x, y: lay.strip.top, w: lay.strip.w, h: lay.strip.h }, lay.stage.x);
+    return app;
+  }
+  function box(rc, ox) {
+    var d = document.createElement('div'); d.className = 'hud';
+    d.style.left = (ox + rc.x) + 'px'; d.style.top = rc.y + 'px'; d.style.width = rc.w + 'px'; d.style.height = rc.h + 'px';
+    document.body.appendChild(d);
+  }
+  function fireFx(app) {
+    var g = app.game, b = g.bodies, ev = [], i, m = null;
+    for (i = 0; i < b.length; i++) if (b[i].tier === 6) { m = b[i]; break; }
+    if (m) ev.push({ type: 'merge', a: 9001, b: 9002, id: m.id, tier: 6, x: m.x, y: m.y, ax: m.x - 8, ay: m.y, bx: m.x + 8, by: m.y, depth: 3, points: 225 });
+    if (state === 'win') { var j = null; for (i = 0; i < b.length; i++) if (b[i].tier === 9) j = b[i]; if (j) ev.push({ type: 'win', id: j.id, points: 1000 }); app.state = 'WIN_SEQ'; }
+    CM.render.fx.consume(ev, g, app.lay);
+  }
+  // ?state=live: a real game (merges on) with a bot launching every 1.4 s; every event goes through render.fx and a
+  // frame is drawn every 4 ticks (simulated 60 fps), so every FX path runs. Stops after `secs` simulated seconds.
+  function live(app) {
+    var g = CM.game.createGame(3, { mode: q.mode || 'relaxed' }), t = performance.now(), n = 0, secs = +(q.secs || 90);
+    app.game = g; CM.render.fx.clear();
+    for (n = 0; n < secs * 240; n++) {
+      if (n % 336 === 100) { CM.game.setAim(g, CM.game.botAim(g, ((n * 7919) % 1000) / 1000)); CM.game.requestLaunch(g, 'key'); }
+      if (q.win && (n === 4800 || n === 9600)) {                 // &win=1: a T8 pair at 20 s, a T9 pair at 40 s
+        var wt = n === 4800 ? 8 : 9, wr = g.rules.RADII[wt];
+        CM.game.debugAddBody(g, wt, 50 - wr, wr + 1, 0, 0, { age: 300, cleared: true });
+        CM.game.debugAddBody(g, wt, 50 + wr, wr + 1, 0, 0, { age: 300, cleared: true });
+      }
+      var ev = CM.game.tick(g);
+      if (ev.length) CM.render.fx.consume(ev, g, app.lay);
+      for (var e2 = 0; e2 < ev.length; e2++) if (ev[e2].type === 'win' || ev[e2].type === 'jugBurst') app.log = (app.log || '') + ev[e2].type + '@' + n + ' ';
+      if (g.phase === 'over') break;
+      if (n % 4 === 0) CM.render.draw(app, 0.5, 1 / 60, t + n * 1000 / 240);
+    }
+    return 'ticks=' + n + ' score=' + g.score + ' bodies=' + g.bodies.length + ' top=' + g.highestTier + ' phase=' + g.phase + ' ' + (app.log || '');
+  }
+  function go() {
+    var app;
+    try { app = stage(); } catch (e) { done('stage failed: ' + (e && e.stack || e)); return; }
+    var BG = CM.art.backgrounds, list = BG ? (BG.list ? BG.list() : (CM.config.BACKGROUNDS || {}).scenes || []) : [];
+    var key = q.scene || (list[0] && list[0].key) || 'proc';
+    function render() {
+      try {
+        var info = '';
+        if (state === 'live') info = ' ' + live(app);
+        else {
+          fireFx(app);
+          var t0 = performance.now(), dt = 1 / 60, n;
+          for (n = 0; n < 12; n++) CM.render.draw(app, 0.5, dt, t0 + n * 16);    // ~200 ms into the merge FX
+        }
+        done('ok' + info + ' scene=' + key + ' headroom=' + CM.render.headroom().toFixed(3) + ' kX=' + app.lay.kX.toFixed(3) + ' farY=' + app.lay.farY.toFixed(1));
+      } catch (e) { done('draw failed: ' + (e && e.stack || e)); }
+    }
+    if (key === 'proc' || !BG) { render(); return; }
+    app.bgKey = key;
+    var fin = function () { setTimeout(render, 50); };
+    if (typeof BG.load === 'function') BG.load(key, fin);
+    else if (typeof BG.setScene === 'function') BG.setScene(key, fin);
+    else render();
+  }
+  if (document.readyState === 'complete') go(); else addEventListener('load', go);
+})();
+</script>
+</body>
+</html>
