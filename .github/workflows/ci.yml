@@ -14,16 +14,61 @@ concurrency:
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
+  changes:
+    # Which games to test. A game is a top-level folder with scripts/release.sh. Only the games
+    # whose files changed run; a change outside every game (workflow, build script, README) or a
+    # manual run tests all of them, and so does a push whose base commit is unknown (force push,
+    # first commit).
+    name: changes
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      games: ${{ steps.pick.outputs.games }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - id: pick
+        env:
+          EVENT: ${{ github.event_name }}
+          BEFORE: ${{ github.event.before }}
+          BASE_REF: ${{ github.base_ref }}
+        run: |
+          set -eu
+          all=$(for d in */; do [ -f "$d/scripts/release.sh" ] && echo "${d%/}"; done)
+          case "$EVENT" in
+            pull_request) base="origin/$BASE_REF" ;;
+            push) base="$BEFORE" ;;
+            *) base="" ;;
+          esac
+          if [ -n "$base" ] && git cat-file -e "$base^{commit}" 2>/dev/null; then
+            changed=$(git diff --name-only "$base" HEAD)
+            picked=""
+            outside=0
+            for f in $changed; do
+              top="${f%%/*}"
+              if echo "$all" | grep -qx "$top"; then picked="$picked $top"; else outside=1; fi
+            done
+            [ "$outside" -eq 1 ] && picked="$all"
+          else
+            picked="$all"
+          fi
+          games=$(echo $picked | tr ' ' '\n' | sort -u | grep . | jq -R . | jq -sc .)
+          echo "games=$games" >> "$GITHUB_OUTPUT"
+          echo "testing: $games"
+
   test:
-    # One runner per game: unit tests, then the real game in the runner's Chrome
+    # One runner per changed game: unit tests, then the real game in the runner's Chrome
     # (tests/browser/chrome.js finds /usr/bin/google-chrome on its own).
     name: test ${{ matrix.game }}
+    needs: [changes]
+    if: needs.changes.outputs.games != '[]'
     runs-on: ubuntu-latest
     timeout-minutes: 20
     strategy:
       fail-fast: false
       matrix:
-        game: [cocktail-merge, supermarket-sorter]
+        game: ${{ fromJSON(needs.changes.outputs.games) }}
     defaults:
       run:
         working-directory: ${{ matrix.game }}
@@ -48,9 +93,11 @@ jobs:
           if-no-files-found: ignore
 
   deploy:
+    # Every game is rebuilt and uploaded, not only the changed ones: the selector page lists them
+    # all and the sync deletes what is missing from _site/.
     name: deploy
-    needs: [test]
-    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    needs: [changes, test]
+    if: always() && github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && needs.test.result != 'failure' && needs.test.result != 'cancelled'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     concurrency:

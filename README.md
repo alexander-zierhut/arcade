@@ -1,28 +1,51 @@
 # Arcade
 
-Browser games, one folder each, published at https://arcade.alzlper.com/ with a selector page at the root
+Browser games, one folder each, published at https://arcade.alzlper.com/: a selector page at the root
 and every game under `/<game>/`.
 
 - `cocktail-merge`: cocktail physics-merge game
 - `supermarket-sorter`: shelf-sorting match-3 grocery game
 
-## Layout
+## How it fits together
 
-Every game has its own `package.json`, tests and `scripts/release.sh`, which builds the shippable files
-into `<game>/dist` (`npm run release` inside the game). The game's `index.html` carries Open Graph tags
-(`og:title`, `og:description`, `og:image`); the selector page is built from them, so a game's card is
-whatever the game itself says it is.
+A game is any top-level folder that has `scripts/release.sh`. Nothing lists the games anywhere: the
+workflow, the site build and the selector page all discover them from the folders.
 
-`node scripts/build-site.mjs` builds everything into `_site/`: each game's release under `_site/<game>/`
-and the selector at `_site/index.html`. Serve it with `python3 -m http.server --directory _site` to check.
-
-## Deploy
-
-`.github/workflows/ci.yml` runs each game's unit and browser tests on every push and pull request, and on
-`main` builds `_site/` and syncs it to the Scaleway bucket `arcade.alzlper.com` (`nl-ams`). It needs the
-repository secrets `SCW_ACCESS_KEY` and `SCW_SECRET_KEY` (the same pair the minigames repo uses).
+- `<game>/scripts/release.sh` builds the shippable files into `<game>/dist` (`npm run release` inside
+  the game). The release is what gets published; sources, tests and docs stay out.
+- `<game>/index.html` carries Open Graph tags. The selector page is built from `og:title`,
+  `og:description` and `og:image`, so a game's card is whatever the game itself says it is.
+- `scripts/build-site.mjs` builds everything into `_site/`: each game's release under `_site/<game>/`
+  and the selector at `_site/index.html`. Check it locally with
+  `node scripts/build-site.mjs && python3 -m http.server --directory _site`.
+- `.github/workflows/ci.yml` tests the games whose files changed in the push or pull request (a change
+  outside every game folder tests all of them), then on `main` builds `_site/` and syncs it to the
+  Scaleway bucket `arcade.alzlper.com` (`nl-ams`). It needs the repository secrets `SCW_ACCESS_KEY` and
+  `SCW_SECRET_KEY`, the same pair the minigames repo uses.
 
 ## Adding a game
 
-Create a folder with `scripts/release.sh` that writes `dist/index.html`, give the page Open Graph tags
-with a 1200×630 image, and add the folder to the `matrix.game` list in `ci.yml` so its tests run.
+1. Create a folder at the repo root, say `my-game/`, with the game inside. The folder name becomes the
+   URL: `https://arcade.alzlper.com/my-game/`.
+2. Add `package.json` with at least `test` and `test:browser` scripts (CI runs both; `npm run
+   test:browser` may be a no-op if the game has no browser tests) and commit `package-lock.json`, since
+   CI installs with `npm ci`.
+3. Add `scripts/release.sh`. It must write a complete, self-contained `dist/` with `dist/index.html`
+   and only relative paths. Copy one of the existing scripts as a start: they copy the shipped files,
+   write `dist/VERSION.txt` and fail if a referenced script or stylesheet is missing.
+4. Put Open Graph tags in `index.html` and make sure `release.sh` ships the image:
+
+   ```html
+   <meta property="og:title" content="My Game">
+   <meta property="og:description" content="One or two sentences shown on the card.">
+   <meta property="og:image" content="https://arcade.alzlper.com/my-game/assets/icons/og-image.png">
+   <meta property="og:image:width" content="1200">
+   <meta property="og:image:height" content="630">
+   ```
+
+   The image is 1200×630 and is also the card's picture on the selector. Without an `og:image` the
+   card still works, with a plain placeholder instead of a picture.
+5. Add a `.gitignore` in the folder for `node_modules/`, `dist/` and `release/` (the root one covers
+   `node_modules/` already).
+6. Run `node scripts/build-site.mjs` once and open `_site/` to see the card, then push. CI tests the new
+   folder and the next deploy publishes it.
