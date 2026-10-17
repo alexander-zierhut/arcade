@@ -49,3 +49,10 @@ workflow, the site build and the selector page all discover them from the folder
    `node_modules/` already).
 6. Run `node scripts/build-site.mjs` once and open `_site/` to see the card, then push. CI tests the new
    folder and the next deploy publishes it.
+
+## Renaming a game
+
+The folder name is the URL, and the deploy deletes what is no longer in the build. To keep old links and
+home-screen icons working, add the old name to `REDIRECTS` in `scripts/build-site.mjs`: the build then puts
+a small page at the old URL that forwards to the new one. Saved games survive the rename on their own,
+since localStorage belongs to the origin, not the path.

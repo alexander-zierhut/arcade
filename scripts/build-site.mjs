@@ -12,6 +12,10 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const site = join(root, '_site');
 const SITE_URL = 'https://arcade.alzlper.com/';
 
+// Old game folders that moved: a tiny page at the old URL sends the browser on (query and hash kept).
+// Saved games are unaffected: localStorage belongs to the origin, not the path.
+const REDIRECTS = { 'supermarkt-sortieren': 'supermarket-sorter' };
+
 const esc = (s) => s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
 /** meta(html, prop) -> content of <meta property="prop"> (or name="prop"), '' when absent. */
@@ -38,6 +42,24 @@ for (const name of readdirSync(root).sort()) {
   games.push({ name, title, description: meta(html, 'og:description'), image: image ? `${name}/${image}` : '' });
 }
 if (!games.length) throw new Error('no games found (a game is a folder with scripts/release.sh)');
+
+for (const [from, to] of Object.entries(REDIRECTS)) {
+  if (!games.some((g) => g.name === to)) throw new Error(`redirect ${from} -> ${to}: no such game`);
+  mkdirSync(join(site, from), { recursive: true });
+  writeFileSync(join(site, from, 'index.html'), `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<link rel="canonical" href="${SITE_URL}${to}/">
+<meta http-equiv="refresh" content="0; url=../${to}/">
+<title>Moved</title>
+<script>location.replace('../${to}/' + location.search + location.hash);</script>
+</head>
+<body><p>This game moved to <a href="../${to}/">${SITE_URL}${to}/</a>.</p></body>
+</html>
+`);
+}
 
 const cards = games.map((g) => `
       <a class="card" href="${g.name}/">
