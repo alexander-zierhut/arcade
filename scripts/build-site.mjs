@@ -21,21 +21,28 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const site = join(root, '_site');
 const SITE_URL = 'https://arcade.alzlper.com/';
 
-/** hashAssets(dir) -> relative paths of the files it renamed. dir holds a copied release with an index.html. */
-function hashAssets(dir) {
+const hashOf = (file) => createHash('sha256').update(readFileSync(file)).digest('hex').slice(0, 10);
+const hashedName = (ref, hash) => ref.replace(/(\.[^./]+)$/, `.${hash}$1`);
+
+/** hashAssets(dir, base) -> relative paths of the files it renamed. dir holds a copied release with an
+ *  index.html, base its absolute URL (for the og:image / twitter:image tags, which are absolute). The
+ *  preview images are hashed too, so a new picture gets a new URL and no cache keeps showing the old one. */
+function hashAssets(dir, base) {
   const page = join(dir, 'index.html');
   let html = readFileSync(page, 'utf8');
   const hashed = [];
   const refs = [...html.matchAll(/<script\b[^>]*\bsrc="([^"]+)"/g), ...html.matchAll(/<link\b[^>]*\brel="stylesheet"[^>]*\bhref="([^"]+)"/g)]
     .map((m) => m[1]);
+  for (const m of html.matchAll(/<meta\b[^>]*\b(?:property|name)="(?:og|twitter):image"[^>]*\bcontent="([^"]+)"/g)) {
+    if (m[1].startsWith(base)) refs.push(m[1].slice(base.length));
+  }
   for (const ref of new Set(refs)) {
     if (/^(?:[a-z]+:|\/|#)/i.test(ref) || ref.includes('?')) continue;        // absolute, data: or already versioned
     const file = join(dir, ref);
     if (!existsSync(file)) throw new Error(`${page}: references ${ref}, which is not in the release`);
-    const hash = createHash('sha256').update(readFileSync(file)).digest('hex').slice(0, 10);
-    const target = ref.replace(/(\.[^./]+)$/, `.${hash}$1`);
+    const target = hashedName(ref, hashOf(file));
     renameSync(file, join(dir, target));
-    html = html.split(`"${ref}"`).join(`"${target}"`);
+    html = html.split(`"${ref}"`).join(`"${target}"`).split(`"${base}${ref}"`).join(`"${base}${target}"`);
     hashed.push(target);
   }
   writeFileSync(page, html);
@@ -67,8 +74,8 @@ for (const name of readdirSync(root).sort()) {
   const dist = join(dir, 'dist');
   if (!existsSync(join(dist, 'index.html'))) throw new Error(`${name}: release.sh left no dist/index.html`);
   cpSync(dist, join(site, name), { recursive: true });
-  for (const p of hashAssets(join(site, name))) immutable.push(`${name}/${p}`);
-  const html = readFileSync(join(dist, 'index.html'), 'utf8');
+  for (const p of hashAssets(join(site, name), SITE_URL + name + '/')) immutable.push(`${name}/${p}`);
+  const html = readFileSync(join(site, name, 'index.html'), 'utf8');          // after hashing: the card links the hashed image
   const title = meta(html, 'og:title') || (html.match(/<title>(.*?)<\/title>/) || [])[1] || name;
   const image = meta(html, 'og:image').replace(SITE_URL + name + '/', '');   // the tag is absolute; the card links relative
   games.push({ name, title, description: meta(html, 'og:description'), image: image ? `${name}/${image}` : '' });
@@ -103,7 +110,13 @@ const cards = games.map((g) => `
         </div>
       </a>`).join('');
 
-const ogImage = existsSync(join(root, 'og-image.png')) ? (cpSync(join(root, 'og-image.png'), join(site, 'og-image.png')), SITE_URL + 'og-image.png') : '';
+let ogImage = '';
+if (existsSync(join(root, 'og-image.png'))) {
+  const name = hashedName('og-image.png', hashOf(join(root, 'og-image.png')));
+  cpSync(join(root, 'og-image.png'), join(site, name));
+  immutable.push(name);
+  ogImage = SITE_URL + name;
+}
 const description = `${games.length} free browser games, no ads, no account: ${games.map((g) => g.title).join(', ')}.`;
 
 writeFileSync(join(site, 'index.html'), `<!doctype html>

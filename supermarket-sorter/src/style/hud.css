@@ -83,7 +83,7 @@
 .bottombar button.pulse { animation: combo-pop 0.4s var(--ease-back); }
 
 /* coach marks */
-.coach { position: absolute; left: 0; top: 0; width: 100%; height: 100%; z-index: 8; display: -webkit-box; display: flex; align-items: flex-end; justify-content: center; padding: 0 14px calc(var(--safe-bottom) + 80px); background: rgba(58, 36, 18, 0.25); pointer-events: auto; }
+.coach { position: absolute; left: 0; top: 0; width: 100%; height: 100%; z-index: 4;   /* above the HUD (3), under the overlays (5): a pause card covers the coach mark */ display: -webkit-box; display: flex; align-items: flex-end; justify-content: center; padding: 0 14px calc(var(--safe-bottom) + 80px); background: rgba(58, 36, 18, 0.25); pointer-events: auto; }
 .coach-card { width: 100%; max-width: 380px; padding: 16px 16px 12px; background: var(--card); border: 4px solid var(--card-border); border-radius: 22px; box-shadow: 0 8px 0 var(--card-shadow), 0 16px 30px rgba(60, 30, 0, 0.3); text-align: center; animation: card-in 0.25s var(--ease-back); }
 .coach-text { font-size: 18px; line-height: 1.35; color: var(--ink); margin-bottom: 10px; }
 .coach-hand { width: 40px; height: 40px; margin: 0 auto 6px; background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M9 11V4a1.5 1.5 0 0 1 3 0v6l1-.3a1.5 1.5 0 0 1 3 .6v.7l1-.2a1.5 1.5 0 0 1 2.5 1.2V17a5 5 0 0 1-5 5h-2.5a5 5 0 0 1-4-2L5 15.5a1.5 1.5 0 0 1 2.3-1.9L9 15z' fill='%23FFD9B3' stroke='%233A2412' stroke-width='1.3'/></svg>") center / contain no-repeat; animation: hand-tap 1.2s ease-in-out infinite; }
