@@ -67,6 +67,9 @@ origin-wide APIs above are flagged.
 
    The image is 1200×630 and is also the card's picture on the selector. Without an `og:image` the
    card still works, with a plain placeholder instead of a picture.
+   `node scripts/og-images.mjs <game>` renders the image from a gameplay screenshot: add the game to
+   the table at the top of that script (screenshot path under the game's `docs/preview/`, colours, title,
+   pitch, tags) and commit the result. A real mid-game shot sells the game better than an icon does.
 5. Add a `.gitignore` in the folder for `node_modules/`, `dist/` and `release/` (the root one covers
    `node_modules/` already).
    Prefix every storage key with the folder name in camelCase (`myGame.`), declared as `STORAGE_KEY`;
