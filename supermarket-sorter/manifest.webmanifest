@@ -1,14 +1,14 @@
 {
-  "name": "Supermarkt Sortierer",
-  "short_name": "Sortierer",
-  "description": "Regale einräumen, Dreier finden. Privates Spiel ohne Werbung.",
+  "name": "Supermarket Sorter",
+  "short_name": "Sorter",
+  "description": "Stock the shelves, match three. A private game without ads.",
   "start_url": "./",
   "scope": "./",
   "display": "fullscreen",
   "orientation": "portrait",
   "background_color": "#F9EEDC",
   "theme_color": "#8C4A2B",
-  "lang": "de",
+  "lang": "en",
   "icons": [
     { "src": "assets/icons/favicon-64.png", "sizes": "64x64", "type": "image/png" },
     { "src": "assets/icons/apple-touch-icon.png", "sizes": "180x180", "type": "image/png", "purpose": "any" }

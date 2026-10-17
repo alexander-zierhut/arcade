@@ -5,7 +5,7 @@ var S = require('../src/game/save.js');
 test('save: normalizeSave turns garbage into v2 defaults', function () {
   [null, undefined, '', '{bad', 42, { muted: 'yes', records: { timed: { best: -5, top: 'x' } } }].forEach(function (raw) {
     var s = S.normalizeSave(raw);
-    assert.strictEqual(s.v, 2); assert.strictEqual(s.muted, false); assert.strictEqual(s.showDepth, false); assert.strictEqual(s.lang, 'de');
+    assert.strictEqual(s.v, 2); assert.strictEqual(s.muted, false); assert.strictEqual(s.showDepth, false); assert.strictEqual(s.lang, 'en');
     assert.strictEqual(s.records.timed.reached, 1); assert.deepStrictEqual(s.records.timed.top, []); assert.deepStrictEqual(s.records.timed.levels, {});
     assert.strictEqual(s.records.relaxed.totalBest, 0); assert.deepStrictEqual(s.records.relaxed.top, []);
   });

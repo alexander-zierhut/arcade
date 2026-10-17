@@ -1,26 +1,30 @@
-# Supermarkt Sortierer
+# Supermarket Sorter
 
-Ein privates, werbefreies Regal-Sortierspiel für den Handy-Browser: Produkte in Fächer ziehen, drei gleiche verschwinden,
-Regal leer räumen. Zwei Zweige: **Entspannt** (ohne Zeit, das Sortieren wird schwerer: Ebenen, Sperren, Umrisse) und
-**Gegen die Zeit** (Timer plus laufende Seitenregale, die mit dem Level schneller werden). Jedes Level ist beweisbar
-lösbar: es wird nur gezeigt, wenn eine Lösung dafür vorliegt und nachgespielt wurde.
+A private, ad-free shelf-sorting game for the mobile browser: drag products into compartments, three of a kind
+disappear, clear the shelf. Two tracks: **Relaxed** (no timer, sorting gets harder: layers, locks, outlines) and
+**Against the clock** (timer plus running side shelves that get faster with the level). Every level is provably
+solvable: it is only shown once a solution exists and has been replayed.
 
-- Spielen: `index.html` öffnen (auch per Doppelklick) oder `npm run serve` und `http://localhost:8765/` aufrufen.
-- Tests: `npm test` (reine Spielregeln, Generator, Beweis-Replays), `npm run test:browser` (echtes Spiel in Chrome),
-  `node tests/browser/soak.js 20` (lange Spielsitzungen, Speicher, Leistung), `npm run perf` (Leistung bei 4-facher
-  CPU-Drosselung, Werte in `docs/proof/perf-*.json`).
-- Level backen: `npm run bake` schreibt `src/game/levels-data.js` (300 pro Zweig, mit Zeugen-Lösungen).
-- Turbo-Level (jedes zehnte ab 27) lassen die Seitenregale rasen (1,8 bis 3 Zellen/s); Umriss-Produkte ab Level 24.
-- Ein Level direkt testen: `index.html?level=34&mode=timed` (oder `mode=relaxed`); im Testmodus wird nichts gespeichert.
-- Produkte: 260 erfundene deutsche Produkte als SVG, plastisch im Stil des Originals (`assets/items/`, Stilvorgabe
-  `docs/ART-STYLE.md`, Dateiregeln `docs/ART-SPEC.md`) und als flacher 2D-Satz (`assets/items-2d/`, umschaltbar in den
-  Einstellungen). Rund 90 davon zwinkern erkennbar echten Supermarkt-Produkten zu (Nutello, Haribö, Milki, Maggy ...),
-  172 sind Lebensmittel, die in den Leveln bevorzugt werden. Katalog per `npm run catalog`, Prüfung per `npm run items`.
-- Als App: `manifest.webmanifest`; „Zum Startbildschirm hinzufügen“ startet ohne Adressleiste, auf Android zusätzlich
-  Vollbild per Knopf (Startbildschirm → „Als App“ oder Einstellungen).
-- Veröffentlichen: `npm run release`, dann `docs/DEPLOY.md` (S3). Spielstände überleben Updates (siehe `docs/HOW-TO-CHANGE.md`, Abschnitt Update safety); zusätzlich gibt es in den Einstellungen Sichern/Laden als Datei.
+The game starts in English; German is available in the settings.
 
-Dokumente: `docs/STATUS.md` (Stand und Übergabe, zuerst lesen), `docs/OWNER-NOTES.md` (Entscheidungen), `docs/DESIGN.md`
-(Regeln und Zahlen, Abschnitt 0.5 = Abweichungen der Umsetzung), `docs/ARCHITECTURE.md` (Dateien), `docs/HOW-TO-CHANGE.md`
-(Stellschrauben, Update-Sicherheit, Testmodus, Refactor-Nachweis, Leistung), `docs/ART-STYLE.md` und `docs/ART-SPEC.md`
-(Produkte), `docs/DEPLOY.md` (S3), `docs/RESEARCH.md` (Recherche zum Original).
+- Play: open `index.html` (double-click works) or run `npm run serve` and open `http://localhost:8765/`.
+- Tests: `npm test` (pure game rules, generator, proof replays), `npm run test:browser` (the real game in Chrome),
+  `node tests/browser/soak.js 20` (long play sessions, memory, performance), `npm run perf` (performance at 4x
+  CPU throttling, values in `docs/proof/perf-*.json`).
+- Bake levels: `npm run bake` writes `src/game/levels-data.js` (300 per track, with witness solutions).
+- Turbo levels (every tenth from 27) make the side shelves race (1.8 to 3 cells/s); outline products from level 24.
+- Test a level directly: `index.html?level=34&mode=timed` (or `mode=relaxed`); nothing is saved in test mode.
+- Products: 260 invented German products as SVG, 3D-style like the original (`assets/items/`, style guide
+  `docs/ART-STYLE.md`, file rules `docs/ART-SPEC.md`) and as a flat 2D set (`assets/items-2d/`, switchable in the
+  settings). About 90 of them wink at real supermarket products (Nutello, Haribö, Milki, Maggy ...); 172 are food
+  items, which the levels prefer. Catalog via `npm run catalog`, check via `npm run items`.
+- As an app: `manifest.webmanifest`; "Add to home screen" starts without an address bar, and on Android there is
+  also a fullscreen button (home screen → "As an app", or settings).
+- Publish: `npm run release` builds `dist/` and a zip; the repo's GitHub Actions workflow deploys `dist/` to
+  `arcade.alzlper.com/supermarket-sorter/`. Saves survive updates (see `docs/HOW-TO-CHANGE.md`, section Update safety);
+  the settings also offer saving and loading as a file.
+
+Documents: `docs/STATUS.md` (state and handover, read first), `docs/OWNER-NOTES.md` (decisions), `docs/DESIGN.md`
+(rules and numbers, section 0.5 = deviations of the implementation), `docs/ARCHITECTURE.md` (files),
+`docs/HOW-TO-CHANGE.md` (tuning, update safety, test mode, refactor proof, performance), `docs/ART-STYLE.md` and
+`docs/ART-SPEC.md` (products), `docs/DEPLOY.md` (S3), `docs/RESEARCH.md` (research on the original).

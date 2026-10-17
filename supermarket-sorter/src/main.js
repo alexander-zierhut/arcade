@@ -168,7 +168,7 @@
     c.save = (SS.ui.storage && guard('storage', SS.ui.storage.load)) || SS.save.normalizeSave(null);
     var legacy = SS.ui.storage && guard('storage', SS.ui.storage.legacyRun);
     if (legacy && legacy.mode === 'timed' && legacy.game && legacy.game.score > 0) { c.save = SS.save.recordRun(c.save, 'timed', { score: legacy.game.score, level: legacy.levelNo, fromLevel: 1, date: SS.app.run.today() }).save; }
-    if (c.save.lang === 'en') SS.strings.setLang('en');
+    if (c.save.lang === 'de') SS.strings.setLang('de');
     SS.ui.input.installGuards(); SS.ui.input.installKeys(keyAction);
     guard('audio', SS.audio.engine.init, { muted: !!c.save.muted });
     SS.ui.hud.init({ onPause: function () { SS.app.pause(); }, onBunny: function () { SS.app.toggleBunny(); } });

@@ -92,7 +92,7 @@
     whatsnew_text: '<p><b>New look:</b> one cabinet, toy-shop products, strong colours.</p><p><b>Everything bigger:</b> products are much larger and the same size everywhere, on the side shelves and the bottom shelf too.</p><p><b>As an app:</b> "As an app" on the title shows how to play without the address bar, with even more room.</p><p><b>Forgiving drops:</b> a product lands in the nearest compartment even when you miss by a bit.</p><p><b>Turbo shelves</b> are properly fast now.</p><p>Your progress and records are kept.</p>'
   };
   var LANGS = { de: de, en: en };
-  var current = 'de';
+  var current = 'en';
   function t(key, vars) {
     var table = LANGS[current] || de, s = table[key];
     if (s === undefined) s = de[key];
@@ -100,7 +100,7 @@
     if (vars) for (var k in vars) s = s.split('{' + k + '}').join(String(vars[k]));
     return s;
   }
-  function setLang(code) { current = LANGS[code] ? code : 'de'; return current; }
+  function setLang(code) { current = LANGS[code] ? code : 'en'; return current; }
   function lang() { return current; }
   SS.strings = { t: t, setLang: setLang, lang: lang, LANGS: LANGS };
   SS.t = t;

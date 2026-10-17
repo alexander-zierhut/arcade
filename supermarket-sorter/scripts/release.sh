@@ -13,7 +13,7 @@ mkdir -p dist/assets/items dist/assets/items-2d dist/assets/icons
 cp assets/items/*.svg dist/assets/items/
 cp assets/items-2d/*.svg dist/assets/items-2d/
 cp assets/icons/* dist/assets/icons/
-printf 'Supermarkt Sortierer\nversion %s\nbuilt %s\n' "$VERSION" "$STAMP" > dist/VERSION.txt
+printf 'Supermarket Sorter\nversion %s\nbuilt %s\n' "$VERSION" "$STAMP" > dist/VERSION.txt
 # sanity: every <script src> and <link href> in index.html must exist in dist/
 missing=0
 for p in $(grep -o 'src="src/[^"]*"' index.html | sed 's/src="//;s/"//') $(grep -o 'href="src/[^"]*"' index.html | sed 's/href="//;s/"//') $(grep -o 'href="assets/[^"]*"' index.html | sed 's/href="//;s/"//'); do

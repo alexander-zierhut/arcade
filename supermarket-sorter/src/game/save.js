@@ -51,7 +51,7 @@
     o = o && typeof o === 'object' ? o : {};
     var v1 = !(o.v >= 2);                          // only a real v1 record is migrated; a newer record is read as-is (unknown fields are ignored)
     for (var k in BOOLS) s[k] = typeof o[k] === 'boolean' ? o[k] : BOOLS[k];
-    s.lang = o.lang === 'en' ? 'en' : 'de';
+    s.lang = o.lang === 'de' ? 'de' : 'en';
     s.seenVersion = typeof o.seenVersion === 'string' ? o.seenVersion.slice(0, 20) : '';   // the last version whose "what's new" card was seen (v0.3)
     s.seenInstallHint = o.seenInstallHint === true;                                           // the "Als App spielen" card was seen (v0.3.1)
     s.seenTips = {};
@@ -132,7 +132,7 @@
   function importRecord(input) {
     var o = parse(input);
     if (!o || typeof o !== 'object') throw new Error('not a JSON object');
-    if (o.app !== EXPORT_APP) throw new Error('not a Supermarkt Sortierer file');
+    if (o.app !== EXPORT_APP) throw new Error('not a Supermarket Sorter file');
     if (typeof o.format !== 'number' || o.format < 1) throw new Error('unknown format');
     if (!o.save || typeof o.save !== 'object') throw new Error('no save data');
     var save = normalizeSave(o.save), runs = {};

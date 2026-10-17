@@ -304,10 +304,10 @@ async function main() {
     await ctx5.close();
 
     // ---- language + viewports ----
-    await page.evaluate(function () { SS.main.setLang('en'); });
-    var en = await page.evaluate(function () { return document.querySelector('[data-act="play-timed"]').textContent; });
-    if (/Against the clock/.test(en)) ok('language toggle to English'); else fail('language toggle: ' + en);
     await page.evaluate(function () { SS.main.setLang('de'); });
+    var de = await page.evaluate(function () { return document.querySelector('[data-act="play-timed"]').textContent; });
+    if (/Gegen die Zeit/.test(de)) ok('language toggle to German'); else fail('language toggle: ' + de);
+    await page.evaluate(function () { SS.main.setLang('en'); });
     for (var i = 0; i < 2; i++) {
       var vp = [{ width: 360, height: 640 }, { width: 1280, height: 800 }][i];
       await page.setViewportSize(vp); await page.reload(); await waitState(page, 'TITLE', 6000); await sleep(300);
