@@ -1,0 +1,94 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  test:
+    # One runner per game: unit tests, then the real game in the runner's Chrome
+    # (tests/browser/chrome.js finds /usr/bin/google-chrome on its own).
+    name: test ${{ matrix.game }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        game: [cocktail-merge, supermarket-sorter]
+    defaults:
+      run:
+        working-directory: ${{ matrix.game }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: ${{ matrix.game }}/package-lock.json
+      - run: npm ci
+      - name: Unit tests
+        run: npm test
+      - name: Browser tests
+        run: npm run test:browser
+      - name: Upload screenshots on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: browser-${{ matrix.game }}
+          path: ${{ matrix.game }}/tests/browser/artifacts
+          if-no-files-found: ignore
+
+  deploy:
+    name: deploy
+    needs: [test]
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    concurrency:
+      group: deploy
+      cancel-in-progress: false
+    env:
+      BUCKET: arcade.alzlper.com
+      AWS_DEFAULT_REGION: nl-ams
+      S3_ENDPOINT: https://s3.nl-ams.scw.cloud
+      AWS_ACCESS_KEY_ID: ${{ secrets.SCW_ACCESS_KEY }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.SCW_SECRET_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Build every game and the selector page into _site/
+        run: node scripts/build-site.mjs
+
+      # The games ship plain files without content hashes, so nothing may be cached across a
+      # release: an old src/*.js next to a new index.html would break the game. no-cache still
+      # lets browsers revalidate with ETags, so unchanged files cost a 304, not a download.
+      - name: Upload
+        run: |
+          aws s3 sync _site "s3://$BUCKET" \
+            --endpoint-url "$S3_ENDPOINT" \
+            --cache-control "no-cache, max-age=0, must-revalidate" \
+            --delete
+      - name: Fix content types the CLI does not know
+        run: |
+          for f in $(cd _site && find . -name '*.webmanifest' | sed 's#^\./##'); do
+            aws s3 cp "_site/$f" "s3://$BUCKET/$f" \
+              --endpoint-url "$S3_ENDPOINT" \
+              --content-type "application/manifest+json" \
+              --cache-control "no-cache, max-age=0, must-revalidate"
+          done
+
+      - name: Summary
+        run: |
+          echo "Deployed $(git rev-parse --short HEAD) to https://$BUCKET/" >> "$GITHUB_STEP_SUMMARY"
+          ls _site >> "$GITHUB_STEP_SUMMARY"
