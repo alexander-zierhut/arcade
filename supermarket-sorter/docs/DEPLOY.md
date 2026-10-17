@@ -1,4 +1,11 @@
-# Deploy to S3
+# Deploy
+
+The normal path is the arcade repo's GitHub Actions workflow, which deploys this game to
+https://arcade.alzlper.com/supermarket-sorter/ (see the root `README.md`, "Content hashes and caching"). The central
+build hashes the `dist/` script and stylesheet paths, so nothing in the game needs to version its files. The S3 steps
+below are only a manual fallback.
+
+## Manual fallback: deploy to S3
 
 Nothing in the game needs a server. Upload static files, keep the paths.
 
@@ -13,10 +20,10 @@ Serve `dist/` locally with `npm run serve:dist` (port 8766) to check it before u
 
 ```
 index.html
-manifest.webmanifest (app mode: "Zum Startbildschirm hinzufügen" launches without browser chrome; served as application/manifest+json)
+manifest.webmanifest (app mode: "Zum Startbildschirm hinzufügen" (Add to Home Screen) launches without browser chrome; served as application/manifest+json)
 src/                 (the whole folder, with its sub-folders; src/game/levels-data.js holds the baked levels)
 assets/items/*.svg   (the 3D product sprites and the golden bunny; the manifests are not needed at runtime)
-assets/items-2d/*.svg (the flat 2D set for the settings toggle "Produkte flach")
+assets/items-2d/*.svg (the flat 2D set for the settings toggle "Produkte flach" (Flat products))
 assets/icons/        (favicon + Apple touch icon)
 VERSION.txt          (optional)
 ```

@@ -1,27 +1,40 @@
-# Status and handoff (v0.3.1, 2026-10-16)
+# Status and handoff (v0.3.2, 2026-10-16)
 
 Read this first in a new session. It says what exists, how to run and prove it, what is tuned and what is open.
+
+## What changed in v0.3.2 (small fixes, English first)
+
+- **Turbo levels 40% slower:** the turbo belts now run at 1.8x (1.08 to 1.8 cells/s) instead of 3x (1.8 to 3).
+- **Pause button stays on screen** on narrow phones; the **switches in the pause menu** are all the same width.
+- **Coach mark under overlays:** the first-time tip no longer draws over the overlays.
+- **What's-new card** for 0.3.2 (shown once to players with progress, `save.seenVersion`).
+- **English first:** the game now starts in English; German is a language option in the settings (both string tables live
+  in `src/ui/strings.js`).
+- **Home and deploy:** the game lives in the shared arcade repo, https://github.com/alexander-zierhut/arcade (folder
+  `supermarket-sorter/`), and the repo's GitHub Actions workflow deploys it to
+  https://arcade.alzlper.com/supermarket-sorter/ (no manual S3 upload any more; see the root `README.md`, "Content
+  hashes and caching").
 
 ## What changed in v0.3.1 (the "Vorbild look", same day, after the owner compared v0.3.0 with the original)
 
 - **One cabinet.** The rack and the side columns are one piece of light wood with continuous boards per row; the side
   cells sit exactly on the rack rows (one visible cell per row, 5 or 6 instead of 6 to 8; belts with more cells scroll,
-  in relaxed levels at the slowest drift even when "stehen still" is on), the bottom shelf spans the full width,
+  in relaxed levels at the slowest drift even when "stehen still" (stand still) is on), the bottom shelf spans the full width,
   compartment backs are light, back-layer products are darkened copies (`sprites.shaded`), every product has a soft
   contact shadow. The clock formula uses the real hidden count (`levels.timeMs`).
 - **HUD band** in dark wood with white numbers (level + Noch N, bunny, clock or moves, score, blue pause), combo tag or
   pips below; the action buttons are a slim row at the bottom again (owner's choice, fullscreen pays for it).
 - **App mode.** `manifest.webmanifest` (fullscreen display), a Fullscreen-API toggle (Android, desktop) in the "Als App"
-  card and in the settings, and a once-only "Als App spielen" card on phones with the per-platform steps
+  card and in the settings, and a once-only "Als App spielen" (Play as an app) card on phones with the per-platform steps
   (`save.seenInstallHint`). iOS keeps `apple-mobile-web-app-capable`.
 - **Products v3** (`docs/ART-STYLE.md`, binding): the original's 3D toy-render look rebuilt in SVG by 30 Sonnet agents:
   no black outlines, cylinder and box gradients, visible top faces, specular stripes on gloss, base occlusion, chunky
   proportions, one word or none, the punchy palette. The validator enforces it (`tests/items-check.js`).
 - **Silhouettes** now have a dark rim, a sheen and a "?" badge so they are not mistaken for back-layer products.
 - **Rearranging inside a compartment** is allowed and free (`board.shift`, `game.shiftItem`: no move counted, no undo
-  entry, no combo change); the owner hit "Da ist kein Platz" when he dragged a product one slot to the left.
-  Refusals now say why ("Das Fach ist voll", "Noch verschlossen"); a drop back onto the own compartment is silent.
-  Tapping a back-layer product explains "erst die vordere Reihe leer räumen".
+  entry, no combo change); the owner hit "Da ist kein Platz" (There is no room) when he dragged a product one slot to the left.
+  Refusals now say why ("Das Fach ist voll" (The compartment is full), "Noch verschlossen" (Still locked)); a drop back onto the own compartment is silent.
+  Tapping a back-layer product explains "erst die vordere Reihe leer räumen" (clear the front row first).
 - Golden fingerprint `golden-v031-after.json`: `levelsData`, `generate`, `score`, `stuck` unchanged since v0.2.0; `rules`
   equal to v0.3.0; `levelsGet`/`traces` differ (new catalogue, real hidden count in the clock), `save` (new field).
 
@@ -54,7 +67,7 @@ match effects), the per-action save (0.2 ms) and the solver; frames stay at 16.7
 
 ### 2D / 3D products (v0.3.1)
 
-Settings → "Produkte flach (2D) statt plastisch (3D)" switches between the v3 set (`assets/items/`) and the v0.3.0 flat
+Settings → "Produkte flach (2D) statt plastisch (3D)" (Flat (2D) products instead of 3D) switches between the v3 set (`assets/items/`) and the v0.3.0 flat
 set (`assets/items-2d/`, recovered from the v0.3.0 release zip). Both sets share the manifests and ids; the flat set
 has its own measured sizes (`geometry-2d.json` → catalog `w2`/`h2`, measured with
 `node tests/browser/items-render.js --dir assets/items-2d --geometry assets/items/manifest/geometry-2d.json`).
@@ -77,7 +90,7 @@ has its own measured sizes (`geometry-2d.json` → catalog `w2`/`h2`, measured w
   just beside a compartment counts; tap slop 10 px.
 - **Debug entry** `?level=N&mode=timed|relaxed` (test mode, nothing is saved) and a feature-by-level table in
   `docs/HOW-TO-CHANGE.md`.
-- **Update visibility:** NEU badge on the title's "Neuigkeiten" chip and a "Neu in Version 0.3.0" card shown once to
+- **Update visibility:** NEU (new) badge on the title's "Neuigkeiten" (What's new) chip and a "Neu in Version 0.3.0" (New in version 0.3.0) card shown once to
   players with progress (`save.seenVersion`, a new field with a default: no save-version bump).
 - **Compatibility:** `STORAGE_KEY`, `RULES_VERSION` (2) and `GEN_VERSION` (1) unchanged; the baked levels are byte-identical
   (`golden-v030-before/after.json`: `levelsData`, `generate`, `score`, `stuck` equal; `levelsGet`/`traces` differ because
@@ -86,8 +99,8 @@ has its own measured sizes (`geometry-2d.json` → catalog `w2`/`h2`, measured w
 
 ## What the game is
 
-A private, ad-free remake of Falcon's "Goods Sort" for the owner's mother: German UI, 260 invented German-looking
-products (172 of them food, which the level skin prefers; redrawn tall and supermarket-like in v0.3), two branches ("Entspannt" without timer, "Gegen die Zeit"
+A private, ad-free remake of Falcon's "Goods Sort" for the owner's mother: English-first UI (German selectable in the settings), 260 invented German-looking
+products (172 of them food, which the level skin prefers; redrawn tall and supermarket-like in v0.3), two branches ("Entspannt" (Relaxed) without timer, "Gegen die Zeit" (Against the clock)
 with timer and moving side shelves), 300 baked levels per branch plus deterministic generation beyond, every level
 provably solvable (a witness solution replayed before it is shown). Static files, no build step, iOS Safari first.
 
@@ -101,7 +114,7 @@ provably solvable (a witness solution replayed before it is shown). Static files
 | Knobs and procedures | `docs/HOW-TO-CHANGE.md` (also: update safety, proof of refactors) |
 | Research about the original | `docs/RESEARCH.md` (historical; superseded by DESIGN and OWNER-NOTES where they differ) |
 | Art contract for products | `docs/ART-STYLE.md` (the look, binding) and `docs/ART-SPEC.md` (file rules, classes, parodies) |
-| Deploy to S3 | `docs/DEPLOY.md` |
+| Deploy (GitHub Actions workflow; S3 as manual fallback) | root `README.md`, `docs/DEPLOY.md` |
 | Screenshots and contact sheets | `docs/preview/` |
 | Refactor proof records | `docs/proof/` (`tests/golden.js`) |
 | Reference material from the research phase | `docs/research-proto/`, `docs/design-proposals/` (not used by the game) |
@@ -120,7 +133,7 @@ npm run items            # validate all product SVGs (ART-STYLE v3 rules), measu
                          #   the 2D set: node tests/browser/items-render.js --dir assets/items-2d --geometry assets/items/manifest/geometry-2d.json
 npm run catalog          # assets/items/manifest/*.json -> src/art/catalog.js
 npm run bake             # 300 levels per branch with witnesses -> src/game/levels-data.js (cached in scripts/.cache)
-npm run release          # dist/ + release/supermarket-sorter-v<version>.zip
+npm run release          # dist/ + release/supermarket-sorter-v<version>.zip (the arcade workflow deploys; no manual upload)
 ```
 
 ## Tuning state (what has been checked against a real player)
@@ -128,7 +141,7 @@ npm run release          # dist/ + release/supermarket-sorter-v<version>.zip
 - The owner's mother cleared timed level 14 with 1:30 of 3:45 left on the first build. The clock was tightened:
   `tauMs` 3300 - 30(L-1) ms per witness move (floor 1800), belt waits halved, 20 s slack, minimum 120/90/75 s.
   Level 14 now has about 2:40. One more data point from her decides the next notch (`src/game/rules.js`).
-- Turbo levels (every tenth level from 27) now run at 1.8 to 3 cells/s ("way too slow" before); not yet played by her.
+- Turbo levels (every tenth level from 27) ran at 1.8 to 3 cells/s in v0.3.0-v0.3.1 and are 40% slower since v0.3.2 (1.8x, 1.08 to 1.8 cells/s); not yet played by her.
 - The owner played v0.3.0 on his phone (level 44 timed reached) and asked for the v0.3.1 look; v0.3.1 (cabinet, 3D
   products, app mode, in-shelf rearranging, 2D toggle, performance pass) is built and not yet played by his mother.
 - Relaxed difficulty beyond level 40 and the silhouette share are untested with a real player.

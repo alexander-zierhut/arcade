@@ -51,7 +51,7 @@ Levels that introduce something (play these to check a feature):
 | 20 | rack A10 (6 rows), 8 visible belt cells |
 | 23 | timed: the bunny rides on a belt |
 | 24 | silhouettes (exactly 2 products shown as flat shapes) |
-| 27, 37, 47, … | timed: **Turbo-Regal** (belts at 1.8x, 1.08 to 1.8 cells/s; v0.3.2, was 3x / 1.8 to 3) |
+| 27, 37, 47, … | timed: **Turbo-Regal** (Turbo shelf) (belts at 1.8x, 1.08 to 1.8 cells/s; v0.3.2, was 3x / 1.8 to 3) |
 | 31 | timed: belts speed up during the level (ramp up to 1.3x with the matches) |
 | 34 | timed: the bottom shelf appears after half of the matches ("Nachschub!") |
 | 40 | timed: the bottom shelf is there from the start; also the densest "Sehr schwer" with everything |
