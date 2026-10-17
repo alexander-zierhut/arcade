@@ -32,6 +32,7 @@ jobs:
           set -eu
           SITE=_site
           mkdir -p "$SITE"
+          echo arcade.alzlper.com > "$SITE/CNAME"
           items=""
           for d in */; do
             game="${d%/}"
