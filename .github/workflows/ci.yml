@@ -16,9 +16,10 @@ concurrency:
 jobs:
   changes:
     # Which games to test. A game is a top-level folder with scripts/release.sh. Only the games
-    # whose files changed run; a change outside every game (workflow, build script, README) or a
-    # manual run tests all of them, and so does a push whose base commit is unknown (force push,
-    # first commit).
+    # whose files changed run; a change outside every game that can affect them (workflow, build
+    # scripts, root package.json) or a manual run tests all of them, and so does a push whose base
+    # commit is unknown (force push, first commit). Root documentation (*.md, the root OG image, the
+    # uptime workflow) affects no game and tests none.
     name: changes
     runs-on: ubuntu-latest
     timeout-minutes: 5
@@ -33,6 +34,8 @@ jobs:
           node-version: 22
       - name: Storage keys are separate per game (README "Storage")
         run: node scripts/check-storage.mjs
+      - name: Versions agree in every place (README "Versions")
+        run: node scripts/check-versions.mjs
       - id: pick
         env:
           EVENT: ${{ github.event_name }}
@@ -40,7 +43,7 @@ jobs:
           BASE_REF: ${{ github.base_ref }}
         run: |
           set -eu
-          all=$(for d in */; do [ -f "$d/scripts/release.sh" ] && echo "${d%/}"; done)
+          all=$(for d in */; do if [ -f "$d/scripts/release.sh" ]; then echo "${d%/}"; fi; done)
           case "$EVENT" in
             pull_request) base="origin/$BASE_REF" ;;
             push) base="$BEFORE" ;;
@@ -52,6 +55,9 @@ jobs:
             outside=0
             for f in $changed; do
               top="${f%%/*}"
+              case "$f" in
+                *.md|og-image.png|LICENSE|.github/workflows/uptime.yml) [ "$top" = "$f" ] || [ "$top" = ".github" ] && continue ;;
+              esac
               if echo "$all" | grep -qx "$top"; then picked="$picked $top"; else outside=1; fi
             done
             [ "$outside" -eq 1 ] && picked="$all"
@@ -121,6 +127,13 @@ jobs:
           node-version: 22
       - name: Build every game and the selector page into _site/
         run: node scripts/build-site.mjs
+
+      # Site-level checks on a fresh build (references, hashes, selector, redirects) and every game booted
+      # in headless Chrome; a failure here stops the upload below.
+      - name: Test the built site
+        run: |
+          npm ci
+          npm test
 
       # Hashed scripts and stylesheets go up first as immutable, then the rest as no-cache, the HTML
       # pages last, then stale files are removed. scripts/deploy.sh has the details.

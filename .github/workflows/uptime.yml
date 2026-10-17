@@ -1,0 +1,41 @@
+# Every six hours: is the arcade up? The selector page, every game's page and the scripts those pages
+# reference must answer 200. A game is a top-level folder with scripts/release.sh, so a new game is
+# covered without touching this file. Failures show up as a red run (and an e-mail from GitHub).
+name: Uptime
+
+on:
+  schedule:
+    - cron: "17 */6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: check
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      SITE: https://arcade.alzlper.com
+    steps:
+      - uses: actions/checkout@v4
+      - name: Pages and their scripts answer 200
+        run: |
+          set -eu
+          fail=0
+          check() {
+            code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 20 "$1")
+            if [ "$code" = "200" ]; then echo "ok   $code $1"; else echo "FAIL $code $1"; fail=1; fi
+          }
+          check "$SITE/"
+          for d in */; do
+            game="${d%/}"
+            [ -f "$game/scripts/release.sh" ] || continue
+            check "$SITE/$game/"
+            # every script and stylesheet the live page references (these are the hashed files)
+            for ref in $(curl -s --max-time 20 "$SITE/$game/" | grep -oE '(src|href)="src/[^"]+"' | cut -d'"' -f2); do
+              check "$SITE/$game/$ref"
+            done
+          done
+          exit "$fail"
