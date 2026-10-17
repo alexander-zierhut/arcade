@@ -316,6 +316,9 @@ async function main() {
       await page.screenshot({ path: path.join(OUT, 'smoke-title-' + vp.width + 'x' + vp.height + '.png') });
     }
     if (errors.length) errors.forEach(function (e) { fail(e); }); else ok('no page errors');
+
+    // ---- layout at four phone widths (HUD, bottom bar, pause card, title) ----
+    await require('./layout.js').run(browser, PAGE, { ok: ok, fail: fail, waitState: waitState });
   } finally { await browser.close(); }
   console.log(failures.length ? failures.length + ' failure(s)' : 'all browser checks passed');
   if (failures.length) process.exitCode = 1;
