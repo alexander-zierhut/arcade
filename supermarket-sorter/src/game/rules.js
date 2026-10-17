@@ -42,7 +42,7 @@
   /** tauMs(L): ms per witness input the clock allows (DESIGN 4.6). */
   function tauMs(L) { return Math.floor(Math.max(1800, 3300 - 30 * (L - 1)) * squeeze(L) / 1000); }   // tightened after the first playtest (L14 cleared with 1:30 of 3:45 left)
   /** isTurbo(mode, L): "Turbo-Regal" challenge levels (timed, every level with index 6 from L27: 27, 37, 47, ...) run the belts
-   *  at 3x, at least 1.8 cells/s and at most 3 cells/s (v0.3: 2.5x with a 2.2 cap was "way too slow for a turbo level").
+   *  at 1.8x, at least 1.08 cells/s and at most 1.8 cells/s (v0.3.2: 40% slower than the 3x / 1.8..3 of v0.3, which was too fast).
    *  Never on a tutorial, pause, hard or very hard level (difficulty does not stack). */
   function isTurbo(mode, L) { return mode === 'timed' && L >= 27 && idx(L) === 6; }
   /** speed100(mode, L, t) -> belt speed in centi-cells per second (0 = still). */
@@ -53,7 +53,7 @@
       if (L <= 20) v = 20;
       else if (L <= 100) v = Math.min(100, 20 + (L - 20)) + (t === 'vhard' ? 5 : 0);
       else v = 100 + Math.floor(40 * (L - 100) / (L - 100 + 400));
-      if (isTurbo(mode, L)) v = Math.min(300, Math.max(180, v * 3));
+      if (isTurbo(mode, L)) v = Math.min(180, Math.max(108, Math.round(v * 18 / 10)));   // v0.3.2: 40% slower than the 3x / 180..300 of v0.3
       return v;
     }
     if (L < 41) return 0;

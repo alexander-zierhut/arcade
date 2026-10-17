@@ -136,7 +136,7 @@ first playtest; they override the sections they touch.
 | Topic | Shipped | Where |
 |---|---|---|
 | Clock | `tauMs = max(1800, 3300 - 30(L-1))` ms per witness input (× squeeze), belt waits halved, 20 s slack, minimum 120 s (L≤6), 90 s (L≤20), 75 s; tightened after the owner's mother cleared L14 with 1:30 of 3:45 left | `rules.timeLimitS`, `levels.timeMs` |
-| Turbo levels | every level with index 6 from L27 (27, 37, ...) runs the side belts at 3× (at least 1.8, at most 3 cells/s; v0.3, was 2.5× with a 2.2 cap), badge "Turbo-Regal!", coach mark, clock multiplier +15 % | `rules.isTurbo`, `rules.speed100` |
+| Turbo levels | every level with index 6 from L27 (27, 37, ...) runs the side belts at 1.8× (at least 1.08, at most 1.8 cells/s; v0.3.2, 40% slower than the 3× / 1.8..3 of v0.3), badge "Turbo-Regal!", coach mark, clock multiplier +15 % | `rules.isTurbo`, `rules.speed100` |
 | Products | 260 products in three tiers (172 tasty food, drinks and pantry, non-food); the skin picks tier 1 first, so levels show food | `scripts/build-catalog.js` (TIER1/TIER3), `levels.pickProducts` |
 | Baked levels | 300 per branch; acceptance windows up to L300 timed and L40 relaxed (`--windows-until=40`); deeper relaxed boards never meet the windows | `scripts/build-levels.js` |
 | Runtime generation | 12 attempts × 30 000 nodes + 64 playouts per level beyond the baked data; remix fallback of a baked level | `config.TAIL_*`, `levels.raw` |

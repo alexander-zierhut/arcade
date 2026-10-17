@@ -3,7 +3,7 @@
   'use strict';
   var SS = root.SS = root.SS || {};
   var config = {
-    VERSION: '0.3.1',
+    VERSION: '0.3.2',
     RULES_VERSION: 2,                     // bump when a saved run can no longer be restored
     GEN_VERSION: 1,                       // bump when level generation changes (level identity)
     STORAGE_KEY: 'supermarketSorter.v1',

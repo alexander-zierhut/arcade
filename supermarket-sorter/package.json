@@ -1,6 +1,6 @@
 {
   "name": "supermarket-sorter",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "private": true,
   "description": "A shelf-sorting match-3 grocery game for the mobile browser. No ads, no build step: open index.html.",
   "scripts": {

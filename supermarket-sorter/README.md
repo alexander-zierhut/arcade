@@ -12,7 +12,7 @@ The game starts in English; German is available in the settings.
   `node tests/browser/soak.js 20` (long play sessions, memory, performance), `npm run perf` (performance at 4x
   CPU throttling, values in `docs/proof/perf-*.json`).
 - Bake levels: `npm run bake` writes `src/game/levels-data.js` (300 per track, with witness solutions).
-- Turbo levels (every tenth from 27) make the side shelves race (1.8 to 3 cells/s); outline products from level 24.
+- Turbo levels (every tenth from 27) make the side shelves race (1.08 to 1.8 cells/s); outline products from level 24.
 - Test a level directly: `index.html?level=34&mode=timed` (or `mode=relaxed`); nothing is saved in test mode.
 - Products: 260 invented German products as SVG, 3D-style like the original (`assets/items/`, style guide
   `docs/ART-STYLE.md`, file rules `docs/ART-SPEC.md`) and as a flat 2D set (`assets/items-2d/`, switchable in the

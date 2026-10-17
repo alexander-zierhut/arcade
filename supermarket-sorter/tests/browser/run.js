@@ -222,9 +222,9 @@ async function main() {
       var landed = await page.evaluate(function (a) { var it = SS.app.ctx.game.board.items[a.item]; return { comp: it ? it.comp : -1, moves: SS.app.ctx.game.moves }; }, fg);
       if ((landed.comp === fg.to || landed.comp === -1) && landed.moves === movesBefore + 1) ok('a drop released just below the compartment (on the plank gap) still lands in it'); else fail('forgiving drop: ' + JSON.stringify({ fg: fg, landed: landed }));
     } else fail('no rack move available for the forgiving-drop check');
-    // turbo level 27: belts at least 1.8 cells/s
+    // turbo level 27: belts at least 1.08 cells/s (v0.3.2, 40% slower than the 1.8 of v0.3)
     var turbo = await page.evaluate(function () { var lv = SS.levels.get('timed', 27, SS.catalog); return { turbo: lv.turbo, v: lv.beltSpeed100 }; });
-    if (turbo.turbo && turbo.v >= 180) ok('level 27 is a turbo level with ' + turbo.v / 100 + ' cells/s'); else fail('turbo: ' + JSON.stringify(turbo));
+    if (turbo.turbo && turbo.v >= 108 && turbo.v <= 180) ok('level 27 is a turbo level with ' + turbo.v / 100 + ' cells/s'); else fail('turbo: ' + JSON.stringify(turbo));
 
     // ---- timeout + extend + serie ----
     var lvlBeforeTimeout = await page.evaluate(function () { return SS.app.ctx.game.level.n; });
