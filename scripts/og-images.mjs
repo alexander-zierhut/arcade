@@ -27,6 +27,13 @@ const GAMES = {
     pitch: 'Slide products between shelves until three of a kind meet. Relaxed or against the clock.',
     tags: ['Match 3', 'Puzzle levels', 'Timed mode'],
   },
+  'penguin-march': {
+    shot: 'docs/preview/game-play.png',
+    color: '#1b4f7a', ink: '#f7f9fb', accent: '#ffb84d',
+    title: 'Penguin March', sub: 'The gate runner from the ads, for real',
+    pitch: 'Pick +9 or x2, grow the waddle, shoot the walls, beat the walrus. 50 authored levels, then endless.',
+    tags: ['Gate runner', 'Riot levels', 'Endless'],
+  },
 };
 
 const CHROME = ['/usr/bin/google-chrome', '/usr/bin/google-chrome-stable', '/usr/bin/chromium'].find(existsSync) || process.env.CHROME_PATH;

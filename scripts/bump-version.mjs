@@ -28,6 +28,16 @@ function setIn(rel, re) {
 }
 
 if (setIn('package.json', /"version":\s*"([^"]+)"/)) done.push('package.json'); else errors.push('package.json: no "version" found');
+// the lockfile records the package's own version twice (top level and packages[""]); npm ci does not mind a
+// mismatch, but a reader would, so keep it in step
+const lockPath = join(root, game, 'package-lock.json');
+if (existsSync(lockPath)) {
+  const lock = JSON.parse(readFileSync(lockPath, 'utf8'));
+  lock.version = next;
+  if (lock.packages && lock.packages['']) lock.packages[''].version = next;
+  writeFileSync(lockPath, JSON.stringify(lock, null, 2) + '\n');
+  done.push('package-lock.json');
+}
 for (const p of rules.places) {
   if (!existsSync(join(root, game, p.file))) continue;
   if (setIn(p.file, p.re)) done.push(p.label); else if (p.required !== false) errors.push(`${p.file}: no version found`);

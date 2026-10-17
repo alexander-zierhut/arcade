@@ -26,6 +26,12 @@ export const RULES = {
     whatsnew: 'src/ui/strings.js',
   },
   'cocktail-merge': { places: [] },        // package.json is the only place (src/config.js has RULES_VERSION only)
+  'penguin-march': {
+    places: [
+      { file: 'src/config.js', re: /(?<![A-Z_])VERSION:\s*'([^']+)'/, label: 'src/config.js' },
+      { file: 'index.html', re: /class="version">v([^<]+)</, label: 'index.html' },
+    ],
+  },
 };
 
 export function games() {

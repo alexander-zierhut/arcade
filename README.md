@@ -5,6 +5,7 @@ and every game under `/<game>/`.
 
 - `cocktail-merge`: cocktail physics-merge game
 - `supermarket-sorter`: shelf-sorting match-3 grocery game
+- `penguin-march`: the gate-runner from the mobile ads, made real (penguins, numbered gates, a walrus)
 
 ## How it fits together
 
@@ -73,7 +74,8 @@ A game's version is stated in several places that must agree. `package.json` is 
 (the release names the zip and `dist/VERSION.txt` from it); the other places are listed per game in
 `RULES` in `scripts/check-versions.mjs` (supermarket-sorter: `src/config.js`, the static title in
 `index.html`, the export fixture `tests/fixtures/export-v<version>.json`, non-empty `whatsnew_text` in
-German and English; cocktail-merge: `package.json` only).
+German and English; cocktail-merge: `package.json` only; penguin-march: `src/config.js` and the version
+line on the title screen in `index.html`).
 
 - `node scripts/check-versions.mjs` fails on any mismatch (CI runs it).
 - `node scripts/bump-version.mjs <game> <x.y.z>` sets all of those places, creates the new fixture from

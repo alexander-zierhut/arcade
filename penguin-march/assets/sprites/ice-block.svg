@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+<polygon points="12,48 30,24 100,20 116,44" fill="#ffffff"/>
+<polygon points="12,48 116,44 120,122 8,124" fill="#dff4ff"/>
+<polygon points="12,48 40,50 28,92 12,104" fill="#9ad8f5"/>
+<polygon points="116,44 90,52 100,98 120,88" fill="#9ad8f5"/>
+<polygon points="8,124 26,104 44,122" fill="#9ad8f5"/>
+<polygon points="120,122 100,106 84,122" fill="#9ad8f5"/>
+<path d="M64 50C78 50 84 62 84 80C84 100 80 112 64 112C48 112 44 100 44 80C44 62 50 50 64 50Z" fill="#1d2330"/>
+<path d="M64 64C72 64 76 74 76 88C76 102 72 108 64 108C56 108 52 102 52 88C52 74 56 64 64 64Z" fill="#f7f9fb"/>
+<circle cx="57" cy="58" r="2.6" fill="#ffffff"/>
+<circle cx="71" cy="58" r="2.6" fill="#ffffff"/>
+<path d="M58 66L70 66L64 76Z" fill="#ff9f1c"/>
+<ellipse cx="56" cy="112" rx="6" ry="2.5" fill="#ff9f1c"/>
+<ellipse cx="72" cy="112" rx="6" ry="2.5" fill="#ff9f1c"/>
+<polygon points="12,48 116,44 120,122 8,124" fill="#dff4ff" fill-opacity="0.25"/>
+<path d="M18 68L26 54L30 56L22 72Z" fill="#ffffff"/>
+<path d="M96 68L104 56L107 58L100 72Z" fill="#ffffff"/>
+<path d="M12 48L30 24L100 20L116 44L12 48" fill="none" stroke="#1d2330" stroke-width="3" stroke-linejoin="round"/>
+<path d="M116 44L120 122L8 124L12 48" fill="none" stroke="#1d2330" stroke-width="3" stroke-linejoin="round"/>
+</svg>

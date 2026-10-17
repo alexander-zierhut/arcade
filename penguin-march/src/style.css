@@ -1,0 +1,73 @@
+/* src/style.css: the HTML layers over the canvas (title, level map, shop, pause, end screens, HUD).
+   Everything in the game world is drawn on the canvas (render.js); these are the menus. Phone first. */
+:root {
+  --ice: #dff4ff; --ice-mid: #9ad8f5; --deep: #1b4f7a; --ink: #1d2330; --snow: #ffffff;
+  --good: #3d8bff; --bad: #d64545; --fish: #ffb84d; --panel: rgba(27, 79, 122, 0.92);
+  color-scheme: light;
+}
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html, body { margin: 0; height: 100%; overflow: hidden; background: var(--deep); font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; color: var(--snow); }
+#app { position: fixed; inset: 0; overflow: hidden; touch-action: none; user-select: none; -webkit-user-select: none; }
+#game { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.layer { position: absolute; inset: 0; }
+[hidden] { display: none !important; }
+
+/* HUD */
+.hud { pointer-events: none; display: flex; justify-content: space-between; align-items: flex-start;
+       padding: calc(10px + env(safe-area-inset-top)) 12px 0; }
+.hud-left, .hud-right { display: flex; gap: 8px; align-items: center; pointer-events: auto; }
+.pill { display: inline-block; padding: 6px 12px; border-radius: 999px; background: rgba(29, 35, 48, 0.72); color: var(--snow);
+        font-weight: 700; font-size: 15px; line-height: 1; white-space: nowrap; }
+.pill.coins::before { content: ""; display: inline-block; width: 12px; height: 12px; border-radius: 50%; background: var(--fish);
+                      margin-right: 6px; vertical-align: -1px; box-shadow: inset 0 0 0 2px #e07f00; }
+.icon-btn { width: 36px; height: 36px; border-radius: 50%; border: 0; background: rgba(29, 35, 48, 0.72); color: var(--snow);
+            font-weight: 900; font-size: 15px; cursor: pointer; }
+
+/* screens */
+.screen { display: flex; align-items: center; justify-content: center; padding: 16px; background: rgba(27, 79, 122, 0.35); overflow: hidden; }
+.card { width: min(100%, 420px); max-height: calc(100% - 8px); overflow: auto; background: var(--panel); border-radius: 20px; padding: 22px 20px;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35); text-align: center; backdrop-filter: blur(6px); display: flex; flex-direction: column; gap: 14px; }
+.card h1 { margin: 0; font-size: clamp(34px, 9vw, 46px); line-height: 1; letter-spacing: -0.5px; }
+.card h1 span { color: var(--fish); }
+.card h2 { margin: 0; font-size: 24px; }
+.tagline { margin: 0; color: var(--ice); font-size: 16px; }
+.hint { margin: 0; color: var(--ice-mid); font-size: 13px; line-height: 1.4; }
+.version { margin: 0; color: rgba(255, 255, 255, 0.45); font-size: 11px; }
+.row { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+.btn { border: 0; border-radius: 14px; padding: 12px 18px; font-size: 16px; font-weight: 700; cursor: pointer; background: rgba(255, 255, 255, 0.14); color: var(--snow); min-width: 96px; }
+.btn.primary { background: var(--fish); color: var(--ink); }
+.btn.big { padding: 16px 28px; font-size: 20px; }
+.btn.small { padding: 8px 12px; font-size: 14px; min-width: 0; }
+.btn:disabled { opacity: 0.45; cursor: default; }
+.btn:active:not(:disabled) { transform: translateY(1px); }
+.bar { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.bar h2 { flex: 1; text-align: center; }
+
+/* level map */
+.map-list { display: flex; flex-direction: column; gap: 8px; max-height: 60vh; overflow: auto; padding: 4px 2px; }
+.lvl { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 14px; background: rgba(255, 255, 255, 0.1); border: 0;
+       color: var(--snow); font: inherit; cursor: pointer; text-align: left; width: 100%; }
+.lvl:nth-child(odd) { margin-right: 10%; } .lvl:nth-child(even) { margin-left: 10%; width: 90%; }
+.lvl .num { width: 44px; height: 44px; border-radius: 50%; background: var(--good); display: grid; place-items: center; font-weight: 900; font-size: 17px; flex: none; }
+.lvl.riot .num { background: var(--fish); color: var(--ink); }
+.lvl.locked { opacity: 0.45; cursor: default; } .lvl.locked .num { background: rgba(255, 255, 255, 0.2); }
+.lvl.current { outline: 3px solid var(--fish); }
+.lvl .name { flex: 1; font-weight: 700; } .lvl .name small { display: block; font-weight: 400; color: var(--ice-mid); font-size: 12px; }
+.lvl .stars, .stars { letter-spacing: 2px; color: var(--fish); font-size: 18px; }
+.stars { font-size: 34px; margin: 0; }
+.stars .off { color: rgba(255, 255, 255, 0.25); }
+
+/* shop */
+.shop-list { display: flex; flex-direction: column; gap: 10px; }
+.upg { display: grid; grid-template-columns: 1fr auto; gap: 4px 12px; align-items: center; padding: 12px 14px; border-radius: 14px; background: rgba(255, 255, 255, 0.1); text-align: left; }
+.upg .name { font-weight: 800; font-size: 16px; } .upg .desc { grid-column: 1; color: var(--ice-mid); font-size: 13px; }
+.upg .pips { grid-column: 1; display: flex; gap: 5px; margin-top: 4px; }
+.upg .pip { width: 22px; height: 8px; border-radius: 4px; background: rgba(255, 255, 255, 0.2); } .upg .pip.on { background: var(--fish); }
+.upg .btn { grid-column: 2; grid-row: 1 / span 3; }
+
+/* end */
+.end-text { margin: 0; font-size: 16px; color: var(--ice); }
+.end-card.lost h2 { color: #ff8c8c; }
+
+@media (max-width: 360px) { .btn { padding: 10px 12px; font-size: 15px; min-width: 80px; } .card { padding: 18px 14px; } }
+@media (min-height: 700px) { .map-list { max-height: 62vh; } }

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+<path d="M20 252C4 214 20 150 80 140L176 140C236 150 252 214 236 252Z" fill="#a0674b" stroke="#1d2330" stroke-width="5" stroke-linejoin="round"/>
+<path d="M24 246C40 226 76 222 128 222C180 222 216 226 232 246C220 252 36 252 24 246Z" fill="#874f39"/>
+<path d="M80 184Q128 194 176 184M92 200Q128 208 164 200" fill="none" stroke="#74472f" stroke-width="4" stroke-linecap="round"/>
+<path d="M44 196C26 190 8 206 6 232C22 246 38 236 50 224Z" fill="#a0674b" stroke="#1d2330" stroke-width="5" stroke-linejoin="round"/>
+<path d="M212 196C230 190 248 206 250 232C234 246 218 236 206 224Z" fill="#a0674b" stroke="#1d2330" stroke-width="5" stroke-linejoin="round"/>
+<path d="M46 120C40 60 84 26 128 26C172 26 216 60 210 120C208 150 190 166 128 166C66 166 48 150 46 120Z" fill="#a0674b" stroke="#1d2330" stroke-width="5" stroke-linejoin="round"/>
+<ellipse cx="100" cy="52" rx="24" ry="9" fill="#b97a5c"/>
+<ellipse cx="128" cy="146" rx="52" ry="24" fill="#d9a98c" stroke="#1d2330" stroke-width="4"/>
+<ellipse cx="108" cy="130" rx="6" ry="4" fill="#74472f"/>
+<ellipse cx="148" cy="130" rx="6" ry="4" fill="#74472f"/>
+<path d="M104 164Q128 152 152 164" fill="none" stroke="#1d2330" stroke-width="5" stroke-linecap="round"/>
+<path d="M98 148C92 170 92 200 102 228C108 202 114 176 118 150Z" fill="#fff6dc" stroke="#1d2330" stroke-width="4" stroke-linejoin="round"/>
+<path d="M158 148C164 170 164 200 154 228C148 202 142 176 138 150Z" fill="#fff6dc" stroke="#1d2330" stroke-width="4" stroke-linejoin="round"/>
+<ellipse cx="96" cy="100" rx="13" ry="8" fill="#ffffff" stroke="#1d2330" stroke-width="3"/>
+<ellipse cx="160" cy="100" rx="13" ry="8" fill="#ffffff" stroke="#1d2330" stroke-width="3"/>
+<circle cx="101" cy="101" r="4.5" fill="#1d2330"/>
+<circle cx="155" cy="101" r="4.5" fill="#1d2330"/>
+<path d="M70 84L108 94M186 84L148 94" fill="none" stroke="#1d2330" stroke-width="9" stroke-linecap="round"/>
+<path d="M80 136L50 128M78 148L46 146M80 160L52 166M176 136L206 128M178 148L210 146M176 160L204 166" fill="none" stroke="#1d2330" stroke-width="3.5" stroke-linecap="round"/>
+</svg>
