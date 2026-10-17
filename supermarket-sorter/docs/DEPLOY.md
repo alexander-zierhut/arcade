@@ -11,9 +11,11 @@ Nothing in the game needs a server. Upload static files, keep the paths.
 
 ## Build a release
 
-`npm run release` copies exactly the shipped files into `dist/` and zips them into
+`npm run release` (`scripts/release.sh`, which runs the shared root `scripts/release.mjs` with this game's
+`release.json`) copies exactly the shipped files into `dist/` and zips them into
 `release/supermarket-sorter-v<version>.zip` (version from `package.json`). It regenerates `src/art/catalog.js`
-from the product manifests first and refuses to build if a script, stylesheet or product sprite is missing.
+from the product manifests first and refuses to build if a script, stylesheet or product sprite is missing
+(`scripts/check-dist.js`).
 Serve `dist/` locally with `npm run serve:dist` (port 8766) to check it before uploading.
 
 ## What to upload

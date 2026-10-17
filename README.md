@@ -12,7 +12,9 @@ A game is any top-level folder that has `scripts/release.sh`. Nothing lists the 
 workflow, the site build and the selector page all discover them from the folders.
 
 - `<game>/scripts/release.sh` builds the shippable files into `<game>/dist` (`npm run release` inside
-  the game). The release is what gets published; sources, tests and docs stay out.
+  the game). The release is what gets published; sources, tests and docs stay out. The steps live once in
+  `scripts/release.mjs`; the game says what ships in `<game>/release.json`, and `release.sh` is a thin
+  wrapper that calls the shared script (and the place for anything the manifest cannot express).
 - `<game>/index.html` carries Open Graph tags. The selector page is built from `og:title`,
   `og:description` and `og:image`, so a game's card is whatever the game itself says it is.
 - `scripts/build-site.mjs` builds everything into `_site/`: each game's release under `_site/<game>/`
@@ -68,7 +70,7 @@ origin-wide APIs above are flagged.
 ## Versions
 
 A game's version is stated in several places that must agree. `package.json` is the source of truth
-(`release.sh` names the zip and `dist/VERSION.txt` from it); the other places are listed per game in
+(the release names the zip and `dist/VERSION.txt` from it); the other places are listed per game in
 `RULES` in `scripts/check-versions.mjs` (supermarket-sorter: `src/config.js`, the static title in
 `index.html`, the export fixture `tests/fixtures/export-v<version>.json`, non-empty `whatsnew_text` in
 German and English; cocktail-merge: `package.json` only).
@@ -85,10 +87,18 @@ German and English; cocktail-merge: `package.json` only).
 2. Add `package.json` with at least `test` and `test:browser` scripts (CI runs both; `npm run
    test:browser` may be a no-op if the game has no browser tests) and commit `package-lock.json`, since
    CI installs with `npm ci`.
-3. Add `scripts/release.sh`. It must write a complete, self-contained `dist/` with `dist/index.html`
-   and only relative paths. Copy one of the existing scripts as a start: they copy the shipped files,
-   write `dist/VERSION.txt` and fail if a referenced script or stylesheet is missing.
-4. Put Open Graph tags in `index.html` and make sure `release.sh` ships the image:
+3. Add `release.json` and `scripts/release.sh`. The release must be a complete, self-contained `dist/`
+   with `dist/index.html` and only relative paths. Copy both files from an existing game as a start:
+   `release.sh` is a short wrapper around `node ../scripts/release.mjs .`, and `scripts/release.mjs` does the
+   rest (copies the files, writes `dist/VERSION.txt`, fails if a `src` or `href` in `index.html` is missing
+   from `dist/`, zips into `release/`). The manifest keys:
+   - `name`: the game's title, first line of `VERSION.txt`.
+   - `files`: what ships, relative to the game folder. A folder is copied whole; `assets/items/*.svg`
+     (a `*` in the last segment) copies the matching files, and matching nothing is fine.
+   - `copy` (optional): extra `{ "source": "destination in dist" }` pairs, e.g. a favicon also served from `/`.
+   - `before` / `after` (optional): shell commands run in the game folder before copying and after copying
+     (before the zip); a non-zero exit fails the release.
+4. Put Open Graph tags in `index.html` and make sure `release.json` ships the image:
 
    ```html
    <meta property="og:title" content="My Game">
@@ -119,7 +129,8 @@ since localStorage belongs to the origin, not the path.
 
 ## Tests
 
-`npm ci && npm test` at the root builds the site into a temp dir (not `_site/`) and checks it: every script,
+`npm ci && npm test` at the root runs every game's `release.sh` and checks the result (a valid `release.json`,
+`dist/index.html`, every relative reference present, the `VERSION.txt` format, the zip), builds the site into a temp dir (not `_site/`) and checks it: every script,
 stylesheet and preview image a page references exists and is content-hashed, `_site-immutable.txt` lists
 exactly the hashed files, the selector has a card per game, the redirects and `VERSION.txt` are there; then
 it serves the build and boots every game in headless Chrome (no failed request, no console error, the

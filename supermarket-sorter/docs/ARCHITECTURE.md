@@ -108,6 +108,7 @@ tests/browser/run.js         smoke test of the real page; soak.js long sessions;
                              items-render.js sprite geometry + sheets (--dir/--geometry for the 2D set, --check-only --sheet for agents)
 scripts/build-catalog.js     manifests -> src/art/catalog.js (hue, shape group, tier)
 scripts/build-levels.js      bake levels with witnesses -> src/game/levels-data.js (cache in scripts/.cache)
-scripts/release.sh           dist/ + zip (index, manifest, src, both sprite sets, icons)
+scripts/release.sh           dist/ + zip, via the root scripts/release.mjs and release.json (index, manifest, src, both sprite sets, icons)
+scripts/check-dist.js        release check: every catalog product has a sprite in both sets in dist/
 Generated, do not edit:      src/art/catalog.js, src/game/levels-data.js, assets/items/manifest/geometry.json, geometry-2d.json
 ```

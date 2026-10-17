@@ -4,7 +4,8 @@ Nothing in the game needs a server. Upload static files, keep the paths.
 
 ## Build a release
 
-`npm run release` copies exactly the shipped files into `dist/` and zips them into
+`npm run release` (`scripts/release.sh`, which runs the shared root `scripts/release.mjs` with this game's
+`release.json`) copies exactly the shipped files into `dist/` and zips them into
 `release/cocktail-merge-v<version>.zip` (version from `package.json`). Upload the contents of `dist/`, or serve
 `dist/` locally with `npm run serve:dist` (port 8766).
 

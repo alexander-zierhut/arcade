@@ -1,0 +1,5 @@
+{
+  "name": "Cocktail Merge: Beach Bar",
+  "files": ["index.html", "src", "assets/backgrounds", "assets/icons", "assets/tier-*.png"],
+  "copy": { "assets/icons/favicon.ico": "favicon.ico" }
+}
