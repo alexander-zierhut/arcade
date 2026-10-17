@@ -1,0 +1,83 @@
+name: Deploy GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      # A game is any top-level folder with scripts/release.sh. The script builds
+      # <game>/dist, which is what gets published at /<game>/.
+      - name: Build games and overview
+        run: |
+          set -eu
+          SITE=_site
+          mkdir -p "$SITE"
+          items=""
+          for d in */; do
+            game="${d%/}"
+            [ -f "$game/scripts/release.sh" ] || continue
+            (cd "$game" && bash scripts/release.sh)
+            cp -r "$game/dist" "$SITE/$game"
+            title=$(sed -n 's:.*<title>\(.*\)</title>.*:\1:p' "$game/dist/index.html" | head -n 1)
+            [ -n "$title" ] || title="$game"
+            items="$items  <li><a href=\"$game/\">$title</a></li>"$'\n'
+          done
+          cat >"$SITE/index.html" <<HTML
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>Arcade</title>
+            <style>
+              body { font-family: system-ui, sans-serif; margin: 0; min-height: 100vh; display: flex; flex-direction: column;
+                     align-items: center; padding: 2rem 1rem; background: #1d1f2b; color: #fff; }
+              ul { list-style: none; padding: 0; margin: 0; width: 100%; max-width: 28rem; display: grid; gap: 0.8rem; }
+              a { display: block; text-align: center; text-decoration: none; color: #1d1f2b; font-size: 1.15rem;
+                  padding: 0.9rem 1rem; border-radius: 1rem; background: #f4f4f8; transition: transform 0.15s; }
+              a:hover { transform: translateY(-0.15rem); }
+            </style>
+          </head>
+          <body>
+            <h1>Arcade</h1>
+            <ul>
+          $items  </ul>
+          </body>
+          </html>
+          HTML
+          sed -i 's/^          //' "$SITE/index.html"
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deploy
+        uses: actions/deploy-pages@v4
