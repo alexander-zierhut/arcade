@@ -65,6 +65,19 @@ same key would read each other's saves. The rule:
 and `*_KEY` constants must carry the game's prefix, no game may contain another game's prefix, and the
 origin-wide APIs above are flagged.
 
+## Versions
+
+A game's version is stated in several places that must agree. `package.json` is the source of truth
+(`release.sh` names the zip and `dist/VERSION.txt` from it); the other places are listed per game in
+`RULES` in `scripts/check-versions.mjs` (supermarket-sorter: `src/config.js`, the static title in
+`index.html`, the export fixture `tests/fixtures/export-v<version>.json`, non-empty `whatsnew_text` in
+German and English; cocktail-merge: `package.json` only).
+
+- `node scripts/check-versions.mjs` fails on any mismatch (CI runs it).
+- `node scripts/bump-version.mjs <game> <x.y.z>` sets all of those places, creates the new fixture from
+  the previous one and runs the check. It does not write the what's-new texts or `docs/STATUS.md`; it
+  reminds you. The per-game checklist is `<game>/docs/RELEASE.md`.
+
 ## Adding a game
 
 1. Create a folder at the repo root, say `my-game/`, with the game inside. The folder name becomes the
