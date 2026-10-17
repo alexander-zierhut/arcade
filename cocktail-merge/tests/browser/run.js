@@ -9,6 +9,9 @@
 //      screenshot pause, the run record is stored, reload -> Continue restores the same score.
 //   2. Title at 360x640, 375x667, 390x844 and 1920x1080 with a 160-character, 3-line dedication injected:
 //      no errors, the Play button fully inside the viewport, every visible text >= 13 px.
+//   3. play.js (required below): a whole game through real touch input (title, drops, merge, pause, sound, restart,
+//      game over, best score, reload) and HUD / strip / overlay-card layout assertions at 320x640 to 1280x800.
+//      Failure screenshots go to tests/browser/artifacts/.
 // Screenshots: docs/preview/smoke-title.png, smoke-play.png, smoke-pause.png.
 // Exits 1 on any failure. A failed load of the optional assets/tier-N.png is ignored.
 // SMOKE_PAGE=/path/to/page.html runs against another page (for example a harness); default index.html.
@@ -17,6 +20,7 @@ var fs = require('fs');
 var path = require('path');
 var url = require('url');
 var chrome = require('./chrome.js');
+var play = require('./play.js');
 
 var ROOT = path.resolve(__dirname, '..', '..');
 var PAGE = process.env.SMOKE_PAGE ? path.resolve(process.env.SMOKE_PAGE) : path.join(ROOT, 'index.html');
@@ -303,6 +307,10 @@ async function main() {
     console.log('Title layouts:');
     var sizes = [[360, 640], [375, 667], [390, 844], [1920, 1080]];
     for (var i = 0; i < sizes.length; i++) await titleCheck(browser, sizes[i][0], sizes[i][1]);
+    await play.run(browser, {
+      ok: ok, fail: fail, sleep: sleep, watch: watch, reportErrors: reportErrors, waitState: waitState, appState: appState,
+      failureCount: function () { return failures.length; }, PAGE: PAGE, ROOT: ROOT
+    });
   } catch (e) {
     fail('smoke test crashed: ' + (e && e.stack || e));
   } finally {
