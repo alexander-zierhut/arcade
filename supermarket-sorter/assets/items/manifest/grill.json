@@ -1,0 +1,49 @@
+{
+  "category": "grill",
+  "items": [
+    {
+      "id": "grill-dorfmetzger-bratwuerste",
+      "file": "grill-dorfmetzger-bratwuerste.svg",
+      "name": "Dorfmetzger Bratwürste",
+      "class": "bag",
+      "color": "#FFD23F",
+      "accent": "#7A4A2A",
+      "label": "",
+      "icon": "bratwurst",
+      "description": "Standing sun-yellow vacuum pouch with a chocolate-brown crimped seal and a cream label with one big bratwurst with grill marks"
+    },
+    {
+      "id": "grill-weidegold-steak",
+      "file": "grill-weidegold-steak.svg",
+      "name": "Weidegold Steak",
+      "class": "loose",
+      "color": "#FF6FB5",
+      "accent": "#FFF7E8",
+      "label": "",
+      "icon": "steak on tray",
+      "description": "Upright cream butcher tray with a candy-pink label band and one natural-shaped pink steak with a pale fat rim and dark grill marks"
+    },
+    {
+      "id": "grill-glutherz-spiess",
+      "file": "grill-glutherz-spiess.svg",
+      "name": "Glutherz Grillspieß",
+      "class": "loose",
+      "color": "#3ECF6A",
+      "accent": "#FF5A4E",
+      "label": "",
+      "icon": "heart on tray",
+      "description": "Chunky leaf-green tray with a cream label showing a red heart, holding two wooden skewers standing upright, loaded with red paprika and dark-red meat pieces"
+    },
+    {
+      "id": "grill-almglueck-grillkaese",
+      "file": "grill-almglueck-grillkaese.svg",
+      "name": "Almhof Grillkäse",
+      "class": "box",
+      "color": "#3B6CFF",
+      "accent": "#FFD23F",
+      "label": "",
+      "icon": "cheese slab",
+      "description": "Tall cobalt cheese carton with a white label band showing a golden cheese slab with grill stripes"
+    }
+  ]
+}

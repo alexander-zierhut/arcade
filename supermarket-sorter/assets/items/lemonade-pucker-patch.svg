@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Sauerwiese Zitronenbrause</title>
+<defs>
+<linearGradient id="rpatch-b" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#C8ED7D"/><stop offset="0.22" stop-color="#A6E22E"/><stop offset="0.55" stop-color="#A6E22E"/><stop offset="0.85" stop-color="#7A9F22"/><stop offset="1" stop-color="#576819"/></linearGradient>
+<linearGradient id="rpatch-c" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFE388"/><stop offset="0.22" stop-color="#FFD23F"/><stop offset="0.55" stop-color="#FFD23F"/><stop offset="0.85" stop-color="#B7942E"/><stop offset="1" stop-color="#7C6120"/></linearGradient>
+<linearGradient id="rpatch-ao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+<linearGradient id="rpatch-sh" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFFFFF" stop-opacity="0.3"/><stop offset="0.25" stop-color="#FFFFFF" stop-opacity="0"/><stop offset="0.6" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.4"/></linearGradient>
+</defs>
+<path d="M40,24V30C40,37 26.5,38 26.5,53V87Q26.5,93.5 33,93.5H67Q73.5,93.5 73.5,87V53C73.5,38 60,37 60,30V24Z" fill="url(#rpatch-b)" stroke="#576819" stroke-width="1.5" stroke-opacity="0.7"/>
+<path d="M26.5,82.5H73.5V87Q73.5,93.5 67,93.5H33Q26.5,93.5 26.5,87Z" fill="url(#rpatch-ao)"/>
+<path d="M27,55Q50,58.5 73,55V77Q50,80.5 27,77Z" fill="#FFFFFF"/>
+<path d="M27,55Q50,58.5 73,55V77Q50,80.5 27,77Z" fill="url(#rpatch-sh)"/>
+<ellipse cx="50" cy="66.5" rx="11" ry="7.5" transform="rotate(-20 50 66.5)" fill="#FFD23F"/>
+<path d="M56,61Q59,56.5 65,57Q63.5,62 56,61Z" fill="#3ECF6A"/>
+<rect x="40" y="25" width="20" height="2" fill="#1E100A" fill-opacity="0.3"/>
+<rect x="37" y="13" width="26" height="12" rx="2" fill="url(#rpatch-c)" stroke="#7C6120" stroke-width="1.5" stroke-opacity="0.7"/>
+<ellipse cx="50" cy="13" rx="13" ry="2.6" fill="#FFE388"/>
+<rect x="39" y="15" width="3" height="8" rx="1.5" fill="#FFFFFF" fill-opacity="0.5"/>
+<rect x="37.8" y="42" width="3.8" height="34" rx="1.9" fill="#FFFFFF" fill-opacity="0.55"/>
+<rect x="66.5" y="48" width="1.8" height="30" rx="0.9" fill="#FFFFFF" fill-opacity="0.3"/>
+</svg>

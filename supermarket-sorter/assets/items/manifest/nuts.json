@@ -1,0 +1,49 @@
+{
+  "category": "nuts",
+  "items": [
+    {
+      "id": "nuts-roasty-ridge",
+      "file": "nuts-roasty-ridge.svg",
+      "name": "Ültja Erdnüsse gesalzen",
+      "class": "can",
+      "color": "#FFD23F",
+      "accent": "#3B6CFF",
+      "label": "ÜLTJA",
+      "icon": "peanut",
+      "description": "Parody of the Ültje peanut can: fat sun-yellow can with a glossy cobalt lid and a cobalt label band reading ÜLTJA above one golden peanut"
+    },
+    {
+      "id": "nuts-honey-hollow",
+      "file": "nuts-honey-hollow.svg",
+      "name": "Honigtal Mandeln",
+      "class": "bag",
+      "color": "#9D7BFF",
+      "accent": "#FFD23F",
+      "label": "",
+      "icon": "almonds",
+      "description": "Fat lavender standing pouch with a honey-yellow crimped seal and a cream label panel with two tan almonds. Invented German brand Honigtal, product Mandeln."
+    },
+    {
+      "id": "nuts-mellow-cove",
+      "file": "nuts-mellow-cove.svg",
+      "name": "Sanftbucht Cashewkerne",
+      "class": "jar",
+      "color": "#2FD5C8",
+      "accent": "#FFD23F",
+      "label": "",
+      "icon": "cashew",
+      "description": "Fat turquoise glass jar with a sun-yellow screw lid and a cream label with one golden cashew. Invented German brand Sanftbucht, product Cashewkerne."
+    },
+    {
+      "id": "nuts-wild-wander",
+      "file": "nuts-wild-wander.svg",
+      "name": "Seebärger Studentenfutter",
+      "class": "box",
+      "color": "#FF6FB5",
+      "accent": "#FFFFFF",
+      "label": "BÄRGER",
+      "icon": "nuts and raisins",
+      "description": "Parody of the Seeberger Studentenfutter trail mix pack: upright candy-red box with a white band reading BÄRGER (SEE BÄRGER) and a cream circle with almond, peanut and dark raisins"
+    }
+  ]
+}

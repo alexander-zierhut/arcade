@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Pedigri Hundefutter</title>
+<defs>
+<linearGradient id="pwwzb" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFE388"/><stop offset="0.22" stop-color="#FFD23F"/><stop offset="0.55" stop-color="#FFD23F"/><stop offset="0.85" stop-color="#B7942E"/><stop offset="1" stop-color="#7C6120"/></linearGradient>
+<linearGradient id="pwwzs" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FF9991"/><stop offset="0.22" stop-color="#FF5A4E"/><stop offset="0.55" stop-color="#FF5A4E"/><stop offset="0.85" stop-color="#B74238"/><stop offset="1" stop-color="#7C2F27"/></linearGradient>
+<linearGradient id="pwwzao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M20,22Q17.5,30 18,40Q18.5,60 18,82Q18,93.5 28,93.5H72Q82,93.5 82,82Q81.5,60 82,40Q82.5,30 80,22Z" fill="url(#pwwzb)" stroke="#7C6120" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<path d="M18,80Q18,93.5 28,93.5H72Q82,93.5 82,80Z" fill="url(#pwwzao)"/>
+<rect x="29" y="52" width="2.5" height="32" rx="1.2" fill="#FFFFFF" fill-opacity="0.25"/>
+<path d="M20,22V13.5L22.5,9L25.0,13.5L27.5,9L30.0,13.5L32.5,9L35.0,13.5L37.5,9L40.0,13.5L42.5,9L45.0,13.5L47.5,9L50.0,13.5L52.5,9L55.0,13.5L57.5,9L60.0,13.5L62.5,9L65.0,13.5L67.5,9L70.0,13.5L72.5,9L75.0,13.5L77.5,9L80.0,13.5V22Z" fill="url(#pwwzs)" stroke="#7C2F27" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<rect x="20" y="22" width="60" height="2.5" fill="#1E100A" fill-opacity="0.3"/>
+<path d="M18.2,34Q50,38 81.8,34V48Q50,52 18.2,48Z" fill="url(#pwwzs)"/>
+<text x="50" y="46" font-size="12" font-family="Arial, Helvetica, sans-serif" font-weight="900" text-anchor="middle" fill="#FFFFFF">PEDIGRI</text>
+<circle cx="50" cy="71" r="16.5" fill="#FFF7E8"/>
+<ellipse cx="40.5" cy="68" rx="4.5" ry="8.5" fill="#7A4A2A"/><ellipse cx="59.5" cy="68" rx="4.5" ry="8.5" fill="#7A4A2A"/>
+<ellipse cx="50" cy="70" rx="10" ry="10.5" fill="#D9A86B"/>
+<ellipse cx="50" cy="75.5" rx="6" ry="4.5" fill="#FFF7E8"/>
+<path d="M45.5,67.2a1.7,1.7 0 1 0 0.1,0ZM54.5,67.2a1.7,1.7 0 1 0 0.1,0Z" fill="#1E100A"/>
+<ellipse cx="50" cy="73" rx="2.5" ry="1.8" fill="#1E100A"/>
+</svg>

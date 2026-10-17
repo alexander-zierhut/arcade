@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Kerrigold Irische Butter</title>
+<defs>
+<linearGradient id="cscg" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#FFE388"/><stop offset="0.35" stop-color="#FFD23F"/><stop offset="1" stop-color="#FFD23F"/></linearGradient>
+<linearGradient id="cscn" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#87E1A3"/><stop offset="0.35" stop-color="#3ECF6A"/><stop offset="1" stop-color="#3ECF6A"/></linearGradient>
+<linearGradient id="cscao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<polygon points="19,94.3 70,94.3 70,21 19,21" fill="url(#cscg)"/>
+<polygon points="19,21 70,21 82,12 31,12" fill="#FFE388"/>
+<polygon points="70,21 82,12 82,85.3 70,94.3" fill="#B7942E"/>
+<rect x="19" y="29" width="51" height="54" fill="url(#cscn)"/>
+<polygon points="70,29 82,20 82,74 70,83" fill="#34924B"/>
+<ellipse cx="42" cy="50" rx="11" ry="6.5" fill="#FFFFFF"/>
+<ellipse cx="55.5" cy="46" rx="4.8" ry="4" fill="#FFFFFF"/>
+<path d="M33,54h3v9h-3zM37.5,55h3v8h-3zM44,55h3v8h-3zM48.5,54h3v9h-3z" fill="#FFFFFF"/>
+<path d="M52.5,43L51,38.5L55,42ZM58,42L60.5,38.5L59.5,43.5Z" fill="#FFFFFF"/>
+<path d="M31,47Q27,48 28,54L30,53Q29.5,50 32,49Z" fill="#FFFFFF"/>
+<text x="44.5" y="76" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="900" text-anchor="middle" fill="#1E100A">KERRI</text>
+<rect x="19" y="83.3" width="51" height="11" fill="url(#cscao)"/>
+<polygon points="70,83.3 82,74.3 82,85.3 70,94.3" fill="url(#cscao)"/>
+<polygon points="19,94.3 70,94.3 70,21 19,21" fill="none" stroke="#7C6120" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<polygon points="19,21 70,21 82,12 31,12" fill="none" stroke="#7C6120" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<polygon points="70,21 82,12 82,85.3 70,94.3" fill="none" stroke="#7C6120" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+</svg>

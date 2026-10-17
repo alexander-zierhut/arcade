@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Piepmatz Vogelsaat</title>
+<rect x="22" y="9.5" width="56" height="84" rx="2" fill="#3FA34D"/>
+<rect x="22" y="9.5" width="56" height="14" fill="#F7C948"/>
+<text x="50" y="20.5" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="12" text-anchor="middle" fill="#2A1B12">PIEP</text>
+<rect x="27" y="28" width="46" height="52" rx="3" fill="#FFF6E0" stroke="#2A1B12" stroke-width="2"/>
+<path d="M38 55L29 49L31 63Z" fill="#B92E27" stroke="#2A1B12" stroke-width="1.5" stroke-linejoin="round"/>
+<circle cx="49" cy="55" r="13" fill="#E8453C" stroke="#2A1B12" stroke-width="2"/>
+<ellipse cx="45" cy="57" rx="6.5" ry="4" fill="#B92E27"/>
+<circle cx="57" cy="40" r="9.5" fill="#E8453C" stroke="#2A1B12" stroke-width="2"/>
+<path d="M51 33.5L48 27.5L56 31.5Z" fill="#B92E27" stroke="#2A1B12" stroke-width="1.5" stroke-linejoin="round"/>
+<path d="M65 37L72 40L65 43Z" fill="#F28C28" stroke="#2A1B12" stroke-width="1.5" stroke-linejoin="round"/>
+<circle cx="60" cy="38.5" r="1.8" fill="#2A1B12"/>
+<text x="50" y="77" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="10" text-anchor="middle" fill="#2A1B12">SAAT</text>
+<rect x="24.5" y="26" width="2.8" height="58" rx="1.4" fill="#FFFFFF" fill-opacity="0.35"/>
+<rect x="70" y="9.5" width="8" height="84" fill="#000000" fill-opacity="0.12"/>
+<rect x="22" y="9.5" width="56" height="84" rx="2" fill="none" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round"/>
+</svg>

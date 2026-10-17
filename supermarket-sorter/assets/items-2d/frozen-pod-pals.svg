@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Iglu Junge Erbsen</title>
+<path d="M21 15Q28.2 4 35.5 15Q42.8 4 50 15Q57.2 4 64.5 15Q71.8 4 79 15Q80 50 76 84Q75.5 93.5 68 93.5H32Q24.5 93.5 24 84Q20 50 21 15Z" fill="#6BBF3A" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M70 17H79Q80 50 76 84Q75.5 93.5 68 93.5H64Q70 80 70 17Z" fill="#000000" fill-opacity="0.12"/>
+<polygon points="50.0 16.0 54.3 20.1 60.0 18.7 61.7 24.3 67.3 26.0 65.9 31.7 70.0 36.0 65.9 40.3 67.3 46.0 61.7 47.7 60.0 53.3 54.3 51.9 50.0 56.0 45.7 51.9 40.0 53.3 38.3 47.7 32.7 46.0 34.1 40.3 30.0 36.0 34.1 31.7 32.7 26.0 38.3 24.3 40.0 18.7 45.7 20.1" fill="#FFFFFF" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+<text x="50" y="40" font-family="Arial, Helvetica, sans-serif" font-weight="900" text-anchor="middle" font-size="11" fill="#2F6BD6">IGLU</text>
+<circle cx="31" cy="85" r="4.5" fill="#BFE35A" stroke="#2A1B12" stroke-width="1.5"/>
+<circle cx="70" cy="87" r="4.5" fill="#BFE35A" stroke="#2A1B12" stroke-width="1.5"/>
+<g transform="translate(50 71) rotate(-20)">
+<path d="M-22 0Q0-17 22 0Q0 17-22 0Z" fill="#2E8B3F" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="-11" cy="0" r="5.2" fill="#BFE35A" stroke="#2A1B12" stroke-width="1.5"/>
+<circle cx="0" cy="0" r="5.2" fill="#BFE35A" stroke="#2A1B12" stroke-width="1.5"/>
+<circle cx="11" cy="0" r="5.2" fill="#BFE35A" stroke="#2A1B12" stroke-width="1.5"/>
+</g>
+<rect x="24.5" y="22" width="2.6" height="58" rx="1.3" fill="#FFFFFF" fill-opacity="0.35"/>
+</svg>

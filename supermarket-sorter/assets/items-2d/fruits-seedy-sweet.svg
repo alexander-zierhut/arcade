@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Naschgarten Erdbeeren</title>
+<path transform="translate(41 28)" d="M-9-5Q-9-10 0-10Q9-10 9-5Q9 4 2 9Q0 10-2 9Q-9 4-9-5Z" fill="#E5334F" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round"/>
+<path transform="translate(41 28)" d="M-4-2h.1M3-3h.1M0 2h.1M-4 4h.1M4 3h.1" fill="none" stroke="#FFE7A0" stroke-width="1.6" stroke-linecap="round"/>
+<path transform="translate(41 28)" d="M-6-8L-3-11.5L0-9L3-11.5L6-8L0-5.5Z" fill="#3FA34D" stroke="#2A1B12" stroke-width="1.5" stroke-linejoin="round"/>
+<path transform="translate(59 28)" d="M-9-5Q-9-10 0-10Q9-10 9-5Q9 4 2 9Q0 10-2 9Q-9 4-9-5Z" fill="#E5334F" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round"/>
+<path transform="translate(59 28)" d="M-4-2h.1M3-3h.1M0 2h.1M-4 4h.1M4 3h.1" fill="none" stroke="#FFE7A0" stroke-width="1.6" stroke-linecap="round"/>
+<path transform="translate(59 28)" d="M-6-8L-3-11.5L0-9L3-11.5L6-8L0-5.5Z" fill="#3FA34D" stroke="#2A1B12" stroke-width="1.5" stroke-linejoin="round"/>
+<path transform="translate(32 38)" d="M-9-5Q-9-10 0-10Q9-10 9-5Q9 4 2 9Q0 10-2 9Q-9 4-9-5Z" fill="#E5334F" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round"/>
+<path transform="translate(32 38)" d="M-4-2h.1M3-3h.1M0 2h.1M-4 4h.1M4 3h.1" fill="none" stroke="#FFE7A0" stroke-width="1.6" stroke-linecap="round"/>
+<path transform="translate(32 38)" d="M-6-8L-3-11.5L0-9L3-11.5L6-8L0-5.5Z" fill="#3FA34D" stroke="#2A1B12" stroke-width="1.5" stroke-linejoin="round"/>
+<path transform="translate(50 38)" d="M-9-5Q-9-10 0-10Q9-10 9-5Q9 4 2 9Q0 10-2 9Q-9 4-9-5Z" fill="#E5334F" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round"/>
+<path transform="translate(50 38)" d="M-4-2h.1M3-3h.1M0 2h.1M-4 4h.1M4 3h.1" fill="none" stroke="#FFE7A0" stroke-width="1.6" stroke-linecap="round"/>
+<path transform="translate(50 38)" d="M-6-8L-3-11.5L0-9L3-11.5L6-8L0-5.5Z" fill="#3FA34D" stroke="#2A1B12" stroke-width="1.5" stroke-linejoin="round"/>
+<path transform="translate(68 38)" d="M-9-5Q-9-10 0-10Q9-10 9-5Q9 4 2 9Q0 10-2 9Q-9 4-9-5Z" fill="#E5334F" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round"/>
+<path transform="translate(68 38)" d="M-4-2h.1M3-3h.1M0 2h.1M-4 4h.1M4 3h.1" fill="none" stroke="#FFE7A0" stroke-width="1.6" stroke-linecap="round"/>
+<path transform="translate(68 38)" d="M-6-8L-3-11.5L0-9L3-11.5L6-8L0-5.5Z" fill="#3FA34D" stroke="#2A1B12" stroke-width="1.5" stroke-linejoin="round"/>
+<path d="M24 47L76 47L71 90Q70.5 93.5 67 93.5L33 93.5Q29.5 93.5 29 90Z" fill="#E5334F" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M66 47L76 47L71 90Q70.5 93.5 67 93.5L63 93.5Q67 80 66 47Z" fill="#000000" fill-opacity="0.12"/>
+<rect x="20" y="41" width="60" height="7" rx="3.5" fill="#FFF6E0" stroke="#2A1B12" stroke-width="3"/>
+<rect x="31" y="50" width="38" height="36" rx="4" fill="#FFF6E0" stroke="#2A1B12" stroke-width="2"/>
+<text x="50" y="58" font-family="Arial, Helvetica, sans-serif" font-size="9.5" font-weight="900" text-anchor="middle" fill="#E5334F">NASCH</text>
+<path transform="translate(50 74) scale(1.3)" d="M-9-5Q-9-10 0-10Q9-10 9-5Q9 4 2 9Q0 10-2 9Q-9 4-9-5Z" fill="#E5334F" stroke="#2A1B12" stroke-width="2.3" stroke-linejoin="round"/>
+<path transform="translate(50 74) scale(1.3)" d="M-4-2h.1M3-3h.1M0 2h.1M-4 4h.1M4 3h.1" fill="none" stroke="#FFE7A0" stroke-width="1.4" stroke-linecap="round"/>
+<path transform="translate(50 74) scale(1.3)" d="M-6-8L-3-11.5L0-9L3-11.5L6-8L0-5.5Z" fill="#3FA34D" stroke="#2A1B12" stroke-width="1.2" stroke-linejoin="round"/>
+<ellipse cx="28.5" cy="65" rx="1.8" ry="10" fill="#FFFFFF" fill-opacity="0.35"/>
+</svg>

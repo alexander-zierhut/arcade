@@ -1,0 +1,49 @@
+{
+  "category": "treats",
+  "items": [
+    {
+      "id": "treats-rosie-swirl",
+      "file": "treats-rosie-swirl.svg",
+      "name": "Zuckerhain Kirschtörtchen",
+      "class": "loose",
+      "color": "#FF6FB5",
+      "accent": "#FFD23F",
+      "label": "",
+      "icon": "cherry cupcake",
+      "description": "Pink frosting swirl in three soft tiers topped by a glossy red cherry on a sun-yellow paper cup (Kirschtörtchen)"
+    },
+    {
+      "id": "treats-bumble-bake",
+      "file": "treats-bumble-bake.svg",
+      "name": "Mühlenbäck Minz-Schokomuffin",
+      "class": "loose",
+      "color": "#3ECF6A",
+      "accent": "#9D7BFF",
+      "label": "",
+      "icon": "chocolate chip muffin",
+      "description": "Mint-green muffin dome with a few dark chocolate chips in a lavender paper cup (Minz-Schokomuffin)"
+    },
+    {
+      "id": "treats-dapple-dale",
+      "file": "treats-dapple-dale.svg",
+      "name": "Omas Beste Apfelkuchen",
+      "class": "box",
+      "color": "#3B6CFF",
+      "accent": "#FFD23F",
+      "label": "",
+      "icon": "apple pie",
+      "description": "Cobalt-blue cake box with a sun-yellow lid, a visible top face and a cream window showing a golden apple pie in a red tin"
+    },
+    {
+      "id": "treats-petal-puff",
+      "file": "treats-petal-puff.svg",
+      "name": "Nimm 3 Fruchtbonbons",
+      "class": "bag",
+      "color": "#FFD23F",
+      "accent": "#FF5A4E",
+      "label": "NIMM 3",
+      "icon": "wrapped candies",
+      "description": "Parody of the nimm2 fruit candy bag: sun-yellow pillow bag with a crimped top, a coral-red NIMM 3 banner and two wrapped candies"
+    }
+  ]
+}

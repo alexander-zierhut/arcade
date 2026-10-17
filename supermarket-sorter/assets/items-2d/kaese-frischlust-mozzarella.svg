@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Galbini Mozzarella</title>
+<path fill="#2F6BD6" d="M23.5 16Q37 12 50 16Q63 12 76.5 16Q80 55 74 93.5Q50 89 26 93.5Q20 55 23.5 16Z"/>
+<path fill="#000000" fill-opacity="0.12" d="M66 17Q78 55 74 93.5H68Q72 55 60 19Z"/>
+<path fill="#FFFFFF" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round" d="M23.5 16Q37 12 50 16Q63 12 76.5 16V24Q63 20 50 24Q37 20 23.5 24Z"/>
+<path d="M32 17.5V22.5M40 17V22M60 17V22M68 17.5V22.5" fill="none" stroke="#2A1B12" stroke-width="1.5" stroke-linecap="round"/>
+<ellipse cx="50" cy="38" rx="23" ry="10.5" fill="#D4223C" stroke="#2A1B12" stroke-width="2"/>
+<text x="50" y="41.5" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="900" text-anchor="middle" fill="#FFFFFF">GALBINI</text>
+<circle cx="42" cy="63" r="9" fill="#FFFFFF" stroke="#2A1B12" stroke-width="2"/>
+<circle cx="59" cy="67" r="8" fill="#FFFFFF" stroke="#2A1B12" stroke-width="2"/>
+<circle cx="49" cy="80" r="7" fill="#FFFFFF" stroke="#2A1B12" stroke-width="2"/>
+<path fill="#3FA34D" stroke="#2A1B12" stroke-width="1.2" stroke-linejoin="round" d="M54 58C57 53 63 53 64 56C61 61 56 61 54 58Z"/>
+<rect x="29" y="30" width="4" height="52" rx="2" fill="#FFFFFF" fill-opacity="0.35"/>
+<path fill="none" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" d="M23.5 16Q37 12 50 16Q63 12 76.5 16Q80 55 74 93.5Q50 89 26 93.5Q20 55 23.5 16Z"/>
+</svg>

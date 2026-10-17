@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Rosenhain Waffelschnitte</title>
+<defs>
+<linearGradient id="crcro19f" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#FFA6D1"/><stop offset="0.35" stop-color="#FF6FB5"/><stop offset="1" stop-color="#FF6FB5"/></linearGradient>
+<linearGradient id="crcro19g" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#F2B97A"/><stop offset="0.35" stop-color="#E0963C"/><stop offset="1" stop-color="#E0963C"/></linearGradient>
+<linearGradient id="crcro19ao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M18.5,22.3L26.5,16.3H81.5V88.3L73.5,94.3H18.5Z" fill="#B7517E" stroke="#7C3852" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<path d="M73.5,70.3L81.5,64.3V88.3L73.5,94.3Z" fill="#B7517E"/>
+<rect x="18.5" y="70.3" width="55" height="24" fill="url(#crcro19f)"/>
+<path d="M73.5,46.3L81.5,40.3V64.3L73.5,70.3Z" fill="#B86A24"/>
+<rect x="18.5" y="46.3" width="55" height="24" fill="url(#crcro19g)"/>
+<path d="M73.5,22.3L81.5,16.3V40.3L73.5,46.3Z" fill="#B7517E"/>
+<rect x="18.5" y="22.3" width="55" height="24" fill="url(#crcro19f)"/>
+<path d="M18.5,22.3L26.5,16.3H81.5L73.5,22.3Z" fill="#FFA6D1"/>
+<rect x="18.5" y="46.3" width="55" height="2" fill="#1E100A" fill-opacity="0.3"/>
+<rect x="18.5" y="70.3" width="55" height="2" fill="#1E100A" fill-opacity="0.3"/>
+<rect x="18.5" y="83.3" width="55" height="11" fill="url(#crcro19ao)"/>
+<rect x="26" y="27" width="40" height="15" rx="2" fill="#E0963C"/>
+<rect x="36" y="27" width="1.5" height="15" fill="#B86A24"/><rect x="46" y="27" width="1.5" height="15" fill="#B86A24"/><rect x="56" y="27" width="1.5" height="15" fill="#B86A24"/><rect x="26" y="34" width="40" height="1.5" fill="#B86A24"/>
+<rect x="20.5" y="76" width="3" height="12" rx="1.5" fill="#FFFFFF" fill-opacity="0.55"/>
+<rect x="20.5" y="27" width="3" height="12" rx="1.5" fill="#FFFFFF" fill-opacity="0.55"/>
+</svg>

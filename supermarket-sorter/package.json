@@ -1,0 +1,22 @@
+{
+  "name": "supermarket-sorter",
+  "version": "0.3.1",
+  "private": true,
+  "description": "A shelf-sorting match-3 grocery game for the mobile browser. No ads, no build step: open index.html.",
+  "scripts": {
+    "test": "node tests/run.js",
+    "test:browser": "node tests/browser/run.js",
+    "serve": "python3 -m http.server 8765 --bind 0.0.0.0",
+    "release": "bash scripts/release.sh",
+    "serve:dist": "python3 -m http.server 8766 --directory dist",
+    "soak": "node tests/browser/soak.js 12",
+    "golden": "node tests/golden.js",
+    "items": "node tests/items-check.js && node tests/browser/items-render.js",
+    "catalog": "node scripts/build-catalog.js",
+    "bake": "node scripts/build-levels.js 300 timed && node scripts/build-levels.js 300 relaxed --windows-until=40",
+    "perf": "node tests/browser/perf.js"
+  },
+  "devDependencies": {
+    "playwright-core": "^1.63.0"
+  }
+}

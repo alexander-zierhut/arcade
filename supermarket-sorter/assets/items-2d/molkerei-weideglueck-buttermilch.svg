@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Weidenzauber Buttermilch</title>
+<path d="M24 30L50 6L76 30V91Q76 93.5 73 93.5H27Q24 93.5 24 91Z" fill="#F7D23A" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M24 30L50 6L76 30V35L50 11L24 35Z" fill="#2F6BD6" stroke="#2A1B12" stroke-width="1.5" stroke-linejoin="round"/>
+<rect x="29" y="36" width="42" height="50" rx="4" fill="#1F3A5F" stroke="#2A1B12" stroke-width="1.5"/>
+<text x="50" y="47" font-size="9" font-family="Arial, Helvetica, sans-serif" font-weight="900" text-anchor="middle" fill="#FFFFFF">WEIDEN</text>
+<path d="M35 71Q37.5 65 39 57Q43 65 46 52Q48 63 50 50Q52 63 54 52Q57 65 61 57Q62.5 65 65 71Z" fill="#FFFFFF"/>
+<text x="50" y="80" font-size="9" font-family="Arial, Helvetica, sans-serif" font-weight="900" text-anchor="middle" fill="#FFFFFF">BUTTER</text>
+<rect x="26" y="34" width="2.8" height="54" rx="1.4" fill="#FFFFFF" fill-opacity="0.35"/>
+<path d="M71 30H76V91Q76 93.5 73 93.5H70.5Q71 60 71 30Z" fill="#000000" fill-opacity="0.12"/>
+</svg>

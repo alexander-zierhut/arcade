@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Neskaffee Gold</title>
+<path d="M30 28H70Q76 33 76 41V85Q76 93.5 68 93.5H32Q24 93.5 24 85V41Q24 33 30 28Z" fill="#6E3320" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="26" y="40" width="48" height="48" rx="3" fill="#DC1E46" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+<rect x="66" y="31" width="7" height="58" rx="3" fill="#000000" fill-opacity="0.12"/>
+<rect x="28" y="34" width="3.5" height="52" rx="1.7" fill="#FFFFFF" fill-opacity="0.35"/>
+<text x="50" y="55" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="900" text-anchor="middle" textLength="40" lengthAdjust="spacingAndGlyphs" fill="#FFF6E0">NESKAFFE</text>
+<rect x="33" y="60" width="34" height="14" rx="7" fill="#F7C948" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+<text x="50" y="71" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="900" text-anchor="middle" textLength="24" lengthAdjust="spacingAndGlyphs" fill="#A8143A">GOLD</text>
+<path d="M36 82Q50 88 64 82" fill="none" stroke="#F7C948" stroke-width="2.5" stroke-linecap="round"/>
+<rect x="23.5" y="13.5" width="53" height="15" rx="3" fill="#B3142F" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round"/>
+<path d="M30 17V25M36.5 17V25M43 17V25M50 17V25M57 17V25M63.5 17V25M70 17V25" fill="none" stroke="#2A1B12" stroke-width="1.5" stroke-opacity="0.5" stroke-linecap="round"/>
+<path d="M30 30V37" fill="none" stroke="#FFFFFF" stroke-opacity="0.6" stroke-width="1.5" stroke-linecap="round"/>
+</svg>

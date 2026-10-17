@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Nimm 3 Fruchtbonbons</title>
+<defs>
+<linearGradient id="ppfb" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFE388"/><stop offset="0.22" stop-color="#FFD23F"/><stop offset="0.55" stop-color="#FFD23F"/><stop offset="0.85" stop-color="#B7942E"/><stop offset="1" stop-color="#7C6120"/></linearGradient>
+<linearGradient id="ppfc" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FF9991"/><stop offset="0.22" stop-color="#FF5A4E"/><stop offset="0.55" stop-color="#FF5A4E"/><stop offset="0.85" stop-color="#B74238"/><stop offset="1" stop-color="#7C2F27"/></linearGradient>
+<linearGradient id="ppfao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M23,15L26.4,10L29.8,15L33.1,10L36.5,15L39.9,10L43.3,15L46.6,10L50,15L53.4,10L56.8,15L60.1,10L63.5,15L66.9,10L70.3,15L73.6,10L77,15C81.5,40 81.5,70 78,89Q77,94.5 71,94.5H29Q23,94.5 22,89C18.5,70 18.5,40 23,15Z" fill="url(#ppfb)" stroke="#7C6120" stroke-width="1.5" stroke-opacity="0.7"/>
+<rect x="22" y="83.5" width="56" height="11" fill="url(#ppfao)"/>
+<rect x="23" y="17" width="54" height="2.5" fill="#1E100A" fill-opacity="0.3"/>
+<rect x="30" y="23" width="3" height="62" rx="1.5" fill="#FFFFFF" fill-opacity="0.25"/>
+<rect x="64" y="25" width="2.5" height="58" rx="1.2" fill="#FFFFFF" fill-opacity="0.18"/>
+<path d="M21,34Q50,37 79,34V62Q50,65 21,62Z" fill="url(#ppfc)"/>
+<text x="50" y="53" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="900" text-anchor="middle" textLength="38" lengthAdjust="spacingAndGlyphs" fill="#FFFFFF">NIMM 3</text>
+<ellipse cx="36" cy="78" rx="6.5" ry="5.5" fill="#FF5A4E"/>
+<path d="M29.5,78L24.5,74.5V81.5ZM42.5,78L47.5,74.5V81.5Z" fill="#FFF7E8"/>
+<ellipse cx="65" cy="78" rx="6.5" ry="5.5" fill="#FF5A4E"/>
+<path d="M58.5,78L53.5,74.5V81.5ZM71.5,78L76.5,74.5V81.5Z" fill="#FFF7E8"/>
+</svg>

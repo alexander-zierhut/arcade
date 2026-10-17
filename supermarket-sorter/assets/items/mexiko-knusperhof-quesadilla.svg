@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Alt El Paso Taco Kit</title>
+<defs>
+<linearGradient id="adilla-f" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#FFE388"/><stop offset="0.35" stop-color="#FFD23F"/><stop offset="1" stop-color="#FFD23F"/></linearGradient>
+<linearGradient id="adilla-v" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#FF9991"/><stop offset="0.4" stop-color="#FF5A4E"/><stop offset="1" stop-color="#E24C42"/></linearGradient>
+<linearGradient id="adilla-ao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M18,15H68V93.5H18Z" fill="url(#adilla-f)"/>
+<path d="M68,15L80,9V87.5L68,93.5Z" fill="#B7942E"/>
+<path d="M18,15H68L80,9H30Z" fill="#FFE388"/>
+<path d="M18,82.5H68V93.5H18Z" fill="url(#adilla-ao)"/>
+<path d="M68,82.5L80,76.5V87.5L68,93.5Z" fill="url(#adilla-ao)"/>
+<path d="M68,15V93.5" fill="none" stroke="#7C6120" stroke-width="1" stroke-opacity="0.5"/>
+<rect x="18" y="20" width="50" height="24" fill="url(#adilla-v)"/>
+<path d="M68,20L80,14V38L68,44Z" fill="#B74238"/>
+<text x="43" y="36" font-size="12" font-weight="900" font-family="Arial, Helvetica, sans-serif" text-anchor="middle" textLength="44" lengthAdjust="spacingAndGlyphs" fill="#FFFFFF">ALT PASO</text>
+<circle cx="43" cy="70" r="17" fill="#FFF7E8"/>
+<path d="M31,75C31,57 55,57 55,75Z" fill="#FF8C2E"/>
+<path d="M33.5,67Q37,61 41,67T48.5,67T54,68" fill="none" stroke="#3ECF6A" stroke-width="2" stroke-linecap="round"/>
+<circle cx="40" cy="71" r="2" fill="#FF5A4E"/><circle cx="47.5" cy="71.5" r="2" fill="#FF5A4E"/>
+</svg>

@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Frühlingsgruß Tulpenstrauß</title>
+<defs>
+<linearGradient id="qpp" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFA6D1"/><stop offset="0.22" stop-color="#FF6FB5"/><stop offset="0.55" stop-color="#FF6FB5"/><stop offset="0.85" stop-color="#B7517E"/><stop offset="1" stop-color="#7C3852"/></linearGradient>
+<linearGradient id="qpg" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#87E1A3"/><stop offset="0.45" stop-color="#3ECF6A"/><stop offset="1" stop-color="#34924B"/></linearGradient>
+<linearGradient id="qpc" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFFAF1"/><stop offset="0.22" stop-color="#FFF7E8"/><stop offset="0.55" stop-color="#FFF7E8"/><stop offset="0.85" stop-color="#B7ADA1"/><stop offset="1" stop-color="#7C7167"/></linearGradient>
+<linearGradient id="qpy" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFE388"/><stop offset="0.5" stop-color="#FFD23F"/><stop offset="1" stop-color="#B7942E"/></linearGradient>
+<linearGradient id="qpao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<ellipse cx="50" cy="54" rx="30" ry="5.4" fill="#B7ADA1"/>
+<path d="M48.3,36H51.7V58H48.3ZM32,47L35,46L47,56V59ZM68,47L65,46L53,56V59Z" fill="#34924B"/>
+<path d="M50,56C43.5,60.7 30,50.6 26.8,40.3C37.5,39.4 51.9,48.2 50,56Z" fill="url(#qpg)"/>
+<path d="M50,56C48.1,48.2 62.5,39.4 73.2,40.3C70,50.6 56.5,60.7 50,56Z" fill="url(#qpg)"/>
+<path d="M22,28L28.6,34.4L33,28L37.4,34.4L44,28Q46.2,42 33,48Q19.8,42 22,28Z" fill="url(#qpp)"/>
+<path d="M26.4,36Q33,31 39.6,36Q37.4,45 33,47Q28.6,45 26.4,36Z" fill="#FFA6D1" fill-opacity="0.55"/>
+<path d="M56,28L62.6,34.4L67,28L71.4,34.4L78,28Q80.2,42 67,48Q53.8,42 56,28Z" fill="url(#qpp)"/>
+<path d="M60.4,36Q67,31 73.6,36Q71.4,45 67,47Q62.6,45 60.4,36Z" fill="#FFA6D1" fill-opacity="0.55"/>
+<path d="M36.5,10.5L44.6,18.5L50,10.5L55.4,18.5L63.5,10.5Q66.2,28 50,35.5Q33.8,28 36.5,10.5Z" fill="url(#qpp)"/>
+<path d="M41.9,20.5Q50,14.3 58.1,20.5Q55.4,31.8 50,34.3Q44.6,31.8 41.9,20.5Z" fill="#FFA6D1" fill-opacity="0.55"/>
+<path d="M20,54Q50,64.8 80,54L60,92.6Q50,95.4 40,92.6Z" fill="url(#qpc)" stroke="#7C7167" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<path d="M20,54Q50,64.8 80,54L50,80Z" fill="url(#qpp)"/>
+<path d="M34.9,83H65.1L60,92.6Q50,95.4 40,92.6Z" fill="url(#qpao)"/>
+<path d="M50,76L38,70V82ZM50,76L62,70V82Z" fill="url(#qpy)"/>
+<circle cx="50" cy="76" r="4" fill="url(#qpy)"/>
+</svg>

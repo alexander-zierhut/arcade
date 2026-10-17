@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Choco Knuspis</title>
+<defs>
+<linearGradient id="q9xfv" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#AD8F7B"/><stop offset="0.35" stop-color="#7A4A2A"/><stop offset="1" stop-color="#7A4A2A"/></linearGradient>
+<linearGradient id="q9xsh" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFFFFF" stop-opacity="0.2"/><stop offset="0.5" stop-color="#FFFFFF" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.2"/></linearGradient>
+<linearGradient id="q9xao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<rect x="20" y="18" width="52" height="75.5" fill="url(#q9xfv)"/>
+<path d="M72,18L80,11V86.5L72,93.5Z" fill="#5D3720"/>
+<path d="M20,18H72L80,11H28Z" fill="#AD8F7B"/>
+<text x="46" y="31" font-family="Arial, Helvetica, sans-serif" font-size="11.5" font-weight="900" text-anchor="middle" textLength="40" lengthAdjust="spacingAndGlyphs" fill="#FFF7E8">KNUSPIS</text>
+<rect x="24" y="38" width="44" height="48" rx="5" fill="#FFF7E8"/>
+<path d="M29,60H63Q63,78 46,78Q29,78 29,60Z" fill="#4FB6FF"/>
+<ellipse cx="46" cy="60" rx="17" ry="3" fill="#92D2FF"/>
+<circle cx="38" cy="56" r="5.5" fill="#7A4A2A"/><circle cx="47" cy="52" r="5.5" fill="#7A4A2A"/><circle cx="55" cy="56" r="5.5" fill="#7A4A2A"/>
+<path d="M58,43Q61,47 61,49A3,3 0 0 1 55,49Q55,47 58,43Z" fill="#4FB6FF"/>
+<rect x="20" y="18" width="52" height="75.5" fill="url(#q9xsh)"/>
+<path d="M20,18H72V93.5" fill="none" stroke="#5D3720" stroke-width="1" stroke-opacity="0.5"/>
+<path d="M20,82.5H72L80,75.5V86.5L72,93.5H20Z" fill="url(#q9xao)"/>
+<path d="M20,18L28,11H80V86.5L72,93.5H20Z" fill="none" stroke="#452817" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+</svg>

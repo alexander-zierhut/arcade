@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Dorfglück Kochschinken</title>
+<defs>
+<linearGradient id="lpb" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#C2ADFF"/><stop offset="0.25" stop-color="#9D7BFF"/><stop offset="0.55" stop-color="#9D7BFF"/><stop offset="0.88" stop-color="#7459B1"/><stop offset="1" stop-color="#533D71"/></linearGradient>
+<linearGradient id="lpao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M22,11L24,7L26,11L28,7L30,11L32,7L34,11L36,7L38,11L40,7L42,11L44,7L46,11L48,7L50,11L52,7L54,11L56,7L58,11L60,7L62,11L64,7L66,11L68,7L70,11L72,7L74,11L76,7L78,11Q82,20 82,55Q82,85 78,92Q50,97 22,92Q18,85 18,55Q18,20 22,11Z" fill="url(#lpb)" stroke="#533D71" stroke-width="1.5" stroke-opacity="0.7"/>
+<path d="M18.2,82H81.8Q81,88 78,92Q50,97 22,92Q19,88 18.2,82Z" fill="url(#lpao)"/>
+<rect x="23" y="11" width="54" height="8" fill="#FFFFFF" fill-opacity="0.18"/>
+<rect x="22" y="19" width="56" height="2" fill="#1E100A" fill-opacity="0.3"/>
+<rect x="26" y="26" width="48" height="54" rx="7" fill="#FFF7E8"/>
+<path d="M39,47L37.5,35L47,41Z" fill="#B7517E"/><path d="M61,47L62.5,35L53,41Z" fill="#B7517E"/>
+<circle cx="50" cy="54" r="13" fill="#FF6FB5"/>
+<ellipse cx="50" cy="59" rx="6.5" ry="4.5" fill="#FFA6D1"/>
+<path d="M46.3,59a1.2,1.7 0 1 0 2.4,0a1.2,1.7 0 1 0 -2.4,0ZM51.3,59a1.2,1.7 0 1 0 2.4,0a1.2,1.7 0 1 0 -2.4,0Z" fill="#B7517E"/>
+<path d="M42.4,50a1.7,2.1 0 1 0 3.4,0a1.7,2.1 0 1 0 -3.4,0ZM54.2,50a1.7,2.1 0 1 0 3.4,0a1.7,2.1 0 1 0 -3.4,0Z" fill="#1E100A"/>
+<rect x="24.5" y="26" width="3" height="56" rx="1.5" fill="#FFFFFF" fill-opacity="0.25"/>
+<rect x="70" y="26" width="3" height="56" rx="1.5" fill="#FFFFFF" fill-opacity="0.25"/>
+</svg>

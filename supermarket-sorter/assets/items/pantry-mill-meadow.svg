@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Kornlicht Weizenmehl</title>
+<defs>
+<linearGradient id="pmm-b" gradientUnits="userSpaceOnUse" x1="18" x2="82" y1="0" y2="0"><stop offset="0" stop-color="#87E1A3"/><stop offset="0.22" stop-color="#3ECF6A"/><stop offset="0.55" stop-color="#3ECF6A"/><stop offset="0.85" stop-color="#34924B"/><stop offset="1" stop-color="#2B6032"/></linearGradient>
+<linearGradient id="pmm-t" gradientUnits="userSpaceOnUse" x1="33" x2="67" y1="0" y2="0"><stop offset="0" stop-color="#AD8F7B"/><stop offset="0.3" stop-color="#7A4A2A"/><stop offset="0.85" stop-color="#5D3720"/><stop offset="1" stop-color="#452817"/></linearGradient>
+<linearGradient id="pmm-ao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M36,22L33,9L38.5,12.5L44,8L50,12.5L56,8L61.5,12.5L67,9L64,22Z" fill="url(#pmm-b)" stroke="#2B6032" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<path d="M30,26Q18,34 18,52V86Q18,94.5 27,94.5H73Q82,94.5 82,86V52Q82,34 70,26Z" fill="url(#pmm-b)" stroke="#2B6032" stroke-width="1.5" stroke-opacity="0.7"/>
+<path d="M18,83.5H82V86Q82,94.5 73,94.5H27Q18,94.5 18,86Z" fill="url(#pmm-ao)"/>
+<rect x="25" y="36" width="3" height="46" rx="1.5" fill="#FFFFFF" fill-opacity="0.25"/>
+<rect x="71" y="40" width="2.5" height="40" rx="1.2" fill="#FFFFFF" fill-opacity="0.25"/>
+<ellipse cx="50" cy="63" rx="19" ry="21" fill="#FFF7E8"/>
+<rect x="49" y="52" width="2" height="24" rx="1" fill="#7A4A2A"/>
+<ellipse cx="50" cy="52" rx="2.6" ry="5" fill="#7A4A2A"/>
+<ellipse cx="44" cy="58" rx="2.4" ry="5.2" transform="rotate(-35 44 58)" fill="#7A4A2A"/>
+<ellipse cx="56" cy="58" rx="2.4" ry="5.2" transform="rotate(35 56 58)" fill="#7A4A2A"/>
+<ellipse cx="44.5" cy="67" rx="2.4" ry="5.2" transform="rotate(-35 44.5 67)" fill="#7A4A2A"/>
+<rect x="31" y="27" width="38" height="4" fill="#1E100A" fill-opacity="0.3"/>
+<rect x="33" y="20" width="34" height="7" rx="2.5" fill="url(#pmm-t)" stroke="#452817" stroke-width="1.5" stroke-opacity="0.7"/>
+</svg>

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Roter Büffel Energy</title>
+<defs></defs>
+<path d="M26 15V86A24 7.5 0 0 0 74 86V15Z" fill="#2F6BD6" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M27.5 15H72.5V35L27.5 41Z" fill="#DCE4EA"/>
+<path d="M27.5 41L72.5 35" fill="none" stroke="#2A1B12" stroke-width="2"/>
+<rect x="63" y="42" width="9.5" height="44" fill="#000000" fill-opacity="0.12"/>
+<rect x="29.5" y="46" width="3" height="38" rx="1.5" fill="#FFFFFF" fill-opacity="0.35"/>
+<text x="50" y="31" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="900" text-anchor="middle" fill="#1F3A5F">ROTER</text>
+<circle cx="50" cy="48" r="9.5" fill="#F7C948" stroke="#2A1B12" stroke-width="1.5"/>
+<g><path d="M28 54Q28 50 33 50H40Q43 47 46 49L48.5 53L47 56H44Q43 59 41 59V66H38.5L38 60H33L32.5 66H30L29.5 59Q28 58 28 54Z" fill="#E8453C" stroke="#2A1B12" stroke-width="1.5" stroke-linejoin="round"/><path d="M44.5 50Q49.5 49 49.5 42" fill="none" stroke="#FFF6E0" stroke-width="2.6" stroke-linecap="round"/></g>
+<g transform="translate(100 0) scale(-1 1)"><path d="M28 54Q28 50 33 50H40Q43 47 46 49L48.5 53L47 56H44Q43 59 41 59V66H38.5L38 60H33L32.5 66H30L29.5 59Q28 58 28 54Z" fill="#E8453C" stroke="#2A1B12" stroke-width="1.5" stroke-linejoin="round"/><path d="M44.5 50Q49.5 49 49.5 42" fill="none" stroke="#FFF6E0" stroke-width="2.6" stroke-linecap="round"/></g>
+<text x="50" y="80" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="900" text-anchor="middle" fill="#FFF6E0">BÜFFEL</text>
+<ellipse cx="50" cy="15" rx="24" ry="4.5" fill="#DCE4EA" stroke="#2A1B12" stroke-width="3"/>
+<rect x="44" y="13" width="12" height="4" rx="2" fill="#A9B6C2" stroke="#2A1B12" stroke-width="1.5"/>
+</svg>

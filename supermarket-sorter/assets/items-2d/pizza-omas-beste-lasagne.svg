@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Omas Beste Lasagne</title>
+<rect x="21.5" y="10" width="57" height="83.5" rx="2" fill="#A23FB0" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round"/>
+<rect x="21.5" y="10" width="57" height="6" rx="2" fill="#FFFFFF" fill-opacity="0.2"/>
+<rect x="71" y="11.5" width="7" height="80" fill="#000000" fill-opacity="0.12"/>
+<rect x="25" y="22" width="50" height="50" rx="3" fill="#FFF6E0" stroke="#2A1B12" stroke-width="2"/>
+<text x="50" y="34" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="900" text-anchor="middle" fill="#2A1B12">OMAS</text>
+<rect x="29" y="41" width="42" height="10" rx="3" fill="#FFD766" stroke="#2A1B12" stroke-width="2"/>
+<rect x="29" y="51" width="42" height="21" rx="2" fill="#B8362B" stroke="#2A1B12" stroke-width="2"/>
+<path d="M31,57H69M31,64H69" fill="none" stroke="#F6E3A8" stroke-width="2.5" stroke-linecap="round"/>
+<rect x="23.5" y="12" width="3.5" height="79" rx="1.8" fill="#FFFFFF" fill-opacity="0.35"/>
+</svg>

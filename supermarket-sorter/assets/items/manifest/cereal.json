@@ -1,0 +1,49 @@
+{
+  "category": "cereal",
+  "items": [
+    {
+      "id": "cereal-sunny-crunch",
+      "file": "cereal-sunny-crunch.svg",
+      "name": "Kellos Cornflakes",
+      "class": "box",
+      "color": "#3ECF6A",
+      "accent": "#FF5A4E",
+      "label": "KELLOS",
+      "icon": "bowl of golden cornflakes",
+      "description": "Winks at the famous Kellogg's Corn Flakes box: leaf-green box with a cream front panel, the coral italic brand word KELLOS and a bowl of golden flakes"
+    },
+    {
+      "id": "cereal-choco-boing",
+      "file": "cereal-choco-boing.svg",
+      "name": "Choco Knuspis",
+      "class": "box",
+      "color": "#7A4A2A",
+      "accent": "#4FB6FF",
+      "label": "KNUSPIS",
+      "icon": "bowl of chocolate puffs with milk splash",
+      "description": "Winks at the Choco Krispies box: chocolate-brown box with the word KNUSPIS and a cream panel showing a bowl of chocolate puffs with a splash of milk"
+    },
+    {
+      "id": "cereal-blue-meadow",
+      "file": "cereal-blue-meadow.svg",
+      "name": "Kölle Blütenzarte Haferflocken",
+      "class": "box",
+      "color": "#3B6CFF",
+      "accent": "#FFFFFF",
+      "label": "KÖLLE",
+      "icon": "oat ear",
+      "description": "Winks at the Kölln Blütenzarte Haferflocken box: cobalt box with a cream oval badge saying KÖLLE and a golden oat ear"
+    },
+    {
+      "id": "cereal-nutty-trail",
+      "file": "cereal-nutty-trail.svg",
+      "name": "Krümelwald Erdnuss-Müsli",
+      "class": "bag",
+      "color": "#FF6FB5",
+      "accent": "#D9A86B",
+      "label": "",
+      "icon": "peanut",
+      "description": "Chunky candy-pink muesli pouch with a crimped kraft-tan seal and a big peanut in an oval cream window"
+    }
+  ]
+}

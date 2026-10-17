@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Weidenzauber Buttermilch</title>
+<defs>
+<linearGradient id="bf" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#FFE388"/><stop offset="0.35" stop-color="#FFD23F"/><stop offset="1" stop-color="#FFD23F"/></linearGradient>
+<linearGradient id="br" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#85A4FF"/><stop offset="0.35" stop-color="#3B6CFF"/><stop offset="1" stop-color="#3B6CFF"/></linearGradient>
+<linearGradient id="bs" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#B7942E"/><stop offset="1" stop-color="#7C6120"/></linearGradient>
+<linearGradient id="bao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M22,35H66V94.5H22Z" fill="url(#bf)" stroke="#7C6120" stroke-width="1.5" stroke-opacity="0.7"/>
+<path d="M66,35L78,29V88.5L66,94.5Z" fill="url(#bs)" stroke="#7C6120" stroke-width="1.5" stroke-opacity="0.7"/>
+<path d="M22,88.5H66V94.5H22Z" fill="url(#bao)"/>
+<path d="M66,87.5L78,81.5V88.5L66,94.5Z" fill="url(#bao)"/>
+<path d="M66,35L78,29L72,18Z" fill="#324FB1" stroke="#2A3771" stroke-width="1.5" stroke-opacity="0.7"/>
+<path d="M22,35H66L72,18H28Z" fill="url(#br)" stroke="#2A3771" stroke-width="1.5" stroke-opacity="0.7"/>
+<rect x="22" y="35" width="44" height="2.2" fill="#1E100A" fill-opacity="0.3"/>
+<path d="M28,18H72V11H28Z" fill="#85A4FF" stroke="#2A3771" stroke-width="1.5" stroke-opacity="0.7"/>
+<path d="M72,18V11L75,9.5V16.5Z" fill="#324FB1" stroke="#2A3771" stroke-width="1.5" stroke-opacity="0.7"/>
+<rect x="27" y="48" width="34" height="32" rx="4" fill="#FFFFFF"/>
+<path d="M44,53Q55,66 52.5,72Q50,77.5 44,77.5Q38,77.5 35.5,72Q33,66 44,53Z" fill="#3B6CFF"/>
+</svg>

@@ -1,0 +1,49 @@
+{
+  "category": "konserven",
+  "items": [
+    {
+      "id": "konserven-alpenhof-sauerkraut",
+      "file": "konserven-alpenhof-sauerkraut.svg",
+      "name": "Mildessi Sauerkraut",
+      "class": "jar",
+      "color": "#FFD23F",
+      "accent": "#FF8C2E",
+      "label": "MILDESSI",
+      "icon": "cabbage",
+      "description": "Parody of the Mildessa sauerkraut jar: sun yellow glass jar with an orange lid and a cream label with an orange band and the word MILDESSI above a green cabbage"
+    },
+    {
+      "id": "konserven-omas-rotkohl",
+      "file": "konserven-omas-rotkohl.svg",
+      "name": "Omas Beste Rotkohl",
+      "class": "jar",
+      "color": "#FF6FB5",
+      "accent": "#FFD23F",
+      "label": "",
+      "icon": "red cabbage",
+      "description": "Glass jar of magenta red cabbage with a sun yellow screw lid and a cream label showing one big red cabbage"
+    },
+    {
+      "id": "konserven-hofgut-gurken",
+      "file": "konserven-hofgut-gurken.svg",
+      "name": "Kühno Gewürzgurken",
+      "class": "jar",
+      "color": "#3ECF6A",
+      "accent": "#FF5A4E",
+      "label": "KÜHNO",
+      "icon": "gherkin",
+      "description": "Parody of the Kühne gherkin jar: green glass jar of pickled gherkins with a coral red screw lid and a cream label with the word KÜHNO above a green gherkin"
+    },
+    {
+      "id": "konserven-tannenblick-erbsen",
+      "file": "konserven-tannenblick-erbsen.svg",
+      "name": "Tannenblick Erbsen und Möhren",
+      "class": "can",
+      "color": "#4FB6FF",
+      "accent": "#FF8C2E",
+      "label": "",
+      "icon": "peas and carrot",
+      "description": "Sky blue vegetable can with metal rims and a cream label showing an orange carrot with green leaves and three green peas"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100"><title>Minzi Pfefferminz</title>
+<path d="M24,20V88.5Q24,93.5 29,93.5H71Q76,93.5 76,88.5V20Z" fill="#3FA34D" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round"/>
+<rect x="66" y="20" width="9.5" height="73.5" fill="#000000" fill-opacity="0.12"/>
+<rect x="27" y="28" width="3" height="60" rx="1.5" fill="#FFFFFF" fill-opacity="0.35"/>
+<rect x="28" y="32" width="44" height="52" rx="3" fill="#FFFFFF" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+<text x="50" y="46" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="11" text-anchor="middle" fill="#3FA34D">MINZI</text>
+<path d="M50,50C70,56 72,71 50,83C28,71 30,56 50,50Z" fill="#3FA34D" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+<path d="M50,53V81M50,64L42,60M50,70L58,66" fill="none" stroke="#2A1B12" stroke-width="1.5" stroke-linecap="round"/>
+<ellipse cx="50" cy="20" rx="26" ry="5.5" fill="#FFF6E0" stroke="#2A1B12" stroke-width="2.5"/>
+<ellipse cx="50" cy="20" rx="21" ry="3.5" fill="none" stroke="#2A1B12" stroke-width="1.5"/>
+<rect x="44" y="17.5" width="12" height="5" rx="2.5" fill="#FFFFFF" stroke="#2A1B12" stroke-width="1.5"/>
+<path d="M24,20V88.5Q24,93.5 29,93.5H71Q76,93.5 76,88.5V20Z" fill="none" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round"/>
+</svg>

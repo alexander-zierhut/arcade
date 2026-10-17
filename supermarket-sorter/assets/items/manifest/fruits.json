@@ -1,0 +1,49 @@
+{
+  "category": "fruits",
+  "items": [
+    {
+      "id": "fruits-seedy-sweet",
+      "file": "fruits-seedy-sweet.svg",
+      "name": "Naschgarten Erdbeeren",
+      "class": "tub",
+      "color": "#FF5A4E",
+      "accent": "#FFF7E8",
+      "label": "",
+      "icon": "strawberry",
+      "description": "Coral-red tub heaped with plump strawberries with green calyxes and yellow seeds, a cream label band with one big strawberry. Generic German tub of strawberries, brand Naschgarten."
+    },
+    {
+      "id": "fruits-tiki-tango",
+      "file": "fruits-tiki-tango.svg",
+      "name": "Zesprit Kiwi",
+      "class": "loose",
+      "color": "#3ECF6A",
+      "accent": "#7A4A2A",
+      "label": "ZESPRIT",
+      "icon": "kiwi with cut half",
+      "description": "Parody of the Zespri kiwi: one whole brown fuzzy kiwi with a white oval sticker saying ZESPRIT and a cut half in front showing bright green flesh, cream core and a ring of dark seeds. Natural proportions, no stretching."
+    },
+    {
+      "id": "fruits-violet-vine",
+      "file": "fruits-violet-vine.svg",
+      "name": "Rebenglück Blaue Trauben",
+      "class": "loose",
+      "color": "#9D7BFF",
+      "accent": "#3ECF6A",
+      "label": "",
+      "icon": "grape bunch",
+      "description": "Natural tapering bunch of thirteen blue-violet grapes hanging from a brown stem with one green vine leaf. Generic German supermarket blue grapes, product Blaue Trauben."
+    },
+    {
+      "id": "fruits-sunbeam-sour",
+      "file": "fruits-sunbeam-sour.svg",
+      "name": "Sauerlustig Zitronen",
+      "class": "bag",
+      "color": "#A6E22E",
+      "accent": "#FFD23F",
+      "label": "",
+      "icon": "lemons",
+      "description": "Lime-green net bag with a crimped yellow seal, four bright yellow lemons inside and a cream label with a lemon. German brand Sauerlustig, product Zitronen."
+    }
+  ]
+}

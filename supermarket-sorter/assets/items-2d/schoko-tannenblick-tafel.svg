@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100"><title>Milki Alpenmilch</title>
+<rect x="21" y="9" width="58" height="84.5" rx="3" fill="#8E5BD9" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round"/>
+<rect x="21" y="9" width="58" height="7" rx="3" fill="#FFFFFF" fill-opacity="0.2"/>
+<text x="50" y="36" font-family="Arial, Helvetica, sans-serif" font-weight="900" text-anchor="middle" font-size="16" font-style="italic" fill="#FFFFFF" stroke="#2A1B12" stroke-width="0.8">Milki</text>
+<text x="50" y="47" font-family="Arial, Helvetica, sans-serif" font-weight="900" text-anchor="middle" font-size="9" fill="#FFFFFF">ALPEN</text>
+<rect x="27" y="53" width="46" height="34" rx="3" fill="#C9B0F2" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+<polygon points="28,79 42,56 50,68 58,59 72,79" fill="#FFFFFF" stroke="#2A1B12" stroke-width="1.8" stroke-linejoin="round"/>
+<path d="M42,56L38.5,62L42,60.5L45,63L50,68" fill="#8E5BD9" fill-opacity="0.35"/>
+<path d="M28,79H72V84Q72,86 70,86H30Q28,86 28,84Z" fill="#3FA34D" stroke="#2A1B12" stroke-width="1.8" stroke-linejoin="round"/>
+<rect x="23.5" y="20" width="3.5" height="68" rx="1.8" fill="#FFFFFF" fill-opacity="0.35"/>
+<rect x="68" y="16" width="10" height="76" fill="#000000" fill-opacity="0.12"/>
+</svg>

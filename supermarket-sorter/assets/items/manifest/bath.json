@@ -1,0 +1,49 @@
+{
+  "category": "bath",
+  "items": [
+    {
+      "id": "bath-pinky-pop",
+      "file": "bath-pinky-pop.svg",
+      "name": "Blubbi Schaumbad",
+      "class": "bottle",
+      "color": "#FF6FB5",
+      "accent": "#FFD23F",
+      "label": "",
+      "icon": "bubbles",
+      "description": "Chubby candy-pink glossy bubble bath bottle with a big sun-yellow cap and three sky-blue bubbles on a white label band"
+    },
+    {
+      "id": "bath-drippy-dew",
+      "file": "bath-drippy-dew.svg",
+      "name": "Niveo Creme",
+      "class": "loose",
+      "color": "#3B6CFF",
+      "accent": "#FFFFFF",
+      "label": "NIVEO",
+      "icon": "tin",
+      "description": "Parody of the Nivea cream tin: two stacked round cobalt-blue tins with light tops, the upper tin carrying the white word NIVEO"
+    },
+    {
+      "id": "bath-frosty-peak",
+      "file": "bath-frosty-peak.svg",
+      "name": "Nordi Deo-Stift",
+      "class": "can",
+      "color": "#3ECF6A",
+      "accent": "#FFF7E8",
+      "label": "",
+      "icon": "snowflake",
+      "description": "Tall leaf-green deodorant stick with a big cream-white cap and a white label band with a green snowflake"
+    },
+    {
+      "id": "bath-daisy-dream",
+      "file": "bath-daisy-dream.svg",
+      "name": "Blumi Körpercreme",
+      "class": "tub",
+      "color": "#FFD23F",
+      "accent": "#FF8C2E",
+      "label": "",
+      "icon": "daisy",
+      "description": "Wide sun-yellow body cream tub with a big orange lid and a white label band with an orange daisy"
+    }
+  ]
+}

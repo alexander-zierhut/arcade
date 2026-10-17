@@ -1,0 +1,49 @@
+{
+  "category": "breakfast",
+  "items": [
+    {
+      "id": "breakfast-fluffy-stack",
+      "file": "breakfast-fluffy-stack.svg",
+      "name": "Omas Beste Pfannkuchenmix",
+      "class": "box",
+      "color": "#2FD5C8",
+      "accent": "#FFD23F",
+      "label": "",
+      "icon": "pancake stack",
+      "description": "Turquoise pancake mix box (Pfannkuchenmix) with a yellow top flap and a cream label with a stack of three golden pancakes and butter"
+    },
+    {
+      "id": "breakfast-drippy-maple",
+      "file": "breakfast-drippy-maple.svg",
+      "name": "Tannenblick Ahornsirup",
+      "class": "bottle",
+      "color": "#A6E22E",
+      "accent": "#7A4A2A",
+      "label": "",
+      "icon": "maple leaf",
+      "description": "Squat lime-green glass maple syrup bottle (Ahornsirup) with a chocolate-brown cap and a cream label with one big brown maple leaf"
+    },
+    {
+      "id": "breakfast-cozy-cup",
+      "file": "breakfast-cozy-cup.svg",
+      "name": "Kabba Kakao",
+      "class": "can",
+      "color": "#FF5A4E",
+      "accent": "#FFD23F",
+      "label": "KABBA",
+      "icon": "mug of cocoa",
+      "description": "Winks at the Kaba cocoa powder tin: coral-red tin with a yellow lid and a yellow label band with a steaming mug of cocoa and the word KABBA"
+    },
+    {
+      "id": "breakfast-hay-bale",
+      "file": "breakfast-hay-bale.svg",
+      "name": "Heuhof Müsliriegel",
+      "class": "bag",
+      "color": "#9D7BFF",
+      "accent": "#FFD23F",
+      "label": "",
+      "icon": "muesli bar",
+      "description": "Lavender muesli bar pouch (Müsliriegel) with a yellow zigzag top seal and a cream label with one golden oat bar"
+    }
+  ]
+}

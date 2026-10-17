@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Mütti Polpa</title>
+<path d="M24,17V89.5Q50,97.5 76,89.5V17Z" fill="#D92B3A" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="24" y="36" width="52" height="34" fill="#FFFFFF" stroke="#2A1B12" stroke-width="2"/>
+<text x="50" y="50.5" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="900" text-anchor="middle" fill="#C4202F">MÜTTI</text>
+<circle cx="39" cy="62" r="6.5" fill="#E8453C" stroke="#2A1B12" stroke-width="2"/>
+<circle cx="57" cy="62" r="6.5" fill="#E8453C" stroke="#2A1B12" stroke-width="2"/>
+<path d="M34,56Q39,52 44,56Q39,57 34,56ZM52,56Q57,52 62,56Q57,57 52,56Z" fill="#3FA34D" stroke="#2A1B12" stroke-width="1.5" stroke-linejoin="round"/>
+<path d="M24,26Q50,32 76,26M24,84Q50,91 76,84" fill="none" stroke="#2A1B12" stroke-width="1.5" stroke-linecap="round"/>
+<text x="50" y="80" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="900" text-anchor="middle" fill="#FFFFFF">POLPA</text>
+<rect x="66" y="22" width="9" height="64" rx="3" fill="#000000" fill-opacity="0.12"/>
+<rect x="27" y="22" width="4" height="62" rx="2" fill="#FFFFFF" fill-opacity="0.35"/>
+<ellipse cx="50" cy="17" rx="26" ry="5.5" fill="#F4EBD0" stroke="#2A1B12" stroke-width="3"/>
+<ellipse cx="50" cy="17" rx="15" ry="2.8" fill="none" stroke="#2A1B12" stroke-width="1.5"/>
+<ellipse cx="50" cy="17" rx="5" ry="1.6" fill="#D8CFAF" stroke="#2A1B12" stroke-width="1.2"/>
+</svg>

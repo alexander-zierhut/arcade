@@ -1,0 +1,49 @@
+{
+  "category": "burger",
+  "items": [
+    {
+      "id": "burger-goldkruste-cheeseburger",
+      "file": "burger-goldkruste-cheeseburger.svg",
+      "name": "Goldkruste Cheeseburger",
+      "class": "loose",
+      "color": "#E0963C",
+      "accent": "#FFD23F",
+      "label": "",
+      "icon": "cheeseburger",
+      "description": "Tall stacked cheeseburger with a sesame bun, patty, cheese, tomato and a lettuce frill, no text"
+    },
+    {
+      "id": "burger-senfhof-hotdog",
+      "file": "burger-senfhof-hotdog.svg",
+      "name": "Bökli Würstchen im Glas",
+      "class": "jar",
+      "color": "#4FB6FF",
+      "accent": "#FF5A4E",
+      "label": "BÖKLI",
+      "icon": "sausages in a jar",
+      "description": "Glass jar of sky-blue brine with a coral screw lid and upright coral frankfurter sausages, a cream label with a coral top stripe and the word BÖKLI; winks at the Böklunder Würstchen im Glas"
+    },
+    {
+      "id": "burger-frittenfritz-pommes",
+      "file": "burger-frittenfritz-pommes.svg",
+      "name": "Frittenfritz Pommes",
+      "class": "bag",
+      "color": "#FF6FB5",
+      "accent": "#FFD23F",
+      "label": "",
+      "icon": "french fries",
+      "description": "Candy-pink fry bag with a cream rim, a white label with three yellow fries and a fan of golden fries standing out of the top, no text"
+    },
+    {
+      "id": "burger-huehnerhof-nuggets",
+      "file": "burger-huehnerhof-nuggets.svg",
+      "name": "Hühnerhof Hähnchen-Nuggets",
+      "class": "box",
+      "color": "#3ECF6A",
+      "accent": "#FFD23F",
+      "label": "",
+      "icon": "chicken nugget",
+      "description": "Upright leaf-green box with a sun-yellow top band, three golden nuggets popping out of the open top and a big nugget on a cream label, no text"
+    }
+  ]
+}

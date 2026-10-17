@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Knusperhof Berliner</title>
+<defs>
+<linearGradient id="g0b" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFA6D1"/><stop offset="0.22" stop-color="#FF6FB5"/><stop offset="0.55" stop-color="#FF6FB5"/><stop offset="0.85" stop-color="#B7517E"/><stop offset="1" stop-color="#7C3852"/></linearGradient>
+<linearGradient id="g0ao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M22,14L26,9L30,14L34,9L38,14L42,9L46,14L50,9L54,14L58,9L62,14L66,9L70,14L74,9L78,14C83,36 83,70 81.5,88Q81.5,94.3 74,94.3H26Q18.5,94.3 18.5,88C17,70 17,36 22,14Z" fill="url(#g0b)" stroke="#7C3852" stroke-width="1.5" stroke-opacity="0.7"/>
+<path d="M21.8,15H78.2L79.2,23H20.8Z" fill="#FFFFFF" fill-opacity="0.2"/>
+<rect x="20.5" y="23" width="59" height="2.5" fill="#1E100A" fill-opacity="0.3"/>
+<rect x="24" y="28" width="3.5" height="58" rx="1.7" fill="#FFFFFF" fill-opacity="0.25"/>
+<rect x="72" y="30" width="3" height="52" rx="1.5" fill="#FFFFFF" fill-opacity="0.15"/>
+<rect x="27" y="32" width="46" height="50" rx="5" fill="#FFFFFF"/>
+<circle cx="50" cy="65" r="11" fill="#FF8C2E"/>
+<path d="M39.2,62A11,11 0 0 1 60.8,62Q55,57.5 50,59.5Q45,57.5 39.2,62Z" fill="#FF6FB5"/>
+<circle cx="44.5" cy="59.5" r="2" fill="#FFFFFF" fill-opacity="0.7"/>
+<path d="M18.5,83.3H81.5V88Q81.5,94.3 74,94.3H26Q18.5,94.3 18.5,88Z" fill="url(#g0ao)"/>
+</svg>

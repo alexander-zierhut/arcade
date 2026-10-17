@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Krümelwald Erdnuss-Müsli</title>
+<path d="M23 13Q17.5 50 21 84Q22 93.5 30 93.5H70Q78 93.5 79 84Q82.5 50 77 13Z" fill="#B84AA5" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M70 12H77.2Q80.5 50 79.2 84Q78.8 93.5 70 93.5Z" fill="#000000" fill-opacity="0.12"/>
+<rect x="23.5" y="20" width="4.5" height="66" rx="2.2" fill="#FFFFFF" fill-opacity="0.35"/>
+<path d="M20.5 17V11.5Q24.5 6.5 28.5 11.5T36.5 11.5T44.5 11.5T52.5 11.5T60.5 11.5T68.5 11.5T76.5 11.5V17Z" fill="#E0A95F" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<ellipse cx="50" cy="52" rx="21" ry="23" fill="#FFF1C9" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="50" y="43.5" font-family="Arial, Helvetica, sans-serif" font-weight="900" text-anchor="middle" font-size="9" fill="#2A1B12">MÜSLI</text>
+<g transform="translate(49 60) rotate(-35) scale(0.8)">
+<path d="M-9 -9.5C-4 -9.5 -3 -6.5 0 -6.5C3 -6.5 4 -9.5 9 -9.5A9.5 9.5 0 0 1 9 9.5C4 9.5 3 6.5 0 6.5C-3 6.5 -4 9.5 -9 9.5A9.5 9.5 0 0 1 -9 -9.5Z" fill="#D79A4E" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+<path d="M-11 -3h.1M-11 3h.1M-6 0h.1M11 -3h.1M11 3h.1M6 0h.1" stroke="#8C5A2B" stroke-width="2.4" stroke-linecap="round"/>
+</g>
+<text x="50" y="88" font-family="Arial, Helvetica, sans-serif" font-weight="900" text-anchor="middle" font-size="10" fill="#FFF6E0">KRÜMEL</text>
+</svg>

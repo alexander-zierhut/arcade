@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Blubberflosse Fischfutter</title>
+<defs>
+<linearGradient id="pbfzb" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#92D2FF"/><stop offset="0.22" stop-color="#4FB6FF"/><stop offset="0.55" stop-color="#4FB6FF"/><stop offset="0.85" stop-color="#3F81B1"/><stop offset="1" stop-color="#335671"/></linearGradient>
+<linearGradient id="pbfzl" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFE388"/><stop offset="0.22" stop-color="#FFD23F"/><stop offset="0.55" stop-color="#FFD23F"/><stop offset="0.85" stop-color="#B7942E"/><stop offset="1" stop-color="#7C6120"/></linearGradient>
+<linearGradient id="pbfzao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M20.5,31L23.5,88.5A26.5,5 0 0 0 76.5,88.5L79.5,31Z" fill="url(#pbfzb)" stroke="#335671" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<path d="M22.9,78H77.1L76.5,88.5A26.5,5 0 0 1 23.5,88.5Z" fill="url(#pbfzao)"/>
+<path d="M21,41Q50,51 79,41L77,80Q50,90 23,80Z" fill="#FFF7E8"/>
+<path d="M21,41Q50,51 79,41L77,80Q50,90 23,80Z" fill="url(#sh)"/>
+<rect x="34.7" y="38.5" width="4.7" height="39.4" rx="2.4" fill="#FFFFFF" fill-opacity="0.55"/>
+<ellipse cx="47" cy="66" rx="13" ry="10" fill="#FF8C2E"/>
+<polygon points="57,66 69,56 69,76" fill="#FF5A4E"/>
+<polygon points="43,58 49,51 54,59" fill="#FF5A4E"/>
+<circle cx="40" cy="63.5" r="2.8" fill="#FFFFFF"/>
+<circle cx="39.4" cy="63.5" r="1.4" fill="#1E100A"/>
+<path d="M20,31.5A30,5.2 0 0 0 80,31.5V34A30,5.2 0 0 1 20,34Z" fill="#1E100A" fill-opacity="0.3"/>
+<path d="M18.5,20.5V31A31.5,5.4 0 0 0 81.5,31V20.5Z" fill="url(#pbfzl)" stroke="#7C6120" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<ellipse cx="50" cy="20.5" rx="31.5" ry="5.4" fill="#FFE388"/>
+<ellipse cx="50" cy="21" rx="27" ry="4.2" fill="#FFD23F"/>
+<rect x="24" y="24" width="3" height="7" rx="1.5" fill="#FFFFFF" fill-opacity="0.5"/>
+</svg>

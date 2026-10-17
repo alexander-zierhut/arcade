@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Dorfmetzger Bratwürste</title>
+<defs>
+<linearGradient id="bra-b" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFE388"/><stop offset="0.22" stop-color="#FFD23F"/><stop offset="0.55" stop-color="#FFD23F"/><stop offset="0.85" stop-color="#B7942E"/><stop offset="1" stop-color="#7C6120"/></linearGradient>
+<linearGradient id="bra-k" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#AD8F7B"/><stop offset="0.22" stop-color="#7A4A2A"/><stop offset="0.6" stop-color="#7A4A2A"/><stop offset="0.88" stop-color="#5D3720"/><stop offset="1" stop-color="#452817"/></linearGradient>
+<linearGradient id="bra-ao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<g transform="translate(0,-1)">
+<path d="M21,22Q18,45 18,60Q18,80 20.5,90Q21.5,94.5 28.5,94.5H71.5Q78.5,94.5 79.5,90Q82,80 82,60Q82,45 79,22Z" fill="url(#bra-b)" stroke="#7C6120" stroke-width="1.5" stroke-opacity="0.7"/>
+<path d="M18.5,80Q18,85 20.5,90Q21.5,94.5 28.5,94.5H71.5Q78.5,94.5 79.5,90Q82,85 81.5,80Z" fill="url(#bra-ao)"/>
+<path d="M21,13l2.9,-4.5l2.9,4.5l2.9,-4.5l2.9,4.5l2.9,-4.5l2.9,4.5l2.9,-4.5l2.9,4.5l2.9,-4.5l2.9,4.5l2.9,-4.5l2.9,4.5l2.9,-4.5l2.9,4.5l2.9,-4.5l2.9,4.5l2.9,-4.5l2.9,4.5V23H21Z" fill="url(#bra-k)" stroke="#452817" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<rect x="21" y="23" width="58" height="2" fill="#1E100A" fill-opacity="0.3"/>
+<rect x="27" y="31" width="3" height="54" rx="1.5" fill="#FFFFFF" fill-opacity="0.25"/>
+<rect x="68" y="34" width="3" height="50" rx="1.5" fill="#FFFFFF" fill-opacity="0.25"/>
+<rect x="28" y="34" width="44" height="46" rx="5" fill="#FFF7E8"/>
+<path d="M32,57Q32,47 42,47H58Q68,47 68,57Q68,67 58,67H42Q32,67 32,57Z" fill="url(#bra-k)"/>
+<path d="M41,50L44,64M50,49L53,65M59,50L62,64" fill="none" stroke="#FFF7E8" stroke-width="2" stroke-linecap="round" stroke-opacity="0.85"/>
+<rect x="37" y="51" width="18" height="2.5" rx="1.2" fill="#AD8F7B"/>
+</g>
+</svg>

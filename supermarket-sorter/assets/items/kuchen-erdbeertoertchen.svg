@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Süssi Erdbeertörtchen</title>
+<defs>
+<linearGradient id="ker2b" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#87E1A3"/><stop offset="0.22" stop-color="#3ECF6A"/><stop offset="0.55" stop-color="#3ECF6A"/><stop offset="0.85" stop-color="#34924B"/><stop offset="1" stop-color="#2B6032"/></linearGradient>
+<linearGradient id="ker2c" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFFAF1"/><stop offset="0.25" stop-color="#FFF7E8"/><stop offset="0.6" stop-color="#FFF7E8"/><stop offset="0.88" stop-color="#B7ADA1"/><stop offset="1" stop-color="#7C7167"/></linearGradient>
+<linearGradient id="ker2ao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M19.5,29L22.5,89.6A27.5,4.9 0 0 0 77.5,89.6L80.5,29Z" fill="url(#ker2b)" stroke="#2B6032" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<path d="M20.2,44Q50,53 79.8,44L78.4,72Q50,81 21.6,72Z" fill="url(#ker2c)"/>
+<path d="M50,74Q40,66 41,56Q42,51 46,52Q50,53 54,52Q58,51 59,56Q60,66 50,74Z" fill="#FF5A4E"/><path d="M43,52Q50,45 57,52Q50,50 43,52Z" fill="#3ECF6A"/>
+<path d="M22,79.5H78L77.5,89.6A27.5,4.9 0 0 1 22.5,89.6Z" fill="url(#ker2ao)"/>
+<path d="M19.5,29V31A30.5,5.5 0 0 0 80.5,31V29A30.5,5.5 0 0 1 19.5,29Z" fill="#1E100A" fill-opacity="0.3"/>
+<path d="M18.5,24V29A31.5,5.7 0 0 0 81.5,29V24Z" fill="url(#ker2c)" stroke="#7C7167" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<ellipse cx="50" cy="24" rx="31.5" ry="5.7" fill="#FFF7E8" stroke="#7C7167" stroke-width="1.5" stroke-opacity="0.7"/>
+<ellipse cx="50" cy="24.3" rx="26" ry="4.5" fill="#FFFAF1"/>
+<rect x="33" y="40" width="4.4" height="40" rx="2.2" fill="#FFFFFF" fill-opacity="0.55"/>
+<rect x="71.5" y="44" width="2" height="32" rx="1" fill="#FFFFFF" fill-opacity="0.3"/>
+</svg>

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100"><title>Kühno Gewürzgurken</title>
+<path d="M30 27H70Q72 27 72 31Q79 36 79 44V84Q79 93.5 70 93.5H30Q21 93.5 21 84V44Q21 36 28 31Q28 27 30 27Z" fill="#3FA34D" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round"/>
+<path d="M67 36H72Q79 36 79 44V84Q79 93.5 70 93.5H67Z" fill="#000000" fill-opacity="0.12"/>
+<ellipse cx="38" cy="82" rx="10.5" ry="4.5" transform="rotate(-14 38 82)" fill="#9BCB3C" stroke="#2A1B12" stroke-width="1.5"/>
+<ellipse cx="62" cy="83" rx="10.5" ry="4.5" transform="rotate(14 62 83)" fill="#9BCB3C" stroke="#2A1B12" stroke-width="1.5"/>
+<rect x="24" y="42" width="52" height="32" rx="3" fill="#1E6B34" stroke="#2A1B12" stroke-width="2"/>
+<text x="50" y="56" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="900" text-anchor="middle" textLength="42" lengthAdjust="spacingAndGlyphs" fill="#FFFFFF">KÜHNO</text>
+<rect x="30" y="60" width="40" height="11" rx="5.5" fill="#FFF6E0" stroke="#2A1B12" stroke-width="1.5"/>
+<text x="50" y="68.8" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="900" text-anchor="middle" textLength="30" lengthAdjust="spacingAndGlyphs" fill="#1E6B34">GURKEN</text>
+<rect x="23" y="46" width="3.5" height="42" rx="1.7" fill="#FFFFFF" fill-opacity="0.35"/>
+<path d="M27.5 50V80" fill="none" stroke="#FFFFFF" stroke-opacity="0.7" stroke-width="1.5" stroke-linecap="round"/>
+<rect x="26" y="14" width="48" height="14" rx="4" fill="#D8252E" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round"/>
+<path d="M34 18V24M42 18V24M50 18V24M58 18V24M66 18V24" fill="none" stroke="#2A1B12" stroke-width="1.5" stroke-linecap="round" stroke-opacity="0.5"/>
+</svg>

@@ -1,0 +1,49 @@
+{
+  "category": "baking",
+  "items": [
+    {
+      "id": "baking-puff-pal",
+      "file": "baking-puff-pal.svg",
+      "name": "Dr. Ötti Backin",
+      "class": "box",
+      "color": "#FF5A4E",
+      "accent": "#FFFFFF",
+      "label": "ÖTTI",
+      "icon": "cupcake",
+      "description": "Winks at the red-and-white Dr. Oetker Backin baking powder box: red 3D box with a white pill reading ÖTTI and a white band with one golden cupcake and a cherry"
+    },
+    {
+      "id": "baking-velvet-pod",
+      "file": "baking-velvet-pod.svg",
+      "name": "Samtschote Vanilleextrakt",
+      "class": "bottle",
+      "color": "#A6E22E",
+      "accent": "#7A4A2A",
+      "label": "",
+      "icon": "vanilla flower",
+      "description": "Chubby lime-green glass vanilla extract bottle with a glossy dark chocolate-brown cap and a white label band with one yellow five petal vanilla flower"
+    },
+    {
+      "id": "baking-choc-nook",
+      "file": "baking-choc-nook.svg",
+      "name": "Naschwinkel Schokodrops",
+      "class": "bag",
+      "color": "#2FD5C8",
+      "accent": "#FF8C2E",
+      "label": "",
+      "icon": "chocolate drops",
+      "description": "Wide turquoise pillow bag of chocolate drops with an orange crimped top seal and a white label panel with three milk chocolate drops"
+    },
+    {
+      "id": "baking-pinky-whisk",
+      "file": "baking-pinky-whisk.svg",
+      "name": "Sonntagsbäck Tortenmischung",
+      "class": "box",
+      "color": "#9D7BFF",
+      "accent": "#FFD23F",
+      "label": "",
+      "icon": "layer cake with cherry",
+      "description": "Lavender cake mix box (Tortenmischung) with a sun-yellow top banner and a white panel showing a layer cake with a red cherry"
+    }
+  ]
+}

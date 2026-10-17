@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Neskaffee Gold</title>
+<defs>
+<linearGradient id="czbzi15b" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FF9991"/><stop offset="0.22" stop-color="#FF5A4E"/><stop offset="0.55" stop-color="#FF5A4E"/><stop offset="0.85" stop-color="#B74238"/><stop offset="1" stop-color="#7C2F27"/></linearGradient>
+<linearGradient id="czbzi15c" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#AD8F7B"/><stop offset="0.22" stop-color="#7A4A2A"/><stop offset="0.55" stop-color="#7A4A2A"/><stop offset="0.85" stop-color="#5D3720"/><stop offset="1" stop-color="#452817"/></linearGradient>
+<linearGradient id="czbzi15ao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M21,30Q21,27 24,27H76Q79,27 79,30V87.5Q79,94.3 72,94.3H28Q21,94.3 21,87.5Z" fill="url(#czbzi15b)" stroke="#7C2F27" stroke-width="1.5" stroke-opacity="0.7"/>
+<rect x="21" y="83.3" width="58" height="11" fill="url(#czbzi15ao)"/>
+<path d="M21,46Q50,50 79,46V76Q50,80 21,76Z" fill="#FFFFFF"/>
+<ellipse cx="50" cy="58.5" rx="8" ry="5.6" transform="rotate(-28 50 58.5)" fill="#7A4A2A"/>
+<path d="M43.5,61Q50,56.5 56.5,56" fill="none" stroke="#FFF7E8" stroke-width="1.5" stroke-linecap="round"/>
+<text x="50" y="74" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="900" text-anchor="middle" textLength="46" lengthAdjust="spacingAndGlyphs" fill="#B74238">NESKAFFE</text>
+<path d="M20,28A30,5.4 0 0 0 80,28V31A30,5.4 0 0 1 20,31Z" fill="#1E100A" fill-opacity="0.3"/>
+<path d="M20,17V28A30,5.4 0 0 0 80,28V17Z" fill="url(#czbzi15c)" stroke="#452817" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<ellipse cx="50" cy="17" rx="30" ry="5.4" fill="#AD8F7B"/><ellipse cx="50" cy="17" rx="24" ry="4.2" fill="#7A4A2A"/>
+<rect x="35" y="36" width="4.6" height="40" rx="2.3" fill="#FFFFFF" fill-opacity="0.55"/>
+<rect x="72" y="36" width="2" height="40" rx="1" fill="#FFFFFF" fill-opacity="0.3"/>
+<rect x="24" y="19" width="3" height="8" rx="1.5" fill="#FFFFFF" fill-opacity="0.45"/>
+</svg>

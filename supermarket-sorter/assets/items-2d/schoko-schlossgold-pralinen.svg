@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Schlossgold Pralinen</title>
+<path d="M23 20.5V87.5A27 6 0 0 0 77 87.5V20.5Z" fill="#E8387F" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round"/>
+<rect x="23" y="60" width="54" height="12" fill="#F7C948"/>
+<path d="M23 60H77M23 72H77" fill="none" stroke="#2A1B12" stroke-width="2"/>
+<path d="M23 20.5V87.5A27 6 0 0 0 77 87.5V20.5" fill="none" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round"/>
+<ellipse cx="50" cy="20.5" rx="27" ry="6" fill="#F7C948" stroke="#2A1B12" stroke-width="3"/>
+<path d="M50 15C44 8 36 8 38 13C40 17 46 16 50 15ZM50 15C56 8 64 8 62 13C60 17 54 16 50 15Z" fill="#F7C948" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="50" cy="15" r="2.5" fill="#F7C948" stroke="#2A1B12" stroke-width="2"/>
+<rect x="31" y="28" width="38" height="30" rx="6" fill="#FFF6E0" stroke="#2A1B12" stroke-width="2"/>
+<circle cx="40" cy="38" r="5.5" fill="#6E3A1C" stroke="#2A1B12" stroke-width="1.5"/>
+<circle cx="50" cy="38" r="5.5" fill="#6E3A1C" stroke="#2A1B12" stroke-width="1.5"/>
+<circle cx="60" cy="38" r="5.5" fill="#6E3A1C" stroke="#2A1B12" stroke-width="1.5"/>
+<circle cx="45" cy="50" r="5.5" fill="#A8642E" stroke="#2A1B12" stroke-width="1.5"/>
+<circle cx="55" cy="50" r="5.5" fill="#A8642E" stroke="#2A1B12" stroke-width="1.5"/>
+<text x="50" y="69.5" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="900" text-anchor="middle" fill="#2A1B12">GOLD</text>
+<rect x="25" y="24" width="4" height="60" rx="2" fill="#FFFFFF" fill-opacity="0.35"/>
+<rect x="69" y="20" width="8" height="67.5" fill="#000000" fill-opacity="0.12"/>
+</svg>

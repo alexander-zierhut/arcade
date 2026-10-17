@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Philadelfa Frischkäse</title>
+<defs>
+<linearGradient id="cfcc" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFFAF1"/><stop offset="0.22" stop-color="#FFF7E8"/><stop offset="0.55" stop-color="#FFF7E8"/><stop offset="0.85" stop-color="#B7ADA1"/><stop offset="1" stop-color="#7C7167"/></linearGradient>
+<linearGradient id="cfcb" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#85A4FF"/><stop offset="0.22" stop-color="#3B6CFF"/><stop offset="0.55" stop-color="#3B6CFF"/><stop offset="0.85" stop-color="#324FB1"/><stop offset="1" stop-color="#2A3771"/></linearGradient>
+<linearGradient id="cfcm" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#DCDCDC"/><stop offset="0.22" stop-color="#B4B4B4"/><stop offset="0.55" stop-color="#B4B4B4"/><stop offset="0.85" stop-color="#8E8E8E"/><stop offset="1" stop-color="#5A5A5A"/></linearGradient>
+<linearGradient id="cfcao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M21.8,30L23.5,91.8Q50,96.8 76.5,91.8L78.2,30Z" fill="url(#cfcc)"/>
+<path d="M22.2,46Q50,50 77.8,46L76.9,80Q50,84 23.1,80Z" fill="url(#cfcb)"/>
+<text x="50" y="70" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="900" text-anchor="middle" fill="#FFFFFF">PHILA</text>
+<path d="M23.3,82H76.7L76.5,91.8Q50,96.8 23.5,91.8Z" fill="url(#cfcao)"/>
+<rect x="35.2" y="38" width="4.7" height="42" rx="2.3" fill="#FFFFFF" fill-opacity="0.55"/>
+<path d="M21.8,30L23.5,91.8Q50,96.8 76.5,91.8L78.2,30" fill="none" stroke="#7C7167" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<path d="M21.8,31Q50,42 78.2,31V33.4Q50,44.4 21.8,33.4Z" fill="#1E100A" fill-opacity="0.3"/>
+<path d="M20,23V31Q50,42 80,31V23Z" fill="url(#cfcm)" stroke="#5A5A5A" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<ellipse cx="50" cy="23" rx="30" ry="5.5" fill="#DCDCDC" stroke="#5A5A5A" stroke-width="1.5" stroke-opacity="0.7"/>
+<ellipse cx="50" cy="23.4" rx="25.5" ry="4.2" fill="#B4B4B4"/>
+<rect x="25" y="25" width="3" height="5" rx="1.5" fill="#FFFFFF" fill-opacity="0.5"/>
+</svg>

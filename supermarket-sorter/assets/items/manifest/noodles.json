@@ -1,0 +1,49 @@
+{
+  "category": "noodles",
+  "items": [
+    {
+      "id": "noodles-slurpy-swirl",
+      "file": "noodles-slurpy-swirl.svg",
+      "name": "Maggy 5-Minuten-Terrine",
+      "class": "tub",
+      "color": "#FFD23F",
+      "accent": "#FF5A4E",
+      "label": "MAGGY",
+      "icon": "noodle bowl",
+      "description": "Parody of the Maggi 5-Minuten-Terrine instant noodle cup: tapered sun-yellow cup with a coral-red lid, a red banner with the word MAGGY and a red bowl of noodles"
+    },
+    {
+      "id": "noodles-kite-bowl",
+      "file": "noodles-kite-bowl.svg",
+      "name": "Yam Yam Ramen",
+      "class": "bag",
+      "color": "#FF6FB5",
+      "accent": "#FFD23F",
+      "label": "YAM YAM",
+      "icon": "chicken",
+      "description": "Parody of the Yum Yum instant ramen bag: candy-pink pillow pack with crimped seals, a yellow banner saying YAM YAM and a yellow chicken head on a white burst, chicken flavour"
+    },
+    {
+      "id": "noodles-glow-pot",
+      "file": "noodles-glow-pot.svg",
+      "name": "Knorri Brühwürfel",
+      "class": "box",
+      "color": "#3ECF6A",
+      "accent": "#FFD23F",
+      "label": "KNORRI",
+      "icon": "bouillon cubes",
+      "description": "Parody of the Knorr bouillon cube box: chunky leaf-green upright box with a yellow band saying KNORRI wrapped around the side and two golden stock cubes"
+    },
+    {
+      "id": "noodles-garden-ladle",
+      "file": "noodles-garden-ladle.svg",
+      "name": "Gartenkelle Gemüsesuppe",
+      "class": "can",
+      "color": "#3B6CFF",
+      "accent": "#FFF7E8",
+      "label": "",
+      "icon": "steaming soup bowl",
+      "description": "Cobalt soup can with metal rims and a pull tab, and a cream label showing a steaming bowl of vegetable soup"
+    }
+  ]
+}

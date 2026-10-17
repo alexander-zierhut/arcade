@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Bonne Oma Erdbeer-Konfitüre</title>
+<path d="M30 27H70Q77.5 29 77.5 38V86Q77.5 93.5 70 93.5H30Q22.5 93.5 22.5 86V38Q22.5 29 30 27Z" fill="#E8173F" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="29" y="38" width="42" height="50" rx="4" fill="#FFF6E0" stroke="#2A1B12" stroke-width="2"/>
+<rect x="24.5" y="40" width="4" height="46" rx="2" fill="#FFFFFF" fill-opacity="0.35"/>
+<line x1="26.5" y1="46" x2="26.5" y2="62" stroke="#FFFFFF" stroke-opacity="0.7" stroke-width="1.5" stroke-linecap="round"/>
+<rect x="71.5" y="40" width="4" height="46" rx="2" fill="#000000" fill-opacity="0.12"/>
+<rect x="24" y="14" width="52" height="14" rx="3" fill="#FFFFFF" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round"/>
+<line x1="29" y1="15.5" x2="29" y2="26.5" stroke="#E8173F" stroke-opacity="0.55" stroke-width="4"/>
+<line x1="37" y1="15.5" x2="37" y2="26.5" stroke="#E8173F" stroke-opacity="0.55" stroke-width="4"/>
+<line x1="45" y1="15.5" x2="45" y2="26.5" stroke="#E8173F" stroke-opacity="0.55" stroke-width="4"/>
+<line x1="53" y1="15.5" x2="53" y2="26.5" stroke="#E8173F" stroke-opacity="0.55" stroke-width="4"/>
+<line x1="61" y1="15.5" x2="61" y2="26.5" stroke="#E8173F" stroke-opacity="0.55" stroke-width="4"/>
+<line x1="69" y1="15.5" x2="69" y2="26.5" stroke="#E8173F" stroke-opacity="0.55" stroke-width="4"/>
+<line x1="25.5" y1="18" x2="74.5" y2="18" stroke="#E8173F" stroke-opacity="0.55" stroke-width="4"/>
+<line x1="25.5" y1="25" x2="74.5" y2="25" stroke="#E8173F" stroke-opacity="0.55" stroke-width="4"/>
+<path d="M50 64C43 62 39.5 56 39.5 51C39.5 47.5 42 46 44.5 46.5C47 47 48.5 48 50 48.5C51.5 48 53 47 55.5 46.5C58 46 60.5 47.5 60.5 51C60.5 56 57 62 50 64Z" fill="#E8173F" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="45" cy="52" r="1" fill="#FFF1C9"/>
+<circle cx="55" cy="52" r="1" fill="#FFF1C9"/>
+<circle cx="50" cy="56" r="1" fill="#FFF1C9"/>
+<circle cx="50" cy="60.5" r="1" fill="#FFF1C9"/>
+<path d="M43 47.5L46.5 42L50 46L53.5 42L57 47.5L50 49.5Z" fill="#3FA34D" stroke="#2A1B12" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="50" y="75.5" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="900" font-style="italic" text-anchor="middle" fill="#B3122F">BONNE</text>
+<text x="50" y="85" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="900" font-style="italic" text-anchor="middle" fill="#B3122F">OMA</text>
+</svg>

@@ -1,0 +1,49 @@
+{
+  "category": "shakes",
+  "items": [
+    {
+      "id": "shakes-sahnehof-milchshake",
+      "file": "shakes-sahnehof-milchshake.svg",
+      "name": "Mühlermilch Erdbeer",
+      "class": "bottle",
+      "color": "#FF6FB5",
+      "accent": "#FFF7E8",
+      "label": "MÜH",
+      "icon": "none",
+      "description": "Parody of the Müllermilch strawberry milk bottle: fat candy-pink glossy bottle with a cream cap and a white label band with the one word MÜH (moo)"
+    },
+    {
+      "id": "shakes-perlenhain-bubbletea",
+      "file": "shakes-perlenhain-bubbletea.svg",
+      "name": "Perlenhain Bubble Tea",
+      "class": "tub",
+      "color": "#9D7BFF",
+      "accent": "#A6E22E",
+      "label": "",
+      "icon": "tapioca pearls",
+      "description": "Lavender bubble tea cup with a lime green lid and a short fat lime straw, a cream label with the word PERLI above a cluster of chocolate tapioca pearls"
+    },
+    {
+      "id": "shakes-kaffeegarten-eiskaffee",
+      "file": "shakes-kaffeegarten-eiskaffee.svg",
+      "name": "Kaffeegarten Eiskaffee",
+      "class": "can",
+      "color": "#2FD5C8",
+      "accent": "#DCDCDC",
+      "label": "",
+      "icon": "coffee bean",
+      "description": "Turquoise iced coffee can with grey metal rims and lid and a cream label band with the word KAFFI above one big brown coffee bean"
+    },
+    {
+      "id": "shakes-suedfrucht-fruchtpunsch",
+      "file": "shakes-suedfrucht-fruchtpunsch.svg",
+      "name": "Kapri-Sonne Orange",
+      "class": "bag",
+      "color": "#FF8C2E",
+      "accent": "#B4B4B4",
+      "label": "KAPRI",
+      "icon": "orange slice",
+      "description": "Parody of the Capri-Sun drink pouch: orange standing pouch with silver crimped seams, a straw and a cream label with the word KAPRI above an orange slice"
+    }
+  ]
+}

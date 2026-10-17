@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Laibniz Butterkeks</title>
+<defs>
+<linearGradient id="kkbt" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#FFE388"/><stop offset="0.6" stop-color="#FFD23F"/><stop offset="1" stop-color="#FFD23F"/></linearGradient>
+<linearGradient id="kkbe" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#FFE388"/><stop offset="0.45" stop-color="#FFD23F"/><stop offset="1" stop-color="#B7942E"/></linearGradient>
+<linearGradient id="kkr" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#FF9991"/><stop offset="0.35" stop-color="#FF5A4E"/><stop offset="1" stop-color="#FF5A4E"/></linearGradient>
+<linearGradient id="kksh" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFFFFF" stop-opacity="0.22"/><stop offset="0.3" stop-color="#FFFFFF" stop-opacity="0"/><stop offset="0.7" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.2"/></linearGradient>
+<linearGradient id="kkao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M20,64L28,58H80L72,64Z" fill="#B74238"/>
+<path d="M23,63H77V70Q77,72 75,72H25Q23,72 23,70Z" fill="url(#kkbe)"/>
+<path d="M23,50Q24.9,48.8 26.9,50Q28.8,48.8 30.7,50Q32.6,48.8 34.6,50Q36.5,48.8 38.4,50Q40.4,48.8 42.3,50Q44.2,48.8 46.1,50Q48.1,48.8 50,50Q51.9,48.8 53.9,50Q55.8,48.8 57.7,50Q59.6,48.8 61.6,50Q63.5,48.8 65.4,50Q67.4,48.8 69.3,50Q71.2,48.8 73.1,50Q75.1,48.8 77,50Q78.2,51.8 77,53.5Q78.2,55.3 77,57Q78.2,58.8 77,60.5Q78.2,62.3 77,64Q75.1,65.2 73.1,64Q71.2,65.2 69.3,64Q67.4,65.2 65.4,64Q63.5,65.2 61.6,64Q59.6,65.2 57.7,64Q55.8,65.2 53.9,64Q51.9,65.2 50,64Q48.1,65.2 46.1,64Q44.2,65.2 42.3,64Q40.4,65.2 38.4,64Q36.5,65.2 34.6,64Q32.6,65.2 30.7,64Q28.8,65.2 26.9,64Q24.9,65.2 23,64Q21.8,62.3 23,60.5Q21.8,58.8 23,57Q21.8,55.3 23,53.5Q21.8,51.8 23,50Z" fill="url(#kkbt)" stroke="#B7942E" stroke-width="1" stroke-opacity="0.8"/>
+<path d="M24,50H78V57Q78,59 76,59H26Q24,59 24,57Z" fill="url(#kkbe)"/>
+<path d="M24,37Q25.9,35.8 27.9,37Q29.8,35.8 31.7,37Q33.6,35.8 35.6,37Q37.5,35.8 39.4,37Q41.4,35.8 43.3,37Q45.2,35.8 47.1,37Q49.1,35.8 51,37Q52.9,35.8 54.9,37Q56.8,35.8 58.7,37Q60.6,35.8 62.6,37Q64.5,35.8 66.4,37Q68.4,35.8 70.3,37Q72.2,35.8 74.1,37Q76.1,35.8 78,37Q79.2,38.8 78,40.5Q79.2,42.3 78,44Q79.2,45.8 78,47.5Q79.2,49.3 78,51Q76.1,52.2 74.1,51Q72.2,52.2 70.3,51Q68.4,52.2 66.4,51Q64.5,52.2 62.6,51Q60.6,52.2 58.7,51Q56.8,52.2 54.9,51Q52.9,52.2 51,51Q49.1,52.2 47.1,51Q45.2,52.2 43.3,51Q41.4,52.2 39.4,51Q37.5,52.2 35.6,51Q33.6,52.2 31.7,51Q29.8,52.2 27.9,51Q25.9,52.2 24,51Q22.8,49.3 24,47.5Q22.8,45.8 24,44Q22.8,42.3 24,40.5Q22.8,38.8 24,37Z" fill="url(#kkbt)" stroke="#B7942E" stroke-width="1" stroke-opacity="0.8"/>
+<path d="M22,37H76V44Q76,46 74,46H24Q22,46 22,44Z" fill="url(#kkbe)"/>
+<path d="M22,24Q23.9,22.8 25.9,24Q27.8,22.8 29.7,24Q31.6,22.8 33.6,24Q35.5,22.8 37.4,24Q39.4,22.8 41.3,24Q43.2,22.8 45.1,24Q47.1,22.8 49,24Q50.9,22.8 52.9,24Q54.8,22.8 56.7,24Q58.6,22.8 60.6,24Q62.5,22.8 64.4,24Q66.4,22.8 68.3,24Q70.2,22.8 72.1,24Q74.1,22.8 76,24Q77.2,25.8 76,27.5Q77.2,29.3 76,31Q77.2,32.8 76,34.5Q77.2,36.3 76,38Q74.1,39.2 72.1,38Q70.2,39.2 68.3,38Q66.4,39.2 64.4,38Q62.5,39.2 60.6,38Q58.6,39.2 56.7,38Q54.8,39.2 52.9,38Q50.9,39.2 49,38Q47.1,39.2 45.1,38Q43.2,39.2 41.3,38Q39.4,39.2 37.4,38Q35.5,39.2 33.6,38Q31.6,39.2 29.7,38Q27.8,39.2 25.9,38Q23.9,39.2 22,38Q20.8,36.3 22,34.5Q20.8,32.8 22,31Q20.8,29.3 22,27.5Q20.8,25.8 22,24Z" fill="url(#kkbt)" stroke="#B7942E" stroke-width="1" stroke-opacity="0.8"/>
+<path d="M72,64L80,58V86.5L72,94.5Z" fill="#B74238"/>
+<rect x="20" y="64" width="52" height="30.5" fill="url(#kkr)" stroke="#7C2F27" stroke-width="1.5" stroke-opacity="0.7"/>
+<rect x="20" y="64" width="52" height="30.5" fill="url(#kksh)"/>
+<rect x="20" y="83.5" width="52" height="11" fill="url(#kkao)"/>
+<rect x="19.5" y="63.5" width="53" height="2.5" fill="#1E100A" fill-opacity="0.3"/>
+<text x="46" y="82.5" font-family="Arial, Helvetica, sans-serif" font-weight="900" text-anchor="middle" font-size="12" fill="#FFE388">LAIBNIZ</text>
+</svg>

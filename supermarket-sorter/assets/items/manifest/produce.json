@@ -1,0 +1,49 @@
+{
+  "category": "produce",
+  "items": [
+    {
+      "id": "produce-pippin-hill",
+      "file": "produce-pippin-hill.svg",
+      "name": "Obstig Rote Äpfel",
+      "class": "loose",
+      "color": "#FF5A4E",
+      "accent": "#3ECF6A",
+      "label": "",
+      "icon": "two apples",
+      "description": "Two chunky coral-red apples, one stacked in front of the other, with a dark top dimple, brown stems and a leaf-green leaf. Radial-gradient 3D look, natural proportions, generic German red apples."
+    },
+    {
+      "id": "produce-bendy-bay",
+      "file": "produce-bendy-bay.svg",
+      "name": "Chikita Bananen",
+      "class": "loose",
+      "color": "#FFD23F",
+      "accent": "#3B6CFF",
+      "label": "CHIKITA",
+      "icon": "banana bunch",
+      "description": "Parody of Chiquita bananas: a bunch of three fat curved sun-yellow bananas on a brown crown with the typical blue oval sticker, here saying CHIKITA. Natural proportions."
+    },
+    {
+      "id": "produce-crunch-burrow",
+      "file": "produce-crunch-burrow.svg",
+      "name": "Frischewerk Möhren",
+      "class": "bag",
+      "color": "#3B6CFF",
+      "accent": "#FF8C2E",
+      "label": "",
+      "icon": "carrot",
+      "description": "Chunky cobalt-blue standing bag of Möhren (carrots) with a crimped top seal, three leaf-green carrot tops poking out and a cream label with one big orange carrot."
+    },
+    {
+      "id": "produce-tiny-treetop",
+      "file": "produce-tiny-treetop.svg",
+      "name": "Tannenblick Brokkoli",
+      "class": "loose",
+      "color": "#3ECF6A",
+      "accent": "#A6E22E",
+      "label": "",
+      "icon": "broccoli",
+      "description": "One big broccoli head: a bumpy crown of shaded leaf-green florets on a thick lime stalk. Natural proportions, generic German broccoli."
+    }
+  ]
+}

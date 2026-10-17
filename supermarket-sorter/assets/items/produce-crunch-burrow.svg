@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Frischewerk Möhren</title>
+<defs>
+<linearGradient id="b-crunchburrow" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#85A4FF"/><stop offset="0.22" stop-color="#3B6CFF"/><stop offset="0.55" stop-color="#3B6CFF"/><stop offset="0.85" stop-color="#324FB1"/><stop offset="1" stop-color="#2A3771"/></linearGradient>
+<linearGradient id="l-crunchburrow" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#87E1A3"/><stop offset="0.5" stop-color="#3ECF6A"/><stop offset="1" stop-color="#34924B"/></linearGradient>
+<linearGradient id="ao-crunchburrow" x1="0" x2="0" y1="0" y2="1"><stop offset="0.86" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M38,34C26,28 24,18 27,10C36,11 45,22 44,34Z" fill="url(#l-crunchburrow)"/>
+<path d="M62,34C74,28 76,18 73,10C64,11 55,22 56,34Z" fill="url(#l-crunchburrow)"/>
+<path d="M50,34C42,24 43,12 50,6C57,12 58,24 50,34Z" fill="url(#l-crunchburrow)"/>
+<path d="M23,33L27,30.5L31,33L35,30.5L39,33L43,30.5L47,33L51,30.5L55,33L59,30.5L63,33L67,30.5L71,33L75,30.5L77,33C84,48 83,78 80,91Q79.5,93.5 77,93.5H23Q20.5,93.5 20,91C17,78 16,48 23,33Z" fill="url(#b-crunchburrow)" stroke="#2A3771" stroke-width="1.5" stroke-opacity="0.7"/>
+<path d="M23,33L77,33C84,48 83,78 80,91Q79.5,93.5 77,93.5H23Q20.5,93.5 20,91C17,78 16,48 23,33Z" fill="url(#ao-crunchburrow)"/>
+<rect x="23" y="38" width="54" height="2" fill="#1E100A" fill-opacity="0.3"/>
+<rect x="29" y="46" width="42" height="40" rx="5" fill="#FFF7E8"/>
+<path d="M40,58H60Q60.5,64 56,76Q52,84 50,84Q48,84 44,76Q39.5,64 40,58Z" fill="#FF8C2E"/>
+<path d="M50,58Q45,52 42,53Q46,58 50,58ZM50,58Q50,51 50,49Q52,54 50,58ZM50,58Q55,52 58,53Q54,58 50,58Z" fill="#3ECF6A"/>
+<rect x="24" y="44" width="3" height="40" rx="1.5" fill="#FFFFFF" fill-opacity="0.25"/>
+<rect x="62" y="44" width="2.5" height="40" rx="1.2" fill="#FFFFFF" fill-opacity="0.2"/>
+</svg>

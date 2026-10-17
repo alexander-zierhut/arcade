@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Samtschote Vanilleextrakt</title>
+<defs>
+<linearGradient id="b2" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#C8ED7D"/><stop offset="0.22" stop-color="#A6E22E"/><stop offset="0.55" stop-color="#A6E22E"/><stop offset="0.85" stop-color="#7A9F22"/><stop offset="1" stop-color="#576819"/></linearGradient>
+<linearGradient id="c2" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#AD8F7B"/><stop offset="0.22" stop-color="#7A4A2A"/><stop offset="0.55" stop-color="#7A4A2A"/><stop offset="0.85" stop-color="#5D3720"/><stop offset="1" stop-color="#452817"/></linearGradient>
+<linearGradient id="ao2" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M26,43Q26,35 35,32.5L37,31V25H63V31L65,32.5Q74,35 74,43V88Q74,94 67,94H33Q26,94 26,88Z" fill="url(#b2)" stroke="#576819" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<path d="M26,83H74V88Q74,94 67,94H33Q26,94 26,88Z" fill="url(#ao2)"/>
+<path d="M27,50Q50,53 73,50V78Q50,81 27,78Z" fill="#FFFFFF"/>
+<circle cx="50" cy="59" r="4.2" fill="#FFD23F"/><circle cx="55.3" cy="63" r="4.2" fill="#FFD23F"/><circle cx="53.3" cy="69.2" r="4.2" fill="#FFD23F"/><circle cx="46.7" cy="69.2" r="4.2" fill="#FFD23F"/><circle cx="44.7" cy="63" r="4.2" fill="#FFD23F"/>
+<circle cx="50" cy="65.2" r="3" fill="#7A4A2A"/>
+<path d="M37,25H63V27.5H37Z" fill="#1E100A" fill-opacity="0.3"/>
+<rect x="36" y="12" width="28" height="13" rx="2" fill="url(#c2)" stroke="#452817" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<ellipse cx="50" cy="12" rx="14" ry="2.5" fill="#AD8F7B"/>
+<rect x="37.5" y="38" width="4" height="44" rx="2" fill="#FFFFFF" fill-opacity="0.55"/>
+<rect x="68" y="40" width="2" height="38" rx="1" fill="#FFFFFF" fill-opacity="0.3"/>
+<rect x="38" y="14" width="3" height="8" rx="1.5" fill="#FFFFFF" fill-opacity="0.5"/>
+</svg>

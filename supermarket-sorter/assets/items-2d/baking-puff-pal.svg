@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100"><title>Dr. Ötti Backin</title>
+<rect x="22" y="9" width="56" height="84.5" rx="4" fill="#D7192D"/>
+<rect x="70" y="9" width="8" height="84.5" fill="#000000" fill-opacity="0.12"/>
+<rect x="24.5" y="15" width="3" height="75" rx="1.5" fill="#FFFFFF" fill-opacity="0.35"/>
+<rect x="27" y="14" width="46" height="13" rx="6.5" fill="#FFFFFF" stroke="#2A1B12" stroke-width="2"/>
+<text x="50" y="23.8" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="900" text-anchor="middle" fill="#D7192D">DR. ÖTTI</text>
+<circle cx="50" cy="47" r="15" fill="#FFF6E0" stroke="#2A1B12" stroke-width="2"/>
+<path d="M42 51H58L56 60H44Z" fill="#D7192D" stroke="#2A1B12" stroke-width="1.5" stroke-linejoin="round"/>
+<path d="M47 52L47.8 59M53 52L52.2 59" fill="none" stroke="#FFFFFF" stroke-width="1.2" stroke-linecap="round"/>
+<path d="M39.5 51.5Q38.5 40 50 39.5Q61.5 40 60.5 51.5Z" fill="#E9A93B" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+<path d="M43.5 45Q45 42.5 48 42" fill="none" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round" stroke-opacity="0.8"/>
+<circle cx="50" cy="37.5" r="2.8" fill="#D7192D" stroke="#2A1B12" stroke-width="1.5"/>
+<rect x="27" y="68" width="46" height="15" rx="3" fill="#FFFFFF" stroke="#2A1B12" stroke-width="2"/>
+<text x="50" y="79.3" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="900" text-anchor="middle" fill="#D7192D">Backin</text>
+<rect x="22" y="9" width="56" height="84.5" rx="4" fill="none" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round"/>
+</svg>

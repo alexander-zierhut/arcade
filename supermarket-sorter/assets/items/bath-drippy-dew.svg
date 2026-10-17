@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Niveo Creme</title>
+<defs>
+<linearGradient id="b6" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#85A4FF"/><stop offset="0.22" stop-color="#3B6CFF"/><stop offset="0.55" stop-color="#3B6CFF"/><stop offset="0.85" stop-color="#324FB1"/><stop offset="1" stop-color="#2A3771"/></linearGradient>
+<linearGradient id="ao6" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M21,62V88.8A29,5.2 0 0 0 79,88.8V62Z" fill="url(#b6)" stroke="#2A3771" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<path d="M21,80V88.8A29,5.2 0 0 0 79,88.8V80Q50,84 21,80Z" fill="url(#ao6)"/>
+<ellipse cx="50" cy="62" rx="29" ry="5.2" fill="#85A4FF"/>
+<path d="M21,63Q50,68.2 79,63V65.5Q50,70.7 21,65.5Z" fill="#1E100A" fill-opacity="0.3"/>
+<rect x="28" y="68" width="4.5" height="15" rx="2.25" fill="#FFFFFF" fill-opacity="0.45"/>
+<path d="M24,34V60A26,4.7 0 0 0 76,60V34Z" fill="url(#b6)" stroke="#2A3771" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<ellipse cx="50" cy="34" rx="26" ry="4.7" fill="#85A4FF"/>
+<ellipse cx="50" cy="34" rx="21" ry="3.2" fill="#3B6CFF"/>
+<path d="M24,39.2Q50,43.9 76,39.2V41.5Q50,46.2 24,41.5Z" fill="#1E100A" fill-opacity="0.3"/>
+<text x="50" y="57" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="900" text-anchor="middle" fill="#FFFFFF">NIVEO</text>
+<rect x="31" y="43" width="4" height="10" rx="2" fill="#FFFFFF" fill-opacity="0.45"/>
+</svg>

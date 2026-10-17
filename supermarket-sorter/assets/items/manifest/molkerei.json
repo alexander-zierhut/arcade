@@ -1,0 +1,49 @@
+{
+  "category": "molkerei",
+  "items": [
+    {
+      "id": "molkerei-hofgut-quark",
+      "file": "molkerei-hofgut-quark.svg",
+      "name": "Exquiso Speisequark",
+      "class": "tub",
+      "color": "#3ECF6A",
+      "accent": "#FFF7E8",
+      "label": "EXQUISO",
+      "icon": "dollop of quark",
+      "description": "Winks at the Exquisa quark tub: chunky white round tub with a leaf-green lid and a wavy green band carrying the parody brand EXQUISO and a white quark dollop"
+    },
+    {
+      "id": "molkerei-weideglueck-buttermilch",
+      "file": "molkerei-weideglueck-buttermilch.svg",
+      "name": "Weidenzauber Buttermilch",
+      "class": "carton",
+      "color": "#FFD23F",
+      "accent": "#3B6CFF",
+      "label": "",
+      "icon": "milk drop",
+      "description": "Chunky sun-yellow gable-top buttermilk carton with a cobalt roof and fin and a white label with a blue milk drop"
+    },
+    {
+      "id": "molkerei-alpenhof-schlagsahne",
+      "file": "molkerei-alpenhof-schlagsahne.svg",
+      "name": "Alpenhof Sprüh-Sahne",
+      "class": "can",
+      "color": "#FF6FB5",
+      "accent": "#FFF7E8",
+      "label": "",
+      "icon": "whipped cream swirl",
+      "description": "Candy-pink spray cream can with metal rims, a white cap with a dark nozzle and a cream label with a whipped cream swirl"
+    },
+    {
+      "id": "molkerei-omas-beste-schmand",
+      "file": "molkerei-omas-beste-schmand.svg",
+      "name": "Omas Beste Schmand",
+      "class": "tub",
+      "color": "#3B6CFF",
+      "accent": "#FFF7E8",
+      "label": "",
+      "icon": "dollop of cream",
+      "description": "Cobalt sour cream tub with a cream domed lid and a cream label with a blue dollop of Schmand; generic German Schmand tub"
+    }
+  ]
+}

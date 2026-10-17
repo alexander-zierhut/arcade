@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Hühnerhof Hähnchen-Nuggets</title>
+<defs>
+<linearGradient id="bhn_f" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#87E1A3"/><stop offset="0.35" stop-color="#3ECF6A"/><stop offset="1" stop-color="#3ECF6A"/></linearGradient>
+<linearGradient id="bhn_y" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#FFE388"/><stop offset="0.5" stop-color="#FFD23F"/><stop offset="1" stop-color="#B7942E"/></linearGradient>
+<radialGradient id="bhn_n" cx="0.35" cy="0.3" r="0.85"><stop offset="0" stop-color="#FFE388"/><stop offset="0.6" stop-color="#FFD23F"/><stop offset="1" stop-color="#B7942E"/></radialGradient>
+<linearGradient id="bhn_ao" x1="0" x2="0" y1="0" y2="1"><stop offset="0.86" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M19,26H70L80,19H29Z" fill="#87E1A3"/>
+<path d="M24,25.5H67L75.5,20.2H32Z" fill="#2B6032"/>
+<path d="M27.0,21Q26.0,13.0 35.0,13.0Q46.0,12.0 47.0,20.0Q48.0,28.0 39.0,28.0Q28.0,29.0 27.0,21Z" fill="url(#bhn_n)"/>
+<path d="M41.0,16Q40.0,8.0 49.0,8.0Q60.0,7.0 61.0,15.0Q62.0,23.0 53.0,23.0Q42.0,24.0 41.0,16Z" fill="url(#bhn_n)"/>
+<path d="M55.0,22Q54.0,14.0 63.0,14.0Q74.0,13.0 75.0,21.0Q76.0,29.0 67.0,29.0Q56.0,30.0 55.0,22Z" fill="url(#bhn_n)"/>
+<path d="M19,26H70V94H19Z" fill="url(#bhn_f)"/>
+<path d="M70,26L80,19V87L70,94Z" fill="#34924B"/>
+<rect x="19" y="26" width="51" height="10" fill="url(#bhn_y)"/>
+<path d="M70,26L80,19V29L70,36Z" fill="#B7942E"/>
+<path d="M70,26V94" fill="none" stroke="#2B6032" stroke-width="1" stroke-opacity="0.7"/>
+<rect x="25" y="46" width="39" height="34" rx="4" fill="#FFF7E8"/>
+<path d="M32.5,63.5Q31.2,53.1 42.9,53.1Q57.2,51.8 58.5,62.2Q59.8,72.6 48.1,72.6Q33.8,73.9 32.5,63.5Z" fill="#B7942E"/>
+<path d="M31.5,62Q30.2,51.6 41.9,51.6Q56.2,50.3 57.5,60.7Q58.8,71.1 47.1,71.1Q32.8,72.4 31.5,62Z" fill="#FFD23F"/>
+<path d="M19,26H70V94H19Z" fill="url(#bhn_ao)"/>
+<path d="M70,26L80,19V87L70,94Z" fill="url(#bhn_ao)"/>
+</svg>

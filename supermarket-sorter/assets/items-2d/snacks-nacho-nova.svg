@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Sonnenmais Tortilla-Chips</title>
+<path fill="#3FA34D" d="M22 9H78L81 90Q81 93.5 77 93.5H23Q19 93.5 19 90Z"/>
+<path fill="#000000" fill-opacity="0.12" d="M70 16H78L81 90Q81 93.5 77 93.5H70Q72 60 70 16Z"/>
+<rect x="24" y="24" width="4.5" height="62" rx="2.2" fill="#FFFFFF" fill-opacity="0.35"/>
+<circle cx="50" cy="52" r="21" fill="#FFF6E0" stroke="#2A1B12" stroke-width="2"/>
+<polygon points="50,36 65,62 35,62" fill="#F5B93A" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="50" cy="51" r="1.5" fill="#D9822B"/>
+<circle cx="56" cy="60" r="1.5" fill="#D9822B"/>
+<circle cx="44" cy="60" r="1.5" fill="#D9822B"/>
+<text x="50" y="87" font-family="Arial, Helvetica, sans-serif" font-weight="900" text-anchor="middle" font-size="10" fill="#FFF6E0">MAIS</text>
+<path fill="#F28C28" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round" d="M22 9H78V15L75 12L72 15L69 12L66 15L63 12L60 15L57 12L54 15L51 12L48 15L45 12L42 15L39 12L36 15L33 12L30 15L27 12L24 15Z"/>
+<path fill="none" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" d="M22 9H78L81 90Q81 93.5 77 93.5H23Q19 93.5 19 90Z"/>
+</svg>

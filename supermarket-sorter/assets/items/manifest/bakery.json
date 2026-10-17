@@ -1,0 +1,49 @@
+{
+  "category": "bakery",
+  "items": [
+    {
+      "id": "bakery-hearth-hug",
+      "file": "bakery-hearth-hug.svg",
+      "name": "Kornlicht Landbrot",
+      "class": "bag",
+      "color": "#3ECF6A",
+      "accent": "#FFF7E8",
+      "label": "",
+      "icon": "wheat ear",
+      "description": "Green paper bag of wholemeal bread (Vollkornbrot) with a crusty loaf peeking out of a crimped top and a cream label with a wheat ear and the word KORN"
+    },
+    {
+      "id": "bakery-butter-bloom",
+      "file": "bakery-butter-bloom.svg",
+      "name": "Omas Beste Butterhörnchen",
+      "class": "box",
+      "color": "#FFD23F",
+      "accent": "#FF8C2E",
+      "label": "",
+      "icon": "croissant",
+      "description": "Upright yellow bakery carton of butter croissants (Butterhörnchen) with an orange base band and a cream label with a golden croissant and the word OMAS"
+    },
+    {
+      "id": "bakery-crusty-lane",
+      "file": "bakery-crusty-lane.svg",
+      "name": "Mühlenbäck Baguette",
+      "class": "loose",
+      "color": "#3B6CFF",
+      "accent": "#FFF7E8",
+      "label": "",
+      "icon": "baguettes in paper sleeve",
+      "description": "Three golden baguettes with score cuts standing upright in a blue bakery paper sleeve with a cream MÜHLE band; a generic French-baguette-from-the-bakery pack"
+    },
+    {
+      "id": "bakery-dizzy-dough",
+      "file": "bakery-dizzy-dough.svg",
+      "name": "Funkelbäck Zuckerguss-Donut",
+      "class": "loose",
+      "color": "#FF6FB5",
+      "accent": "#FFF7E8",
+      "label": "",
+      "icon": "stack of glazed donuts",
+      "description": "Stack of three pink-iced donuts in a cream sleeve band with the word FUNKEL, the top donut showing its hole"
+    }
+  ]
+}

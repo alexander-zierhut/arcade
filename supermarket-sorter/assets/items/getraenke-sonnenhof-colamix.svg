@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Mezzi Mix</title>
+<defs>
+<linearGradient id="mez-b" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFE388"/><stop offset="0.22" stop-color="#FFD23F"/><stop offset="0.55" stop-color="#FFD23F"/><stop offset="0.85" stop-color="#B7942E"/><stop offset="1" stop-color="#7C6120"/></linearGradient>
+<linearGradient id="mez-k" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#AD8F7B"/><stop offset="0.22" stop-color="#7A4A2A"/><stop offset="0.6" stop-color="#7A4A2A"/><stop offset="0.88" stop-color="#5D3720"/><stop offset="1" stop-color="#452817"/></linearGradient>
+<linearGradient id="mez-m" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#DCDCDC"/><stop offset="0.3" stop-color="#B4B4B4"/><stop offset="0.8" stop-color="#8E8E8E"/><stop offset="1" stop-color="#5A5A5A"/></linearGradient>
+<linearGradient id="mez-ao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M22,15.5V88.5A28,5 0 0 0 78,88.5V15.5Z" fill="url(#mez-b)" stroke="#7C6120" stroke-width="1.5" stroke-opacity="0.7"/>
+<path d="M22,46Q36,40 50,47T78,46V76A28,5 0 0 1 22,76Z" fill="url(#mez-k)"/>
+<circle cx="35" cy="34" r="4" fill="#FFF7E8"/>
+<circle cx="47" cy="28" r="2.6" fill="#FFF7E8"/>
+<circle cx="61" cy="36" r="3.3" fill="#FFF7E8"/>
+<text x="50" y="69" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="900" text-anchor="middle" textLength="42" lengthAdjust="spacingAndGlyphs" fill="#FFF7E8">MEZZI</text>
+<path d="M22,83V88.5A28,5 0 0 0 78,88.5V83A28,5 0 0 1 22,83Z" fill="url(#mez-m)"/>
+<path d="M22,15.5V20.5A28,5 0 0 0 78,20.5V15.5Z" fill="url(#mez-m)"/>
+<path d="M22,20.5A28,5 0 0 0 78,20.5V22.5A28,5 0 0 1 22,22.5Z" fill="#1E100A" fill-opacity="0.3"/>
+<path d="M22,78H78V88.5A28,5 0 0 1 22,88.5Z" fill="url(#mez-ao)"/>
+<ellipse cx="50" cy="15.5" rx="28" ry="5" fill="#DCDCDC"/>
+<ellipse cx="50" cy="15.9" rx="24.5" ry="4.3" fill="#8E8E8E"/>
+<ellipse cx="50" cy="16.2" rx="23" ry="3.7" fill="#B4B4B4"/>
+<ellipse cx="50" cy="15.7" rx="9" ry="2.4" fill="#DCDCDC"/>
+<rect x="35.4" y="28.5" width="4.5" height="38" rx="2.2" fill="#FFFFFF" fill-opacity="0.55"/>
+<rect x="70" y="31" width="2" height="35" rx="1" fill="#FFFFFF" fill-opacity="0.3"/>
+</svg>

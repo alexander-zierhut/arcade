@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Harri Vollkornbrot</title>
+<defs>
+<linearGradient id="bg" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FF9991"/><stop offset="0.22" stop-color="#FF5A4E"/><stop offset="0.55" stop-color="#FF5A4E"/><stop offset="0.85" stop-color="#B74238"/><stop offset="1" stop-color="#7C2F27"/></linearGradient>
+<linearGradient id="cg" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFE388"/><stop offset="0.22" stop-color="#FFD23F"/><stop offset="0.55" stop-color="#FFD23F"/><stop offset="0.85" stop-color="#B7942E"/><stop offset="1" stop-color="#7C6120"/></linearGradient>
+<linearGradient id="aog" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M20,22C17.5,38 17.5,62 19,87Q20,93.5 26,93.5H74Q80,93.5 81,87C82.5,62 82.5,38 80,22Z" fill="url(#bg)" stroke="#7C2F27" stroke-width="1.5" stroke-opacity="0.7"/>
+<path d="M19.2,82L19,87Q20,93.5 26,93.5H74Q80,93.5 81,87L80.8,82Z" fill="url(#aog)"/>
+<rect x="37" y="27" width="2.2" height="14" rx="1.1" fill="#FFFFFF" fill-opacity="0.25"/><rect x="61" y="27" width="2.2" height="14" rx="1.1" fill="#FFFFFF" fill-opacity="0.25"/>
+<rect x="26" y="38" width="48" height="46" rx="5" fill="#FFF7E8"/><text x="50" y="53" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="14" fill="#B74238">HARRI</text><g transform="translate(33,57)"><path d="M0,20V9C-2.5,6 0,1.5 4,1.5C5,-0.5 13,-0.5 14,1.5C18,1.5 20.5,6 18,9V20Z" fill="#B86A24"/><path d="M2.2,18V9.4C1,7.4 2,3.7 4.6,3.7C6,2.2 12,2.2 13.4,3.7C16,3.7 17,7.4 15.8,9.4V18Z" fill="#F2BC6E"/></g><g transform="translate(48,59)"><path d="M0,20V9C-2.5,6 0,1.5 4,1.5C5,-0.5 13,-0.5 14,1.5C18,1.5 20.5,6 18,9V20Z" fill="#B86A24"/><path d="M2.2,18V9.4C1,7.4 2,3.7 4.6,3.7C6,2.2 12,2.2 13.4,3.7C16,3.7 17,7.4 15.8,9.4V18Z" fill="#F2BC6E"/></g>
+<rect x="20" y="22" width="60" height="2.4" fill="#1E100A" fill-opacity="0.3"/>
+<path d="M20,22V13L23,9.5L26,13L29,9.5L32,13L35,9.5L38,13L41,9.5L44,13L47,9.5L50,13L53,9.5L56,13L59,9.5L62,13L65,9.5L68,13L71,9.5L74,13L77,9.5L80,13V22Z" fill="url(#cg)" stroke="#7C6120" stroke-width="1.5" stroke-opacity="0.7"/>
+</svg>

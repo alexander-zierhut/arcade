@@ -1,0 +1,49 @@
+{
+  "category": "schoko",
+  "items": [
+    {
+      "id": "schoko-tannenblick-tafel",
+      "file": "schoko-tannenblick-tafel.svg",
+      "name": "Milki Alpenmilch",
+      "class": "box",
+      "color": "#9D7BFF",
+      "accent": "#FFFFFF",
+      "label": "Milki",
+      "icon": "white Alps peak",
+      "description": "Winks at the Milka Alpenmilch bar: upright lavender chocolate pack with a white script word Milki and a white snowy Alps peak on a green meadow, no cow"
+    },
+    {
+      "id": "schoko-schlossgold-pralinen",
+      "file": "schoko-schlossgold-pralinen.svg",
+      "name": "Schlossgold Pralinen",
+      "class": "can",
+      "color": "#FF6FB5",
+      "accent": "#FFD23F",
+      "label": "",
+      "icon": "heart on a cream medallion",
+      "description": "Tall round candy-pink tin of pralines with a gold lid, a gold ribbon band, a gold bow on top and a pink heart on a cream medallion; no text"
+    },
+    {
+      "id": "schoko-muehlenbaeck-keks",
+      "file": "schoko-muehlenbaeck-keks.svg",
+      "name": "Laibniz Butterkeks",
+      "class": "loose",
+      "color": "#FFD23F",
+      "accent": "#FF5A4E",
+      "label": "LAIBNIZ",
+      "icon": "stack of scalloped butter biscuits",
+      "description": "Winks at Leibniz Butterkeks: three stacked golden rectangular biscuits with scalloped edges peeking out of a coral-red sleeve reading LAIBNIZ"
+    },
+    {
+      "id": "schoko-bergblick-riegel",
+      "file": "schoko-bergblick-riegel.svg",
+      "name": "Kinda Schokolade",
+      "class": "box",
+      "color": "#FFF7E8",
+      "accent": "#FF5A4E",
+      "label": "KINDA",
+      "icon": "glass of milk",
+      "description": "Winks at Kinder Schokolade: cream-white pack with coral-red top and bottom bands, the word KINDA and a white glass of milk on a pink disc"
+    }
+  ]
+}

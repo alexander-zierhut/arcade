@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Paulina Schokopudding</title>
+<defs><clipPath id="c"><path d="M20 21.5H80L75 88Q74.5 93.5 68.5 93.5H31.5Q25.5 93.5 25 88Z"/></clipPath></defs>
+<path d="M20 21.5H80L75 88Q74.5 93.5 68.5 93.5H31.5Q25.5 93.5 25 88Z" fill="#7A4522"/>
+<g clip-path="url(#c)">
+<path d="M38 24Q54 22 56 34Q56 43 45 43Q34 43 36 32Z" fill="#FFFFFF"/>
+<path d="M64 24Q82 24 80 38Q73 46 66 42Q59 34 64 24Z" fill="#FFFFFF"/>
+<path d="M22 70Q38 66 42 78Q42 92 28 94Q20 90 22 70Z" fill="#FFFFFF"/>
+<path d="M58 74Q72 68 82 76Q82 96 62 94Q52 86 58 74Z" fill="#FFFFFF"/>
+<path d="M68 22H80L75 88L70 94H66Z" fill="#000000" fill-opacity="0.12"/>
+<rect x="23.5" y="34" width="3.2" height="30" rx="1.6" fill="#FFFFFF" fill-opacity="0.35"/>
+</g>
+<path d="M20 21.5H80L75 88Q74.5 93.5 68.5 93.5H31.5Q25.5 93.5 25 88Z" fill="none" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="28" y="47" width="44" height="19" rx="5" fill="#FFF6E0" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+<text x="50" y="60.5" font-size="9" font-family="Arial, Helvetica, sans-serif" font-weight="900" text-anchor="middle" fill="#7A4522">PAULINA</text>
+<ellipse cx="50" cy="21.5" rx="30" ry="4.5" fill="#FFF1C9" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<ellipse cx="50" cy="21.5" rx="23" ry="3" fill="#4A2814"/>
+</svg>

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Naschgarten Erdbeeren</title>
+<defs>
+<linearGradient id="erd-b" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FF9991"/><stop offset="0.22" stop-color="#FF5A4E"/><stop offset="0.55" stop-color="#FF5A4E"/><stop offset="0.85" stop-color="#B74238"/><stop offset="1" stop-color="#7C2F27"/></linearGradient>
+<radialGradient id="erd-r" cx="0.35" cy="0.3" r="0.8"><stop offset="0" stop-color="#FF9991"/><stop offset="0.6" stop-color="#FF5A4E"/><stop offset="1" stop-color="#B74238"/></radialGradient>
+<linearGradient id="erd-ao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<ellipse cx="50" cy="43" rx="30.5" ry="5.5" fill="#FF9991" stroke="#7C2F27" stroke-width="1.5" stroke-opacity="0.7"/>
+<ellipse cx="50" cy="43.5" rx="27.5" ry="4.7" fill="#B74238"/>
+<g transform="translate(50 27)"><path d="M-8,-4Q-8,-8 0,-8Q8,-8 8,-4Q8,4 2,8.5Q0,9.5 -2,8.5Q-8,4 -8,-4Z" fill="url(#erd-r)" stroke="#7C2F27" stroke-width="1.5" stroke-opacity="0.7"/><path d="M-5,-7L-2.5,-9.5L0,-7.5L2.5,-9.5L5,-7L0,-4.5Z" fill="#3ECF6A"/><path d="M-3,-1h.1M3,-2h.1M0,2h.1M-3,4h.1M3,3h.1" fill="none" stroke="#FFE388" stroke-width="1.6" stroke-linecap="round" stroke-opacity="0.9"/></g>
+<g transform="translate(35 35)"><path d="M-8,-4Q-8,-8 0,-8Q8,-8 8,-4Q8,4 2,8.5Q0,9.5 -2,8.5Q-8,4 -8,-4Z" fill="url(#erd-r)" stroke="#7C2F27" stroke-width="1.5" stroke-opacity="0.7"/><path d="M-5,-7L-2.5,-9.5L0,-7.5L2.5,-9.5L5,-7L0,-4.5Z" fill="#3ECF6A"/><path d="M-3,-1h.1M3,-2h.1M0,2h.1M-3,4h.1M3,3h.1" fill="none" stroke="#FFE388" stroke-width="1.6" stroke-linecap="round" stroke-opacity="0.9"/></g>
+<g transform="translate(65 35)"><path d="M-8,-4Q-8,-8 0,-8Q8,-8 8,-4Q8,4 2,8.5Q0,9.5 -2,8.5Q-8,4 -8,-4Z" fill="url(#erd-r)" stroke="#7C2F27" stroke-width="1.5" stroke-opacity="0.7"/><path d="M-5,-7L-2.5,-9.5L0,-7.5L2.5,-9.5L5,-7L0,-4.5Z" fill="#3ECF6A"/><path d="M-3,-1h.1M3,-2h.1M0,2h.1M-3,4h.1M3,3h.1" fill="none" stroke="#FFE388" stroke-width="1.6" stroke-linecap="round" stroke-opacity="0.9"/></g>
+<g transform="translate(50 38)"><path d="M-8,-4Q-8,-8 0,-8Q8,-8 8,-4Q8,4 2,8.5Q0,9.5 -2,8.5Q-8,4 -8,-4Z" fill="url(#erd-r)" stroke="#7C2F27" stroke-width="1.5" stroke-opacity="0.7"/><path d="M-5,-7L-2.5,-9.5L0,-7.5L2.5,-9.5L5,-7L0,-4.5Z" fill="#3ECF6A"/><path d="M-3,-1h.1M3,-2h.1M0,2h.1M-3,4h.1M3,3h.1" fill="none" stroke="#FFE388" stroke-width="1.6" stroke-linecap="round" stroke-opacity="0.9"/></g>
+<path d="M19.5,43Q50,54 80.5,43L77,89Q50,100 23,89Z" fill="url(#erd-b)" stroke="#7C2F27" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<path d="M23.6,82H76.4L77,89Q50,100 23,89Z" fill="url(#erd-ao)"/>
+<path d="M21.2,57Q50,61 78.8,57L76.8,80Q50,84 23.2,80Z" fill="#FFF7E8"/>
+<g transform="translate(50 69.5) scale(0.9)"><path d="M-8,-4Q-8,-8 0,-8Q8,-8 8,-4Q8,4 2,8.5Q0,9.5 -2,8.5Q-8,4 -8,-4Z" fill="#FF5A4E"/><path d="M-5,-7L-2.5,-9.5L0,-7.5L2.5,-9.5L5,-7L0,-4.5Z" fill="#3ECF6A"/><path d="M-3,-1h.1M3,-2h.1M0,2h.1M-3,4h.1M3,3h.1" fill="none" stroke="#FFF7E8" stroke-width="1.4" stroke-linecap="round"/></g>
+</svg>

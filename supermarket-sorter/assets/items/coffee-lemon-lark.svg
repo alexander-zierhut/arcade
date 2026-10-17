@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Pfannier Eistee Pfirsich</title>
+<defs>
+<linearGradient id="cllle17f" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#C8ED7D"/><stop offset="0.35" stop-color="#A6E22E"/><stop offset="1" stop-color="#A6E22E"/></linearGradient>
+<linearGradient id="cllle17c" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFB87D"/><stop offset="0.22" stop-color="#FF8C2E"/><stop offset="0.55" stop-color="#FF8C2E"/><stop offset="0.85" stop-color="#B76422"/><stop offset="1" stop-color="#7C4419"/></linearGradient>
+<linearGradient id="cllle17ao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M21.5,36L32.5,22L40.5,16H70.5L78.5,30V88.3L70.5,94.3H21.5Z" fill="#7A9F22" stroke="#576819" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<path d="M70.5,36L78.5,30V88.3L70.5,94.3Z" fill="#7A9F22"/>
+<path d="M70.5,36L62.5,22L70.5,16L78.5,30Z" fill="#7A9F22" fill-opacity="0.8"/>
+<path d="M32.5,22L40.5,16H70.5L62.5,22Z" fill="#C8ED7D"/>
+<path d="M21.5,36L32.5,22H62.5L70.5,36Z" fill="#C8ED7D"/>
+<rect x="21.5" y="36" width="49" height="58.3" fill="url(#cllle17f)"/>
+<path d="M21.5,36H70.5V94.3" fill="none" stroke="#7A9F22" stroke-width="1" stroke-opacity="0.6"/>
+<rect x="21.5" y="83.3" width="49" height="11" fill="url(#cllle17ao)"/>
+<rect x="26.5" y="42" width="39" height="44" rx="3" fill="#FFFFFF"/>
+<text x="46" y="54" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="900" text-anchor="middle" textLength="34" lengthAdjust="spacingAndGlyphs" fill="#576819">PFANNIER</text>
+<circle cx="46" cy="71" r="11" fill="#FF8C2E"/>
+<path d="M46,60Q46,71 46,82" fill="none" stroke="#B76422" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M46,60C49.5,54 56.5,54 58.5,57C55.5,62 49.5,62 46,60Z" fill="#7A9F22"/>
+<ellipse cx="42" cy="66" rx="2" ry="3.2" fill="#FFFFFF" fill-opacity="0.5"/>
+<path d="M46.5,10V19A9,2.4 0 0 0 64.5,19V10Z" fill="url(#cllle17c)" stroke="#7C4419" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<ellipse cx="55.5" cy="10" rx="9" ry="2.4" fill="#FFB87D"/>
+<rect x="48.5" y="11.5" width="2" height="5" rx="1" fill="#FFFFFF" fill-opacity="0.5"/>
+</svg>

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Piepmatz Vogelsaat</title>
+<defs>
+<linearGradient id="pcnzfv" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#87E1A3"/><stop offset="0.35" stop-color="#3ECF6A"/><stop offset="1" stop-color="#3ECF6A"/></linearGradient>
+<linearGradient id="pcnzfy" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#FFE388"/><stop offset="0.35" stop-color="#FFD23F"/><stop offset="1" stop-color="#FFD23F"/></linearGradient>
+<linearGradient id="pcnzao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<rect x="19" y="21" width="53" height="72.5" rx="1" fill="url(#pcnzfv)"/>
+<rect x="19" y="21" width="53" height="16" fill="url(#pcnzfy)"/>
+<polygon points="72,21 81,14 81,30 72,37" fill="#B7942E"/>
+<polygon points="72,37 81,30 81,86.5 72,93.5" fill="#34924B"/>
+<polygon points="19,21 72,21 81,14 28,14" fill="#87E1A3"/>
+<polygon points="19,82.5 72,82.5 81,75.5 81,86.5 72,93.5 19,93.5" fill="url(#pcnzao)"/>
+<line x1="72" y1="21" x2="72" y2="93.5" stroke="#2B6032" stroke-width="1" stroke-opacity="0.6"/>
+<rect x="24" y="43" width="43" height="42" rx="6" fill="#FFF7E8"/>
+<polygon points="55,66 66,58 64,72 56,74" fill="#B74238"/>
+<circle cx="46" cy="68" r="10" fill="#FF5A4E"/>
+<path d="M41,60L40,51L44.5,56L47,49L49.5,57L53,52L52,61Z" fill="#B74238"/>
+<polygon points="36.5,66 29,69.5 36.5,72.5" fill="#FFD23F"/>
+<circle cx="42" cy="65.5" r="2.7" fill="#FFFFFF"/>
+<circle cx="41.4" cy="65.5" r="1.3" fill="#1E100A"/>
+<path d="M19,21L28,14H81V86.5L72,93.5H19Z" fill="none" stroke="#2B6032" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+</svg>

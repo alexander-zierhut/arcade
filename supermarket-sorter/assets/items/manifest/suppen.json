@@ -1,0 +1,49 @@
+{
+  "category": "suppen",
+  "items": [
+    {
+      "id": "suppen-landlust-nudelsuppe",
+      "file": "suppen-landlust-nudelsuppe.svg",
+      "name": "Landlust Nudelsuppe",
+      "class": "tub",
+      "color": "#2FD5C8",
+      "accent": "#FFF7E8",
+      "label": "",
+      "icon": "noodle bowl",
+      "description": "Turquoise instant soup cup with a cream foil lid, a cream label with a big coral bowl of golden noodles and a green herb leaf"
+    },
+    {
+      "id": "suppen-hofgut-gulaschtopf",
+      "file": "suppen-hofgut-gulaschtopf.svg",
+      "name": "Hofgut Gulaschtopf",
+      "class": "jar",
+      "color": "#9D7BFF",
+      "accent": "#FFD23F",
+      "label": "",
+      "icon": "goulash bowl",
+      "description": "Fat lavender glass jar with a sun-yellow screw lid, a cream label and a yellow bowl of red goulash with two brown beef chunks"
+    },
+    {
+      "id": "suppen-sonnenhof-kuerbissuppe",
+      "file": "suppen-sonnenhof-kuerbissuppe.svg",
+      "name": "Sonnhof Kürbissuppe",
+      "class": "carton",
+      "color": "#A6E22E",
+      "accent": "#FF8C2E",
+      "label": "",
+      "icon": "pumpkin",
+      "description": "Lime-green gable-top carton with an orange spout cap and a cream label showing a big orange pumpkin with a green stem"
+    },
+    {
+      "id": "suppen-bergquell-chili",
+      "file": "suppen-bergquell-chili.svg",
+      "name": "Erasko Chili con Carne",
+      "class": "can",
+      "color": "#FF5A4E",
+      "accent": "#DCDCDC",
+      "label": "ERASKO",
+      "icon": "chili pepper",
+      "description": "Parody of an Erasco ready-meal can: fat coral-red can with metal rims, a cream label with the word ERASKO and a big red chili pepper with a green stem"
+    }
+  ]
+}

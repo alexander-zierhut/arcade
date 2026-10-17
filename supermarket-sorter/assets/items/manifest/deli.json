@@ -1,0 +1,49 @@
+{
+  "category": "deli",
+  "items": [
+    {
+      "id": "deli-pink-oink",
+      "file": "deli-pink-oink.svg",
+      "name": "Dorfglück Kochschinken",
+      "class": "bag",
+      "color": "#9D7BFF",
+      "accent": "#FF6FB5",
+      "label": "",
+      "icon": "pig face",
+      "description": "Fat lavender vacuum pouch of cooked ham (Kochschinken) with a crimped top seal and a cream label showing a smiling pig face with a big snout"
+    },
+    {
+      "id": "deli-ember-ridge",
+      "file": "deli-ember-ridge.svg",
+      "name": "Feuerkamm Salami",
+      "class": "loose",
+      "color": "#A6E22E",
+      "accent": "#B74238",
+      "label": "",
+      "icon": "flame",
+      "description": "Two fat salami sticks standing side by side in lime-green paper, their cut ends dark red with white fat flecks, and a cream band with a red flame on the front stick"
+    },
+    {
+      "id": "deli-snappy-links",
+      "file": "deli-snappy-links.svg",
+      "name": "Meika Deutschländer",
+      "class": "box",
+      "color": "#FF5A4E",
+      "accent": "#FFFFFF",
+      "label": "MEIKA",
+      "icon": "three sausages",
+      "description": "Tall red upright pack of Deutschländer sausages with a white top band printed MEIKA and a cream window showing three sausages; winks at the Meica Deutschländer pack"
+    },
+    {
+      "id": "deli-gobble-gold",
+      "file": "deli-gobble-gold.svg",
+      "name": "Federhof Räucherpute",
+      "class": "tub",
+      "color": "#2FD5C8",
+      "accent": "#FF5A4E",
+      "label": "",
+      "icon": "turkey",
+      "description": "Fat turquoise tub of smoked turkey breast (Räucherpute) with a coral-red lid and a cream label showing a turkey with a fanned tail"
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "category": "dairy",
+  "items": [
+    {
+      "id": "dairy-cloudy-moo",
+      "file": "dairy-cloudy-moo.svg",
+      "name": "Weihenstefan Frische Vollmilch",
+      "class": "bottle",
+      "color": "#FFF7E8",
+      "accent": "#FFF7E8",
+      "label": "STEFAN",
+      "icon": "alps silhouette",
+      "description": "Winks at the Bavarian Weihenstephan fresh milk bottle: cobalt-blue 1 l bottle with a cream cap, a white label band with a blue Alps silhouette and the near-name STEFAN (Weihenstefan)"
+    },
+    {
+      "id": "dairy-choco-barn",
+      "file": "dairy-choco-barn.svg",
+      "name": "Mühlermilch Schoko",
+      "class": "bottle",
+      "color": "#FFF7E8",
+      "accent": "#7A4A2A",
+      "label": "MÜHLER",
+      "icon": "huge letter M",
+      "description": "Winks at Müllermilch chocolate milk: fat cream-white plastic bottle with a wide chocolate-brown cap, a chocolate label band with a huge cream letter M and the near-name MÜHLER"
+    },
+    {
+      "id": "dairy-berry-bell",
+      "file": "dairy-berry-bell.svg",
+      "name": "Almigurt Erdbeere",
+      "class": "tub",
+      "color": "#FF6FB5",
+      "accent": "#FFF7E8",
+      "label": "ALMIGURT",
+      "icon": "strawberry",
+      "description": "Winks at the Almighurt strawberry yogurt cup: candy-pink tub with a cream foil lid, a white label with a big strawberry and the near-name ALMIGURT"
+    },
+    {
+      "id": "dairy-tangy-meadow",
+      "file": "dairy-tangy-meadow.svg",
+      "name": "Kleeweide Kefir",
+      "class": "jar",
+      "color": "#3ECF6A",
+      "accent": "#FFF7E8",
+      "label": "",
+      "icon": "four-leaf clover",
+      "description": "Fat green glass kefir jar with a cream screw lid and a cream label with one big four-leaf clover"
+    }
+  ]
+}

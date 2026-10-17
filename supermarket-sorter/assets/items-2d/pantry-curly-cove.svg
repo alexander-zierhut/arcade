@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Barillo Spaghetti</title>
+<rect x="19" y="8" width="62" height="85.5" rx="3" fill="#2F6BD6" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M71 8H78Q81 8 81 11V90.5Q81 93.5 78 93.5H71Z" fill="#000000" fill-opacity="0.12"/>
+<rect x="21.5" y="10.5" width="4.5" height="80" rx="2.2" fill="#FFFFFF" fill-opacity="0.35"/>
+<rect x="19" y="8" width="62" height="9" rx="3" fill="#FFFFFF" fill-opacity="0.2"/>
+<line x1="19" y1="19" x2="81" y2="19" stroke="#2A1B12" stroke-width="2"/>
+<rect x="25" y="22" width="50" height="14" rx="4" fill="#FFF6E0" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+<text x="50" y="33" font-size="10" font-family="Arial, Helvetica, sans-serif" font-weight="900" text-anchor="middle" fill="#E8453C">BARILLO</text>
+<rect x="27" y="40" width="46" height="46" rx="6" fill="#1F3A5F" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+<path d="M36 84L32 44M43 84L41 44M50 84V44M57 84L59 44M64 84L68 44" fill="none" stroke="#F7C948" stroke-width="3" stroke-linecap="round"/>
+<path d="M39.5 84L36.5 44M46.5 84L45.5 44M53.5 84L54.5 44M60.5 84L63.5 44" fill="none" stroke="#F28C28" stroke-width="2" stroke-linecap="round"/>
+<circle cx="66" cy="46" r="8" fill="#E8453C" stroke="#2A1B12" stroke-width="2"/>
+<text x="66" y="49.2" font-size="9" font-family="Arial, Helvetica, sans-serif" font-weight="900" text-anchor="middle" fill="#FFFFFF">n.5</text>
+</svg>

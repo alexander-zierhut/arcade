@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Minzperle Zahnpasta</title>
+<defs>
+<linearGradient id="q4xfv" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#7EE5DD"/><stop offset="0.35" stop-color="#2FD5C8"/><stop offset="1" stop-color="#2FD5C8"/></linearGradient>
+<linearGradient id="q4xq" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#85A4FF"/><stop offset="0.35" stop-color="#3B6CFF"/><stop offset="1" stop-color="#3B6CFF"/></linearGradient>
+<linearGradient id="q4xsh" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFFFFF" stop-opacity="0.2"/><stop offset="0.5" stop-color="#FFFFFF" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.2"/></linearGradient>
+<linearGradient id="q4xao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<rect x="20" y="18" width="52" height="75.5" fill="url(#q4xfv)"/>
+<path d="M72,18L80,11V86.5L72,93.5Z" fill="#2A968B"/>
+<path d="M20,18H72L80,11H28Z" fill="#7EE5DD"/>
+<rect x="20" y="18" width="52" height="10" fill="url(#q4xq)"/>
+<path d="M72,18L80,11V21L72,28Z" fill="#324FB1"/>
+<rect x="20" y="83.5" width="52" height="10" fill="url(#q4xq)"/>
+<path d="M72,83.5L80,76.5V86.5L72,93.5Z" fill="#324FB1"/>
+<rect x="26" y="34" width="40" height="46" rx="4" fill="#FFF7E8"/>
+<path d="M35,46Q35,39 41,39Q46,41 51,39Q57,39 57,46Q57,54 54,60Q53,73 50,75Q47,75 46,67Q46,65 46,65Q45,65 45,67Q44,75 42,75Q39,73 38,60Q35,54 35,46Z" fill="#3B6CFF"/>
+<rect x="20" y="18" width="52" height="75.5" fill="url(#q4xsh)"/>
+<path d="M20,18H72V93.5" fill="none" stroke="#2A968B" stroke-width="1" stroke-opacity="0.5"/>
+<path d="M20,82.5H72L80,75.5V86.5L72,93.5H20Z" fill="url(#q4xao)"/>
+<path d="M20,18L28,11H80V86.5L72,93.5H20Z" fill="none" stroke="#25635A" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+</svg>

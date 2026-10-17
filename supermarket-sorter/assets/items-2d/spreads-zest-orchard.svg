@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Zentus Heidelbeer-Konfitüre</title>
+<path d="M31 25H69Q78 26 78 35V86Q78 93.5 70 93.5H30Q22 93.5 22 86V35Q22 26 31 25Z" fill="#3A5BBF" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="27" y="36" width="46" height="50" rx="6" fill="#FFF6E0" stroke="#2A1B12" stroke-width="2"/>
+<rect x="24" y="38" width="4.5" height="46" rx="2.25" fill="#FFFFFF" fill-opacity="0.35"/>
+<rect x="71" y="38" width="5" height="46" rx="2.5" fill="#000000" fill-opacity="0.12"/>
+<rect x="26" y="13" width="48" height="15" rx="3" fill="#F2B632" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round"/>
+<line x1="33" y1="18" x2="33" y2="24" stroke="#2A1B12" stroke-opacity="0.35" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="41.5" y1="18" x2="41.5" y2="24" stroke="#2A1B12" stroke-opacity="0.35" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="50" y1="18" x2="50" y2="24" stroke="#2A1B12" stroke-opacity="0.35" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="58.5" y1="18" x2="58.5" y2="24" stroke="#2A1B12" stroke-opacity="0.35" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="67" y1="18" x2="67" y2="24" stroke="#2A1B12" stroke-opacity="0.35" stroke-width="1.5" stroke-linecap="round"/>
+<text x="50" y="48" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="900" text-anchor="middle" fill="#D6252E">ZENTUS</text>
+<circle cx="41" cy="63" r="8.5" fill="#2F4A9E" stroke="#2A1B12" stroke-width="2"/>
+<circle cx="59" cy="63" r="8.5" fill="#2F4A9E" stroke="#2A1B12" stroke-width="2"/>
+<circle cx="50" cy="76" r="8.5" fill="#2F4A9E" stroke="#2A1B12" stroke-width="2"/>
+<circle cx="38" cy="60" r="2" fill="#FFFFFF" fill-opacity="0.6"/>
+<circle cx="56" cy="60" r="2" fill="#FFFFFF" fill-opacity="0.6"/>
+<circle cx="47" cy="73" r="2" fill="#FFFFFF" fill-opacity="0.6"/>
+<circle cx="41" cy="63" r="1.6" fill="#2A1B12"/>
+<circle cx="59" cy="63" r="1.6" fill="#2A1B12"/>
+<circle cx="50" cy="76" r="1.6" fill="#2A1B12"/>
+<path d="M48 56Q52 49 58 50Q56 57 48 56Z" fill="#3FA34D" stroke="#2A1B12" stroke-width="1.5" stroke-linejoin="round"/>
+</svg>

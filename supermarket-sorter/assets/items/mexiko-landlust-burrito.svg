@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Landlust Burrito</title>
+<defs>
+<linearGradient id="urrito-b" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#C2ADFF"/><stop offset="0.22" stop-color="#9D7BFF"/><stop offset="0.55" stop-color="#9D7BFF"/><stop offset="0.85" stop-color="#7459B1"/><stop offset="1" stop-color="#533D71"/></linearGradient>
+<linearGradient id="urrito-k" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#E7C9A3"/><stop offset="0.22" stop-color="#D9A86B"/><stop offset="0.55" stop-color="#D9A86B"/><stop offset="0.85" stop-color="#9D774C"/><stop offset="1" stop-color="#6D5033"/></linearGradient>
+<linearGradient id="urrito-m" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#DCDCDC"/><stop offset="0.3" stop-color="#DCDCDC"/><stop offset="0.6" stop-color="#B4B4B4"/><stop offset="0.9" stop-color="#8E8E8E"/><stop offset="1" stop-color="#5A5A5A"/></linearGradient>
+<linearGradient id="urrito-ao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+<linearGradient id="urrito-sh" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFFFFF" stop-opacity="0.3"/><stop offset="0.25" stop-color="#FFFFFF" stop-opacity="0"/><stop offset="0.6" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.4"/></linearGradient>
+</defs>
+<ellipse cx="50" cy="47" rx="30" ry="4" fill="#7459B1"/>
+<path d="M36,36V16Q36,13 39,13H61Q64,13 64,16V36Z" fill="url(#urrito-k)"/>
+<ellipse cx="50" cy="13" rx="14" ry="3.8" fill="#E7C9A3"/>
+<ellipse cx="50" cy="13.5" rx="9" ry="2.2" fill="#9D774C"/>
+<path d="M33,34L36.5,29.5L40,34L43.5,29.5L47,34L50.5,29.5L54,34L57.5,29.5L61,34L64.5,29.5L67,34V56H33Z" fill="url(#urrito-m)"/>
+<path d="M20,47Q50,55 80,47L77.5,86Q77,93.5 70,93.5H30Q23,93.5 22.5,86Z" fill="url(#urrito-b)" stroke="#533D71" stroke-width="1.5" stroke-opacity="0.7"/>
+<path d="M22.9,82.5H77.1L77.5,86Q77,93.5 70,93.5H30Q23,93.5 22.5,86Z" fill="url(#urrito-ao)"/>
+<path d="M27,62Q50,66 73,62V83Q50,87 27,83Z" fill="#FFF7E8"/>
+<path d="M27,62Q50,66 73,62V83Q50,87 27,83Z" fill="url(#urrito-sh)"/>
+<rect x="39" y="69" width="22" height="10" rx="5" transform="rotate(-25 50 74)" fill="#D9A86B"/>
+<path d="M55,67Q59,66 61,70Q57,71 55,67Z" fill="#3ECF6A"/>
+<rect x="25.5" y="56" width="3" height="28" rx="1.5" fill="#FFFFFF" fill-opacity="0.25"/>
+</svg>

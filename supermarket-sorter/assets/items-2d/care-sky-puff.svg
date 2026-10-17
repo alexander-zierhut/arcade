@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Wolkenweich Toilettenpapier</title>
+<path d="M22 17Q26 8 30 17T38 17T46 17T54 17T62 17T70 17T78 17V88Q78 93.5 72 93.5H28Q22 93.5 22 88Z" fill="#F7C948"/>
+<path d="M70 17H78V88Q78 93.5 72 93.5H70Z" fill="#000000" fill-opacity="0.12"/>
+<rect x="28" y="34" width="44" height="42" rx="3" fill="#FFFFFF" stroke="#2A1B12" stroke-width="1.5"/>
+<path d="M36 62Q30 62 30 56Q30 50 36 49.5Q37 42 45 42Q49 36 56 40Q64 39 66 47Q71 48 71 55Q71 62 65 62Z" fill="#4FA3E8" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+<text x="50" y="72" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="10" text-anchor="middle" fill="#2A1B12">WEICH</text>
+<rect x="24.5" y="22" width="2.8" height="64" rx="1.4" fill="#FFFFFF" fill-opacity="0.35"/>
+<path d="M22 17Q26 8 30 17T38 17T46 17T54 17T62 17T70 17T78 17V88Q78 93.5 72 93.5H28Q22 93.5 22 88Z" fill="none" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round"/>
+</svg>

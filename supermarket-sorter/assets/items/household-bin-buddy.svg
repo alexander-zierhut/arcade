@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Tonnenfreund Müllbeutel</title>
+<defs>
+<linearGradient id="bbb" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFA6D1"/><stop offset="0.22" stop-color="#FF6FB5"/><stop offset="0.55" stop-color="#FF6FB5"/><stop offset="0.85" stop-color="#B7517E"/><stop offset="1" stop-color="#7C3852"/></linearGradient>
+<linearGradient id="bbc" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFE388"/><stop offset="0.22" stop-color="#FFD23F"/><stop offset="0.55" stop-color="#FFD23F"/><stop offset="0.85" stop-color="#B7942E"/><stop offset="1" stop-color="#7C6120"/></linearGradient>
+<linearGradient id="bbao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M22,14L26,9.5L30,14L34,9.5L38,14L42,9.5L46,14L50,9.5L54,14L58,9.5L62,14L66,9.5L70,14L74,9.5L78,14C83,28 83.5,66 80,88Q79,94.5 72,94.5H28Q21,94.5 20,88C16.5,66 17,28 22,14Z" fill="url(#bbb)" stroke="#7C3852" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<path d="M20,83.5H80V88Q79,94.5 72,94.5H28Q21,94.5 20,88Z" fill="url(#bbao)"/>
+<rect x="28" y="28" width="3" height="56" rx="1.5" fill="#FFFFFF" fill-opacity="0.25"/>
+<rect x="65" y="28" width="3" height="56" rx="1.5" fill="#FFFFFF" fill-opacity="0.25"/>
+<rect x="22" y="21" width="56" height="2" fill="#1E100A" fill-opacity="0.3"/>
+<rect x="22" y="13.5" width="56" height="7.5" fill="url(#bbc)"/>
+<rect x="30" y="38" width="40" height="40" rx="3" fill="#FFFFFF"/>
+<rect x="46" y="47" width="8" height="2.5" rx="1" fill="#B7517E"/>
+<rect x="41" y="49.5" width="18" height="4" rx="1.5" fill="#B7517E"/>
+<path d="M43,54.5H57L55.3,70H44.7Z" fill="#B7517E"/>
+</svg>

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100"><title>Omas Beste Rotkohl</title>
+<path d="M30 27H70Q72 27 72 31Q79 36 79 44V84Q79 93.5 70 93.5H30Q21 93.5 21 84V44Q21 36 28 31Q28 27 30 27Z" fill="#8A3FC0" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round"/>
+<path d="M67 36H72Q79 36 79 44V84Q79 93.5 70 93.5H67Z" fill="#000000" fill-opacity="0.12"/>
+<rect x="26" y="40" width="48" height="46" rx="7" fill="#FFFFFF" stroke="#2A1B12" stroke-width="2"/>
+<text x="50" y="49" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="900" text-anchor="middle" fill="#8A2F8F">OMAS</text>
+<circle cx="50" cy="64" r="11" fill="#7A2E9E" stroke="#2A1B12" stroke-width="2"/>
+<circle cx="50" cy="64" r="6.5" fill="#E04A9A" stroke="#2A1B12" stroke-width="2"/>
+<path d="M50 57.5V70.5M44.5 60.5C46.5 63.5 46.5 66.5 45 68.5M55.5 60.5C53.5 63.5 53.5 66.5 55 68.5" fill="none" stroke="#FFE3F1" stroke-width="1.2" stroke-linecap="round"/>
+<text x="50" y="82" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="900" text-anchor="middle" fill="#8A2F8F">KOHL</text>
+<rect x="23" y="46" width="3.5" height="42" rx="1.7" fill="#FFFFFF" fill-opacity="0.35"/>
+<path d="M27.5 50V80" fill="none" stroke="#FFFFFF" stroke-opacity="0.7" stroke-width="1.5" stroke-linecap="round"/>
+<rect x="26" y="14" width="48" height="14" rx="4" fill="#F7C948" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round"/>
+<path d="M34 18V24M42 18V24M50 18V24M58 18V24M66 18V24" fill="none" stroke="#2A1B12" stroke-width="1.5" stroke-linecap="round" stroke-opacity="0.5"/>
+</svg>

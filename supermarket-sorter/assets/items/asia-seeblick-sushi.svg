@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Noriko Sushi-Box</title>
+<defs>
+<linearGradient id="asseef" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#85A4FF"/><stop offset="0.35" stop-color="#3B6CFF"/></linearGradient>
+<linearGradient id="asseel" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#FFFAF1"/><stop offset="0.35" stop-color="#FFF7E8"/></linearGradient>
+<linearGradient id="asseeao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M19,21L27,11H81V83.5L73,93.5H19Z" fill="#324FB1" stroke="#2A3771" stroke-width="1.5" stroke-opacity="0.7"/>
+<rect x="19" y="21" width="54" height="72.5" fill="url(#asseef)"/>
+<path d="M73,21L81,11V83.5L73,93.5Z" fill="#324FB1"/>
+<rect x="24" y="41" width="44" height="43" rx="3" fill="#2A3771"/>
+<circle cx="38" cy="54" r="10" fill="#2B6032"/><circle cx="38" cy="54" r="7" fill="#FFF7E8"/><circle cx="38" cy="54" r="3.2" fill="#FF5A4E"/>
+<circle cx="54" cy="71" r="10" fill="#2B6032"/><circle cx="54" cy="71" r="7" fill="#FFF7E8"/><circle cx="54" cy="71" r="3.2" fill="#A6E22E"/>
+<path d="M24,41H40L24,57Z" fill="#FFFFFF" fill-opacity="0.12"/>
+<rect x="19" y="82.5" width="54" height="11" fill="url(#asseeao)"/>
+<path d="M73,82.5L81,72.5V83.5L73,93.5Z" fill="url(#asseeao)"/>
+<rect x="19" y="21" width="54" height="13" fill="url(#asseel)"/>
+<path d="M73,21L81,11V24L73,34Z" fill="#B7ADA1"/>
+<path d="M19,21L27,11H81L73,21Z" fill="#FFFAF1"/>
+<rect x="19" y="34" width="54" height="2" fill="#1E100A" fill-opacity="0.3"/>
+<path d="M73,34L81,24V26L73,36Z" fill="#1E100A" fill-opacity="0.3"/>
+</svg>

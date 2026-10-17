@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Sonni Pfirsichhälften</title>
+<path d="M23 14L23 86Q23 93.5 31 93.5L69 93.5Q77 93.5 77 86L77 14Z" fill="#FF6E60"/>
+<rect x="24" y="32" width="52" height="48" rx="2" fill="#FFF6E0" stroke="#2A1B12" stroke-width="2"/>
+<text x="50" y="45" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="11" text-anchor="middle" fill="#2A1B12">SONNI</text>
+<circle cx="50" cy="64" r="14" fill="#FF9A3D" stroke="#2A1B12" stroke-width="2"/>
+<path d="M50 52Q45 64 50 77" fill="none" stroke="#2A1B12" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M55 56C58 49 64 48 67 50C64 55 59 57 55 56Z" fill="#3FA34D" stroke="#2A1B12" stroke-width="1.5" stroke-linejoin="round"/>
+<ellipse cx="30" cy="60" rx="3" ry="18" transform="rotate(4 30 60)" fill="#FFFFFF" fill-opacity="0.35"/>
+<path d="M68 14L77 14L77 86Q77 93.5 69 93.5L65 93.5Q68 80 68 60Q68 30 68 14Z" fill="#000000" fill-opacity="0.12"/>
+<path d="M23 14L23 86Q23 93.5 31 93.5L69 93.5Q77 93.5 77 86L77 14Z" fill="none" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<ellipse cx="50" cy="14" rx="27" ry="4.5" fill="#FFC2B5" stroke="#2A1B12" stroke-width="3"/>
+<rect x="44" y="12.5" width="12" height="3.5" rx="1.8" fill="#FFFFFF" stroke="#2A1B12" stroke-width="1.5"/>
+</svg>

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Kellos Cornflakes</title>
+<rect x="21" y="7.5" width="58" height="86" rx="3" fill="#3FA34D" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="26" y="13" width="48" height="76" rx="4" fill="#FFFDF2" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="50" y="31" font-family="Arial, Helvetica, sans-serif" font-weight="900" text-anchor="middle" font-style="italic" font-size="10.5" fill="#E8453C">KELLOS</text>
+<path d="M31 35.5Q50 39.5 69 34.5" fill="none" stroke="#E8453C" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<g transform="translate(0 -4)">
+<path d="M50 68Q30 64 29 43Q44 46 50 68Z" fill="#3FA34D" stroke="#2A1B12" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M50 68Q70 64 71 43Q56 46 50 68Z" fill="#3FA34D" stroke="#2A1B12" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M33 67Q33 52 50 51Q67 52 67 67Z" fill="#F7C948" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<ellipse cx="42" cy="59" rx="4" ry="2.4" fill="#E39A1F" transform="rotate(-25 42 59)"/>
+<ellipse cx="55" cy="56" rx="4" ry="2.4" fill="#E39A1F" transform="rotate(20 55 56)"/>
+<ellipse cx="59" cy="63" rx="3.6" ry="2.2" fill="#E39A1F" transform="rotate(-15 59 63)"/>
+<path d="M31 65H69Q68 82 50 82Q32 82 31 65Z" fill="#4FA3E8" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+</g>
+<text x="50" y="87" font-family="Arial, Helvetica, sans-serif" font-weight="900" text-anchor="middle" font-size="9" fill="#2A1B12">FLAKES</text>
+<rect x="23" y="12" width="3.2" height="76" rx="1.6" fill="#FFFFFF" fill-opacity="0.35"/>
+<rect x="69.5" y="7.5" width="9.5" height="86" fill="#000000" fill-opacity="0.12"/>
+</svg>

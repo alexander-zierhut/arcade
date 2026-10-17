@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Alpenhof Sprüh-Sahne</title>
+<rect x="44" y="9" width="12" height="7" rx="2" fill="#2A1B12" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+<path d="M24 22H76V91Q76 93.5 73 93.5H27Q24 93.5 24 91Z" fill="#E0246A" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<ellipse cx="50" cy="22" rx="26" ry="5" fill="#FFFFFF" stroke="#2A1B12" stroke-width="3"/>
+<rect x="29" y="36" width="42" height="46" rx="3" fill="#FFF6E0" stroke="#2A1B12" stroke-width="1.5"/>
+<text x="50" y="45" font-size="10" font-family="Arial, Helvetica, sans-serif" font-weight="900" text-anchor="middle" fill="#E0246A">ALPEN</text>
+<path d="M44.5 56Q45.5 49.5 50 48Q54.5 49.5 55.5 56Z" fill="#FFFFFF" stroke="#2A1B12" stroke-width="1.5" stroke-linejoin="round"/>
+<ellipse cx="50" cy="59.5" rx="8.5" ry="3.8" fill="#FFFFFF" stroke="#2A1B12" stroke-width="1.5"/>
+<ellipse cx="50" cy="66" rx="11" ry="4" fill="#FFFFFF" stroke="#2A1B12" stroke-width="1.5"/>
+<text x="50" y="78" font-size="10" font-family="Arial, Helvetica, sans-serif" font-weight="900" text-anchor="middle" fill="#E0246A">SAHNE</text>
+<rect x="27" y="26" width="2.8" height="62" rx="1.4" fill="#FFFFFF" fill-opacity="0.35"/>
+<path d="M70 22H76V91Q76 93.5 73 93.5H70.5Q71 60 70 22Z" fill="#000000" fill-opacity="0.12"/>
+</svg>

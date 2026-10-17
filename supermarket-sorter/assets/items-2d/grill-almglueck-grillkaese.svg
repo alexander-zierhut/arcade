@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Almhof Grillkäse</title>
+<path d="M69,16L79,8V86L69,94Z" fill="#1F4FA8" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M21,16L28,8H79L69,16Z" fill="#2F6BD6" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M21,16L28,8H79L69,16Z" fill="#FFFFFF" fill-opacity="0.2"/>
+<rect x="21" y="16" width="48" height="78" rx="3" fill="#2F6BD6" stroke="#2A1B12" stroke-width="3"/>
+<rect x="22.5" y="22" width="2.5" height="66" rx="1.2" fill="#FFFFFF" fill-opacity="0.35"/>
+<rect x="63" y="18" width="5.5" height="74" fill="#000000" fill-opacity="0.12"/>
+<rect x="24" y="25" width="40" height="54" rx="3" fill="#FFFFFF" stroke="#2A1B12" stroke-width="2"/>
+<text x="44" y="37" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="900" text-anchor="middle" fill="#2A1B12">ALMHOF</text>
+<rect x="30" y="41" width="28" height="17" rx="3" fill="#F7C948" stroke="#2A1B12" stroke-width="2"/>
+<path d="M34,56L38,43M42,56L46,43M50,56L54,43" fill="none" stroke="#A55A1E" stroke-width="2.5" stroke-linecap="round"/>
+<path d="M52,66Q54,59 60,60Q59,66 52,66Z" fill="#3FA34D" stroke="#2A1B12" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="44" y="76" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="900" text-anchor="middle" fill="#2A1B12">GRILL</text>
+</svg>

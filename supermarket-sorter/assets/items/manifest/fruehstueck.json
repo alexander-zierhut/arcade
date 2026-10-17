@@ -1,0 +1,49 @@
+{
+  "category": "fruehstueck",
+  "items": [
+    {
+      "id": "fruehstueck-huehnerglueck-eier",
+      "file": "fruehstueck-huehnerglueck-eier.svg",
+      "name": "Hühnerglück Freilandeier",
+      "class": "box",
+      "color": "#4FB6FF",
+      "accent": "#FF8C2E",
+      "label": "",
+      "icon": "egg",
+      "description": "Upright sky-blue printed egg carton with a lit top face and darker side, one white label panel with a big orange egg; generic German egg carton, brand Hühnerglück"
+    },
+    {
+      "id": "fruehstueck-schlemmerhof-herzwaffel",
+      "file": "fruehstueck-schlemmerhof-herzwaffel.svg",
+      "name": "Schlemmerhof Herzwaffel",
+      "class": "loose",
+      "color": "#FF6FB5",
+      "accent": "#FF8C2E",
+      "label": "",
+      "icon": "heart waffle",
+      "description": "Two thick golden-orange heart waffles, one behind the other, each topped with glossy candy-pink icing and showing its thickness; natural, winks at the German Herzwaffel"
+    },
+    {
+      "id": "fruehstueck-sonntagsglueck-pfannkuchen",
+      "file": "fruehstueck-sonntagsglueck-pfannkuchen.svg",
+      "name": "Sonntagsglück Pfannkuchenstapel",
+      "class": "loose",
+      "color": "#FFD23F",
+      "accent": "#FF8C2E",
+      "label": "",
+      "icon": "pancake stack",
+      "description": "Natural stack of four thick golden pancakes on a cream plate with a butter pat and glossy amber syrup dripping down the side; natural proportions"
+    },
+    {
+      "id": "fruehstueck-wanderlust-muesliriegel",
+      "file": "fruehstueck-wanderlust-muesliriegel.svg",
+      "name": "Knuspi Müsliriegel",
+      "class": "bag",
+      "color": "#3ECF6A",
+      "accent": "#FFD23F",
+      "label": "",
+      "icon": "muesli bar",
+      "description": "Upright leaf-green stand-up bag with a crimped yellow seal and a cream label panel with one golden muesli bar; generic German muesli bar pack, brand Knuspi"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Zuckerhain Kirschtörtchen</title>
+<defs>
+<linearGradient id="rswb" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFA6D1"/><stop offset="0.22" stop-color="#FF6FB5"/><stop offset="0.55" stop-color="#FF6FB5"/><stop offset="0.85" stop-color="#B7517E"/><stop offset="1" stop-color="#7C3852"/></linearGradient>
+<linearGradient id="rswc" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFE388"/><stop offset="0.22" stop-color="#FFD23F"/><stop offset="0.55" stop-color="#FFD23F"/><stop offset="0.85" stop-color="#B7942E"/><stop offset="1" stop-color="#7C6120"/></linearGradient>
+<linearGradient id="rswao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+<radialGradient id="rswr" cx="0.35" cy="0.3" r="0.75"><stop offset="0" stop-color="#FF9991"/><stop offset="0.5" stop-color="#FF5A4E"/><stop offset="1" stop-color="#B74238"/></radialGradient>
+</defs>
+<path d="M22,62H78L71,90Q70.5,94.5 66,94.5H34Q29.5,94.5 29,90Z" fill="url(#rswc)" stroke="#7C6120" stroke-width="1.5" stroke-opacity="0.7"/>
+<rect x="29" y="83.5" width="42" height="11" fill="url(#rswao)"/>
+<rect x="23" y="62" width="54" height="4" fill="#1E100A" fill-opacity="0.3"/>
+<ellipse cx="50" cy="58.5" rx="30" ry="10" fill="#1E100A" fill-opacity="0.25"/>
+<ellipse cx="50" cy="56" rx="30" ry="10" fill="url(#rswb)" stroke="#7C3852" stroke-width="1.5" stroke-opacity="0.7"/>
+<ellipse cx="50" cy="46.5" rx="23" ry="8.5" fill="#1E100A" fill-opacity="0.25"/>
+<ellipse cx="50" cy="44" rx="23" ry="8.5" fill="url(#rswb)" stroke="#7C3852" stroke-width="1.5" stroke-opacity="0.7"/>
+<ellipse cx="50" cy="35.5" rx="16" ry="7" fill="#1E100A" fill-opacity="0.25"/>
+<ellipse cx="50" cy="33" rx="16" ry="7" fill="url(#rswb)" stroke="#7C3852" stroke-width="1.5" stroke-opacity="0.7"/>
+<path d="M40,31Q47,26 50,21Q53,26 60,31Z" fill="url(#rswb)"/>
+<path d="M50,12Q52,8 56,7.5" fill="none" stroke="#2B6032" stroke-width="1.5" stroke-linecap="round"/>
+<circle cx="50" cy="17" r="5.5" fill="url(#rswr)"/>
+<ellipse cx="47.5" cy="15" rx="1.8" ry="1.3" fill="#FFFFFF" fill-opacity="0.6"/>
+</svg>

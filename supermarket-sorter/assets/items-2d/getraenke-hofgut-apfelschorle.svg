@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Hofgut Apfelschorle</title>
+<rect x="25.5" y="26" width="49" height="67.5" fill="#3FA34D" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round"/>
+<polygon points="25.5,26 50,9 74.5,26" fill="#F7C948" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round"/>
+<text x="50" y="25" font-size="7" font-family="Arial, Helvetica, sans-serif" font-weight="900" text-anchor="middle" textLength="28" lengthAdjust="spacingAndGlyphs" fill="#2A1B12">HOFGUT</text>
+<rect x="31" y="44" width="38" height="42" rx="3" fill="#FFF6E0" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+<path d="M50 51C46.5 47.5 38.5 48.5 38.5 57C38.5 64.5 43.5 69.5 47 69.5C48.5 69.5 49.2 68.8 50 68.8C50.8 68.8 51.5 69.5 53 69.5C56.5 69.5 61.5 64.5 61.5 57C61.5 48.5 53.5 47.5 50 51Z" fill="#E8453C" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+<path d="M50 51L51.5 45" fill="none" stroke="#2A1B12" stroke-width="2" stroke-linecap="round"/>
+<path d="M51.5 47.5C52.5 43.5 55.5 42 59 42.5C58 46.5 55 48.5 51.5 47.5Z" fill="#3FA34D" stroke="#2A1B12" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="50" y="82" font-size="11" font-family="Arial, Helvetica, sans-serif" font-weight="900" text-anchor="middle" textLength="26" lengthAdjust="spacingAndGlyphs" fill="#E8453C">APFEL</text>
+<rect x="28.5" y="34" width="4" height="58" rx="2" fill="#FFFFFF" fill-opacity="0.35"/>
+<rect x="67.5" y="26" width="7" height="67.5" fill="#000000" fill-opacity="0.12"/>
+</svg>

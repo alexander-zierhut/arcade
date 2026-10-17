@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Jakoby Krönung</title>
+<defs>
+<linearGradient id="cdrdu18f" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#5CC28A"/><stop offset="0.35" stop-color="#1E8F4A"/><stop offset="1" stop-color="#1E8F4A"/></linearGradient>
+<linearGradient id="cdrdu18ao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M19,16L27,10H81V88.3L73,94.3H19Z" fill="#15663A" stroke="#0F4A2A" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<path d="M73,16L81,10V88.3L73,94.3Z" fill="#15663A"/>
+<path d="M19,16L27,10H81L73,16Z" fill="#5CC28A"/>
+<rect x="19" y="16" width="54" height="78.3" fill="url(#cdrdu18f)"/>
+<path d="M19,16H73V94.3" fill="none" stroke="#15663A" stroke-width="1" stroke-opacity="0.6"/>
+<rect x="19" y="83.3" width="54" height="11" fill="url(#cdrdu18ao)"/>
+<polygon points="29,50 26,32 37,40 46,28 55,40 66,32 63,50" fill="#FFD23F"/>
+<circle cx="26" cy="31" r="2.6" fill="#FFE388"/><circle cx="46" cy="27" r="2.8" fill="#FFE388"/><circle cx="66" cy="31" r="2.6" fill="#FFE388"/>
+<rect x="29" y="50" width="34" height="4" rx="1" fill="#B7942E"/>
+<rect x="19" y="60" width="54" height="22" fill="#FFFFFF"/>
+<text x="46" y="76" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="900" text-anchor="middle" textLength="42" lengthAdjust="spacingAndGlyphs" fill="#0F4A2A">JAKOBY</text>
+</svg>

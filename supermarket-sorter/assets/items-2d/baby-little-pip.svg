@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100"><title>Hippo Birne</title>
+<path d="M25 27H75Q78 27 78 31V89Q78 93.5 73 93.5H27Q22 93.5 22 89V31Q22 27 25 27Z" fill="#2F6BD6"/>
+<rect x="23.5" y="28" width="53" height="5" rx="2" fill="#CFE8FA"/>
+<path d="M68 33H78V89Q78 93.5 73 93.5H68Z" fill="#000000" fill-opacity="0.12"/>
+<rect x="24.5" y="36" width="3" height="50" rx="1.5" fill="#FFFFFF" fill-opacity="0.35"/>
+<rect x="27" y="35" width="46" height="13" rx="4" fill="#FFFFFF" stroke="#2A1B12" stroke-width="2"/>
+<text x="50" y="45" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="900" text-anchor="middle" fill="#2F6BD6">HIPPO</text>
+<circle cx="50" cy="63" r="14" fill="#FFF6E0" stroke="#2A1B12" stroke-width="2"/>
+<g transform="translate(50 63.5) scale(0.82) translate(-50 -64.5)">
+<path d="M50 55Q50 51.5 52 50" fill="none" stroke="#8C5A2B" stroke-width="2.5" stroke-linecap="round"/>
+<path d="M52 56C53 52 56 51 58.5 52C58 55.5 55.5 57 52 56Z" fill="#3FA34D" stroke="#2A1B12" stroke-width="1.5" stroke-linejoin="round"/>
+<path d="M50 55C47 55 46.5 58.5 46 61C41.5 63 38.5 66.5 38.5 71C38.5 75.5 43.5 78 50 78C56.5 78 61.5 75.5 61.5 71C61.5 66.5 58.5 63 54 61C53.5 58.5 53 55 50 55Z" fill="#C6E24A" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="46" cy="69" r="1.5" fill="#2A1B12"/>
+<circle cx="54" cy="69" r="1.5" fill="#2A1B12"/>
+<path d="M47 73Q50 76 53 73" fill="none" stroke="#2A1B12" stroke-width="1.5" stroke-linecap="round"/>
+</g>
+<rect x="27" y="79" width="46" height="11" rx="2" fill="#1F3A5F" stroke="#2A1B12" stroke-width="1.5"/>
+<text x="50" y="87.3" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="900" text-anchor="middle" fill="#FFFFFF">BIRNE</text>
+<path d="M25 27H75Q78 27 78 31V89Q78 93.5 73 93.5H27Q22 93.5 22 89V31Q22 27 25 27Z" fill="none" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round"/>
+<rect x="23" y="11.5" width="54" height="15" rx="3" fill="#FFFFFF" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round"/>
+<path d="M29 15V23M35 15V23M41 15V23M47 15V23M53 15V23M59 15V23M65 15V23M71 15V23" fill="none" stroke="#2F6BD6" stroke-width="1.5" stroke-opacity="0.6" stroke-linecap="round"/>
+</svg>

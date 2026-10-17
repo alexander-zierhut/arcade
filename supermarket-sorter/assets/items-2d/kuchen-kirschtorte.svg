@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Tannenzauber Schwarzwälder Kirschtorte</title>
+<defs><clipPath id="d"><rect x="22" y="7" width="56" height="86.5" rx="4"/></clipPath></defs>
+<rect x="22" y="7" width="56" height="86.5" rx="4" fill="#C21F4A" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round"/>
+<rect x="25" y="10" width="50" height="14" rx="3" fill="#FFF6E0" stroke="#2A1B12" stroke-width="2"/>
+<text x="50" y="21" font-family="Arial, Helvetica, sans-serif" font-weight="900" text-anchor="middle" font-size="11" fill="#C21F4A">KIRSCH</text>
+<rect x="27" y="27" width="46" height="60" rx="4" fill="#FFF6E0" stroke="#2A1B12" stroke-width="2"/>
+<rect x="34" y="72" width="32" height="12" fill="#5A2E1E"/>
+<rect x="34" y="66" width="32" height="6" fill="#FFFFFF"/>
+<rect x="34" y="56" width="32" height="10" fill="#5A2E1E"/>
+<rect x="34" y="50" width="32" height="6" fill="#FFFFFF"/>
+<rect x="34" y="42" width="32" height="8" fill="#5A2E1E"/>
+<path d="M34 42V38Q36 34 40 38Q43 33 47 38Q50 34 53 38Q57 33 60 38Q64 34 66 38V42Z" fill="#FFFFFF"/>
+<path d="M40 69h0.1M50 69h0.1M60 69h0.1M44 53h0.1M56 53h0.1" fill="none" stroke="#C21F4A" stroke-width="4.2" stroke-linecap="round"/>
+<path d="M39 38l1-3M46 36l1-3M53 36l1-3M60 37l1-3" fill="none" stroke="#5A2E1E" stroke-width="1.6" stroke-linecap="round"/>
+<rect x="34" y="38" width="32" height="46" fill="none" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+<path d="M50 32Q51 27 55 29" fill="none" stroke="#2A1B12" stroke-width="1.8" stroke-linecap="round"/>
+<circle cx="50" cy="35" r="5" fill="#B3122D" stroke="#2A1B12" stroke-width="2"/>
+<ellipse cx="48.2" cy="33.4" rx="1.1" ry="1.5" fill="#FFFFFF" fill-opacity="0.6"/>
+<rect x="23.5" y="26" width="2.5" height="60" rx="1.2" fill="#FFFFFF" fill-opacity="0.35"/>
+<rect x="70" y="10" width="8.5" height="83" fill="#000000" fill-opacity="0.12" clip-path="url(#d)"/>
+</svg>

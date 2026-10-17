@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Maisgold Taco-Schalen</title>
+<defs>
+<linearGradient id="caf" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#FFE388"/><stop offset="0.35" stop-color="#FFD23F"/><stop offset="1" stop-color="#F2C536"/></linearGradient>
+<linearGradient id="car" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#FF9991"/><stop offset="0.5" stop-color="#FF5A4E"/><stop offset="1" stop-color="#FF5A4E"/></linearGradient>
+<linearGradient id="caao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M20.5,18L30.5,10H80.5V85.5L70.5,93.5H20.5Z" fill="#FFD23F"/>
+<rect x="20.5" y="18" width="50" height="75.5" fill="url(#caf)"/>
+<path d="M70.5,18L80.5,10V85.5L70.5,93.5Z" fill="#B7942E"/>
+<path d="M20.5,18L30.5,10H80.5L70.5,18Z" fill="#FFE388"/>
+<rect x="20.5" y="18" width="50" height="13" fill="url(#car)"/>
+<path d="M70.5,18L80.5,10V23L70.5,31Z" fill="#B74238"/>
+<rect x="20.5" y="82.5" width="50" height="11" fill="url(#caao)"/>
+<path d="M20.5,31H70.5" stroke="#B74238" stroke-width="1" stroke-opacity="0.6"/>
+<path d="M20.5,18H70.5L80.5,10M70.5,18V93.5" fill="none" stroke="#7C6120" stroke-width="1" stroke-opacity="0.55"/>
+<rect x="26" y="37" width="39" height="45" rx="4" fill="#FFF7E8"/>
+<path d="M30,57H61Q61,75 45.5,75Q30,75 30,57Z" fill="#FF8C2E"/>
+<path d="M29,58Q30.5,50 35,55Q39,47 44,54Q48,46 53,54Q57,49 62,58Z" fill="#3ECF6A"/>
+<circle cx="39.5" cy="57" r="3" fill="#FF5A4E"/>
+<circle cx="53" cy="57" r="3" fill="#FF5A4E"/>
+<path d="M20.5,18L30.5,10H80.5V85.5L70.5,93.5H20.5Z" fill="none" stroke="#7C6120" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+</svg>

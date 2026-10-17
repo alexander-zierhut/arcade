@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Tannenblick Brokkoli</title>
+<defs>
+<radialGradient id="f-tinytreetop" cx="0.35" cy="0.3" r="0.8"><stop offset="0" stop-color="#87E1A3"/><stop offset="0.4" stop-color="#3ECF6A"/><stop offset="1" stop-color="#34924B"/></radialGradient>
+<linearGradient id="s-tinytreetop" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#C8ED7D"/><stop offset="0.22" stop-color="#A6E22E"/><stop offset="0.55" stop-color="#A6E22E"/><stop offset="0.85" stop-color="#7A9F22"/><stop offset="1" stop-color="#576819"/></linearGradient>
+<linearGradient id="ao-tinytreetop" x1="0" x2="0" y1="0" y2="1"><stop offset="0.8" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M36,56H64L68,89Q68,93.5 63,93.5H37Q32,93.5 32,89Z" fill="url(#s-tinytreetop)" stroke="#576819" stroke-width="1.5" stroke-opacity="0.7"/>
+<path d="M36,56H64L68,89Q68,93.5 63,93.5H37Q32,93.5 32,89Z" fill="url(#ao-tinytreetop)"/>
+<rect x="36" y="56" width="28" height="9" fill="#1E100A" fill-opacity="0.3"/>
+<circle cx="50" cy="24" r="13" fill="url(#f-tinytreetop)" stroke="#2B6032" stroke-width="1.5" stroke-opacity="0.7"/>
+<circle cx="35" cy="33" r="12.5" fill="url(#f-tinytreetop)" stroke="#2B6032" stroke-width="1.5" stroke-opacity="0.7"/>
+<circle cx="65" cy="33" r="12.5" fill="url(#f-tinytreetop)" stroke="#2B6032" stroke-width="1.5" stroke-opacity="0.7"/>
+<circle cx="30" cy="50" r="11" fill="url(#f-tinytreetop)" stroke="#2B6032" stroke-width="1.5" stroke-opacity="0.7"/>
+<circle cx="70" cy="50" r="11" fill="url(#f-tinytreetop)" stroke="#2B6032" stroke-width="1.5" stroke-opacity="0.7"/>
+<circle cx="50" cy="42" r="14" fill="url(#f-tinytreetop)" stroke="#2B6032" stroke-width="1.5" stroke-opacity="0.7"/>
+<circle cx="38" cy="54" r="12" fill="url(#f-tinytreetop)" stroke="#2B6032" stroke-width="1.5" stroke-opacity="0.7"/>
+<circle cx="62" cy="54" r="12" fill="url(#f-tinytreetop)" stroke="#2B6032" stroke-width="1.5" stroke-opacity="0.7"/>
+<circle cx="50" cy="57" r="11" fill="url(#f-tinytreetop)" stroke="#2B6032" stroke-width="1.5" stroke-opacity="0.7"/>
+</svg>

@@ -1,0 +1,49 @@
+{
+  "category": "bonbons",
+  "items": [
+    {
+      "id": "bonbons-sonnenhof-gummiwuermer",
+      "file": "bonbons-sonnenhof-gummiwuermer.svg",
+      "name": "Hofbär Gummiwürmer",
+      "class": "jar",
+      "color": "#3ECF6A",
+      "accent": "#FF5A4E",
+      "label": "",
+      "icon": "gummy worm",
+      "description": "Squat green glass jar with a coral-red screw lid and a cream label band with one big red gummy worm, in the lit 3D toy style"
+    },
+    {
+      "id": "bonbons-landlust-lutscher",
+      "file": "bonbons-landlust-lutscher.svg",
+      "name": "Schlupp Schlupps Lutscher",
+      "class": "loose",
+      "color": "#3B6CFF",
+      "accent": "#FF5A4E",
+      "label": "SCHLUPPS",
+      "icon": "daisy badge",
+      "description": "Two round cobalt-blue lollipops with a white daisy badge, standing in a coral-red cup with the word SCHLUPPS; winks at the Chupa Chups lollipop"
+    },
+    {
+      "id": "bonbons-tannenblick-zuckerstange",
+      "file": "bonbons-tannenblick-zuckerstange.svg",
+      "name": "Tannenblick Zuckerstange",
+      "class": "loose",
+      "color": "#FF6FB5",
+      "accent": "#FFFFFF",
+      "label": "",
+      "icon": "candy cane",
+      "description": "Chunky candy-pink candy cane with a few white stripes, standing upright with the hook curling over at the top"
+    },
+    {
+      "id": "bonbons-suedfrucht-geleebohnen",
+      "file": "bonbons-suedfrucht-geleebohnen.svg",
+      "name": "Karibu Geleebohnen",
+      "class": "can",
+      "color": "#FFD23F",
+      "accent": "#FF5A4E",
+      "label": "",
+      "icon": "jelly beans",
+      "description": "Sun-yellow candy tin with a coral-red lid and a red label band with a handful of jelly beans"
+    }
+  ]
+}

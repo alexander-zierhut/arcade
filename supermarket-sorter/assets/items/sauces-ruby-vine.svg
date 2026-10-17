@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Heinzl Tomato Ketchup</title>
+<defs>
+<linearGradient id="b-rubyvine" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FF9991"/><stop offset="0.22" stop-color="#FF5A4E"/><stop offset="0.55" stop-color="#FF5A4E"/><stop offset="0.85" stop-color="#B74238"/><stop offset="1" stop-color="#7C2F27"/></linearGradient>
+<linearGradient id="c-rubyvine" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFFAF1"/><stop offset="0.25" stop-color="#FFF7E8"/><stop offset="0.6" stop-color="#FFF7E8"/><stop offset="0.88" stop-color="#B7ADA1"/><stop offset="1" stop-color="#7C7167"/></linearGradient>
+<linearGradient id="ao-rubyvine" x1="0" x2="0" y1="0" y2="1"><stop offset="0.86" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M26,37Q26,27 36,25H64Q74,27 74,37V87Q74,93.5 67,93.5H33Q26,93.5 26,87Z" fill="url(#b-rubyvine)" stroke="#7C2F27" stroke-width="1.5" stroke-opacity="0.7"/>
+<path d="M26,37Q26,27 36,25H64Q74,27 74,37V87Q74,93.5 67,93.5H33Q26,93.5 26,87Z" fill="url(#ao-rubyvine)"/>
+<path d="M27,50Q50,53 73,50L69,81Q50,84 31,81Z" fill="#FFFFFF"/>
+<text x="50" y="62" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="900" text-anchor="middle" textLength="36" lengthAdjust="spacingAndGlyphs" fill="#FF5A4E">HEINZL</text>
+<circle cx="50" cy="72.5" r="5.5" fill="#FF5A4E"/>
+<path d="M50,68q-3,-3 -6,-1q3,2.5 6,1zM50,68q3,-3 6,-1q-3,2.5 -6,1z" fill="#3ECF6A"/>
+<rect x="36" y="24" width="28" height="4" fill="#1E100A" fill-opacity="0.3"/>
+<rect x="35" y="14" width="30" height="12" rx="2" fill="url(#c-rubyvine)" stroke="#7C7167" stroke-width="1.5" stroke-opacity="0.7"/>
+<ellipse cx="50" cy="14" rx="15" ry="2.7" fill="#FFFAF1"/>
+<rect x="43" y="8" width="14" height="7" rx="1.5" fill="url(#c-rubyvine)" stroke="#7C7167" stroke-width="1.5" stroke-opacity="0.7"/>
+<ellipse cx="50" cy="8" rx="7" ry="1.4" fill="#FFFAF1"/>
+<rect x="37.5" y="33" width="4" height="44" rx="2" fill="#FFFFFF" fill-opacity="0.55"/>
+</svg>

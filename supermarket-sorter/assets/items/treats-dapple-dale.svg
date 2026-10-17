@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Omas Beste Apfelkuchen</title>
+<defs>
+<linearGradient id="ddaf" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#85A4FF"/><stop offset="0.35" stop-color="#3B6CFF"/><stop offset="1" stop-color="#3B6CFF"/></linearGradient>
+<linearGradient id="dday" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#FFE388"/><stop offset="0.5" stop-color="#FFD23F"/><stop offset="1" stop-color="#FFD23F"/></linearGradient>
+<linearGradient id="ddaao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M71,34L80,25V85.5L71,94.5Z" fill="#324FB1" stroke="#2A3771" stroke-width="1.5" stroke-opacity="0.7"/>
+<rect x="17" y="34" width="54" height="60.5" fill="url(#ddaf)" stroke="#2A3771" stroke-width="1.5" stroke-opacity="0.7"/>
+<rect x="17" y="83.5" width="54" height="11" fill="url(#ddaao)"/>
+<rect x="23" y="42" width="42" height="46" rx="4" fill="#FFF7E8"/>
+<path d="M29,62H59L56,76Q55.5,78 53.5,78H34.5Q32.5,78 32,76Z" fill="#FF5A4E"/>
+<ellipse cx="44" cy="62" rx="15" ry="6" fill="#FF8C2E"/>
+<ellipse cx="44" cy="61.5" rx="9" ry="3.4" fill="#FFB87D"/>
+<rect x="17" y="34" width="54" height="2.5" fill="#1E100A" fill-opacity="0.3"/>
+<path d="M71,20L80,11V25L71,34Z" fill="#B7942E" stroke="#7C6120" stroke-width="1.5" stroke-opacity="0.7"/>
+<rect x="17" y="20" width="54" height="14" fill="url(#dday)" stroke="#7C6120" stroke-width="1.5" stroke-opacity="0.7"/>
+<path d="M17,20H71L80,11H26Z" fill="#FFE388" stroke="#7C6120" stroke-width="1.5" stroke-opacity="0.7"/>
+</svg>

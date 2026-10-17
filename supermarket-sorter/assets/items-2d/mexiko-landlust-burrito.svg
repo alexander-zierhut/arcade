@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Landlust Burrito</title>
+<path d="M32,34V22Q32,9 50,9Q68,9 68,22V34Z" fill="#E9B872" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M62,12Q68,15 68,22V34H62Z" fill="#000000" fill-opacity="0.12"/>
+<path d="M40,16Q50,12 60,16" fill="none" stroke="#8C5A2B" stroke-width="1.5" stroke-linecap="round"/>
+<circle cx="45" cy="22" r="1.5" fill="#8C5A2B"/>
+<circle cx="55" cy="24" r="1.5" fill="#8C5A2B"/>
+<path d="M31,34L35,29L39,34L43,29L47,34L51,29L55,34L59,29L63,34L67,29L69,34V52H31Z" fill="#DCE6F0" stroke="#2A1B12" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M36,38V50M44,38V50" fill="none" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M20,48H80L77,86Q76.5,93.5 69,93.5H31Q23.5,93.5 23,86Z" fill="#8E5BD9" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M20,48H80L79.6,53H20.4Z" fill="#FFFFFF" fill-opacity="0.2"/>
+<path d="M70,53H79L77,86Q76.5,93.5 69,93.5Z" fill="#000000" fill-opacity="0.12"/>
+<rect x="28" y="58" width="44" height="23" rx="4" fill="#FFF6E0" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+<text x="50" y="74" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="900" text-anchor="middle" fill="#2A1B12">BURRO</text>
+<rect x="24" y="56" width="3.5" height="26" rx="1.7" fill="#FFFFFF" fill-opacity="0.35"/>
+</svg>

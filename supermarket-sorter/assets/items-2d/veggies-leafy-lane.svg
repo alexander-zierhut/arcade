@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Frischewerk Kopfsalat</title>
+<path d="M21 14Q25 8 29 14T37 14T45 14T53 14T61 14T69 14T77 14C82 40 82 70 80 88Q79.5 93.5 74 93.5L26 93.5Q20.5 93.5 20 88C18 70 18 40 21 14Z" fill="#CDE34A" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round"/>
+<path d="M20 88Q20.5 93.5 26 93.5L74 93.5Q79.5 93.5 80 88Z" fill="#5C9E2E" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+<path d="M40 20V25M50 20V25M60 20V25" fill="none" stroke="#2A1B12" stroke-width="1.5" stroke-linecap="round"/>
+<rect x="27" y="21" width="46" height="57" rx="6" fill="#FFF6E0" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+<path d="M35 53C31 47 35 42 41 43C42 38 49 37 52 41C57 38 64 41 63 47C68 48 69 54 65 58C63 62 57 63 50 63C43 63 36 60 35 53Z" fill="#5DAA3A" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+<path d="M50 41V61M41 47L45 53M59 47L55 53" fill="none" stroke="#2A1B12" stroke-width="1.5" stroke-linecap="round"/>
+<text x="50" y="33" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="900" text-anchor="middle" fill="#2E7D32">BLATTI</text>
+<text x="50" y="74" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="900" text-anchor="middle" fill="#2E7D32">SALAT</text>
+<ellipse cx="26" cy="55" rx="3.5" ry="22" fill="#FFFFFF" fill-opacity="0.35"/>
+<path d="M74 20C80 40 81 70 79 88C78 91 77 92.5 74 93.5C77 80 77 50 72 22Z" fill="#000000" fill-opacity="0.12"/>
+</svg>

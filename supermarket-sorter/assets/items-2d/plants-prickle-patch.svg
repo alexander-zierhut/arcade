@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Stachelgarten Kaktus</title>
+<rect x="28" y="48" width="16" height="7" rx="3" fill="#2BA7C9" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round"/>
+<rect x="56" y="42" width="16" height="7" rx="3" fill="#2BA7C9" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round"/>
+<rect x="22" y="35" width="10" height="21" rx="5" fill="#2BA7C9" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round"/>
+<rect x="68" y="28" width="10" height="24" rx="5" fill="#2BA7C9" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round"/>
+<circle cx="73" cy="27" r="3.5" fill="#F26B9E" stroke="#2A1B12" stroke-width="2"/>
+<path d="M42 62V25A8 8 0 0 1 58 25V62Z" fill="#2BA7C9" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round"/>
+<path d="M47.5 28V58M52.5 28V58" fill="none" stroke="#2A1B12" stroke-width="1.5" stroke-opacity="0.5" stroke-linecap="round"/>
+<rect x="44" y="30" width="2.5" height="28" rx="1.3" fill="#FFFFFF" fill-opacity="0.35"/>
+<rect x="53.5" y="30" width="3.5" height="30" rx="1.8" fill="#000000" fill-opacity="0.12"/>
+<path d="M45 38h.1M55 36h.1M45 52h.1M55 50h.1M50 45h.1" fill="none" stroke="#FFF6E0" stroke-width="1.8" stroke-linecap="round"/>
+<rect x="20" y="62" width="60" height="9" rx="3" fill="#D2622A" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round"/>
+<path d="M24 71H76L70 93.5H30Z" fill="#D2622A" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round"/>
+<path d="M66 72H75.5L70.5 92H64Z" fill="#000000" fill-opacity="0.12"/>
+</svg>

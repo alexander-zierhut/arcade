@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Nordmeer Gambas</title>
+<path fill="#A640D6" d="M20 10C18.5 40 18.5 60 20 93.5H80C81.5 60 81.5 40 80 10Z"/>
+<path fill="#000000" fill-opacity="0.12" d="M72 10H80C81.5 40 81.5 60 80 93.5H72C74 60 74 40 72 10Z"/>
+<rect x="23" y="18" width="4.5" height="66" rx="2.2" fill="#FFFFFF" fill-opacity="0.35"/>
+<rect x="30" y="32" width="40" height="44" rx="6" fill="#FFF6E0" stroke="#2A1B12" stroke-width="2"/>
+<g transform="translate(0 -4)">
+<path fill="none" stroke="#2A1B12" stroke-width="12" stroke-linecap="round" d="M42 40C54 33 62 40 60 50C58 58 50 60 46 55"/>
+<path fill="none" stroke="#FF7F50" stroke-width="8" stroke-linecap="round" d="M42 40C54 33 62 40 60 50C58 58 50 60 46 55"/>
+<path fill="#FF7F50" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round" d="M47 54L38 55L41 60L47 58Z"/>
+<path fill="none" stroke="#2A1B12" stroke-width="1.5" stroke-linecap="round" d="M42 40L36 36M52 47L57 50"/>
+<circle cx="52" cy="45" r="1.8" fill="#2A1B12"/>
+</g>
+<text x="50" y="70" font-family="Arial, Helvetica, sans-serif" font-weight="900" text-anchor="middle" font-size="10" fill="#2A1B12">FROST</text>
+<path fill="#6E1E9E" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round" d="M19.5 11V8Q23 4.5 26.5 8Q30 4.5 33.5 8Q37 4.5 40.5 8Q44 4.5 47.5 8Q51 4.5 54.5 8Q58 4.5 61.5 8Q65 4.5 68.5 8Q72 4.5 75.5 8Q79 4.5 80.5 8V11Z"/>
+<path fill="none" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" d="M20 10C18.5 40 18.5 60 20 93.5H80C81.5 60 81.5 40 80 10Z"/>
+</svg>

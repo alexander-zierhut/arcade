@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Nordi Deo-Stift</title>
+<rect x="25" y="16" width="50" height="77.5" rx="4" fill="#3FA34D" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round"/>
+<path d="M68 22H75V89.5Q75 93.5 71 93.5H68Z" fill="#000000" fill-opacity="0.12"/>
+<rect x="28" y="28" width="3" height="60" rx="1.5" fill="#FFFFFF" fill-opacity="0.35"/>
+<ellipse cx="50" cy="16" rx="25" ry="6" fill="#FFFFFF" stroke="#2A1B12" stroke-width="3"/>
+<text x="50" y="33" font-family="Arial, Helvetica, sans-serif" font-weight="900" text-anchor="middle" font-size="10" fill="#FFFFFF">NORDI</text>
+<rect x="30" y="37" width="40" height="36" rx="5" fill="#FFF6E0" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+<path d="M37 54H63M43.5 42.5L56.5 65.5M56.5 42.5L43.5 65.5" fill="none" stroke="#3FA34D" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

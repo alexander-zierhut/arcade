@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Feldglut Paprika edelsüß</title>
+<defs>
+<linearGradient id="peb" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#C8ED7D"/><stop offset="0.22" stop-color="#A6E22E"/><stop offset="0.55" stop-color="#A6E22E"/><stop offset="0.85" stop-color="#7A9F22"/><stop offset="1" stop-color="#576819"/></linearGradient>
+<linearGradient id="pem" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#87E1A3"/><stop offset="0.22" stop-color="#3ECF6A"/><stop offset="0.55" stop-color="#3ECF6A"/><stop offset="0.85" stop-color="#34924B"/><stop offset="1" stop-color="#2B6032"/></linearGradient>
+<linearGradient id="peao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M22,14V88.3Q50,98.7 78,88.3V14Z" fill="url(#peb)" stroke="#576819" stroke-width="1.5" stroke-opacity="0.7"/>
+<path d="M22,82.5V88.3Q50,98.7 78,88.3V82.5Z" fill="url(#peao)"/>
+<path d="M23,34Q50,37 77,34V80Q50,83 23,80Z" fill="#FFF7E8"/>
+<path d="M40,62Q44,58 50,60Q56,58 60,62Q63,72 58,77Q54,79 50,77Q46,79 42,77Q37,72 40,62Z" fill="#FF5A4E"/><rect x="48.5" y="55.5" width="3" height="5.5" rx="1.2" fill="#3ECF6A"/>
+<path d="M22,83Q50,93.4 78,83V88.3Q50,98.7 22,88.3Z" fill="url(#pem)"/>
+<path d="M22,14V21Q50,31 78,21V14Z" fill="url(#pem)"/>
+<ellipse cx="50" cy="14" rx="28" ry="5" fill="#87E1A3" stroke="#2B6032" stroke-width="1.5" stroke-opacity="0.7"/>
+<ellipse cx="50" cy="14.4" rx="24" ry="4.2" fill="#3ECF6A"/>
+<rect x="42" y="11.6" width="16" height="5" rx="2.5" fill="#87E1A3" stroke="#2B6032" stroke-width="1" stroke-opacity="0.7"/>
+<rect x="32" y="32" width="4" height="48" rx="2" fill="#FFFFFF" fill-opacity="0.55"/>
+<rect x="71" y="32" width="1.5" height="48" rx="0.75" fill="#FFFFFF" fill-opacity="0.3"/>
+</svg>

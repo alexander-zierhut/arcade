@@ -1,0 +1,49 @@
+{
+  "category": "mexiko",
+  "items": [
+    {
+      "id": "mexiko-landlust-burrito",
+      "file": "mexiko-landlust-burrito.svg",
+      "name": "Landlust Burrito",
+      "class": "loose",
+      "color": "#9D7BFF",
+      "accent": "#D9A86B",
+      "label": "",
+      "icon": "burrito in sleeve",
+      "description": "Burrito with a tortilla end and a crimped foil wrap standing in a lavender paper sleeve with a cream label showing a rolled burrito; natural burrito, no real product"
+    },
+    {
+      "id": "mexiko-knusperhof-quesadilla",
+      "file": "mexiko-knusperhof-quesadilla.svg",
+      "name": "Alt El Paso Taco Kit",
+      "class": "box",
+      "color": "#FFD23F",
+      "accent": "#FF5A4E",
+      "label": "ALT PASO",
+      "icon": "taco",
+      "description": "Upright sun-yellow taco kit box with a coral-red banner ALT PASO and a taco on a cream plate; winks at the Old El Paso Mexican kits"
+    },
+    {
+      "id": "mexiko-sonnenhof-salsa",
+      "file": "mexiko-sonnenhof-salsa.svg",
+      "name": "Sonnenhof Salsa",
+      "class": "jar",
+      "color": "#FF6FB5",
+      "accent": "#FFD23F",
+      "label": "",
+      "icon": "red chili",
+      "description": "Fat glass jar of chunky pink-red salsa with a golden screw lid and a white label band showing one big red chili with a green stem"
+    },
+    {
+      "id": "mexiko-hofgut-guacamole",
+      "file": "mexiko-hofgut-guacamole.svg",
+      "name": "Hofgut Guacamole",
+      "class": "tub",
+      "color": "#3ECF6A",
+      "accent": "#FFF7E8",
+      "label": "",
+      "icon": "avocado half",
+      "description": "Leaf-green tub with a cream rim and a heap of guacamole on top, cream label with a halved avocado"
+    }
+  ]
+}

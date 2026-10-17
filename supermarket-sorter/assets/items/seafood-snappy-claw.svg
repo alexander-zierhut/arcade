@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Meeresbrise Krabbenstäbchen</title>
+<defs>
+<linearGradient id="krb" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFA6D1"/><stop offset="0.22" stop-color="#FF6FB5"/><stop offset="0.55" stop-color="#FF6FB5"/><stop offset="0.85" stop-color="#B7517E"/><stop offset="1" stop-color="#7C3852"/></linearGradient>
+<linearGradient id="krw" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFFAF1"/><stop offset="0.22" stop-color="#FFF7E8"/><stop offset="0.55" stop-color="#FFF7E8"/><stop offset="0.85" stop-color="#B7ADA1"/><stop offset="1" stop-color="#7C7167"/></linearGradient>
+<linearGradient id="krrd" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FF9991"/><stop offset="0.22" stop-color="#FF5A4E"/><stop offset="0.55" stop-color="#FF5A4E"/><stop offset="0.85" stop-color="#B74238"/><stop offset="1" stop-color="#7C2F27"/></linearGradient>
+<linearGradient id="krao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M20,64V60Q20,55 25,55H75Q80,55 80,60V64Z" fill="#B7517E"/>
+<rect x="24.8" y="24" width="13" height="42" fill="url(#krw)"/>
+<rect x="30.8" y="24" width="5.5" height="42" rx="2" fill="url(#krrd)"/>
+<ellipse cx="31.3" cy="24" rx="6.5" ry="1.9" fill="#FFFAF1"/>
+<rect x="37.3" y="16" width="13" height="50" fill="url(#krw)"/>
+<rect x="43.3" y="16" width="5.5" height="50" rx="2" fill="url(#krrd)"/>
+<ellipse cx="43.8" cy="16" rx="6.5" ry="1.9" fill="#FFFAF1"/>
+<rect x="49.8" y="22" width="13" height="44" fill="url(#krw)"/>
+<rect x="55.8" y="22" width="5.5" height="44" rx="2" fill="url(#krrd)"/>
+<ellipse cx="56.3" cy="22" rx="6.5" ry="1.9" fill="#FFFAF1"/>
+<rect x="62.3" y="28" width="13" height="38" fill="url(#krw)"/>
+<rect x="68.3" y="28" width="5.5" height="38" rx="2" fill="url(#krrd)"/>
+<ellipse cx="68.8" cy="28" rx="6.5" ry="1.9" fill="#FFFAF1"/>
+<path d="M18,63Q18,60 21,60H79Q82,60 82,63L79.5,91.5Q79,94.5 76,94.5H24Q21,94.5 20.5,91.5Z" fill="url(#krb)" stroke="#7C3852" stroke-width="1.5" stroke-opacity="0.7"/>
+<rect x="20.5" y="83.5" width="59" height="11" fill="url(#krao)"/>
+<rect x="21" y="60.8" width="58" height="1.8" rx="0.9" fill="#FFFFFF" fill-opacity="0.4"/>
+<rect x="26" y="69" width="48" height="18" rx="3" fill="#FFF7E8"/>
+<ellipse cx="50" cy="80" rx="8" ry="5" fill="#FF5A4E"/>
+<circle cx="41" cy="74.5" r="3.2" fill="#FF5A4E"/><circle cx="59" cy="74.5" r="3.2" fill="#FF5A4E"/>
+<path d="M43,82L38,86M45,84L42,87M57,84L58,87M57,82L62,86" fill="none" stroke="#FF5A4E" stroke-width="1.5" stroke-linecap="round"/>
+</svg>

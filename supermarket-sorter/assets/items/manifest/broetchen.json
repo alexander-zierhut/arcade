@@ -1,0 +1,49 @@
+{
+  "category": "broetchen",
+  "items": [
+    {
+      "id": "broetchen-knusperhof-kaiserbroetchen",
+      "file": "broetchen-knusperhof-kaiserbroetchen.svg",
+      "name": "Knusperhof Kaiserbrötchen",
+      "class": "bag",
+      "color": "#2FD5C8",
+      "accent": "#2A968B",
+      "label": "",
+      "icon": "kaiser roll pinwheel",
+      "description": "Turquoise standing paper bakery bag (Brötchentüte) with a darker folded top and a cream label showing a golden Kaiser roll pinwheel"
+    },
+    {
+      "id": "broetchen-landlust-vollkornbrot",
+      "file": "broetchen-landlust-vollkornbrot.svg",
+      "name": "Harri Vollkornbrot",
+      "class": "bag",
+      "color": "#FF5A4E",
+      "accent": "#FFD23F",
+      "label": "HARRI",
+      "icon": "bread slices",
+      "description": "Coral-red sliced-bread bag with a yellow zigzag top seal and a cream label with two bread slices and the word HARRI; winks at the Harry-Brot Vollkornbrot sliced bread pack"
+    },
+    {
+      "id": "broetchen-tannenblick-laugenstange",
+      "file": "broetchen-tannenblick-laugenstange.svg",
+      "name": "Tannenblick Laugenstange",
+      "class": "loose",
+      "color": "#A6E22E",
+      "accent": "#7A4A2A",
+      "label": "",
+      "icon": "lye sticks, fir tree",
+      "description": "Four upright mahogany lye sticks (Laugenstangen) with coarse salt, peeking out of a lime-green paper sleeve with a cream label and one fir tree"
+    },
+    {
+      "id": "broetchen-omas-beste-zimtschnecke",
+      "file": "broetchen-omas-beste-zimtschnecke.svg",
+      "name": "Omas Beste Zimtschnecke",
+      "class": "tub",
+      "color": "#9D7BFF",
+      "accent": "#FFF7E8",
+      "label": "",
+      "icon": "cinnamon swirl",
+      "description": "Tan cinnamon roll with a brown spiral and a white icing drizzle, sitting in a lavender paper cup with a cream rim"
+    }
+  ]
+}

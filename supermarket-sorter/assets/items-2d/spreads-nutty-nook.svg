@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Nutello Nuss-Nougat-Creme</title>
+<path d="M30 27H70Q77.5 27 77.5 34V86Q77.5 93.5 70 93.5H30Q22.5 93.5 22.5 86V34Q22.5 27 30 27Z" fill="#7B4320" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="27" y="36" width="46" height="50" rx="5" fill="#FBF7EE" stroke="#2A1B12" stroke-width="2"/>
+<rect x="25" y="38" width="4" height="46" rx="2" fill="#FFFFFF" fill-opacity="0.35"/>
+<line x1="26.5" y1="44" x2="26.5" y2="60" stroke="#FFFFFF" stroke-opacity="0.7" stroke-width="1.5" stroke-linecap="round"/>
+<rect x="69.5" y="38" width="5" height="46" rx="2.5" fill="#000000" fill-opacity="0.12"/>
+<rect x="23" y="14" width="54" height="15" rx="4" fill="#FFFFFF" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round"/>
+<line x1="31" y1="19" x2="31" y2="25" stroke="#2A1B12" stroke-opacity="0.35" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="40.5" y1="19" x2="40.5" y2="25" stroke="#2A1B12" stroke-opacity="0.35" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="50" y1="19" x2="50" y2="25" stroke="#2A1B12" stroke-opacity="0.35" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="59.5" y1="19" x2="59.5" y2="25" stroke="#2A1B12" stroke-opacity="0.35" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="69" y1="19" x2="69" y2="25" stroke="#2A1B12" stroke-opacity="0.35" stroke-width="1.5" stroke-linecap="round"/>
+<text x="50" y="49" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="900" text-anchor="middle" textLength="40" lengthAdjust="spacingAndGlyphs" fill="#2A1B12"><tspan fill="#E8453C">N</tspan><tspan>UTELLO</tspan></text>
+<path d="M33 82V63Q29.5 62 29.5 57.5Q29.5 52 36 52Q38.5 50 42.5 51.5Q46.5 50 49 52Q55.5 52 55.5 57.5Q55.5 62 52 63V82Z" fill="#D9954A" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+<path d="M35.5 79.5V60.5Q32 59.5 32 57Q32 54.5 36.5 54.5Q40 53 42.5 54Q45.5 53 48.5 54.5Q53 54.5 53 57Q53 59.5 49.5 60.5V79.5Z" fill="#F7D894"/>
+<path d="M34 58.5Q34 56.5 38 56.5Q42 55.5 46 56.5Q50.5 56.5 50.5 59.5Q50.5 64 46.5 63.5Q43 68 39.5 64Q35.5 66 34 62Z" fill="#7B4320" stroke="#2A1B12" stroke-width="1.5" stroke-linejoin="round"/>
+<ellipse cx="38.5" cy="58.5" rx="2.4" ry="1.1" fill="#FFFFFF" fill-opacity="0.5"/>
+<ellipse cx="62" cy="68" rx="5.5" ry="6.5" fill="#B8742E" stroke="#2A1B12" stroke-width="2"/>
+<path d="M57.5 65Q62 62 66.5 65L65 62.5Q62 60.5 59 62.5Z" fill="#8C5A2B" stroke="#2A1B12" stroke-width="1" stroke-linejoin="round"/>
+<ellipse cx="60" cy="69" rx="1.4" ry="2.4" fill="#FFFFFF" fill-opacity="0.5"/>
+<ellipse cx="57" cy="78" rx="5.5" ry="6" fill="#B8742E" stroke="#2A1B12" stroke-width="2"/>
+<ellipse cx="55" cy="79" rx="1.4" ry="2.2" fill="#FFFFFF" fill-opacity="0.5"/>
+</svg>

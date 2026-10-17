@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Erasko Tomatencremesuppe</title>
+<defs>
+<linearGradient id="q1xb" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFA6D1"/><stop offset="0.22" stop-color="#FF6FB5"/><stop offset="0.55" stop-color="#FF6FB5"/><stop offset="0.85" stop-color="#B7517E"/><stop offset="1" stop-color="#7C3852"/></linearGradient>
+<linearGradient id="q1xc" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFFAF1"/><stop offset="0.25" stop-color="#FFF7E8"/><stop offset="0.6" stop-color="#FFF7E8"/><stop offset="1" stop-color="#B7ADA1"/></linearGradient>
+<linearGradient id="q1xm" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#DCDCDC"/><stop offset="0.3" stop-color="#DCDCDC"/><stop offset="0.75" stop-color="#B4B4B4"/><stop offset="1" stop-color="#8E8E8E"/></linearGradient>
+<linearGradient id="q1xao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M22,16V88.5A28,5 0 0 0 78,88.5V16Z" fill="url(#q1xb)" stroke="#7C3852" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<path d="M22,82.5Q50,92.6 78,82.5V88.5Q50,98.6 22,88.5Z" fill="url(#q1xm)"/>
+<path d="M22,16V22Q50,32.1 78,22V16Z" fill="url(#q1xm)"/>
+<path d="M22,22Q50,32.1 78,22V24Q50,34.1 22,24Z" fill="#1E100A" fill-opacity="0.3"/>
+<path d="M22,32Q50,42.1 78,32V74Q50,84.1 22,74Z" fill="url(#q1xc)"/>
+<circle cx="50" cy="50" r="10.5" fill="#FF5A4E"/>
+<path d="M50,39L53,43L58,41.5L55,46H45L42,41.5L47,43Z" fill="#3ECF6A"/>
+<text x="50" y="70" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="900" text-anchor="middle" textLength="44" lengthAdjust="spacingAndGlyphs" fill="#7C3852">ERASKO</text>
+<path d="M22,77.5V88.5A28,5 0 0 0 78,88.5V77.5Z" fill="url(#q1xao)"/>
+<ellipse cx="50" cy="16" rx="28" ry="5" fill="url(#q1xm)" stroke="#5A5A5A" stroke-width="1.5" stroke-opacity="0.7"/>
+<ellipse cx="50" cy="16" rx="24.5" ry="4.4" fill="#B4B4B4"/>
+<rect x="35.4" y="24.7" width="4.5" height="45.7" rx="2.2" fill="#FFFFFF" fill-opacity="0.55"/>
+</svg>

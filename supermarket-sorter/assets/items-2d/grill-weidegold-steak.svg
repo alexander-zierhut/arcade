@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Weidegold Steak</title>
+<rect x="21" y="25" width="58" height="68.5" rx="6" fill="#FFF6E0" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M21,31Q21,25 27,25H73Q79,25 79,31V43H21Z" fill="#A82233" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+<text x="50" y="39" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="900" text-anchor="middle" fill="#FFF6E0">WEIDE</text>
+<path d="M27,68C25,55 37,48 51,49C65,50 76,57 74,71C72,83 61,90 47,89C34,88 29,79 27,68Z" fill="#FFD9C9" stroke="#2A1B12" stroke-width="2.5" stroke-linejoin="round"/>
+<path d="M31,68C30,59 39,53 51,54C62,55 70,60 69,71C67,80 59,85 47,84C38,83 32,77 31,68Z" fill="#D8334E" stroke="#2A1B12" stroke-width="1.5" stroke-linejoin="round"/>
+<path d="M37,59L48,75M47,56L58,74M57,59L65,71" fill="none" stroke="#4A1620" stroke-width="3" stroke-linecap="round"/>
+<path d="M60,81L64,77" fill="none" stroke="#FFD9C9" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M65,56Q73,62 72,72Q70,82 61,87Q67,79 66,70Q66,62 65,56Z" fill="#000000" fill-opacity="0.12"/>
+<path d="M32,68Q31,60 38,56Q35,62 36,70Z" fill="#FFFFFF" fill-opacity="0.35"/>
+</svg>

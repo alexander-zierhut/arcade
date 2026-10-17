@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Hofgut Bienenstich</title>
+<rect x="20" y="75" width="50" height="18.5" fill="#F4C441"/>
+<rect x="20" y="58" width="50" height="17" fill="#FFF6E0"/>
+<rect x="20" y="44" width="50" height="14" fill="#C9822B"/>
+<path d="M70 75L80 60V78.5L70 93.5Z" fill="#E0AA2E"/>
+<path d="M70 58L80 43V60L70 75Z" fill="#F2E6C4"/>
+<path d="M70 44L80 29V43L70 58Z" fill="#B06E20"/>
+<path d="M20 44L30 29H80L70 44Z" fill="#E09A3A"/>
+<path d="M70 44V93.5M20 58H70L80 43M20 75H70L80 60" fill="none" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+<path d="M70 44V93.5L80 78.5V29L70 44Z" fill="#000000" fill-opacity="0.12"/>
+<rect x="23" y="62" width="4" height="26" rx="2" fill="#FFFFFF" fill-opacity="0.35"/>
+<ellipse cx="34" cy="49" rx="5" ry="2.8" fill="#FFF6E0" stroke="#2A1B12" stroke-width="1.2"/>
+<ellipse cx="46" cy="50" rx="5" ry="2.8" fill="#FFF6E0" stroke="#2A1B12" stroke-width="1.2"/>
+<ellipse cx="58" cy="49" rx="5" ry="2.8" fill="#FFF6E0" stroke="#2A1B12" stroke-width="1.2"/>
+<ellipse cx="38" cy="35" rx="5.5" ry="2.8" fill="#FFF6E0" stroke="#2A1B12" stroke-width="1.2"/>
+<ellipse cx="52" cy="34" rx="5.5" ry="2.8" fill="#FFF6E0" stroke="#2A1B12" stroke-width="1.2"/>
+<ellipse cx="66" cy="34" rx="5" ry="2.6" fill="#FFF6E0" stroke="#2A1B12" stroke-width="1.2"/>
+<ellipse cx="46" cy="40" rx="5" ry="2.6" fill="#FFF6E0" stroke="#2A1B12" stroke-width="1.2"/>
+<ellipse cx="60" cy="40" rx="5" ry="2.6" fill="#FFF6E0" stroke="#2A1B12" stroke-width="1.2"/>
+<path d="M20 93.5V44L30 29H80V78.5L70 93.5Z" fill="none" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+</svg>

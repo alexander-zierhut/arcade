@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Alpenhof Käsewürfel</title>
+<path fill="#F7DC3A" d="M22 26H78L73 88Q72.5 93.5 67 93.5H33Q27.5 93.5 27 88Z"/>
+<path fill="#000000" fill-opacity="0.12" d="M68 26H78L73 88Q72.5 93.5 67 93.5H62Q66 60 68 26Z"/>
+<rect x="26.5" y="32" width="2.5" height="34" rx="1.25" fill="#FFFFFF" fill-opacity="0.35"/>
+<path fill="none" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" d="M22 26H78L73 88Q72.5 93.5 67 93.5H33Q27.5 93.5 27 88Z"/>
+<rect x="29" y="34" width="42" height="52" rx="5" fill="#FFF6E0" stroke="#2A1B12" stroke-width="2"/>
+<text x="50" y="45" font-size="9" font-family="Arial, Helvetica, sans-serif" font-weight="900" text-anchor="middle" fill="#B0213F">BERGI</text>
+<path fill="#FFF0A0" stroke="#2A1B12" stroke-width="1.8" stroke-linejoin="round" d="M50 47L63 53.5L50 60L37 53.5Z"/>
+<path fill="#FFD23F" stroke="#2A1B12" stroke-width="1.8" stroke-linejoin="round" d="M37 53.5L50 60V73L37 66.5Z"/>
+<path fill="#F2B01E" stroke="#2A1B12" stroke-width="1.8" stroke-linejoin="round" d="M50 60L63 53.5V66.5L50 73Z"/>
+<circle cx="50" cy="53.5" r="1.2" fill="#E8A317"/>
+<circle cx="43.5" cy="65" r="1.6" fill="#E8A317"/>
+<circle cx="56.5" cy="64.5" r="1.4" fill="#E8A317"/>
+<text x="50" y="83" font-size="9.5" font-family="Arial, Helvetica, sans-serif" font-weight="900" text-anchor="middle" fill="#2A1B12">KÄSE</text>
+<rect x="20" y="18" width="60" height="8" rx="3.5" fill="#FFF6E0" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+</svg>

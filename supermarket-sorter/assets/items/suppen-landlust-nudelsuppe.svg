@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Landlust Nudelsuppe</title>
+<defs>
+<linearGradient id="nudb" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#7EE5DD"/><stop offset="0.22" stop-color="#2FD5C8"/><stop offset="0.55" stop-color="#2FD5C8"/><stop offset="0.85" stop-color="#2A968B"/><stop offset="1" stop-color="#25635A"/></linearGradient>
+<linearGradient id="nudc" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFFAF1"/><stop offset="0.22" stop-color="#FFF7E8"/><stop offset="0.55" stop-color="#FFF7E8"/><stop offset="0.85" stop-color="#B7ADA1"/><stop offset="1" stop-color="#7C7167"/></linearGradient>
+<linearGradient id="nudao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M20,29H80L75.5,89Q75,94.5 69,94.5H31Q25,94.5 24.5,89Z" fill="url(#nudb)" stroke="#25635A" stroke-width="1.5" stroke-opacity="0.7"/>
+<rect x="24.5" y="83" width="51" height="11.5" fill="url(#nudao)"/>
+<path d="M21.3,44Q50,47 78.7,44L76,74Q50,77 24,74Z" fill="url(#nudc)"/>
+<path d="M36,56H64Q64,70 50,70Q36,70 36,56Z" fill="#FF5A4E"/>
+<ellipse cx="50" cy="56" rx="14" ry="3.2" fill="#FFD23F"/>
+<path d="M56,55Q59,48 64,50Q61,56 56,55Z" fill="#3ECF6A"/>
+<rect x="21" y="30" width="58" height="2.5" fill="#1E100A" fill-opacity="0.3"/>
+<rect x="19.5" y="23" width="61" height="7" rx="2.5" fill="url(#nudc)" stroke="#7C7167" stroke-width="1.5" stroke-opacity="0.7"/>
+<ellipse cx="50" cy="23" rx="30.5" ry="5.2" fill="#FFFAF1"/>
+<ellipse cx="50" cy="23" rx="26" ry="4" fill="#FFF7E8" stroke="#B7ADA1" stroke-width="1" stroke-opacity="0.6"/>
+<rect x="28" y="38" width="4.2" height="42" rx="2.1" fill="#FFFFFF" fill-opacity="0.55"/>
+</svg>

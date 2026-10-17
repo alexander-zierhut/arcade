@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Palmio Kokoswasser</title>
+<defs>
+<linearGradient id="pm-f" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#FFFAF1"/><stop offset="0.35" stop-color="#FFF7E8"/><stop offset="1" stop-color="#FFF7E8"/></linearGradient>
+<linearGradient id="pm-l" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#C8ED7D"/><stop offset="0.35" stop-color="#A6E22E"/><stop offset="1" stop-color="#A6E22E"/></linearGradient>
+<linearGradient id="pm-ao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<polygon points="22.5,36 44,18 56,12 77.5,30 77.5,87.5 65.5,93.5 22.5,93.5" fill="#FFF7E8" stroke="#7C7167" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<polygon points="22.5,36 44,18 65.5,36 65.5,93.5 22.5,93.5" fill="url(#pm-f)"/>
+<polygon points="65.5,36 77.5,30 77.5,87.5 65.5,93.5" fill="#B7ADA1"/>
+<polygon points="44,18 56,12 77.5,30 65.5,36" fill="#C8ED7D"/>
+<polygon points="22.5,36 44,18 65.5,36" fill="url(#pm-l)"/>
+<path d="M22.5,82.5H77.5V87.5L65.5,93.5H22.5Z" fill="url(#pm-ao)"/>
+<path d="M44,18L65.5,36V93.5M22.5,36H65.5" fill="none" stroke="#B7ADA1" stroke-width="1"/>
+<rect x="22.5" y="54" width="43" height="26" fill="url(#pm-l)"/>
+<path d="M44,67Q39,61 34,63Q39,64 44,67Z" fill="#FFFFFF"/>
+<path d="M44,67Q49,61 54,63Q49,64 44,67Z" fill="#FFFFFF"/>
+<path d="M44,67Q42,62 44,60.5Q46,62 44,67Z" fill="#FFFFFF"/>
+<circle cx="44" cy="72.5" r="5" fill="#7A4A2A"/>
+<circle cx="42.3" cy="70.8" r="1.5" fill="#AD8F7B"/>
+</svg>

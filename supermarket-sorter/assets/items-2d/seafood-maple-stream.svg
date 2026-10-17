@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Küstenfang Lachsfilet</title>
+<path d="M20 28Q20 24 24 24H76Q80 24 80 28L78 89Q77.5 93.5 73 93.5H27Q22.5 93.5 22 89Z" fill="#3FA34D" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M70 26H79L77.5 89Q77 93.5 73 93.5H69Q72 60 70 26Z" fill="#000000" fill-opacity="0.12"/>
+<rect x="22.5" y="48" width="3.4" height="40" rx="1.7" fill="#FFFFFF" fill-opacity="0.35"/>
+<rect x="25" y="28" width="50" height="15" rx="3" fill="#FFF6E0" stroke="#2A1B12" stroke-width="2"/>
+<text x="50" y="39.5" font-family="Arial, Helvetica, sans-serif" font-weight="900" text-anchor="middle" font-size="11" fill="#1E7A36">LACHS</text>
+<path d="M30 58Q29 51 38 50.5Q48 48 57 52Q65 55 71 60Q63 65 52 66Q37 67 31 63.5Q29 61 30 58Z" fill="#FF7F50" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+<path d="M30 80Q29 73 38 72.5Q48 70 57 74Q65 77 71 82Q63 87 52 88Q37 89 31 85.5Q29 83 30 80Z" fill="#FF7F50" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+<path d="M38 56Q42 59 40 63M48 54Q52 58 50 63M58 56Q61 59 60 62M38 78Q42 81 40 85M48 76Q52 80 50 85M58 78Q61 81 60 84" fill="none" stroke="#FFF6E0" stroke-width="1.5" stroke-linecap="round"/>
+</svg>

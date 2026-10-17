@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Sauerwiese Zitronenbrause</title>
+<path d="M45 15.5V20C45 27 30 30 30 45V86Q30 93.5 37.5 93.5H62.5Q70 93.5 70 86V45C70 30 55 27 55 20V15.5Z" fill="#7CC242" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="62" y="46" width="6.5" height="46" rx="3.2" fill="#000000" fill-opacity="0.12"/>
+<rect x="32.5" y="46" width="4" height="40" rx="2" fill="#FFFFFF" fill-opacity="0.35"/>
+<rect x="33" y="46" width="34" height="40" rx="4" fill="#FFF6E0" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+<text x="50" y="56" font-size="9" font-weight="900" font-family="Arial, Helvetica, sans-serif" text-anchor="middle" fill="#3FA34D">SAUER</text>
+<ellipse cx="50" cy="71" rx="14" ry="10" transform="rotate(-20 50 71)" fill="#F9CF1F" stroke="#2A1B12" stroke-width="2"/>
+<ellipse cx="44" cy="67" rx="2.5" ry="1.5" transform="rotate(-20 44 67)" fill="#FFFFFF" fill-opacity="0.6"/>
+<path d="M55 62Q57.5 56 64 56Q63 62 55 62Z" fill="#3FA34D" stroke="#2A1B12" stroke-width="1.5" stroke-linejoin="round"/>
+<rect x="42.5" y="7.5" width="15" height="8" rx="2.5" fill="#F7C948" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M46 11V14M50 11V14M54 11V14" fill="none" stroke="#2A1B12" stroke-width="1.5" stroke-linecap="round"/>
+</svg>

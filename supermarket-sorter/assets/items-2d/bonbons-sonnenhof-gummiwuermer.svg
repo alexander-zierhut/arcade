@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Hofbär Gummiwürmer</title>
+<path d="M23 26.5H77V84.5Q77 93.5 68 93.5H32Q23 93.5 23 84.5Z" fill="#3FA34D" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M30 36C38 30 45 42 52 36S66 30 70 36" fill="none" stroke="#2A1B12" stroke-width="7" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M30 36C38 30 45 42 52 36S66 30 70 36" fill="none" stroke="#E8453C" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M30 80C38 74 45 86 52 80S66 74 70 80" fill="none" stroke="#2A1B12" stroke-width="7" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M30 80C38 74 45 86 52 80S66 74 70 80" fill="none" stroke="#F7C948" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M30 87C38 83 45 91 52 87S66 83 70 87" fill="none" stroke="#2A1B12" stroke-width="7" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M30 87C38 83 45 91 52 87S66 83 70 87" fill="none" stroke="#2F6BD6" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M66 26.5H77V84.5Q77 93.5 68 93.5H66Z" fill="#000000" fill-opacity="0.12"/>
+<rect x="27" y="30" width="3" height="56" rx="1.5" fill="#FFFFFF" fill-opacity="0.35"/>
+<rect x="28.5" y="49" width="43" height="24" rx="3" fill="#FFF6E0" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+<path d="M34 56C40 50 44 62 50 56S60 50 66 56" fill="none" stroke="#2A1B12" stroke-width="6.5" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M34 56C40 50 44 62 50 56S60 50 66 56" fill="none" stroke="#E8453C" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="50" y="70" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="900" text-anchor="middle" fill="#2A1B12">HOFBÄR</text>
+<rect x="23" y="12.5" width="54" height="14" rx="3" fill="#E8453C" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M31 17V24M41 17V24M51 17V24M61 17V24M71 17V24" fill="none" stroke="#2A1B12" stroke-width="1.5" stroke-linecap="round"/>
+</svg>

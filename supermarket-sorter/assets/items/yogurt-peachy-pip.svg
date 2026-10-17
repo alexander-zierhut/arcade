@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Fruchtzwerk Pfirsich</title>
+<defs>
+<linearGradient id="ppb" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#C8ED7D"/><stop offset="0.22" stop-color="#A6E22E"/><stop offset="0.55" stop-color="#A6E22E"/><stop offset="0.85" stop-color="#7A9F22"/><stop offset="1" stop-color="#576819"/></linearGradient>
+<linearGradient id="ppc" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFFFFF"/><stop offset="0.22" stop-color="#FFFFFF"/><stop offset="0.55" stop-color="#FFFFFF"/><stop offset="0.85" stop-color="#E3DDD3"/><stop offset="1" stop-color="#B7ADA1"/></linearGradient>
+<linearGradient id="ppao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M21,21H79L75.5,88Q75,93.5 69,93.5H31Q25,93.5 24.5,88Z" fill="url(#ppb)"/>
+<path d="M24.8,82.5H75.2L75.5,88Q75,93.5 69,93.5H31Q25,93.5 24.5,88Z" fill="url(#ppao)"/>
+<path d="M22.2,44Q50,47 77.8,44L76.4,77Q50,80 23.6,77Z" fill="#FFFFFF"/>
+<path d="M44,57Q45,48 51,43Q55,41.5 58,45.5Q56.5,48 58,51Q59,54 58,57Z" fill="#FF5A4E"/>
+<circle cx="58" cy="45" r="2.3" fill="#FFFFFF"/>
+<circle cx="50.5" cy="58" r="5.2" fill="#FFB87D"/>
+<path d="M45.5,60.5Q50.5,69 55.5,60.5Q50.5,64.5 45.5,60.5Z" fill="#B7ADA1"/>
+<text x="50" y="75" font-family="Arial, Helvetica, sans-serif" font-weight="900" text-anchor="middle" font-size="11" fill="#576819">ZWERK</text>
+<path d="M20,26Q50,32.5 80,26V29Q50,35.5 20,29Z" fill="#1E100A" fill-opacity="0.3"/>
+<path d="M19.5,21V26Q50,32.5 80.5,26V21Z" fill="url(#ppc)" stroke="#B7ADA1" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<ellipse cx="50" cy="21" rx="30.5" ry="5.4" fill="#FFFFFF" stroke="#B7ADA1" stroke-width="1.5" stroke-opacity="0.7"/>
+<rect x="27.5" y="38" width="4.3" height="38" rx="2.1" fill="#FFFFFF" fill-opacity="0.55"/>
+<path d="M21,21H79L75.5,88Q75,93.5 69,93.5H31Q25,93.5 24.5,88Z" fill="none" stroke="#576819" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+</svg>

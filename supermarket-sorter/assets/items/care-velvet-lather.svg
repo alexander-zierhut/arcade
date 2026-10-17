@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Samtschaum Shampoo</title>
+<defs>
+<linearGradient id="q5xb" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#C2ADFF"/><stop offset="0.22" stop-color="#9D7BFF"/><stop offset="0.55" stop-color="#9D7BFF"/><stop offset="0.85" stop-color="#7459B1"/><stop offset="1" stop-color="#533D71"/></linearGradient>
+<linearGradient id="q5xc" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFE388"/><stop offset="0.22" stop-color="#FFD23F"/><stop offset="0.55" stop-color="#FFD23F"/><stop offset="0.85" stop-color="#B7942E"/><stop offset="1" stop-color="#7C6120"/></linearGradient>
+<linearGradient id="q5xcr" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFFAF1"/><stop offset="0.25" stop-color="#FFF7E8"/><stop offset="0.6" stop-color="#FFF7E8"/><stop offset="1" stop-color="#B7ADA1"/></linearGradient>
+<linearGradient id="q5xao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M25.5,50Q25.5,39 35,37H65Q74.5,39 74.5,50V87.5Q74.5,93.5 68.5,93.5H31.5Q25.5,93.5 25.5,87.5Z" fill="url(#q5xb)" stroke="#533D71" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<path d="M26.5,56Q50,62 73.5,56V80Q50,86 26.5,80Z" fill="url(#q5xcr)"/>
+<path d="M50,59.5C50,59.5 41,68 41,73.5A9,9 0 0 0 59,73.5C59,68 50,59.5 50,59.5Z" fill="#2FD5C8"/>
+<path d="M25.5,82.5V87.5Q25.5,93.5 31.5,93.5H68.5Q74.5,93.5 74.5,87.5V82.5Z" fill="url(#q5xao)"/>
+<rect x="45" y="19" width="10" height="6" fill="url(#q5xc)"/>
+<rect x="35" y="24" width="30" height="11" rx="2" fill="url(#q5xc)" stroke="#7C6120" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<ellipse cx="50" cy="24" rx="15" ry="2.7" fill="#FFE388"/>
+<rect x="36" y="35" width="28" height="2.5" fill="#1E100A" fill-opacity="0.3"/>
+<rect x="35" y="10" width="30" height="9" rx="2" fill="url(#q5xc)" stroke="#7C6120" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<rect x="63" y="12" width="11" height="4.5" rx="2" fill="url(#q5xc)" stroke="#7C6120" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<ellipse cx="50" cy="10" rx="15" ry="2.7" fill="#FFE388"/>
+<rect x="37.3" y="43.8" width="3.9" height="35.6" rx="2" fill="#FFFFFF" fill-opacity="0.55"/>
+<rect x="38" y="26" width="3" height="7" rx="1.5" fill="#FFFFFF" fill-opacity="0.5"/>
+</svg>

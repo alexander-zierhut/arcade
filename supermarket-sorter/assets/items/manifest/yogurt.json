@@ -1,0 +1,49 @@
+{
+  "category": "yogurt",
+  "items": [
+    {
+      "id": "yogurt-dewberry-dell",
+      "file": "yogurt-dewberry-dell.svg",
+      "name": "Aktivmel Heidelbeere",
+      "class": "bottle",
+      "color": "#9D7BFF",
+      "accent": "#3B6CFF",
+      "label": "AKTIVMEL",
+      "icon": "blueberries",
+      "description": "Winks at the Actimel drinking yogurt bottle: fat lavender bottle with a cobalt cap, a white label band with the near-name AKTIVMEL and three blueberries"
+    },
+    {
+      "id": "yogurt-cocoa-nook",
+      "file": "yogurt-cocoa-nook.svg",
+      "name": "Paulina Schokopudding",
+      "class": "tub",
+      "color": "#7A4A2A",
+      "accent": "#FFF7E8",
+      "label": "PAULINA",
+      "icon": "cow spots",
+      "description": "Winks at Paula chocolate pudding: chocolate-brown tub with a cream lid and pudding top, two white cow spots and a cream name plate reading PAULINA"
+    },
+    {
+      "id": "yogurt-peachy-pip",
+      "file": "yogurt-peachy-pip.svg",
+      "name": "Fruchtzwerk Pfirsich",
+      "class": "tub",
+      "color": "#A6E22E",
+      "accent": "#FFFFFF",
+      "label": "ZWERK",
+      "icon": "dwarf hat",
+      "description": "Winks at Fruchtzwerge kids yogurt: lime-green pot with a white foil lid, a white label with a cheerful dwarf in a red pointed hat and the near-name ZWERK"
+    },
+    {
+      "id": "yogurt-golden-dollop",
+      "file": "yogurt-golden-dollop.svg",
+      "name": "Weidenzauber Vanillequark",
+      "class": "jar",
+      "color": "#2FD5C8",
+      "accent": "#FFD23F",
+      "label": "",
+      "icon": "vanilla flower",
+      "description": "Fat turquoise glass quark jar with a sun-yellow screw lid and a yellow label band carrying the word WEIDEN and a white vanilla flower"
+    }
+  ]
+}

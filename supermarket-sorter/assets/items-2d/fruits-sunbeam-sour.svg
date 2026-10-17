@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Sauerlustig Zitronen</title>
+<path d="M22 20Q26 7 32 19Q38 7 44 19Q50 7 56 19Q62 7 68 19Q74 7 78 20L80 88Q80 93.5 74 93.5L26 93.5Q20 93.5 20 88Z" fill="#9BCB3C" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<ellipse cx="38" cy="60" rx="12" ry="9" transform="rotate(-25 38 60)" fill="#F5DC2B" stroke="#2A1B12" stroke-width="2.5"/>
+<ellipse cx="62" cy="58" rx="12" ry="9" transform="rotate(20 62 58)" fill="#F5DC2B" stroke="#2A1B12" stroke-width="2.5"/>
+<ellipse cx="50" cy="76" rx="13" ry="9" fill="#F5DC2B" stroke="#2A1B12" stroke-width="2.5"/>
+<ellipse cx="65" cy="82" rx="11" ry="8" transform="rotate(10 65 82)" fill="#F5DC2B" stroke="#2A1B12" stroke-width="2.5"/>
+<path d="M70 20L78 20L80 88Q80 93.5 74 93.5L70 93.5Q72 60 70 20Z" fill="#000000" fill-opacity="0.12"/>
+<path d="M35 38V93M65 38V93M21.5 50H78.5" fill="none" stroke="#2A1B12" stroke-width="1.5" stroke-linecap="round"/>
+<rect x="29" y="24" width="42" height="16" rx="3" fill="#FFF6E0" stroke="#2A1B12" stroke-width="2"/>
+<text x="50" y="36" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="900" text-anchor="middle" fill="#2A1B12">SAUER</text>
+<ellipse cx="25" cy="58" rx="2.4" ry="13" fill="#FFFFFF" fill-opacity="0.35"/>
+</svg>

@@ -1,0 +1,100 @@
+{
+ "tag": "round1",
+ "cpu": 4,
+ "seconds": 6,
+ "date": "2026-10-16T21:27:33",
+ "scenarios": [
+  {
+   "mode": "timed",
+   "level": 40,
+   "frames": {
+    "frames": 359,
+    "p50": 16.699999999999818,
+    "p95": 16.800000000000182,
+    "max": 33.40000000000009,
+    "long": 2,
+    "moves": 20,
+    "actionP95": 34.29999999701977
+   },
+   "actionP95": 34.3,
+   "layouts": 20,
+   "recalcs": 451,
+   "layoutMs": 13,
+   "styleMs": 481,
+   "scriptMs": 337,
+   "taskMs": 2200,
+   "heapMB": 6.7,
+   "dom": {
+    "nodes": 512,
+    "anims": 27,
+    "items": 71
+   },
+   "trace": {
+    "paint": 78,
+    "layout": 636,
+    "style": 453,
+    "composite": 709,
+    "script": 649,
+    "animation": 0
+   },
+   "top": [
+    "RunTask 3477ms",
+    "Commit 469ms",
+    "UpdateLayoutTree 453ms",
+    "FunctionCall 352ms",
+    "TimerFire 254ms",
+    "PrePaint 160ms",
+    "Layerize 154ms",
+    "FireAnimationFrame 124ms",
+    "UpdateLayer 87ms",
+    "Paint 40ms"
+   ]
+  },
+  {
+   "mode": "relaxed",
+   "level": 24,
+   "frames": {
+    "frames": 361,
+    "p50": 16.69999999999891,
+    "p95": 16.700000000000728,
+    "max": 16.80000000000291,
+    "long": 0,
+    "moves": 20,
+    "actionP95": 10.799999997019768
+   },
+   "actionP95": 10.8,
+   "layouts": 110,
+   "recalcs": 422,
+   "layoutMs": 56,
+   "styleMs": 442,
+   "scriptMs": 142,
+   "taskMs": 1989,
+   "heapMB": 5.6,
+   "dom": {
+    "nodes": 428,
+    "anims": 19,
+    "items": 39
+   },
+   "trace": {
+    "paint": 398,
+    "layout": 601,
+    "style": 402,
+    "composite": 613,
+    "script": 348,
+    "animation": 0
+   },
+   "top": [
+    "RunTask 2752ms",
+    "UpdateLayoutTree 402ms",
+    "Commit 306ms",
+    "RasterTask 270ms",
+    "Layerize 234ms",
+    "FunctionCall 186ms",
+    "TimerFire 160ms",
+    "PrePaint 144ms",
+    "Paint 120ms",
+    "UpdateLayer 73ms"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,49 @@
+{
+  "category": "beeren",
+  "items": [
+    {
+      "id": "beeren-suedfrucht-orange",
+      "file": "beeren-suedfrucht-orange.svg",
+      "name": "Sonnhalde Orangen",
+      "class": "bag",
+      "color": "#FF8C2E",
+      "accent": "#3ECF6A",
+      "label": "",
+      "icon": "oranges in a net bag",
+      "description": "Cream net bag closed with a green clip, three big glossy oranges showing through the net. Invented brand Sonnhalde, product Orangen."
+    },
+    {
+      "id": "beeren-gruenhain-kiwi",
+      "file": "beeren-gruenhain-kiwi.svg",
+      "name": "Grünling Kiwi",
+      "class": "loose",
+      "color": "#3ECF6A",
+      "accent": "#7A4A2A",
+      "label": "GRÜN",
+      "icon": "kiwis in a tray",
+      "description": "Winks at the branded kiwi tray from the German fruit aisle: green tray with a cream label band reading GRÜN, two fuzzy brown kiwis and one cut open showing green flesh"
+    },
+    {
+      "id": "beeren-waldwiese-heidelbeeren",
+      "file": "beeren-waldwiese-heidelbeeren.svg",
+      "name": "Waldwiese Heidelbeeren",
+      "class": "tub",
+      "color": "#3B6CFF",
+      "accent": "#FFF7E8",
+      "label": "",
+      "icon": "blueberries",
+      "description": "Cream tub with a cobalt lid rim and a cobalt label band, heaped above the rim with plump blue blueberries. Brand Waldwiese, product Heidelbeeren."
+    },
+    {
+      "id": "beeren-gartenlust-himbeeren",
+      "file": "beeren-gartenlust-himbeeren.svg",
+      "name": "Gartenlust Himbeeren",
+      "class": "box",
+      "color": "#FF6FB5",
+      "accent": "#3ECF6A",
+      "label": "",
+      "icon": "raspberry cluster",
+      "description": "Pink cardboard box with a top face and side face, a white front panel with one raspberry cluster and a green leaf. Brand Gartenlust, product Himbeeren."
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "category": "obst",
+  "items": [
+    {
+      "id": "obst-sommerglueck-melone",
+      "file": "obst-sommerglueck-melone.svg",
+      "name": "Sommerglück Wassermelone",
+      "class": "loose",
+      "color": "#3ECF6A",
+      "accent": "#FF5A4E",
+      "label": "",
+      "icon": "watermelon with wedge",
+      "description": "A whole round green watermelon with soft dark stripes and a red half-moon slice with seeds in front, natural proportions. Invented German brand Sommerglück."
+    },
+    {
+      "id": "obst-kirschenhain-kirschen",
+      "file": "obst-kirschenhain-kirschen.svg",
+      "name": "Hainfee Süßkirschen",
+      "class": "jar",
+      "color": "#9D7BFF",
+      "accent": "#FFD23F",
+      "label": "",
+      "icon": "cherries",
+      "description": "Fat glass jar of sweet cherries in dark purple syrup with a sun-yellow screw lid and a cream label showing two red cherries. Invented German brand Hainfee."
+    },
+    {
+      "id": "obst-sonnenwiese-pfirsich",
+      "file": "obst-sonnenwiese-pfirsich.svg",
+      "name": "Sonni Pfirsichhälften",
+      "class": "can",
+      "color": "#FF6FB5",
+      "accent": "#FF8C2E",
+      "label": "",
+      "icon": "peach",
+      "description": "Fat candy-pink can of peach halves with metal rims, a silver pull-tab lid and a cream label showing one big orange peach with a green leaf. Invented German brand Sonni."
+    },
+    {
+      "id": "obst-suedfrucht-mango",
+      "file": "obst-suedfrucht-mango.svg",
+      "name": "Südlust Trockenmango",
+      "class": "bag",
+      "color": "#FFD23F",
+      "accent": "#FF8C2E",
+      "label": "",
+      "icon": "mango",
+      "description": "Fat standing pouch of dried mango in sun yellow with an orange crimped seal and a cream label panel showing one orange mango. Invented German brand Südlust."
+    }
+  ]
+}

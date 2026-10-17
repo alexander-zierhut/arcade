@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Farnquell Beeren-Kombucha</title>
+<path d="M42 20V30Q42 36 30.5 40V87Q30.5 93.5 37 93.5H63Q69.5 93.5 69.5 87V40Q58 36 58 30V20Z" fill="#B34FD0" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="62.5" y="42" width="5.6" height="46" rx="2.8" fill="#000000" fill-opacity="0.12"/>
+<rect x="33" y="44" width="2.6" height="42" rx="1.3" fill="#FFFFFF" fill-opacity="0.35"/>
+<path d="M46.5 26V34" fill="none" stroke="#FFFFFF" stroke-opacity="0.5" stroke-width="1.5" stroke-linecap="round"/>
+<rect x="35" y="52" width="30" height="30" rx="3" fill="#FFF6E0" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+<text x="50" y="62" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="900" text-anchor="middle" fill="#2A1B12">FARN</text>
+<path d="M50 81C42 75 41 66 50 64C59 66 58 75 50 81Z" fill="#3FA34D" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+<path d="M50 81V67" fill="none" stroke="#FFF6E0" stroke-width="1.5" stroke-linecap="round"/>
+<rect x="40.5" y="8" width="19" height="12" rx="2.5" fill="#3FA34D" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round"/>
+<path d="M45 12V16M50 12V16M55 12V16" fill="none" stroke="#2A1B12" stroke-width="1.5" stroke-opacity="0.5" stroke-linecap="round"/>
+</svg>

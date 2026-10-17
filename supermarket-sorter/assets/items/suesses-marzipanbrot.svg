@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Weidenzauber Marzipanbrot</title>
+<defs>
+<linearGradient id="sm20b" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#87E1A3"/><stop offset="0.22" stop-color="#3ECF6A"/><stop offset="0.55" stop-color="#3ECF6A"/><stop offset="0.85" stop-color="#34924B"/><stop offset="1" stop-color="#2B6032"/></linearGradient><linearGradient id="sm20c" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFE388"/><stop offset="0.22" stop-color="#FFD23F"/><stop offset="0.55" stop-color="#FFD23F"/><stop offset="0.85" stop-color="#B7942E"/><stop offset="1" stop-color="#7C6120"/></linearGradient><linearGradient id="sm20ao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M22,26V88Q22,94.5 29,94.5H71Q78,94.5 78,88V26Z" fill="url(#sm20b)" stroke="#2B6032" stroke-width="1.5" stroke-opacity="0.7"/>
+<rect x="22" y="83.5" width="56" height="11" fill="url(#sm20ao)"/>
+<ellipse cx="50" cy="26" rx="28" ry="5" fill="#87E1A3"/>
+<circle cx="50" cy="61" r="17" fill="#FFF7E8"/>
+<path d="M50,47C60,55 60,67 50,76C40,67 40,55 50,47Z" fill="#B7942E"/><path d="M50,51C56.5,57 56.5,66 50,72C43.5,66 43.5,57 50,51Z" fill="#FFD23F"/>
+<rect x="44" y="19" width="12" height="9" rx="2" fill="url(#sm20c)" stroke="#7C6120" stroke-width="1.5" stroke-opacity="0.7"/>
+<path d="M46,23L33,12Q31,19 33,27Z" fill="url(#sm20c)" stroke="#7C6120" stroke-width="1.5" stroke-opacity="0.7"/>
+<path d="M54,23L67,12Q69,19 67,27Z" fill="url(#sm20c)" stroke="#7C6120" stroke-width="1.5" stroke-opacity="0.7"/>
+<rect x="29" y="34" width="4" height="46" rx="2" fill="#FFFFFF" fill-opacity="0.5"/>
+</svg>

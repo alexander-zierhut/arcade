@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Pfannier Eistee Pfirsich</title>
+<rect x="23.5" y="27" width="53" height="66.5" fill="#EBD032" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round"/>
+<polygon points="23.5,27 33,13 67,13 76.5,27" fill="#F7E36A" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round"/>
+<rect x="43" y="6" width="14" height="8" rx="2" fill="#E8453C" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round"/>
+<rect x="68.5" y="28" width="7" height="64" fill="#000000" fill-opacity="0.12"/>
+<rect x="26.5" y="30" width="3.5" height="58" rx="1.7" fill="#FFFFFF" fill-opacity="0.35"/>
+<rect x="28" y="31" width="44" height="13" rx="3" fill="#FFF6E0" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+<text x="50" y="41.5" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="900" text-anchor="middle" textLength="38" lengthAdjust="spacingAndGlyphs" fill="#B3142F">PFANNIER</text>
+<circle cx="50" cy="67" r="17" fill="#F28C28" stroke="#2A1B12" stroke-width="2"/>
+<path d="M50 50Q50 66 50 84" fill="none" stroke="#C25E10" stroke-width="2" stroke-linecap="round"/>
+<path d="M50 50C54 42 62 42 65 45C62 51 55 52 50 50Z" fill="#3FA34D" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+<path d="M40 60Q43 56 47 56" fill="none" stroke="#FFFFFF" stroke-opacity="0.6" stroke-width="2.5" stroke-linecap="round"/>
+</svg>

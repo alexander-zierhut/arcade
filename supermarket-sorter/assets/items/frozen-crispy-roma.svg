@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Dr. Ötti Ristorante Salame</title>
+<defs>
+<linearGradient id="ff6f" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#FF9991"/><stop offset="0.35" stop-color="#FF5A4E"/><stop offset="1" stop-color="#FF5A4E"/></linearGradient>
+<linearGradient id="ff6h" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFFFFF" stop-opacity="0.18"/><stop offset="0.4" stop-color="#FFFFFF" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.16"/></linearGradient>
+<linearGradient id="ff6ao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+<radialGradient id="ff6r" cx="0.4" cy="0.3" r="0.8"><stop offset="0" stop-color="#E0963C"/><stop offset="1" stop-color="#B86A24"/></radialGradient>
+</defs>
+<rect x="18" y="17" width="54" height="77.5" fill="url(#ff6f)" stroke="#7C2F27" stroke-width="1.5" stroke-opacity="0.7"/>
+<rect x="18" y="17" width="54" height="77.5" fill="url(#ff6h)"/>
+<path d="M72,17L81,11V88.5L72,94.5Z" fill="#B74238" stroke="#7C2F27" stroke-width="1.5" stroke-opacity="0.7"/>
+<path d="M18,17H72L81,11H27Z" fill="#FF9991" stroke="#7C2F27" stroke-width="1.5" stroke-opacity="0.7"/>
+<rect x="18" y="83.5" width="54" height="11" fill="url(#ff6ao)"/>
+<path d="M72,83.5L81,77.5V88.5L72,94.5Z" fill="url(#ff6ao)"/>
+<rect x="18" y="17" width="54" height="4" fill="#7C2F27" fill-opacity="0.5"/>
+<ellipse cx="45" cy="34" rx="25" ry="9.5" fill="#7A4A2A"/>
+<text x="45" y="38" font-family="Arial, Helvetica, sans-serif" font-weight="900" text-anchor="middle" font-size="11" fill="#FFFFFF">DR.ÖTTI</text>
+<circle cx="45" cy="66" r="20.5" fill="url(#ff6r)"/>
+<circle cx="45" cy="66" r="17" fill="#FFD23F"/>
+<circle cx="39" cy="59" r="4.2" fill="#FF5A4E"/><circle cx="52" cy="60" r="4.2" fill="#FF5A4E"/>
+<circle cx="36" cy="72" r="4.2" fill="#FF5A4E"/><circle cx="48" cy="73" r="4.2" fill="#FF5A4E"/>
+<rect x="18" y="21" width="54" height="2" fill="#1E100A" fill-opacity="0.3"/>
+</svg>

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Wischi Küchenrolle</title>
+<path d="M24 15V87A26 6.5 0 0 0 76 87V15Z" fill="#3FA34D" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M66 15H76V87Q72 93 66 93.4Z" fill="#000000" fill-opacity="0.12"/>
+<rect x="26.5" y="20" width="3" height="66" rx="1.5" fill="#FFFFFF" fill-opacity="0.35"/>
+<text x="50" y="33.5" font-family="Arial, Helvetica, sans-serif" font-weight="900" text-anchor="middle" font-size="9" fill="#FFFFFF">WISCHI</text>
+<rect x="33" y="36" width="34" height="32" rx="5" fill="#FFF6E0" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+<path d="M50 44C50 44 41.5 52.5 41.5 57A8.5 8.5 0 0 0 58.5 57C58.5 52.5 50 44 50 44Z" fill="#2F6BD6" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+<path d="M45.5 56.5Q45.5 60.5 49 61.5" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+<ellipse cx="50" cy="15" rx="26" ry="6" fill="#FFFFFF" stroke="#2A1B12" stroke-width="3"/>
+<ellipse cx="50" cy="15" rx="8" ry="2.6" fill="#8C5A2B" stroke="#2A1B12" stroke-width="2"/>
+</svg>

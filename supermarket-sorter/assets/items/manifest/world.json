@@ -1,0 +1,49 @@
+{
+  "category": "world",
+  "items": [
+    {
+      "id": "world-casita-crisp",
+      "file": "world-casita-crisp.svg",
+      "name": "Maisgold Taco-Schalen",
+      "class": "box",
+      "color": "#FFD23F",
+      "accent": "#FF5A4E",
+      "label": "",
+      "icon": "taco",
+      "description": "Chunky sun-yellow taco box seen from above with a coral top band and a cream front panel showing one big taco shell with lettuce and tomatoes"
+    },
+    {
+      "id": "world-jade-basil",
+      "file": "world-jade-basil.svg",
+      "name": "Jadegarten Grüne Currypaste",
+      "class": "jar",
+      "color": "#3ECF6A",
+      "accent": "#FFD23F",
+      "label": "",
+      "icon": "red chili",
+      "description": "Fat leaf-green glass curry paste jar with a sun-yellow screw lid and a cream label band showing one big coral chili pepper"
+    },
+    {
+      "id": "world-mezze-moon",
+      "file": "world-mezze-moon.svg",
+      "name": "Mondhof Hummus",
+      "class": "tub",
+      "color": "#4FB6FF",
+      "accent": "#2FD5C8",
+      "label": "",
+      "icon": "chickpeas",
+      "description": "Sky-blue hummus tub with a turquoise lid and a cream label band showing three golden chickpeas and a herb leaf"
+    },
+    {
+      "id": "world-napa-spark",
+      "file": "world-napa-spark.svg",
+      "name": "Funkenhof Kimchi scharf",
+      "class": "jar",
+      "color": "#FF6FB5",
+      "accent": "#FF8C2E",
+      "label": "",
+      "icon": "napa cabbage",
+      "description": "Fat candy-pink kimchi jar with an orange screw lid and a cream label band showing one lime napa cabbage flecked with red chili"
+    }
+  ]
+}

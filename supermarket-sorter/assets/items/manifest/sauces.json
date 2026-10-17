@@ -1,0 +1,49 @@
+{
+  "category": "sauces",
+  "items": [
+    {
+      "id": "sauces-ruby-vine",
+      "file": "sauces-ruby-vine.svg",
+      "name": "Heinzl Tomato Ketchup",
+      "class": "bottle",
+      "color": "#FF5A4E",
+      "accent": "#FFF7E8",
+      "label": "HEINZL",
+      "icon": "tomato",
+      "description": "Winks at the famous Heinz tomato ketchup: glossy coral-red squeeze bottle with a white nozzle cap and a white keystone-shaped label with the near-name HEINZL and a tomato"
+    },
+    {
+      "id": "sauces-buttercup",
+      "file": "sauces-buttercup.svg",
+      "name": "Bautzi Senf mittelscharf",
+      "class": "bottle",
+      "color": "#FFD23F",
+      "accent": "#FF5A4E",
+      "label": "BAUTZI",
+      "icon": "mustard swirl",
+      "description": "Winks at Bautzner Senf: squat sun-yellow mustard bottle with slanted shoulders, a red cap and a white label with the near-name BAUTZI in red and a swirl of mustard"
+    },
+    {
+      "id": "sauces-creamy-dollop",
+      "file": "sauces-creamy-dollop.svg",
+      "name": "Thommy Delikatess-Mayonnaise",
+      "class": "can",
+      "color": "#3B6CFF",
+      "accent": "#FFD23F",
+      "label": "THOMMY",
+      "icon": "mayo swirl",
+      "description": "Winks at Thomy Delikatess-Mayonnaise: blue-and-gold squeeze tube standing on its gold cap, crimped top, gold label with the near-name THOMMY and a swirl of mayonnaise"
+    },
+    {
+      "id": "sauces-fire-fern",
+      "file": "sauces-fire-fern.svg",
+      "name": "Maggy Würze",
+      "class": "bottle",
+      "color": "#7A4A2A",
+      "accent": "#FFD23F",
+      "label": "MAGGY",
+      "icon": "seasoning drop",
+      "description": "Winks at Maggi Würze: small glossy chocolate-brown seasoning bottle with a yellow cap and a yellow label saying MAGGY with a seasoning drop"
+    }
+  ]
+}

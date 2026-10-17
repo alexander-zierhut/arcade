@@ -1,0 +1,49 @@
+{
+  "category": "eis",
+  "items": [
+    {
+      "id": "eis-schleckwiese-eiswaffel",
+      "file": "eis-schleckwiese-eiswaffel.svg",
+      "name": "Schleckwiese Eiswaffel",
+      "class": "loose",
+      "color": "#FF6FB5",
+      "accent": "#A6E22E",
+      "label": "",
+      "icon": "ice cream scoops",
+      "description": "Golden waffle cone with a candy-pink strawberry scoop on top and a lime pistachio scoop below, lit like a 3D toy, no packaging"
+    },
+    {
+      "id": "eis-frostkuss-stieleis",
+      "file": "eis-frostkuss-stieleis.svg",
+      "name": "Noggi Stieleis",
+      "class": "box",
+      "color": "#3B6CFF",
+      "accent": "#FFD23F",
+      "label": "NOGGI",
+      "icon": "chocolate ice bar on a stick",
+      "description": "Parody of the Nogger chocolate ice on a stick: upright cobalt-blue box with a yellow NOGGI banner and a bitten chocolate ice bar on a wooden stick"
+    },
+    {
+      "id": "eis-sommerlust-eisbecher",
+      "file": "eis-sommerlust-eisbecher.svg",
+      "name": "Lusti Eisbecher",
+      "class": "tub",
+      "color": "#FFD23F",
+      "accent": "#FF5A4E",
+      "label": "",
+      "icon": "sundae cherry",
+      "description": "Sun-yellow sundae cup with a coral rim, a cream label band with a cherry, a lime and a pink scoop, a whipped cream swirl and a red cherry on top"
+    },
+    {
+      "id": "eis-keksgarten-eissandwich",
+      "file": "eis-keksgarten-eissandwich.svg",
+      "name": "Keksi Eissandwich",
+      "class": "bag",
+      "color": "#3ECF6A",
+      "accent": "#7A4A2A",
+      "label": "",
+      "icon": "ice cream sandwich",
+      "description": "Green foil wrapper standing upright with a crimped top seal, and a cream label showing a biscuit, cream and biscuit ice cream sandwich"
+    }
+  ]
+}

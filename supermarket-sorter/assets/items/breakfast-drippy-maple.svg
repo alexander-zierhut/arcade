@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Tannenblick Ahornsirup</title>
+<defs>
+<linearGradient id="bj" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#C8ED7D"/><stop offset="0.22" stop-color="#A6E22E"/><stop offset="0.55" stop-color="#A6E22E"/><stop offset="0.85" stop-color="#7A9F22"/><stop offset="1" stop-color="#576819"/></linearGradient>
+<linearGradient id="cj" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#AD8F7B"/><stop offset="0.22" stop-color="#7A4A2A"/><stop offset="0.55" stop-color="#7A4A2A"/><stop offset="0.85" stop-color="#5D3720"/><stop offset="1" stop-color="#452817"/></linearGradient>
+<linearGradient id="aoj" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M25.5,45Q25.5,36 35,33Q41,31 41,26V23H59V26Q59,31 65,33Q74.5,36 74.5,45V88Q74.5,93.5 68,93.5H32Q25.5,93.5 25.5,88Z" fill="url(#bj)" stroke="#576819" stroke-width="1.5" stroke-opacity="0.7"/>
+<path d="M25.5,82V88Q25.5,93.5 32,93.5H68Q74.5,93.5 74.5,88V82Z" fill="url(#aoj)"/>
+<path d="M25.5,52Q50,56 74.5,52V80Q50,84 25.5,80Z" fill="#FFF7E8"/>
+<path transform="translate(50,63) scale(1.05)" d="M0,-11L2.4,-6.2L5.4,-7.2L4.6,-2.4L10.5,-5.2L9.2,-1L11,0.6L5.8,3.6L6.6,6.4L1,5.4L1,11L-1,11L-1,5.4L-6.6,6.4L-5.8,3.6L-11,0.6L-9.2,-1L-10.5,-5.2L-4.6,-2.4L-5.4,-7.2L-2.4,-6.2Z" fill="#7A4A2A"/>
+<rect x="37.5" y="23" width="25" height="2.4" fill="#1E100A" fill-opacity="0.3"/>
+<rect x="35.5" y="12" width="29" height="12" rx="2.5" fill="url(#cj)" stroke="#452817" stroke-width="1.5" stroke-opacity="0.7"/>
+<ellipse cx="50" cy="12" rx="14.5" ry="2.6" fill="#AD8F7B"/>
+<rect x="36.5" y="40" width="4" height="40" rx="2" fill="#FFFFFF" fill-opacity="0.55"/>
+<rect x="66" y="42" width="2" height="34" rx="1" fill="#FFFFFF" fill-opacity="0.3"/>
+<rect x="38" y="14" width="3" height="8" rx="1.5" fill="#FFFFFF" fill-opacity="0.45"/>
+</svg>

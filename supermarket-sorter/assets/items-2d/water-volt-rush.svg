@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Blitzkraft Sportdrink</title>
+<path d="M27 14V86Q27 93.5 50 93.5Q73 93.5 73 86V14Z" fill="#F26B9E"/>
+<rect x="27" y="30" width="46" height="14" fill="#FFF6E0"/>
+<text x="50" y="41" font-size="11" font-family="Arial, Helvetica, sans-serif" font-weight="900" text-anchor="middle" textLength="30" lengthAdjust="spacingAndGlyphs" fill="#2A1B12">BLITZ</text>
+<circle cx="50" cy="64" r="15" fill="#F7C948" stroke="#2A1B12" stroke-width="2"/>
+<polygon points="54,52 41,67 49,67 45,78 59,62 51,62" fill="#2A1B12" stroke="#2A1B12" stroke-width="1" stroke-linejoin="round"/>
+<path d="M27 14V86Q27 93.5 50 93.5Q73 93.5 73 86V14Z" fill="none" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round"/>
+<ellipse cx="50" cy="14" rx="23" ry="4.5" fill="#FFFFFF" stroke="#2A1B12" stroke-width="3"/>
+<rect x="44" y="11" width="12" height="5" rx="2" fill="#FFF6E0" stroke="#2A1B12" stroke-width="1.5"/>
+<rect x="30" y="20" width="4" height="70" rx="2" fill="#FFFFFF" fill-opacity="0.35"/>
+<path d="M66 14H73V86Q73 91.8 67.5 92.8Q66.5 93.2 66 93.4Z" fill="#000000" fill-opacity="0.12"/>
+</svg>

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Maggy 5-Minuten-Terrine</title>
+<defs>
+<linearGradient id="eb" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFE388"/><stop offset="0.22" stop-color="#FFD23F"/><stop offset="0.55" stop-color="#FFD23F"/><stop offset="0.85" stop-color="#B7942E"/><stop offset="1" stop-color="#7C6120"/></linearGradient>
+<linearGradient id="er" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FF9991"/><stop offset="0.22" stop-color="#FF5A4E"/><stop offset="0.55" stop-color="#FF5A4E"/><stop offset="0.85" stop-color="#B74238"/><stop offset="1" stop-color="#7C2F27"/></linearGradient>
+<linearGradient id="eao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M20,26H80L74.5,91Q74.2,94.5 71,94.5H29Q25.8,94.5 25.5,91Z" fill="url(#eb)" stroke="#7C6120" stroke-width="1.5" stroke-opacity="0.7"/>
+<path d="M24.9,83.5H75.1L74.5,91Q74.2,94.5 71,94.5H29Q25.8,94.5 25.5,91Z" fill="url(#eao)"/>
+<path d="M20.8,36Q50,41 79.2,36L77.6,57Q50,62 22.4,57Z" fill="url(#er)"/>
+<text x="50" y="53" font-size="13" font-family="Arial, Helvetica, sans-serif" font-weight="900" text-anchor="middle" fill="#FFFFFF">MAGGY</text>
+<path d="M38,71H62Q62,84 50,84Q38,84 38,71Z" fill="#FF5A4E"/>
+<ellipse cx="50" cy="71" rx="12" ry="3" fill="#FFF7E8"/>
+<path d="M42,71Q46,68 50,71T58,71" fill="none" stroke="#FFD23F" stroke-width="1.5" stroke-linecap="round"/>
+<rect x="33.5" y="42" width="4" height="40" rx="2" fill="#FFFFFF" fill-opacity="0.55"/>
+<path d="M20,28.5Q50,34 80,28.5V31Q50,36.5 20,31Z" fill="#1E100A" fill-opacity="0.3"/>
+<path d="M19,20.5V28Q50,33.5 81,28V20.5Z" fill="url(#er)" stroke="#7C2F27" stroke-width="1.5" stroke-opacity="0.7"/>
+<ellipse cx="50" cy="20.5" rx="31" ry="5" fill="#FF9991"/>
+<ellipse cx="50" cy="20.5" rx="25" ry="3.6" fill="#FF5A4E"/>
+<rect x="23" y="22" width="3" height="5" rx="1.5" fill="#FFFFFF" fill-opacity="0.5"/>
+</svg>

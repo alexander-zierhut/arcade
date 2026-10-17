@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Mondschein Babymilch</title>
+<defs>
+<linearGradient id="bamilb" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#87E1A3"/><stop offset="0.22" stop-color="#3ECF6A"/><stop offset="0.55" stop-color="#3ECF6A"/><stop offset="0.85" stop-color="#34924B"/><stop offset="1" stop-color="#2B6032"/></linearGradient>
+<linearGradient id="bamily" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFE388"/><stop offset="0.22" stop-color="#FFD23F"/><stop offset="0.55" stop-color="#FFD23F"/><stop offset="0.85" stop-color="#B7942E"/><stop offset="1" stop-color="#7C6120"/></linearGradient>
+<linearGradient id="bamilm" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#DCDCDC"/><stop offset="0.22" stop-color="#B4B4B4"/><stop offset="0.55" stop-color="#B4B4B4"/><stop offset="0.85" stop-color="#8E8E8E"/><stop offset="1" stop-color="#5A5A5A"/></linearGradient>
+<linearGradient id="bamilw" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFFAF1"/><stop offset="0.22" stop-color="#FFF7E8"/><stop offset="0.55" stop-color="#FFF7E8"/><stop offset="0.85" stop-color="#B7ADA1"/><stop offset="1" stop-color="#7C7167"/></linearGradient>
+<linearGradient id="bamilao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M22,36V88.5A28,5 0 0 0 78,88.5V36Z" fill="url(#bamilb)"/>
+<path d="M49.2,40A10.5,10.5 0 1 0 53.8,59.9A11,11 0 0 1 49.2,40Z" fill="#FFD23F"/>
+<path d="M22,64A28,5 0 0 0 78,64V78A28,5 0 0 1 22,78Z" fill="url(#bamilw)"/>
+<path d="M22,83.5A28,5 0 0 0 78,83.5V88.5A28,5 0 0 1 22,88.5Z" fill="url(#bamilm)"/>
+<path d="M22,75H78V88.5A28,5 0 0 1 22,88.5Z" fill="url(#bamilao)"/>
+<path d="M22,32A28,5 0 0 0 78,32V38A28,5 0 0 1 22,38Z" fill="url(#bamilm)"/>
+<path d="M22,30A28,5 0 0 0 78,30V32A28,5 0 0 1 22,32Z" fill="#1E100A" fill-opacity="0.3"/>
+<path d="M22,19V30A28,5 0 0 0 78,30V19Z" fill="url(#bamily)" stroke="#7C6120" stroke-width="1.5" stroke-opacity="0.7"/>
+<ellipse cx="50" cy="19" rx="28" ry="5" fill="#FFE388"/>
+<rect x="25.5" y="41" width="4" height="38" rx="2" fill="#FFFFFF" fill-opacity="0.55"/>
+<rect x="70.5" y="41" width="2" height="36" rx="1" fill="#FFFFFF" fill-opacity="0.3"/>
+<rect x="26" y="22" width="3" height="6" rx="1.5" fill="#FFFFFF" fill-opacity="0.5"/>
+</svg>

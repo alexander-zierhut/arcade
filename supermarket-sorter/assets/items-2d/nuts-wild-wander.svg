@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Seebärger Studentenfutter</title>
+<rect x="22" y="10" width="56" height="83.5" rx="2.5" fill="#DF2040"/>
+<rect x="22" y="10" width="56" height="7" fill="#FFFFFF" fill-opacity="0.2"/>
+<rect x="22" y="17" width="56" height="29" fill="#FFFFFF" stroke="#2A1B12" stroke-width="2"/>
+<path d="M71 10H78V93.5H71Q72 50 71 10Z" fill="#000000" fill-opacity="0.12"/>
+<rect x="23.5" y="50" width="3" height="38" rx="1.5" fill="#FFFFFF" fill-opacity="0.35"/>
+<text x="50" y="27.5" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="900" text-anchor="middle" fill="#DF2040">SEE</text>
+<text x="50" y="41" font-family="Arial, Helvetica, sans-serif" font-size="11.5" font-weight="900" text-anchor="middle" fill="#DF2040">BÄRGER</text>
+<ellipse cx="50" cy="70" rx="23" ry="20" fill="#FFF6E0" stroke="#2A1B12" stroke-width="2"/>
+<g transform="translate(41 68) rotate(-25) scale(0.8)">
+<path d="M0-15C6.5-9 9-1 8 5C7 11 3.5 14.5 0 14.5S-7 11-8 5C-9-1-6.5-9 0-15Z" fill="#D9A05B" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+<path d="M0-8Q2.5 1 0 9" fill="none" stroke="#2A1B12" stroke-width="1.5" stroke-opacity="0.5" stroke-linecap="round"/>
+</g>
+<g transform="translate(60 74) rotate(12) scale(0.75)">
+<path d="M-7-7C-3-7-1-5 0-5S3-7 7-7C11-7 14-4 14 0S11 7 7 7C3 7 1 5 0 5S-3 7-7 7C-11 7-14 4-14 0S-11-7-7-7Z" fill="#E8B96A" stroke="#2A1B12" stroke-width="2.5" stroke-linejoin="round"/>
+</g>
+<circle cx="47" cy="58" r="4.2" fill="#6B2D5C" stroke="#2A1B12" stroke-width="1.5"/>
+<circle cx="58" cy="60" r="4.2" fill="#6B2D5C" stroke="#2A1B12" stroke-width="1.5"/>
+<circle cx="52" cy="83" r="4.2" fill="#6B2D5C" stroke="#2A1B12" stroke-width="1.5"/>
+<rect x="22" y="10" width="56" height="83.5" rx="2.5" fill="none" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round"/>
+</svg>

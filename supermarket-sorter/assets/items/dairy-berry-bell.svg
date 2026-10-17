@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Almigurt Erdbeere</title>
+<defs>
+<linearGradient id="dbb" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFA6D1"/><stop offset="0.22" stop-color="#FF6FB5"/><stop offset="0.55" stop-color="#FF6FB5"/><stop offset="0.85" stop-color="#B7517E"/><stop offset="1" stop-color="#7C3852"/></linearGradient>
+<linearGradient id="dbc" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFFAF1"/><stop offset="0.22" stop-color="#FFF7E8"/><stop offset="0.55" stop-color="#FFF7E8"/><stop offset="0.85" stop-color="#B7ADA1"/><stop offset="1" stop-color="#7C7167"/></linearGradient>
+<linearGradient id="dbao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M19.4,28H80.6L76.9,88.5Q76.5,94.5 70.5,94.5H29.5Q23.5,94.5 23.1,88.5Z" fill="url(#dbb)" stroke="#7C3852" stroke-width="1.5" stroke-opacity="0.7"/>
+<path d="M22.9,83.5H77.1L76.9,88.5Q76.5,94.5 70.5,94.5H29.5Q23.5,94.5 23.1,88.5Z" fill="url(#dbao)"/>
+<path d="M20.6,42Q50,45.5 79.4,42L77,76Q50,79.5 23,76Z" fill="#FFFFFF"/>
+<path d="M50,63Q42,58 42,52Q42,48 46,48Q49,48 50,50Q51,48 54,48Q58,48 58,52Q58,58 50,63Z" fill="#FF5A4E"/>
+<path d="M45.5,49L47,45.5L50,48L53,45.5L54.5,49L50,51Z" fill="#3ECF6A"/>
+<text x="50" y="73" font-size="11" font-family="Arial, Helvetica, sans-serif" font-weight="900" text-anchor="middle" textLength="46" lengthAdjust="spacingAndGlyphs" fill="#B7517E">ALMIGURT</text>
+<path d="M19.5,29.5Q50,35 80.5,29.5V31.8Q50,37.3 19.5,31.8Z" fill="#1E100A" fill-opacity="0.3"/>
+<path d="M19,22V29Q50,35 81,29V22Z" fill="url(#dbc)" stroke="#7C7167" stroke-width="1.5" stroke-opacity="0.7"/>
+<ellipse cx="50" cy="22" rx="31" ry="5.6" fill="#FFFAF1" stroke="#7C7167" stroke-width="1.5" stroke-opacity="0.7"/>
+<ellipse cx="50" cy="22" rx="25.5" ry="4.3" fill="#B7ADA1" fill-opacity="0.3"/>
+<rect x="34" y="36" width="4.6" height="42" rx="2.3" fill="#FFFFFF" fill-opacity="0.55"/>
+</svg>

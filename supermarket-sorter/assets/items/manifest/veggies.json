@@ -1,0 +1,49 @@
+{
+  "category": "veggies",
+  "items": [
+    {
+      "id": "veggies-red-barrow",
+      "file": "veggies-red-barrow.svg",
+      "name": "Sonnenhof Fleischtomate",
+      "class": "loose",
+      "color": "#FF5A4E",
+      "accent": "#D9A86B",
+      "label": "",
+      "icon": "vine tomato on a cream label band",
+      "description": "Two stacked coral-red vine tomatoes with green calyx and vine in a kraft cardboard tray with a cream label band showing one tomato; no real brand, plain Fleischtomaten from the German veg aisle; soft 3D toy-render look"
+    },
+    {
+      "id": "veggies-marigold-bell",
+      "file": "veggies-marigold-bell.svg",
+      "name": "Südfrucht Grüne Paprika",
+      "class": "loose",
+      "color": "#3ECF6A",
+      "accent": "#A6E22E",
+      "label": "",
+      "icon": "bell peppers",
+      "description": "Two green bell peppers (Paprika), slightly taller than wide, one behind the other, radial-shaded with lobed bottoms, creases and lime stems; no text"
+    },
+    {
+      "id": "veggies-violet-hollow",
+      "file": "veggies-violet-hollow.svg",
+      "name": "Landlust Aubergine",
+      "class": "loose",
+      "color": "#9D7BFF",
+      "accent": "#3ECF6A",
+      "label": "",
+      "icon": "eggplants",
+      "description": "Two lavender-purple aubergines in natural proportions, one upright in front and one behind, each with a green star-shaped calyx and curved stem; no text"
+    },
+    {
+      "id": "veggies-leafy-lane",
+      "file": "veggies-leafy-lane.svg",
+      "name": "Frischewerk Kopfsalat",
+      "class": "bag",
+      "color": "#A6E22E",
+      "accent": "#3ECF6A",
+      "label": "",
+      "icon": "lettuce head",
+      "description": "Standing lime pillow bag of lettuce (Kopfsalat) with a zigzag top seal, leaf-green bottom seal and a cream label panel with one lettuce head; no text"
+    }
+  ]
+}

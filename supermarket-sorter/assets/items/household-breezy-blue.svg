@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Persill Vollwaschmittel</title>
+<defs>
+<linearGradient id="pef" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#92D2FF"/><stop offset="0.35" stop-color="#4FB6FF"/><stop offset="1" stop-color="#4FB6FF"/></linearGradient>
+<radialGradient id="ped" cx="0.35" cy="0.3" r="0.8"><stop offset="0" stop-color="#87E1A3"/><stop offset="0.55" stop-color="#3ECF6A"/><stop offset="1" stop-color="#34924B"/></radialGradient>
+<linearGradient id="peao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M70,15L81,9V88.5L70,94.5Z" fill="#3F81B1"/>
+<path d="M18,15H70L81,9H29Z" fill="#92D2FF"/>
+<rect x="18" y="15" width="52" height="79.5" fill="url(#pef)"/>
+<rect x="18" y="83.5" width="52" height="11" fill="url(#peao)"/>
+<path d="M70,83.5L81,77.5V88.5L70,94.5Z" fill="url(#peao)"/>
+<rect x="22" y="19" width="44" height="24" rx="2" fill="#FFFFFF"/>
+<text x="44" y="35" font-size="11" textLength="38" lengthAdjust="spacingAndGlyphs" font-family="Arial, Helvetica, sans-serif" font-weight="900" text-anchor="middle" fill="#FF5A4E">PERSILL</text>
+<circle cx="44" cy="67" r="17" fill="url(#ped)"/>
+<path d="M34,61L39.5,57Q44,61 48.5,57L54,61L51,66L48,64.5V76H40V64.5L37,66Z" fill="#FFFFFF"/>
+<path d="M18,15H70V94.5" fill="none" stroke="#335671" stroke-width="1" stroke-opacity="0.6"/>
+<path d="M18,15L29,9H81V88.5L70,94.5H18Z" fill="none" stroke="#335671" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+</svg>

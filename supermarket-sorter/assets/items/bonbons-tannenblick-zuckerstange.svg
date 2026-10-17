@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Tannenblick Zuckerstange</title>
+<defs>
+<clipPath id="kc"><path d="M21,89V36A29,29 0 0 1 79,36V50A8,3.5 0 0 1 63,50V36A13,13 0 0 0 37,36V89A8,4.5 0 0 1 21,89Z"/></clipPath>
+<linearGradient id="bc" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFA6D1"/><stop offset="0.22" stop-color="#FF6FB5"/><stop offset="0.55" stop-color="#FF6FB5"/><stop offset="0.85" stop-color="#B7517E"/><stop offset="1" stop-color="#7C3852"/></linearGradient>
+<linearGradient id="aoc" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M21,89V36A29,29 0 0 1 79,36V50A8,3.5 0 0 1 63,50V36A13,13 0 0 0 37,36V89A8,4.5 0 0 1 21,89Z" fill="url(#bc)" stroke="#7C3852" stroke-width="1.5" stroke-opacity="0.7"/>
+<g clip-path="url(#kc)"><polygon points="21,56 37,48 37,56 21,64" fill="#FFFFFF"/><polygon points="21,78 37,70 37,78 21,86" fill="#FFFFFF"/><polygon points="40.5,30.5 27,15.3 34.5,9.2 42.1,28.4" fill="#FFFFFF"/><polygon points="47.3,25.3 48.9,5 58.5,6.2 50,25" fill="#FFFFFF"/><polygon points="55.8,26.7 71.5,13.7 77.4,21.4 57.9,28.4" fill="#FFFFFF"/><polygon points="63,42 79,34 79,42 63,50" fill="#FFFFFF"/></g>
+<path d="M21,80V89A8,4.5 0 0 0 37,89V80Z" fill="url(#aoc)"/>
+<path d="M25.5,86V36A24.5,24.5 0 0 1 50,11.5" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-opacity="0.55" stroke-linecap="round"/>
+</svg>

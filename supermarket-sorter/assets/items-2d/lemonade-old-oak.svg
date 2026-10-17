@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Spezzi Cola-Orange</title>
+<path d="M44 14V34C44 40 30 42 30 56V86Q30 93.5 37.5 93.5H62.5Q70 93.5 70 86V56C70 42 56 40 56 34V14Z" fill="#6A3418" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M48 20V32" fill="none" stroke="#FFFFFF" stroke-opacity="0.5" stroke-width="1.5" stroke-linecap="round"/>
+<rect x="33" y="45" width="34" height="40" rx="3" fill="#F28C28" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+<rect x="34" y="46" width="32" height="13" rx="2" fill="#4A220F"/>
+<text x="50" y="56.5" font-size="9" font-weight="900" font-family="Arial, Helvetica, sans-serif" text-anchor="middle" fill="#FFE9A8">SPEZZI</text>
+<circle cx="50" cy="72.5" r="10" fill="#FFF6E0" stroke="#2A1B12" stroke-width="2"/>
+<circle cx="50" cy="72.5" r="8" fill="#FFB627"/>
+<path d="M42.5 72.5H57.5M44.7 67.2L55.3 77.8M55.3 67.2L44.7 77.8" fill="none" stroke="#FFF6E0" stroke-width="1.4" stroke-linecap="round"/>
+<circle cx="38.5" cy="79" r="1.8" fill="#4A220F"/>
+<circle cx="61.5" cy="64" r="1.8" fill="#4A220F"/>
+<rect x="31.5" y="58" width="3" height="32" rx="1.5" fill="#FFFFFF" fill-opacity="0.35"/>
+<rect x="64" y="58" width="5" height="34" rx="2.5" fill="#000000" fill-opacity="0.12"/>
+<rect x="42" y="6.5" width="16" height="8" rx="2.5" fill="#F7C948" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round"/>
+<path d="M46 9.5V12M50 9.5V12M54 9.5V12" fill="none" stroke="#2A1B12" stroke-width="1.5" stroke-linecap="round"/>
+</svg>

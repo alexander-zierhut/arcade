@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Bambusgarten Frühlingsrollen</title>
+<defs>
+<linearGradient id="aslany" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFE388"/><stop offset="0.22" stop-color="#FFD23F"/><stop offset="0.55" stop-color="#FFD23F"/><stop offset="0.85" stop-color="#B7942E"/><stop offset="1" stop-color="#7C6120"/></linearGradient>
+<linearGradient id="aslant" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFFAF1"/><stop offset="0.22" stop-color="#FFF7E8"/><stop offset="0.55" stop-color="#FFF7E8"/><stop offset="0.85" stop-color="#B7ADA1"/><stop offset="1" stop-color="#7C7167"/></linearGradient>
+<linearGradient id="aslang" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#87E1A3"/><stop offset="0.22" stop-color="#3ECF6A"/><stop offset="0.55" stop-color="#3ECF6A"/><stop offset="0.85" stop-color="#34924B"/><stop offset="1" stop-color="#2B6032"/></linearGradient>
+<linearGradient id="aslanao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<ellipse cx="50" cy="62" rx="32.5" ry="6" fill="#B7ADA1"/>
+<path d="M41.2,26V68H58.8V26Z" fill="url(#aslany)"/>
+<path d="M23.2,34V68H40.8V34Z" fill="url(#aslany)"/>
+<path d="M59.2,34V68H76.8V34Z" fill="url(#aslany)"/>
+<path d="M41.2,26a8.8,3.6 0 1 0 17.6,0a8.8,3.6 0 1 0 -17.6,0ZM23.2,34a8.8,3.6 0 1 0 17.6,0a8.8,3.6 0 1 0 -17.6,0ZM59.2,34a8.8,3.6 0 1 0 17.6,0a8.8,3.6 0 1 0 -17.6,0Z" fill="#FFE388"/>
+<path d="M44.8,26a5.2,2.1 0 1 0 10.4,0a5.2,2.1 0 1 0 -10.4,0ZM26.8,34a5.2,2.1 0 1 0 10.4,0a5.2,2.1 0 1 0 -10.4,0ZM62.8,34a5.2,2.1 0 1 0 10.4,0a5.2,2.1 0 1 0 -10.4,0Z" fill="#3ECF6A"/>
+<circle cx="52.3" cy="26" r="1.5" fill="#FF8C2E"/><circle cx="34.3" cy="34" r="1.5" fill="#FF8C2E"/><circle cx="70.3" cy="34" r="1.5" fill="#FF8C2E"/>
+<path d="M17.5,62A32.5,6 0 0 0 82.5,62L79.5,88Q79,93.5 72.5,93.5H27.5Q21,93.5 20.5,88Z" fill="url(#aslant)" stroke="#7C7167" stroke-width="1.5" stroke-opacity="0.7"/>
+<path d="M21.5,73A28.5,5.1 0 0 0 78.5,73V88A28.5,5.1 0 0 1 21.5,88Z" fill="url(#aslang)"/>
+<path d="M19.9,82.5L20.5,88Q21,93.5 27.5,93.5H72.5Q79,93.5 79.5,88L80.1,82.5Z" fill="url(#aslanao)"/>
+<text x="50" y="87" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="900" text-anchor="middle" fill="#FFF7E8">BAMBUS</text>
+</svg>

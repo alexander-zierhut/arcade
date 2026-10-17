@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Lehrdammer Scheiben</title>
+<defs>
+<linearGradient id="kaef" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#FFE388"/><stop offset="0.35" stop-color="#FFD23F"/><stop offset="1" stop-color="#FFD23F"/></linearGradient>
+<linearGradient id="kaea" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#85A4FF"/><stop offset="0.35" stop-color="#3B6CFF"/><stop offset="1" stop-color="#3B6CFF"/></linearGradient>
+<linearGradient id="kaeao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M68.5,18L80.5,10V86.5L68.5,94.5Z" fill="#B7942E" stroke="#7C6120" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<path d="M68.5,18L80.5,10V32L68.5,40Z" fill="#324FB1"/>
+<path d="M19.5,18L31.5,10H80.5L68.5,18Z" fill="#FFE388" stroke="#7C6120" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<rect x="19.5" y="18" width="49" height="76.5" rx="1.5" fill="url(#kaef)" stroke="#7C6120" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<rect x="20" y="18.5" width="48" height="21.5" fill="url(#kaea)"/>
+<text x="44" y="33.5" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="900" text-anchor="middle" fill="#FFFFFF" textLength="46" lengthAdjust="spacingAndGlyphs">LEHRDAMM</text>
+<rect x="19.5" y="83.5" width="49" height="11" fill="url(#kaeao)"/>
+<path d="M68.5,83.5L80.5,76V86.5L68.5,94.5Z" fill="url(#kaeao)"/>
+<rect x="24" y="47" width="40" height="36" rx="3" fill="#FFFFFF"/>
+<path d="M32,54H51L56,59V76H32Z" fill="#FFD23F"/>
+<circle cx="40" cy="62" r="3" fill="#B7942E"/><circle cx="49" cy="68" r="2.6" fill="#B7942E"/><circle cx="38" cy="70" r="1.8" fill="#B7942E"/>
+</svg>

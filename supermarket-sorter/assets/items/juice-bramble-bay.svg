@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Bergi Holundersaft</title>
+<defs>
+<linearGradient id="beb" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#C2ADFF"/><stop offset="0.22" stop-color="#9D7BFF"/><stop offset="0.55" stop-color="#9D7BFF"/><stop offset="0.85" stop-color="#7459B1"/><stop offset="1" stop-color="#533D71"/></linearGradient>
+<linearGradient id="bec" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFE388"/><stop offset="0.22" stop-color="#FFD23F"/><stop offset="0.55" stop-color="#FFD23F"/><stop offset="0.85" stop-color="#B7942E"/><stop offset="1" stop-color="#7C6120"/></linearGradient>
+<linearGradient id="beao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+<linearGradient id="bew" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFFFFF"/><stop offset="0.55" stop-color="#FFFFFF"/><stop offset="0.88" stop-color="#E3DAD0"/><stop offset="1" stop-color="#B7ADA1"/></linearGradient>
+</defs>
+<path d="M21,35Q21,28 28,28H72Q79,28 79,35V89Q79,94.5 72,94.5H28Q21,94.5 21,89Z" fill="url(#beb)" stroke="#533D71" stroke-width="1.5" stroke-opacity="0.7"/>
+<path d="M21,83.5H79V89Q79,94.5 72,94.5H28Q21,94.5 21,89Z" fill="url(#beao)"/>
+<path d="M22,44Q50,47 78,44V88Q50,91 22,88Z" fill="url(#bew)"/>
+<circle cx="41.4" cy="66.5" r="4.6" fill="#7459B1"/><circle cx="50" cy="66.5" r="4.6" fill="#7459B1"/><circle cx="58.6" cy="66.5" r="4.6" fill="#7459B1"/><circle cx="45.7" cy="73.8" r="4.6" fill="#7459B1"/><circle cx="54.3" cy="73.8" r="4.6" fill="#7459B1"/><circle cx="50" cy="81.1" r="4.6" fill="#7459B1"/>
+<rect x="22" y="28" width="56" height="2" fill="#1E100A" fill-opacity="0.3"/>
+<rect x="20" y="17" width="60" height="11" rx="2" fill="url(#bec)" stroke="#7C6120" stroke-width="1.5" stroke-opacity="0.7"/>
+<ellipse cx="50" cy="17" rx="30" ry="4.5" fill="#FFE388"/>
+<rect x="24" y="19" width="3" height="7" rx="1.5" fill="#FFFFFF" fill-opacity="0.5"/>
+<rect x="34.9" y="36" width="4.6" height="41.9" rx="2.3" fill="#FFFFFF" fill-opacity="0.55"/>
+<rect x="70" y="40" width="2" height="36" rx="1" fill="#FFFFFF" fill-opacity="0.3"/>
+</svg>

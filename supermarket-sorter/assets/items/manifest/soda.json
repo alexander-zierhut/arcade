@@ -1,0 +1,49 @@
+{
+  "category": "soda",
+  "items": [
+    {
+      "id": "soda-starpop-cola",
+      "file": "soda-starpop-cola.svg",
+      "name": "Fritze-Kola",
+      "class": "bottle",
+      "color": "#3B6CFF",
+      "accent": "#DCDCDC",
+      "label": "FRITZE",
+      "icon": "two round glasses",
+      "description": "Chunky cobalt glass cola bottle with a silver crown cap and a dark label with the word FRITZE and two round glasses icons; winks at the Fritz-Kola bottle"
+    },
+    {
+      "id": "soda-zing-lime",
+      "file": "soda-zing-lime.svg",
+      "name": "Bionado Zitrone",
+      "class": "bottle",
+      "color": "#FFD23F",
+      "accent": "#7A4A2A",
+      "label": "BIONADO",
+      "icon": "lemon slice",
+      "description": "Chunky sun-yellow glass bottle with a brown crown cap and a white label with the word BIONADO and a lemon slice; winks at the Bionade organic lemonade bottle (lemon-bergamot)"
+    },
+    {
+      "id": "soda-cheery-pop",
+      "file": "soda-cheery-pop.svg",
+      "name": "Kirschhof Kirschlimo",
+      "class": "can",
+      "color": "#FF6FB5",
+      "accent": "#DCDCDC",
+      "label": "",
+      "icon": "cherry pair",
+      "description": "Short fat candy-pink can with silver rims, a cream label with the brand word KIRSCH and two red cherries on a stem"
+    },
+    {
+      "id": "soda-gingo-ale",
+      "file": "soda-gingo-ale.svg",
+      "name": "Goldingwer Ingwer-Limo",
+      "class": "bottle",
+      "color": "#3ECF6A",
+      "accent": "#FF8C2E",
+      "label": "",
+      "icon": "ginger root",
+      "description": "Long-neck leaf-green glass bottle with an orange cap and a cream label showing a ginger root, no printed text"
+    }
+  ]
+}

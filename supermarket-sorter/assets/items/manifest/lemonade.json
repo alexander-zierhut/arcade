@@ -1,0 +1,49 @@
+{
+  "category": "lemonade",
+  "items": [
+    {
+      "id": "lemonade-pucker-patch",
+      "file": "lemonade-pucker-patch.svg",
+      "name": "Sauerwiese Zitronenbrause",
+      "class": "bottle",
+      "color": "#A6E22E",
+      "accent": "#FFD23F",
+      "label": "",
+      "icon": "lemon with leaf",
+      "description": "Fat lime-green glass bottle with a sun-yellow cap and a white label band showing one big yellow lemon with a green leaf"
+    },
+    {
+      "id": "lemonade-old-oak",
+      "file": "lemonade-old-oak.svg",
+      "name": "Spezzi Cola-Orange",
+      "class": "bottle",
+      "color": "#7A4A2A",
+      "accent": "#FF8C2E",
+      "label": "SPEZZI",
+      "icon": "orange slice",
+      "description": "Winks at the Spezi cola-orange mix: chocolate-brown glass bottle with an orange cap and a cream label with the word SPEZZI and an orange slice"
+    },
+    {
+      "id": "lemonade-dolly-dollop",
+      "file": "lemonade-dolly-dollop.svg",
+      "name": "Sahnetraum Vanillebrause",
+      "class": "can",
+      "color": "#9D7BFF",
+      "accent": "#FFF7E8",
+      "label": "",
+      "icon": "vanilla pods",
+      "description": "Lavender can with silver metal rims and a cream label showing two crossed brown vanilla pods, a German-style vanilla fizzy drink"
+    },
+    {
+      "id": "lemonade-frosty-fjord",
+      "file": "lemonade-frosty-fjord.svg",
+      "name": "Schwupps Tonic Water",
+      "class": "bottle",
+      "color": "#2FD5C8",
+      "accent": "#FFD23F",
+      "label": "SCHWUPPS",
+      "icon": "bubbles",
+      "description": "Winks at Schweppes tonic water: turquoise glass bottle with a sun-yellow cap, a yellow label band with the word SCHWUPPS and three bubbles"
+    }
+  ]
+}

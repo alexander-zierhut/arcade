@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Mühlermilch Schoko</title>
+<defs>
+<linearGradient id="dcb" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFFAF1"/><stop offset="0.22" stop-color="#FFF7E8"/><stop offset="0.55" stop-color="#FFF7E8"/><stop offset="0.85" stop-color="#B7ADA1"/><stop offset="1" stop-color="#7C7167"/></linearGradient>
+<linearGradient id="dcc" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#AD8F7B"/><stop offset="0.22" stop-color="#7A4A2A"/><stop offset="0.55" stop-color="#7A4A2A"/><stop offset="0.85" stop-color="#5D3720"/><stop offset="1" stop-color="#452817"/></linearGradient>
+<linearGradient id="dcao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<rect x="39" y="21" width="22" height="11" fill="url(#dcb)"/>
+<path d="M26,41Q26,31 37,29.5H63Q74,31 74,41V88Q74,94.5 67,94.5H33Q26,94.5 26,88Z" fill="url(#dcb)" stroke="#7C7167" stroke-width="1.5" stroke-opacity="0.7"/>
+<path d="M26,83.5H74V88Q74,94.5 67,94.5H33Q26,94.5 26,88Z" fill="url(#dcao)"/>
+<path d="M27,48Q50,51 73,48V82Q50,85 27,82Z" fill="url(#dcc)"/>
+<path d="M41,65V53H45L50,59.5L55,53H59V65H55V58.5L50,64.5L45,58.5V65Z" fill="#FFF7E8"/>
+<text x="50" y="77" font-size="11" font-family="Arial, Helvetica, sans-serif" font-weight="900" text-anchor="middle" textLength="40" lengthAdjust="spacingAndGlyphs" fill="#FFF7E8">MÜHLER</text>
+<rect x="38" y="22" width="24" height="2" fill="#1E100A" fill-opacity="0.3"/>
+<rect x="36" y="9" width="28" height="13" rx="2" fill="url(#dcc)" stroke="#452817" stroke-width="1.5" stroke-opacity="0.7"/>
+<ellipse cx="50" cy="9" rx="14" ry="2.5" fill="#AD8F7B"/>
+<rect x="37.5" y="38" width="4" height="40" rx="2" fill="#FFFFFF" fill-opacity="0.55"/>
+<rect x="38" y="11" width="3" height="8" rx="1.5" fill="#FFFFFF" fill-opacity="0.5"/>
+</svg>

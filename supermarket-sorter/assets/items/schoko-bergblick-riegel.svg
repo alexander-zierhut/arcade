@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Kinda Schokolade</title>
+<defs>
+<linearGradient id="kdv" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#FFFAF1"/><stop offset="0.35" stop-color="#FFF7E8"/><stop offset="1" stop-color="#FFF7E8"/></linearGradient>
+<linearGradient id="kdr" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#FF9991"/><stop offset="0.35" stop-color="#FF5A4E"/><stop offset="1" stop-color="#FF5A4E"/></linearGradient>
+<linearGradient id="kdsh" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFFFFF" stop-opacity="0.22"/><stop offset="0.3" stop-color="#FFFFFF" stop-opacity="0"/><stop offset="0.7" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.2"/></linearGradient>
+<linearGradient id="kdao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M19,18L27,10H81L73,18Z" fill="#FF9991"/>
+<path d="M73,18L81,10V86.5L73,94.5Z" fill="#B7ADA1"/>
+<path d="M73,18L81,10V32L73,40Z" fill="#B74238"/>
+<path d="M73,82L81,74V86.5L73,94.5Z" fill="#B74238"/>
+<rect x="19" y="18" width="54" height="76.5" fill="url(#kdv)"/>
+<rect x="19" y="18" width="54" height="22" fill="url(#kdr)"/>
+<rect x="19" y="82" width="54" height="12.5" fill="url(#kdr)"/>
+<text x="46" y="33.5" font-family="Arial, Helvetica, sans-serif" font-weight="900" text-anchor="middle" font-size="13" fill="#FFFFFF">KINDA</text>
+<circle cx="46" cy="62" r="15" fill="#FF9991"/>
+<rect x="47.5" y="46" width="3" height="14" rx="1.5" fill="#B74238"/>
+<polygon points="37.5,52 54.5,52 52,73 40,73" fill="#FFFFFF"/>
+<rect x="19" y="18" width="54" height="76.5" fill="url(#kdsh)"/>
+<rect x="19" y="83.5" width="54" height="11" fill="url(#kdao)"/>
+<rect x="72.5" y="18" width="1" height="76.5" fill="#7C7167" fill-opacity="0.5"/>
+<path d="M19,18L27,10H81V86.5L73,94.5H19Z" fill="none" stroke="#7C7167" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+</svg>

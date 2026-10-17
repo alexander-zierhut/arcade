@@ -1,0 +1,49 @@
+{
+  "category": "cookies",
+  "items": [
+    {
+      "id": "cookies-crumb-castle",
+      "file": "cookies-crumb-castle.svg",
+      "name": "Prinzchen-Rolle",
+      "class": "box",
+      "color": "#3B6CFF",
+      "accent": "#FFD23F",
+      "label": "PRINZ",
+      "icon": "crown and chocolate sandwich biscuit",
+      "description": "Parody of the blue Prinzenrolle chocolate sandwich biscuit pack: upright cobalt-blue pack with a crimped top fin, a yellow crown, the word PRINZ and a dark chocolate sandwich biscuit on a white band"
+    },
+    {
+      "id": "cookies-golden-snap",
+      "file": "cookies-golden-snap.svg",
+      "name": "Tuk Cracker",
+      "class": "box",
+      "color": "#FFD23F",
+      "accent": "#FF5A4E",
+      "label": "TUK",
+      "icon": "cracker with holes",
+      "description": "Parody of the TUC cracker box: upright yellow cracker pack with a cream banner with the red word TUK, a golden cracker with holes and a coral red bottom band"
+    },
+    {
+      "id": "cookies-rosy-crunch",
+      "file": "cookies-rosy-crunch.svg",
+      "name": "Rosenhain Waffelschnitte",
+      "class": "loose",
+      "color": "#FF6FB5",
+      "accent": "#E0963C",
+      "label": "",
+      "icon": "wafer grid",
+      "description": "Three candy-pink wafer bars stacked upright, the top bar shows a golden gridded wafer window, the middle bar is golden wafer and labelled ROSEN"
+    },
+    {
+      "id": "cookies-dunk-time",
+      "file": "cookies-dunk-time.svg",
+      "name": "Mühlenbäck Teegebäck",
+      "class": "can",
+      "color": "#3ECF6A",
+      "accent": "#FFD23F",
+      "label": "",
+      "icon": "round biscuit",
+      "description": "Tall leaf-green tea biscuit tin with a sun-yellow lid and a cream label band showing a golden round biscuit, labelled TEE"
+    }
+  ]
+}

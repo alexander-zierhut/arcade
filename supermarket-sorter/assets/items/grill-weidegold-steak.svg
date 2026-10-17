@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Weidegold Steak</title>
+<defs>
+<linearGradient id="stk-f" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#FFFAF1"/><stop offset="0.35" stop-color="#FFF7E8"/><stop offset="1" stop-color="#FFF7E8"/></linearGradient>
+<linearGradient id="stk-s" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#B7ADA1"/><stop offset="1" stop-color="#7C7167"/></linearGradient>
+<linearGradient id="stk-p" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFA6D1"/><stop offset="0.3" stop-color="#FF6FB5"/><stop offset="1" stop-color="#B7517E"/></linearGradient>
+<radialGradient id="stk-r" cx="0.35" cy="0.3" r="0.8"><stop offset="0" stop-color="#FFA6D1"/><stop offset="0.65" stop-color="#FF6FB5"/><stop offset="1" stop-color="#B7517E"/></radialGradient>
+<linearGradient id="stk-ao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<g transform="translate(0,-1.5)">
+<path d="M70,24L82,18V89L70,95Z" fill="url(#stk-s)" stroke="#7C7167" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<rect x="18" y="24" width="52" height="71" fill="url(#stk-f)" stroke="#7C7167" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<path d="M18,24H70L82,18H30Z" fill="#FFFFFF" stroke="#7C7167" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<rect x="18" y="24" width="52" height="14" fill="url(#stk-p)"/>
+<path d="M70,24L82,18V32L70,38Z" fill="#B7517E"/>
+<rect x="18" y="38" width="52" height="2" fill="#1E100A" fill-opacity="0.3"/>
+<path d="M27,64C26,52 38,46 49,48C61,49 66,58 64,68C62,80 52,86 41,85C31,84 28,74 27,64Z" fill="#FFFFFF"/>
+<path d="M30,64C29,55 39,50 49,51C58,52 62,59 61,68C59,78 51,82 42,82C34,81 31,73 30,64Z" fill="url(#stk-r)"/>
+<path d="M36,58L46,74M45,55L55,73M54,57L60,68" fill="none" stroke="#7C3852" stroke-width="2" stroke-linecap="round" stroke-opacity="0.8"/>
+<path d="M18,84H70V95H18Z" fill="url(#stk-ao)"/>
+<path d="M70,83L82,77V89L70,95Z" fill="url(#stk-ao)"/>
+</g>
+</svg>

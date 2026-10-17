@@ -1,0 +1,49 @@
+{
+  "category": "candy",
+  "items": [
+    {
+      "id": "candy-plum-cocoa",
+      "file": "candy-plum-cocoa.svg",
+      "name": "Ritter Spass Alpenmilch",
+      "class": "loose",
+      "color": "#9D7BFF",
+      "accent": "#FFD23F",
+      "label": "SPASS",
+      "icon": "chocolate pack with Alps peak",
+      "description": "Winks at Ritter Sport Alpenmilch: two square lavender chocolate packs staggered one behind the other, yellow label bands, a white Alps peak and the word SPASS"
+    },
+    {
+      "id": "candy-bear-buddies",
+      "file": "candy-bear-buddies.svg",
+      "name": "Haribö Goldbären",
+      "class": "bag",
+      "color": "#FFD23F",
+      "accent": "#FF5A4E",
+      "label": "HARIBÖ",
+      "icon": "gummy bear",
+      "description": "Winks at the Haribo Goldbären bag: sun-yellow standing pouch with a big coral gummy bear and a coral oval badge reading HARIBÖ"
+    },
+    {
+      "id": "candy-lolly-loop",
+      "file": "candy-lolly-loop.svg",
+      "name": "Zucki Lutscher im Glas",
+      "class": "jar",
+      "color": "#FF6FB5",
+      "accent": "#FFD23F",
+      "label": "",
+      "icon": "lollipop",
+      "description": "Wide glass sweet jar in candy pink full of yellow and cream lollipops, a sun-yellow screw lid and a cream label with a big swirl lollipop, no text"
+    },
+    {
+      "id": "candy-cool-leaf",
+      "file": "candy-cool-leaf.svg",
+      "name": "Minzi Pfefferminz",
+      "class": "can",
+      "color": "#3ECF6A",
+      "accent": "#FFF7E8",
+      "label": "",
+      "icon": "mint leaf",
+      "description": "Green peppermint tin with a cream lid, a pull ring and a white label with a big green mint leaf, no text"
+    }
+  ]
+}

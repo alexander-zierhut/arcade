@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Maggy Würze</title>
+<g stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+<path fill="#5A2E14" d="M44.5 21 L55.5 21 L55.5 28 C55.5 33 72 33 72 46 L72 86 Q72 93.5 64.5 93.5 L35.5 93.5 Q28 93.5 28 86 L28 46 C28 33 44.5 33 44.5 28 Z"/>
+<rect x="42" y="6.5" width="16" height="15" rx="3" fill="#F7C948"/>
+<rect x="42" y="13" width="16" height="4" fill="#E8453C" stroke-width="1.5"/>
+<rect x="31.5" y="42" width="37" height="44" rx="3" fill="#F7C948" stroke-width="2"/>
+<path fill="#E8453C" stroke-width="1.5" d="M31.5 68 H68.5 V83 Q68.5 86 65.5 86 H34.5 Q31.5 86 31.5 83 Z"/>
+<path fill="#E8453C" stroke-width="1.5" d="M50 44 C53 48.5 55 50.5 55 52.5 C55 54.8 52.8 56 50 56 C47.2 56 45 54.8 45 52.5 C45 50.5 47 48.5 50 44 Z"/>
+</g>
+<text x="50" y="64.5" font-size="9" textLength="32" lengthAdjust="spacingAndGlyphs" font-family="Arial, Helvetica, sans-serif" font-weight="900" text-anchor="middle" fill="#E8453C">MAGGY</text>
+<text x="50" y="80" font-size="10" textLength="31" lengthAdjust="spacingAndGlyphs" font-family="Arial, Helvetica, sans-serif" font-weight="900" text-anchor="middle" fill="#FFFFFF">WÜRZE</text>
+<rect x="29.8" y="46" width="2.2" height="38" rx="1.1" fill="#FFFFFF" fill-opacity="0.35"/>
+<path d="M66 36 C70 38 72 41 72 46 L72 86 Q72 91.5 66.5 91.5 L65.5 91.5 Q68 65 66 36 Z" fill="#000000" fill-opacity="0.12"/>
+</svg>

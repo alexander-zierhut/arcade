@@ -1,0 +1,49 @@
+{
+  "category": "frozen",
+  "items": [
+    {
+      "id": "frozen-polar-pip",
+      "file": "frozen-polar-pip.svg",
+      "name": "Gletscherglück Erdbeereis",
+      "class": "tub",
+      "color": "#2FD5C8",
+      "accent": "#FF6FB5",
+      "label": "GLÜCK",
+      "icon": "strawberry ice cream scoop on a cone",
+      "description": "Turquoise ice cream tub with a candy-pink lid and a cream label with the word GLÜCK over a pink scoop on a waffle cone (invented brand, winks at a premium ice cream tub)"
+    },
+    {
+      "id": "frozen-jolly-berg",
+      "file": "frozen-jolly-berg.svg",
+      "name": "Gipfelfrisch Eis am Stiel",
+      "class": "box",
+      "color": "#9D7BFF",
+      "accent": "#FFF7E8",
+      "label": "",
+      "icon": "popsicle",
+      "description": "Tall lavender box of ice pops with a cream title band reading EIS and a pink popsicle on a dark lavender panel"
+    },
+    {
+      "id": "frozen-crispy-roma",
+      "file": "frozen-crispy-roma.svg",
+      "name": "Dr. Ötti Ristorante Salame",
+      "class": "box",
+      "color": "#FF5A4E",
+      "accent": "#7A4A2A",
+      "label": "DR.ÖTTI",
+      "icon": "thin salami pizza",
+      "description": "Parody of the Dr. Oetker Ristorante pizza box: upright coral box with a dark oval logo reading DR.ÖTTI and a big thin salami pizza"
+    },
+    {
+      "id": "frozen-pod-pals",
+      "file": "frozen-pod-pals.svg",
+      "name": "Iglu Junge Erbsen",
+      "class": "bag",
+      "color": "#A6E22E",
+      "accent": "#FFFFFF",
+      "label": "IGLU",
+      "icon": "white badge and pea pod",
+      "description": "Parody of the Iglo-style frozen peas bag: lime standing bag with a white badge reading IGLU and an open pod of peas"
+    }
+  ]
+}

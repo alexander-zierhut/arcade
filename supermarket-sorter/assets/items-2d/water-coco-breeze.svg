@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Palmio Kokoswasser</title>
+<rect x="25.5" y="26" width="49" height="67.5" fill="#FFF6E0" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round"/>
+<polygon points="25.5,26 50,9 74.5,26" fill="#9BCB3C" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round"/>
+<text x="50" y="25" font-size="7" font-family="Arial, Helvetica, sans-serif" font-weight="900" text-anchor="middle" textLength="28" lengthAdjust="spacingAndGlyphs" fill="#2A1B12">PALMIO</text>
+<path d="M49 53C44 44 36 41 30 43C36 46 42 49 49 53Z" fill="#9BCB3C" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+<path d="M51 53C56 44 64 41 70 43C64 46 58 49 51 53Z" fill="#9BCB3C" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+<path d="M50 53C47 46 47 40 50 36C53 40 53 46 50 53Z" fill="#9BCB3C" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="50" cy="64" r="12" fill="#8C5A2B" stroke="#2A1B12" stroke-width="2"/>
+<text x="50" y="88" font-size="11" font-family="Arial, Helvetica, sans-serif" font-weight="900" text-anchor="middle" textLength="30" lengthAdjust="spacingAndGlyphs" fill="#8C5A2B">KOKOS</text>
+<rect x="28.5" y="34" width="4" height="58" rx="2" fill="#FFFFFF" fill-opacity="0.35"/>
+<rect x="67.5" y="26" width="7" height="67.5" fill="#000000" fill-opacity="0.12"/>
+</svg>

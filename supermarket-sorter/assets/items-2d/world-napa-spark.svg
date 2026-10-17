@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Funkenhof Kimchi scharf</title>
+<rect x="22.5" y="28" width="55" height="65.5" rx="9" fill="#E32D4C" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="70.5" y="31" width="7" height="60" fill="#000000" fill-opacity="0.12"/>
+<rect x="28" y="36" width="44" height="50" rx="5" fill="#2A1B12"/>
+<text x="50" y="46" font-family="Arial, Helvetica, sans-serif" font-weight="900" text-anchor="middle" font-size="9" fill="#F7C948">FUNKEN</text>
+<ellipse cx="50" cy="63" rx="17" ry="12" fill="#9BCB3C" stroke="#2A1B12" stroke-width="2"/>
+<path d="M50 52V74M42 57Q40 64 42 71M58 57Q60 64 58 71" fill="none" stroke="#FFF6E0" stroke-width="1.5" stroke-linecap="round"/>
+<circle cx="40" cy="63" r="2" fill="#E8453C"/>
+<circle cx="60" cy="68" r="2" fill="#E8453C"/>
+<circle cx="47" cy="72" r="2" fill="#E8453C"/>
+<text x="50" y="84" font-family="Arial, Helvetica, sans-serif" font-weight="900" text-anchor="middle" font-size="9" fill="#F7C948">KIMCHI</text>
+<rect x="22.5" y="16.5" width="55" height="13" rx="3" fill="#F28C28" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M30 21V25M40 21V25M50 21V25M60 21V25M70 21V25" fill="none" stroke="#2A1B12" stroke-width="1.5" stroke-opacity="0.45" stroke-linecap="round"/>
+<rect x="25.5" y="32" width="2.6" height="57" rx="1.3" fill="#FFFFFF" fill-opacity="0.35"/>
+</svg>

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Sonnenhof Sonnenblumenöl</title>
+<g stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+<path fill="#FFD21F" d="M25.5 14.5 L74.5 14.5 L74.5 86 Q74.5 93.5 67 93.5 L33 93.5 Q25.5 93.5 25.5 86 Z"/>
+<path fill="#3FA34D" d="M25.5 80 L74.5 80 L74.5 86 Q74.5 93.5 67 93.5 L33 93.5 Q25.5 93.5 25.5 86 Z"/>
+<ellipse cx="50" cy="14.5" rx="24.5" ry="5" fill="#FFF6E0"/>
+<rect x="43" y="12.5" width="14" height="4" rx="2" fill="#FFFFFF" stroke-width="1.5"/>
+<rect x="31" y="30" width="38" height="44" rx="5" fill="#FFFFFF" stroke-width="2"/>
+<circle cx="59" cy="59.5" r="4" fill="#F5A623" stroke-width="1.5"/>
+<circle cx="56.4" cy="65.9" r="4" fill="#F5A623" stroke-width="1.5"/>
+<circle cx="50" cy="68.5" r="4" fill="#F5A623" stroke-width="1.5"/>
+<circle cx="43.6" cy="65.9" r="4" fill="#F5A623" stroke-width="1.5"/>
+<circle cx="41" cy="59.5" r="4" fill="#F5A623" stroke-width="1.5"/>
+<circle cx="43.6" cy="53.1" r="4" fill="#F5A623" stroke-width="1.5"/>
+<circle cx="50" cy="50.5" r="4" fill="#F5A623" stroke-width="1.5"/>
+<circle cx="56.4" cy="53.1" r="4" fill="#F5A623" stroke-width="1.5"/>
+<circle cx="50" cy="59.5" r="5.5" fill="#8C5A2B" stroke-width="1.5"/>
+</g>
+<text x="50" y="42" font-size="9" font-family="Arial, Helvetica, sans-serif" font-weight="900" text-anchor="middle" fill="#2A1B12">SONNE</text>
+<rect x="28.5" y="22" width="3" height="56" rx="1.5" fill="#FFFFFF" fill-opacity="0.35"/>
+<path d="M66 14.5 L74.5 14.5 L74.5 86 Q74.5 91.5 68.5 91.5 L66 91.5 Z" fill="#000000" fill-opacity="0.12"/>
+</svg>

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Süssi Erdbeertörtchen</title>
+<path d="M22,25H78L75,93.5H25Z" fill="#3FA34D"/>
+<rect x="72.5" y="33" width="5.5" height="56" rx="2.5" fill="#000000" fill-opacity="0.12"/>
+<rect x="25" y="33" width="3" height="54" rx="1.5" fill="#FFFFFF" fill-opacity="0.35"/>
+<rect x="28" y="40" width="44" height="36" rx="5" fill="#FFF6E0" stroke="#2A1B12" stroke-width="2"/>
+<text x="50" y="51" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="10" text-anchor="middle" fill="#2A1B12">SÜSSI</text>
+<path d="M50,75C42,75 37,69 38,63C39,59 43,59 46,58L50,57L54,58C57,59 61,59 62,63C63,69 58,75 50,75Z" fill="#E8453C" stroke="#2A1B12" stroke-width="2.5" stroke-linejoin="round"/>
+<path d="M44,64h0.1M50,65h0.1M56,64h0.1M47,70h0.1M53,70h0.1" fill="none" stroke="#FFF1C9" stroke-width="2" stroke-linecap="round"/>
+<path d="M40,58L44,53L50,57L56,53L60,58L50,60Z" fill="#3FA34D" stroke="#2A1B12" stroke-width="1.5" stroke-linejoin="round"/>
+<path d="M22,25H78L75,93.5H25Z" fill="none" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round"/>
+<rect x="21.5" y="18" width="57" height="10" rx="3" fill="#FFFFFF" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round"/>
+<path d="M28,23H72" fill="none" stroke="#2A1B12" stroke-width="1.5" stroke-linecap="round"/>
+</svg>

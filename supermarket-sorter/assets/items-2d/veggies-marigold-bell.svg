@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Südfrucht Grüne Paprika</title>
+<path d="M38 48C33 43 22 43 20 55C18 68 19 82 24 90C27 95 33 94 35 91C37 89 39 89 41 91C43 94 49 95 52 90C57 82 58 68 56 55C54 43 43 43 38 48Z" fill="#2FA85A" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" transform="translate(24 -22)"/>
+<path d="M31 56C28 66 28 80 32 90M45 56C48 66 48 80 44 90" fill="none" stroke="#2A1B12" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" transform="translate(24 -22)"/>
+<path d="M38 47C38 41 41 37 46 35" fill="none" stroke="#2A1B12" stroke-width="5" stroke-linecap="round" transform="translate(24 -22)"/>
+<path d="M38 47C38 41 41 37 46 35" fill="none" stroke="#1E7A3E" stroke-width="2.5" stroke-linecap="round" transform="translate(24 -22)"/>
+<path d="M38 48C33 43 22 43 20 55C18 68 19 82 24 90C27 95 33 94 35 91C37 89 39 89 41 91C43 94 49 95 52 90C57 82 58 68 56 55C54 43 43 43 38 48Z" fill="#2FA85A" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M31 56C28 66 28 80 32 90M45 56C48 66 48 80 44 90" fill="none" stroke="#2A1B12" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M38 47C38 41 41 37 46 35" fill="none" stroke="#2A1B12" stroke-width="5" stroke-linecap="round" transform="translate(0 0)"/>
+<path d="M38 47C38 41 41 37 46 35" fill="none" stroke="#1E7A3E" stroke-width="2.5" stroke-linecap="round" transform="translate(0 0)"/>
+<ellipse cx="25.5" cy="68" rx="3" ry="11" fill="#FFFFFF" fill-opacity="0.35"/>
+<path d="M52 52C58 62 58 78 52 90C57 82 58 64 52 52Z" fill="#000000" fill-opacity="0.12"/>
+</svg>

@@ -1,0 +1,49 @@
+{
+  "category": "gebaeck",
+  "items": [
+    {
+      "id": "gebaeck-knusperhof-berliner",
+      "file": "gebaeck-knusperhof-berliner.svg",
+      "name": "Knusperhof Berliner",
+      "class": "bag",
+      "color": "#FF6FB5",
+      "accent": "#FF8C2E",
+      "label": "",
+      "icon": "doughnut",
+      "description": "Candy-pink standing paper bakery bag with a crimped top and a white label panel, showing one glazed orange Berliner doughnut and the KNUSPI word"
+    },
+    {
+      "id": "gebaeck-landlust-apfelstrudel",
+      "file": "gebaeck-landlust-apfelstrudel.svg",
+      "name": "Obstwiese Apfelstrudel",
+      "class": "box",
+      "color": "#3ECF6A",
+      "accent": "#FF5A4E",
+      "label": "",
+      "icon": "red apple",
+      "description": "Chunky leaf-green cardboard box of apple strudel with a visible top face, a cream label panel, a coral red apple and the OBSTI word"
+    },
+    {
+      "id": "gebaeck-hofgut-bienenstich",
+      "file": "gebaeck-hofgut-bienenstich.svg",
+      "name": "Hofgut Bienenstich",
+      "class": "loose",
+      "color": "#FFD23F",
+      "accent": "#B86A24",
+      "label": "",
+      "icon": "cake slice",
+      "description": "Slice of Bienenstich (German bee-sting cake) in natural proportions: golden sponge, thick cream layer, caramelised almond top with a visible top face; a natural bakery classic"
+    },
+    {
+      "id": "gebaeck-muehlenbaeck-nusszopf",
+      "file": "gebaeck-muehlenbaeck-nusszopf.svg",
+      "name": "Nussgarten Nusszopf",
+      "class": "can",
+      "color": "#3B6CFF",
+      "accent": "#FFF7E8",
+      "label": "",
+      "icon": "braided loaf",
+      "description": "Cobalt biscuit tin with metal rims and a lit top ellipse, a cream label band showing a braided nut loaf and the GARTEN word"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Lambärtz Dominosteine</title>
+<defs>
+<linearGradient id="sd20f" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#85A4FF"/><stop offset="0.35" stop-color="#3B6CFF"/><stop offset="1" stop-color="#3B6CFF"/></linearGradient><linearGradient id="sd20g" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#FFE388"/><stop offset="0.5" stop-color="#FFD23F"/><stop offset="1" stop-color="#B7942E"/></linearGradient><linearGradient id="sd20ao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M19,22L27,11H81V84.5L73,94.5H19Z" fill="#324FB1" stroke="#2A3771" stroke-width="1.5" stroke-opacity="0.7"/>
+<rect x="19" y="22" width="54" height="72.5" fill="url(#sd20f)"/>
+<path d="M73,22L81,11V84.5L73,94.5Z" fill="#324FB1"/>
+<path d="M19,22L27,11H81L73,22Z" fill="#85A4FF"/>
+<path d="M19,22H73L81,11" fill="none" stroke="#2A3771" stroke-width="1" stroke-opacity="0.6"/>
+<rect x="19" y="83.5" width="54" height="11" fill="url(#sd20ao)"/>
+<rect x="24" y="26" width="44" height="13" rx="2.5" fill="url(#sd20g)"/>
+<text x="46" y="36.4" font-family="Arial, Helvetica, sans-serif" font-weight="900" text-anchor="middle" font-size="11" textLength="38" lengthAdjust="spacingAndGlyphs" fill="#2A3771">LAMBÄRTZ</text>
+<rect x="24" y="43" width="44" height="38" rx="3" fill="#FFF7E8"/>
+<rect x="39" y="46.5" width="14" height="14" rx="2.5" fill="#7A4A2A"/><rect x="29" y="64" width="14" height="14" rx="2.5" fill="#7A4A2A"/><rect x="49" y="64" width="14" height="14" rx="2.5" fill="#7A4A2A"/>
+<rect x="39" y="52" width="14" height="3" fill="#FF5A4E"/><rect x="29" y="69.5" width="14" height="3" fill="#FF5A4E"/><rect x="49" y="69.5" width="14" height="3" fill="#FF5A4E"/>
+</svg>

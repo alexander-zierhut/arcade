@@ -1,0 +1,49 @@
+{
+  "category": "frisch",
+  "items": [
+    {
+      "id": "frisch-feldfrisch-salatschale",
+      "file": "frisch-feldfrisch-salatschale.svg",
+      "name": "Krauti Salatmix",
+      "class": "bag",
+      "color": "#3ECF6A",
+      "accent": "#FFF7E8",
+      "label": "",
+      "icon": "lettuce head",
+      "description": "Standing leaf-green salad bag with a zigzag crimped seal and a cream label with the brand word KRAUTI over one big lettuce head"
+    },
+    {
+      "id": "frisch-pausenfix-sandwich",
+      "file": "frisch-pausenfix-sandwich.svg",
+      "name": "Knuspi Schinkensandwich",
+      "class": "box",
+      "color": "#3B6CFF",
+      "accent": "#FFF7E8",
+      "label": "",
+      "icon": "sandwich wedge with layers",
+      "description": "Tall cobalt sandwich box with a dark seal strip and a cream label band with the word KNUSPI over a layered sandwich wedge"
+    },
+    {
+      "id": "frisch-rollgenuss-wrap",
+      "file": "frisch-rollgenuss-wrap.svg",
+      "name": "Rolli Hähnchen-Wrap",
+      "class": "loose",
+      "color": "#FFD23F",
+      "accent": "#FF5A4E",
+      "label": "",
+      "icon": "lettuce leaf",
+      "description": "Natural, no parody: a chicken wrap cut in half, both golden halves standing in a coral V-cut pack with their cut faces showing lettuce and chicken, a cream label with a leaf on the pack"
+    },
+    {
+      "id": "frisch-obstgarten-obstsalat",
+      "file": "frisch-obstgarten-obstsalat.svg",
+      "name": "Obsti Fruchtsalat",
+      "class": "tub",
+      "color": "#FF6FB5",
+      "accent": "#FFF7E8",
+      "label": "",
+      "icon": "orange, strawberry and kiwi",
+      "description": "Pink fruit cup with a cream rim and a clear dome lid showing an orange slice, a strawberry and a kiwi over a cream label band with a leaf"
+    }
+  ]
+}

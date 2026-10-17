@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Brezli Salzbrezeln</title>
+<defs>
+<linearGradient id="brf" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#85A4FF"/><stop offset="0.35" stop-color="#3B6CFF"/><stop offset="1" stop-color="#3B6CFF"/></linearGradient>
+<linearGradient id="bro" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#FFB87D"/><stop offset="0.4" stop-color="#FF8C2E"/><stop offset="1" stop-color="#FF8C2E"/></linearGradient>
+<linearGradient id="brao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M69,18L81,10V85.5L69,93.5Z" fill="#324FB1" stroke="#2A3771" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<path d="M69,26L81,18V35L69,43Z" fill="#B76422"/>
+<path d="M69,82.5L81,74.5V85.5L69,93.5Z" fill="url(#brao)"/>
+<rect x="19" y="18" width="50" height="75.5" rx="1.5" fill="url(#brf)" stroke="#2A3771" stroke-width="1.5" stroke-opacity="0.7"/>
+<rect x="19" y="82.5" width="50" height="11" fill="url(#brao)"/>
+<rect x="19" y="26" width="50" height="17" fill="url(#bro)"/>
+<text x="44" y="38.8" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="11" text-anchor="middle" fill="#FFFFFF">BREZLI</text>
+<rect x="25" y="50" width="38" height="36" rx="4" fill="#FFF7E8"/>
+<circle cx="38" cy="63" r="6.8" fill="#B76422"/><circle cx="50" cy="63" r="6.8" fill="#B76422"/><ellipse cx="44" cy="71" rx="12" ry="7.5" fill="#B76422"/>
+<circle cx="38" cy="63" r="2.8" fill="#FFF7E8"/><circle cx="50" cy="63" r="2.8" fill="#FFF7E8"/><ellipse cx="44" cy="72" rx="4.2" ry="2.4" fill="#FFF7E8"/>
+<path fill="#FFB87D" stroke="#7C4419" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round" d="M19,18L31,10H81L69,18Z"/>
+</svg>

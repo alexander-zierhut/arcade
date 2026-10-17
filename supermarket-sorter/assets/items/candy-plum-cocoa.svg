@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Ritter Spass Alpenmilch</title>
+<defs>
+<linearGradient id="cpc_f" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#C2ADFF"/><stop offset="0.35" stop-color="#9D7BFF"/><stop offset="1" stop-color="#9D7BFF"/></linearGradient>
+<linearGradient id="cpc_g" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#C2ADFF"/><stop offset="0.3" stop-color="#9D7BFF"/><stop offset="1" stop-color="#7459B1"/></linearGradient>
+<linearGradient id="cpc_y" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#FFE388"/><stop offset="0.5" stop-color="#FFD23F"/><stop offset="1" stop-color="#B7942E"/></linearGradient>
+<linearGradient id="cpc_ao" x1="0" x2="0" y1="0" y2="1"><stop offset="0.86" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M19,40H53L60,35H26Z" fill="#C2ADFF"/>
+<path d="M19,40H53V84H19Z" fill="url(#cpc_g)"/>
+<path d="M53,40L60,35V79L53,84Z" fill="#533D71"/>
+<rect x="19" y="62" width="34" height="9" fill="url(#cpc_y)"/>
+<path d="M19,40H53V84H19Z" fill="url(#cpc_ao)"/>
+<path d="M34,50H75L82,45H41Z" fill="#C2ADFF"/>
+<path d="M34,50H75V94H34Z" fill="url(#cpc_f)"/>
+<path d="M75,50L82,45V89L75,94Z" fill="#7459B1"/>
+<path d="M75,50V94" fill="none" stroke="#533D71" stroke-width="1" stroke-opacity="0.7"/>
+<rect x="34" y="70" width="41" height="14" fill="url(#cpc_y)"/>
+<text x="54.5" y="80.5" font-family="Arial, Helvetica, sans-serif" font-size="11.5" font-weight="900" text-anchor="middle" fill="#533D71">SPASS</text>
+<path d="M43,66L52,52L56,59L60,54L68,66Z" fill="#FFFFFF"/>
+<path d="M34,50H75V94H34Z" fill="url(#cpc_ao)"/>
+<path d="M75,50L82,45V89L75,94Z" fill="url(#cpc_ao)"/>
+</svg>

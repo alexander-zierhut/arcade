@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Naschwinkel Schokodrops</title>
+<defs>
+<linearGradient id="b3" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#7EE5DD"/><stop offset="0.22" stop-color="#2FD5C8"/><stop offset="0.55" stop-color="#2FD5C8"/><stop offset="0.85" stop-color="#2A968B"/><stop offset="1" stop-color="#25635A"/></linearGradient>
+<linearGradient id="s3" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFB87D"/><stop offset="0.22" stop-color="#FF8C2E"/><stop offset="0.55" stop-color="#FF8C2E"/><stop offset="0.85" stop-color="#B76422"/><stop offset="1" stop-color="#7C4419"/></linearGradient>
+<linearGradient id="ao3" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M22,24H78Q82,36 82,50V84Q82,94 72,94H28Q18,94 18,84V50Q18,36 22,24Z" fill="url(#b3)" stroke="#25635A" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<path d="M18,82H82V84Q82,94 72,94H28Q18,94 18,84Z" fill="url(#ao3)"/>
+<rect x="21" y="32" width="3" height="50" rx="1.5" fill="#FFFFFF" fill-opacity="0.25"/>
+<rect x="74" y="34" width="2" height="44" rx="1" fill="#FFFFFF" fill-opacity="0.2"/>
+<rect x="28" y="36" width="44" height="46" rx="7" fill="#FFFFFF"/>
+<path d="M43,56Q43,50 50,45Q57,50 57,56Q50,58 43,56Z" fill="#7A4A2A"/>
+<path d="M33,73Q33,67 40,62Q47,67 47,73Q40,75 33,73Z" fill="#7A4A2A"/>
+<path d="M53,73Q53,67 60,62Q67,67 67,73Q60,75 53,73Z" fill="#7A4A2A"/>
+<path d="M22,24H78V26.5H22Z" fill="#1E100A" fill-opacity="0.3"/>
+<path d="M22,12.5L26,9.5L30,12.5L34,9.5L38,12.5L42,9.5L46,12.5L50,9.5L54,12.5L58,9.5L62,12.5L66,9.5L70,12.5L74,9.5L78,12.5L78,24H22Z" fill="url(#s3)" stroke="#7C4419" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+</svg>

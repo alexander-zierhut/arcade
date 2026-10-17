@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Yam Yam Ramen</title>
+<defs>
+<linearGradient id="fp" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFA6D1"/><stop offset="0.22" stop-color="#FF6FB5"/><stop offset="0.55" stop-color="#FF6FB5"/><stop offset="0.85" stop-color="#B7517E"/><stop offset="1" stop-color="#7C3852"/></linearGradient>
+<linearGradient id="fy" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFE388"/><stop offset="0.22" stop-color="#FFD23F"/><stop offset="0.55" stop-color="#FFD23F"/><stop offset="0.85" stop-color="#B7942E"/><stop offset="1" stop-color="#7C6120"/></linearGradient>
+<linearGradient id="fao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M22.0,9.5L29.0,12.5L36.0,9.5L43.0,12.5L50.0,9.5L57.0,12.5L64.0,9.5L71.0,12.5L78.0,9.5L78,20C83,28 84,76 78,88L78.0,94.5L71.0,91.5L64.0,94.5L57.0,91.5L50.0,94.5L43.0,91.5L36.0,94.5L29.0,91.5L22.0,94.5L22,88C16,76 17,28 22,20Z" fill="url(#fp)" stroke="#7C3852" stroke-width="1.5" stroke-opacity="0.7"/>
+<rect x="22" y="80" width="56" height="11.5" fill="url(#fao)"/>
+<path d="M22.0,9.5L29.0,12.5L36.0,9.5L43.0,12.5L50.0,9.5L57.0,12.5L64.0,9.5L71.0,12.5L78.0,9.5L78,20H22Z" fill="#1E100A" fill-opacity="0.14"/>
+<path d="M22,88H78L78.0,94.5L71.0,91.5L64.0,94.5L57.0,91.5L50.0,94.5L43.0,91.5L36.0,94.5L29.0,91.5L22.0,94.5Z" fill="#1E100A" fill-opacity="0.22"/>
+<rect x="22" y="19.5" width="56" height="2" fill="#1E100A" fill-opacity="0.3"/>
+<rect x="22" y="86" width="56" height="2" fill="#1E100A" fill-opacity="0.3"/>
+<rect x="30" y="26" width="3" height="56" rx="1.5" fill="#FFFFFF" fill-opacity="0.25"/>
+<rect x="68" y="30" width="2.5" height="48" rx="1.2" fill="#FFFFFF" fill-opacity="0.25"/>
+<path d="M19.5,30Q50,34 80.5,30V46Q50,50 19.5,46Z" fill="url(#fy)"/>
+<text x="50" y="43" font-size="12" font-family="Arial, Helvetica, sans-serif" font-weight="900" text-anchor="middle" fill="#7C3852">YAM YAM</text>
+<polygon points="67.5,66.0 62.9,71.4 62.4,78.4 55.4,78.9 50.0,83.5 44.6,78.9 37.6,78.4 37.1,71.4 32.5,66.0 37.1,60.6 37.6,53.6 44.6,53.1 50.0,48.5 55.4,53.1 62.4,53.6 62.9,60.6" fill="#FFFFFF"/>
+<circle cx="50" cy="68" r="8" fill="#FFD23F"/>
+<path d="M45,62Q45,57 48,59Q50,55 52,59Q55,57 55,62Z" fill="#FF6FB5"/>
+<path d="M56,67.5L62,69.5L56,71.5Z" fill="#B7517E"/>
+<circle cx="52.5" cy="66.5" r="1.4" fill="#1E100A"/>
+</svg>

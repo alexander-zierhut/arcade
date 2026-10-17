@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Wolkenweich Toilettenpapier</title>
+<defs>
+<linearGradient id="q7xb" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFE388"/><stop offset="0.22" stop-color="#FFD23F"/><stop offset="0.55" stop-color="#FFD23F"/><stop offset="0.85" stop-color="#B7942E"/><stop offset="1" stop-color="#7C6120"/></linearGradient>
+<linearGradient id="q7xs" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFE388"/><stop offset="0.22" stop-color="#FFD23F"/><stop offset="0.55" stop-color="#FFD23F"/><stop offset="0.85" stop-color="#B7942E"/><stop offset="1" stop-color="#7C6120"/></linearGradient>
+<linearGradient id="q7xcr" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFFAF1"/><stop offset="0.25" stop-color="#FFF7E8"/><stop offset="0.6" stop-color="#FFF7E8"/><stop offset="1" stop-color="#B7ADA1"/></linearGradient>
+<linearGradient id="q7xao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M21,19Q18,26 18,36V86Q18,93.5 26,93.5H74Q82,93.5 82,86V36Q82,26 79,19Z" fill="url(#q7xb)" stroke="#7C6120" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<rect x="30" y="30" width="2.5" height="54" rx="1.2" fill="#FFFFFF" fill-opacity="0.25"/>
+<rect x="66" y="32" width="2" height="50" rx="1" fill="#FFFFFF" fill-opacity="0.2"/>
+<rect x="25" y="40" width="50" height="40" rx="5" fill="url(#q7xcr)"/>
+<circle cx="40" cy="63" r="7.5" fill="#4FB6FF"/><circle cx="50" cy="57" r="10.5" fill="#4FB6FF"/><circle cx="60" cy="62" r="8.5" fill="#4FB6FF"/><rect x="40" y="63" width="20" height="7.5" fill="#4FB6FF"/>
+<path d="M18,82.5V86Q18,93.5 26,93.5H74Q82,93.5 82,86V82.5Z" fill="url(#q7xao)"/>
+<path d="M21,19V13L21,13L24.6,9L28.3,13L31.9,9L35.5,13L39.1,9L42.8,13L46.4,9L50,13L53.6,9L57.3,13L60.9,9L64.5,13L68.1,9L71.8,13L75.4,9L79,13L79,13V19Z" fill="url(#q7xs)" stroke="#7C6120" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<rect x="21" y="19" width="58" height="2.5" fill="#1E100A" fill-opacity="0.3"/>
+<rect x="30" y="11" width="2" height="7" rx="1" fill="#FFFFFF" fill-opacity="0.25"/>
+</svg>

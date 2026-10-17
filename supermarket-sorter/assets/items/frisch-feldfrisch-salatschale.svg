@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Krauti Salatmix</title>
+<defs>
+<linearGradient id="ff0b" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#87E1A3"/><stop offset="0.22" stop-color="#3ECF6A"/><stop offset="0.55" stop-color="#3ECF6A"/><stop offset="0.85" stop-color="#34924B"/><stop offset="1" stop-color="#2B6032"/></linearGradient>
+<linearGradient id="ff0ao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M23,19Q18,30 18.5,50Q18,75 20,88Q21,94.5 28,94.5H72Q79,94.5 80,88Q82,75 81.5,50Q82,30 77,19Z" fill="url(#ff0b)" stroke="#2B6032" stroke-width="1.5" stroke-opacity="0.7"/>
+<path d="M19.3,83.5H80.7Q80.3,86 80,88Q79,94.5 72,94.5H28Q21,94.5 20,88Q19.7,86 19.3,83.5Z" fill="url(#ff0ao)"/>
+<rect x="27" y="26" width="3" height="56" rx="1.5" fill="#FFFFFF" fill-opacity="0.25"/>
+<rect x="62" y="26" width="3" height="56" rx="1.5" fill="#FFFFFF" fill-opacity="0.25"/>
+<path d="M23,11.5L24.5,9L26,11.5L27.5,9L29,11.5L30.5,9L32,11.5L33.5,9L35,11.5L36.5,9L38,11.5L39.5,9L41,11.5L42.5,9L44,11.5L45.5,9L47,11.5L48.5,9L50,11.5L51.5,9L53,11.5L54.5,9L56,11.5L57.5,9L59,11.5L60.5,9L62,11.5L63.5,9L65,11.5L66.5,9L68,11.5L69.5,9L71,11.5L72.5,9L74,11.5L75.5,9L77,11.5L77,19Z" fill="url(#ff0b)" stroke="#2B6032" stroke-width="1.5" stroke-opacity="0.7"/>
+<rect x="23" y="19" width="54" height="2.5" fill="#1E100A" fill-opacity="0.3"/>
+<rect x="26" y="36" width="48" height="42" rx="4" fill="#FFF7E8"/>
+<ellipse cx="50" cy="66" rx="13" ry="10" fill="#34924B"/>
+<ellipse cx="46" cy="65" rx="9" ry="7.5" fill="#3ECF6A"/>
+<ellipse cx="54" cy="64" rx="7" ry="6" fill="#A6E22E"/>
+<path d="M50,58Q47,66 50,74" fill="none" stroke="#FFF7E8" stroke-width="1.5"/>
+</svg>

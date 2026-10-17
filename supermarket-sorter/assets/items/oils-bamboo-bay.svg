@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Kikkoma Sojasauce</title>
+<defs>
+<linearGradient id="obb-b" gradientUnits="userSpaceOnUse" x1="26" x2="74" y1="0" y2="0"><stop offset="0" stop-color="#FFA6D1"/><stop offset="0.22" stop-color="#FF6FB5"/><stop offset="0.55" stop-color="#FF6FB5"/><stop offset="0.85" stop-color="#B7517E"/><stop offset="1" stop-color="#7C3852"/></linearGradient>
+<linearGradient id="obb-c" gradientUnits="userSpaceOnUse" x1="35" x2="65" y1="0" y2="0"><stop offset="0" stop-color="#FF9991"/><stop offset="0.3" stop-color="#FF5A4E"/><stop offset="0.85" stop-color="#B74238"/><stop offset="1" stop-color="#7C2F27"/></linearGradient>
+<linearGradient id="obb-ao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M38,24H62V28Q74,31 74,46V88Q74,94.5 67,94.5H33Q26,94.5 26,88V46Q26,31 38,28Z" fill="url(#obb-b)" stroke="#7C3852" stroke-width="1.5" stroke-opacity="0.7"/>
+<path d="M26,83.5H74V88Q74,94.5 67,94.5H33Q26,94.5 26,88Z" fill="url(#obb-ao)"/>
+<path d="M26,46Q50,49 74,46V84Q50,87 26,84Z" fill="#FFF7E8"/>
+<path d="M26,46Q50,49 74,46V62Q50,65 26,62Z" fill="#FF5A4E"/>
+<text x="50" y="59" font-size="11" textLength="38" lengthAdjust="spacingAndGlyphs" font-family="Arial, Helvetica, sans-serif" font-weight="900" text-anchor="middle" fill="#FFFFFF">KIKKOMA</text>
+<ellipse cx="50" cy="75" rx="13" ry="5.5" fill="#B7517E"/>
+<circle cx="43.5" cy="75" r="2.6" fill="#FFF7E8"/>
+<circle cx="50" cy="75" r="2.6" fill="#FFF7E8"/>
+<circle cx="56.5" cy="75" r="2.6" fill="#FFF7E8"/>
+<rect x="38" y="23" width="24" height="4" fill="#1E100A" fill-opacity="0.3"/>
+<path d="M35,23L40,9H60L65,23Z" fill="url(#obb-c)" stroke="#7C2F27" stroke-width="1.5" stroke-opacity="0.7"/>
+<ellipse cx="50" cy="9" rx="10" ry="2" fill="#FF9991"/>
+<ellipse cx="50" cy="9" rx="3" ry="0.9" fill="#B74238"/>
+<rect x="39" y="12" width="2.6" height="8" rx="1.3" fill="#FFFFFF" fill-opacity="0.5" transform="rotate(8 40 16)"/>
+<rect x="36.5" y="36" width="4" height="42" rx="2" fill="#FFFFFF" fill-opacity="0.55"/>
+<rect x="67" y="42" width="2" height="30" rx="1" fill="#FFFFFF" fill-opacity="0.3"/>
+</svg>

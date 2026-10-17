@@ -1,0 +1,95 @@
+/* src/style/board.css: the rack (compartments, back layers, dim, pips, chains), items and FX. Geometry from ui/board.js. */
+.board { position: absolute; left: 0; top: 0; touch-action: none; z-index: 1; cursor: grab; }
+.board.dragging { cursor: grabbing; }
+.board.arm-spend .comp.can-spend { box-shadow: inset 0 0 0 4px var(--gold), inset 0 5px 8px rgba(90, 50, 10, 0.16); cursor: pointer; animation: comp-glow 0.8s ease-in-out infinite alternate; }
+@keyframes comp-glow { from { background-color: #FFF6D0; } to { background-color: #FFE89A; } }
+/* the cabinet (v0.3.1, docs/ART-STYLE.md): one piece of light wood spanning the side columns, continuous boards per row,
+   light compartment backs, a soft contact shadow under every slot */
+.shelf {
+  position: absolute;
+  background: linear-gradient(180deg, var(--wood-light) 0%, var(--wood) 100%);
+  border-radius: 10px;
+  box-shadow: inset 0 0 0 3px var(--wood-dark), 0 8px 0 var(--wood-edge), 0 16px 28px rgba(80, 45, 10, 0.28);
+}
+.shelf .board-top { position: absolute; left: 0; right: 0; top: 0; height: 7px; background: linear-gradient(180deg, #F6DDB2, var(--wood-light)); border-radius: 10px 10px 0 0; }
+.shelf .board-row {
+  position: absolute; left: 3px; right: 3px;
+  background: linear-gradient(180deg, #F1CC95 0%, #D9A066 45%, #8E5A2B 100%);
+  box-shadow: 0 3px 0 rgba(70, 40, 10, 0.35);
+}
+.comp {
+  position: absolute; overflow: visible;
+  background: linear-gradient(180deg, #FDF5E6 0%, var(--wood-back) 100%);
+  box-shadow: inset 0 5px 8px rgba(90, 50, 10, 0.16), inset 3px 0 0 rgba(90, 50, 10, 0.12), inset -3px 0 0 rgba(90, 50, 10, 0.12);
+  border-radius: 4px;
+  transition: box-shadow 0.15s ease, background-color 0.15s ease;
+}
+.comp .plank {
+  position: absolute; left: -3px; right: -3px; bottom: -4px; height: 12px;
+  background: linear-gradient(180deg, #F1CC95 0%, #D9A066 45%, #8E5A2B 100%);
+  border-radius: 2px; box-shadow: 0 3px 0 rgba(70, 40, 10, 0.35); z-index: 3;
+}
+.comp .shadows { position: absolute; left: 0; top: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+.comp .shadows i { position: absolute; bottom: 9px; border-radius: 50%; background: radial-gradient(ellipse at center, rgba(60, 30, 5, 0.38) 0%, rgba(60, 30, 5, 0.18) 45%, rgba(60, 30, 5, 0) 72%); opacity: 0; transition: opacity 0.25s ease; }
+.comp .shadows i.on { opacity: 1; }
+.comp .backs { position: absolute; left: 0; top: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
+.comp .backs .item { position: absolute; left: 0; top: 0; transform-origin: 50% 90%; opacity: 0.85; }
+.comp.has-back::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 45%; border-radius: 4px 4px 0 0; background: linear-gradient(180deg, rgba(60, 35, 10, 0.28), rgba(60, 35, 10, 0)); pointer-events: none; z-index: 0; }
+.comp .pips { position: absolute; left: 0; right: 0; bottom: 2px; height: 8px; text-align: center; z-index: 4; pointer-events: none; line-height: 0; }
+.comp .pips i { display: inline-block; width: 7px; height: 7px; margin: 0 2px; border-radius: 50%; background: #FFF3D6; border: 1.5px solid rgba(58, 36, 18, 0.5); }
+.comp .pips span { font-size: 10px; color: #FFF3D6; font-weight: 900; vertical-align: top; line-height: 8px; }
+.comp.target { box-shadow: inset 0 0 0 4px var(--green), inset 0 5px 8px rgba(90, 50, 10, 0.16); background: #EFF8E6; }
+.comp.full-target { box-shadow: inset 0 0 0 4px var(--red), inset 0 5px 8px rgba(90, 50, 10, 0.16); }
+.comp .glow { position: absolute; left: 0; top: 0; right: 0; bottom: 0; border-radius: 4px; opacity: 0; pointer-events: none; z-index: 2; will-change: opacity; }
+.comp.warn-slot { animation: comp-warn 0.5s ease-in-out 2; }
+@keyframes comp-warn { 0%, 100% { box-shadow: inset 0 5px 8px rgba(90, 50, 10, 0.16); } 50% { box-shadow: inset 0 0 0 5px #F2B632, inset 0 5px 8px rgba(90, 50, 10, 0.16); } }
+
+/* locks: above the items */
+.locks { position: absolute; left: 0; top: 0; width: 100%; height: 100%; pointer-events: none; z-index: 6; }
+.lock { position: absolute; border-radius: 6px; background: rgba(40, 25, 15, 0.28); transition: opacity 0.3s ease; }
+.lock .chain { position: absolute; left: -4px; right: -4px; top: 50%; height: 14px; margin-top: -7px; background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 14'><rect x='1' y='3' width='12' height='8' rx='4' fill='none' stroke='%235A5A5A' stroke-width='3'/><rect x='15' y='3' width='12' height='8' rx='4' fill='none' stroke='%238A8A8A' stroke-width='3'/></svg>") repeat-x; background-size: 28px 14px; }
+.lock .chain.c1 { transform: rotate(-22deg); }
+.lock .chain.c2 { transform: rotate(22deg); }
+.lock .badge {
+  position: absolute; left: 50%; top: 50%; width: 40px; height: 40px; margin: -20px 0 0 -20px; border-radius: 50%;
+  background: var(--sky); color: #fff; border: 3px solid #fff; box-shadow: 0 3px 0 #2A6CB0;
+  font-size: 20px; font-weight: 900; line-height: 34px; text-align: center;
+}
+.lock .badge.pop { animation: combo-pop 0.25s var(--ease-back); }
+.lock.open { opacity: 0; transform: translateY(12px); transition: opacity 0.3s ease, transform 0.3s ease; }
+
+/* items */
+.items { position: absolute; left: 0; top: 0; width: 100%; height: 100%; pointer-events: none; z-index: 5; }
+.item {
+  position: absolute; left: 0; top: 0; display: block; pointer-events: none;
+  transform-origin: 50% 90%;
+  transition: transform var(--move-ms, 220ms) var(--ease-out), opacity 0.2s ease;
+  -webkit-user-drag: none;
+}
+.item.drag { transition: none; z-index: 20; will-change: transform; filter: drop-shadow(0 12px 8px rgba(60, 30, 0, 0.4)); }
+.item.sel { animation: item-bob 0.9s ease-in-out infinite; z-index: 10; }
+.item.hand { z-index: 12; filter: drop-shadow(0 8px 6px rgba(60, 30, 0, 0.3)); }
+@keyframes item-bob { 0%, 100% { translate: 0 0; } 50% { translate: 0 -6px; } }
+.item.pop { transition: transform 0.32s var(--ease-back), opacity 0.32s ease-in; opacity: 0; pointer-events: none; z-index: 15; }
+.item.fade { transition: opacity 0.3s ease, transform 0.3s ease; opacity: 0; }
+.item.land { animation: item-land 0.25s var(--ease-out); }
+@keyframes item-land { 0% { translate: 0 -4px; } 60% { translate: 0 2px; } 100% { translate: 0 0; } }
+.item.arrive { animation: item-arrive 0.22s var(--ease-out); }
+@keyframes item-arrive { 0% { opacity: 0.5; translate: 0 -6px; } 100% { opacity: 1; translate: 0 0; } }
+.item.fly { transition: transform 0.6s cubic-bezier(0.4, 0, 0.6, 1), opacity 0.6s ease; z-index: 30; }
+.item.bunny { animation: bunny-shimmer 2s ease-in-out infinite; }
+@keyframes bunny-shimmer { 0%, 100% { scale: 1; } 50% { scale: 1.06; } }                 /* was a filter animation: a repaint per frame */
+canvas.item.sil { image-rendering: auto; }
+
+.fx { position: absolute; left: 0; top: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; z-index: 30; }
+.fx .burst { position: absolute; left: 0; top: 0; width: 10px; height: 10px; border-radius: 50%; background: var(--gold); will-change: transform, opacity; }   /* animated by boardfx.burst (Web Animations, compositor) */
+.fx .points { position: absolute; left: 0; top: 0; font-size: 22px; font-weight: 900; color: var(--green-deep); text-shadow: 0 2px 0 #FFF8EA, 0 0 6px #FFF8EA; white-space: nowrap; will-change: transform, opacity; }
+.fx .points.combo { color: var(--primary-deep); font-size: 26px; }
+
+body.reduced-motion .item { transition-duration: 0.12s; }
+body.reduced-motion .item.sel { animation: none; outline: 3px solid var(--green); border-radius: 8px; }
+body.reduced-motion .item.bunny { animation: none; }
+body.reduced-motion .fx .burst { display: none; }
+body.reduced-motion .comp.warn-slot { animation: none; }
+body.low-gfx .item.drag { filter: none; }
+body.low-gfx .item.bunny { animation: none; }

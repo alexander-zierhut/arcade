@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Südfrucht Grüne Paprika</title>
+<defs>
+<radialGradient id="pp-p" cx="0.35" cy="0.3" r="0.8"><stop offset="0" stop-color="#87E1A3"/><stop offset="0.35" stop-color="#3ECF6A"/><stop offset="0.7" stop-color="#3ECF6A"/><stop offset="1" stop-color="#34924B"/></radialGradient>
+<linearGradient id="pp-s" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#C8ED7D"/><stop offset="0.3" stop-color="#A6E22E"/><stop offset="0.65" stop-color="#A6E22E"/><stop offset="1" stop-color="#7A9F22"/></linearGradient>
+<linearGradient id="pp-ao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+<clipPath id="pp-c"><path d="M38,39C34,33 24,33 21,43C18,56 19,74 25,87C28,95 33,95 35,91C36.5,90 39.5,90 41,91C43,95 48,95 51,87C57,74 58,56 55,43C52,33 42,33 38,39Z"/></clipPath>
+</defs>
+<g transform="translate(24 -9)">
+<path d="M38,39C34,33 24,33 21,43C18,56 19,74 25,87C28,95 33,95 35,91C36.5,90 39.5,90 41,91C43,95 48,95 51,87C57,74 58,56 55,43C52,33 42,33 38,39Z" fill="url(#pp-p)" stroke="#2B6032" stroke-width="1.5" stroke-opacity="0.7"/>
+<path d="M30,41Q27,65 31,86M46,41Q49,65 45,86" fill="none" stroke="#34924B" stroke-width="1.2" stroke-opacity="0.6"/>
+<ellipse cx="38" cy="38.5" rx="9" ry="3" fill="#34924B" fill-opacity="0.6"/>
+<path d="M34.5,39L35.5,30Q38,27 40.5,30L41.5,39Z" fill="url(#pp-s)"/>
+<ellipse cx="38" cy="30" rx="2.6" ry="1" fill="#C8ED7D"/>
+</g>
+<path d="M38,39C34,33 24,33 21,43C18,56 19,74 25,87C28,95 33,95 35,91C36.5,90 39.5,90 41,91C43,95 48,95 51,87C57,74 58,56 55,43C52,33 42,33 38,39Z" fill="url(#pp-p)" stroke="#2B6032" stroke-width="1.5" stroke-opacity="0.7"/>
+<rect x="19.5" y="80" width="37" height="13.5" fill="url(#pp-ao)" clip-path="url(#pp-c)"/>
+<path d="M30,41Q27,65 31,86M46,41Q49,65 45,86" fill="none" stroke="#34924B" stroke-width="1.2" stroke-opacity="0.6"/>
+<ellipse cx="38" cy="38.5" rx="9" ry="3" fill="#34924B" fill-opacity="0.6"/>
+<path d="M34.5,39L35.5,30Q38,27 40.5,30L41.5,39Z" fill="url(#pp-s)"/>
+<ellipse cx="38" cy="30" rx="2.6" ry="1" fill="#C8ED7D"/>
+</svg>

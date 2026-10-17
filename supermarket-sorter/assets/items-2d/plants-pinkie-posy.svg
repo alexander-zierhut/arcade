@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100"><title>Frühlingsgruß Tulpenstrauß</title>
+<defs><g id="tulip"><path d="M39 33Q37.5 24 40 17L44.5 22L50 15L55.5 22L60 17Q62.5 24 61 33Q58 41 50 41Q42 41 39 33Z" fill="#F26B9E" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round"/><path d="M50 22Q46 30 48 39" fill="none" stroke="#2A1B12" stroke-width="1.5" stroke-linecap="round"/><path d="M42.5 25Q41.5 31 43.5 36" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-opacity="0.45"/></g></defs>
+<path d="M50 38V62M37 42Q38 56 47 62M63 42Q62 56 53 62" fill="none" stroke="#3FA34D" stroke-width="3.5" stroke-linecap="round"/>
+<path d="M48 62Q36 62 29 48Q42 50 48 62ZM52 62Q64 62 71 48Q58 50 52 62Z" fill="#3FA34D" stroke="#2A1B12" stroke-width="2.5" stroke-linejoin="round"/>
+<use href="#tulip" transform="translate(-7 8) scale(0.9)"/>
+<use href="#tulip" transform="translate(107 8) scale(-0.9 0.9)"/>
+<use href="#tulip" transform="translate(0 -3)"/>
+<path d="M24 55L76 55L60 93.5H40Z" fill="#F7A1C4"/>
+<path d="M67 55.5L76 55L60 93H55Z" fill="#000000" fill-opacity="0.12"/>
+<rect x="28" y="60" width="3" height="14" rx="1.5" fill="#FFFFFF" fill-opacity="0.35"/>
+<path d="M24 55L50 76L76 55Z" fill="#FFF6E0" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+<path d="M24 55L76 55L60 93.5H40Z" fill="none" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round"/>
+<path d="M50 78L40 72V84ZM50 78L60 72V84Z" fill="#F7C948" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="50" cy="78" r="3" fill="#F7C948" stroke="#2A1B12" stroke-width="1.5"/>
+</svg>

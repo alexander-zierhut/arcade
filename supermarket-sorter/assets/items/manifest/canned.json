@@ -1,0 +1,49 @@
+{
+  "category": "canned",
+  "items": [
+    {
+      "id": "canned-bean-bounty",
+      "file": "canned-bean-bounty.svg",
+      "name": "Bohnenhof Grüne Bohnen",
+      "class": "can",
+      "color": "#3ECF6A",
+      "accent": "#FFF7E8",
+      "label": "",
+      "icon": "green bean pods",
+      "description": "Chunky leaf-green tin can with metal rims and a cream label showing two crossing green bean pods"
+    },
+    {
+      "id": "canned-rosy-pot",
+      "file": "canned-rosy-pot.svg",
+      "name": "Erasko Tomatencremesuppe",
+      "class": "can",
+      "color": "#FF6FB5",
+      "accent": "#FF5A4E",
+      "label": "ERASKO",
+      "icon": "tomato",
+      "description": "Parody of the Erasco tomato cream soup can: chunky candy-pink tin with a cream label, a coral tomato and the word ERASKO"
+    },
+    {
+      "id": "canned-reef-run",
+      "file": "canned-reef-run.svg",
+      "name": "Saupickett Thunfisch",
+      "class": "loose",
+      "color": "#3B6CFF",
+      "accent": "#FF5A4E",
+      "label": "SAUPICK",
+      "icon": "fish",
+      "description": "Parody of the Saupiquet tuna tins: two flat cobalt tins stacked, coral band with the word SAUPICK on the lower one and a blue fish on a cream band on the upper one"
+    },
+    {
+      "id": "canned-sunny-grove",
+      "file": "canned-sunny-grove.svg",
+      "name": "Sonnenfeld Zuckermais",
+      "class": "can",
+      "color": "#FFD23F",
+      "accent": "#3ECF6A",
+      "label": "",
+      "icon": "corn cob",
+      "description": "Chunky sun-yellow sweet corn tin with a green label showing a golden corn cob in lime husks"
+    }
+  ]
+}

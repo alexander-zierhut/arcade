@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Frischewerk Kopfsalat</title>
+<defs>
+<linearGradient id="ls-b" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#C8ED7D"/><stop offset="0.22" stop-color="#A6E22E"/><stop offset="0.55" stop-color="#A6E22E"/><stop offset="0.85" stop-color="#7A9F22"/><stop offset="1" stop-color="#576819"/></linearGradient>
+<linearGradient id="ls-g" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#87E1A3"/><stop offset="0.25" stop-color="#3ECF6A"/><stop offset="0.6" stop-color="#3ECF6A"/><stop offset="0.88" stop-color="#34924B"/><stop offset="1" stop-color="#2B6032"/></linearGradient>
+<linearGradient id="ls-ao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M22,14l4,-4l4,4l4,-4l4,4l4,-4l4,4l4,-4l4,4l4,-4l4,4l4,-4l4,4l4,-4l4,4C81,30 82,40 81.5,55C81,75 81.5,85 80,89Q79,93.5 74,93.5H26Q21,93.5 20,89C18.5,85 19,75 18.5,55C18,40 19,30 22,14Z" fill="url(#ls-b)" stroke="#576819" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<path d="M22,14H78L78.6,24H21.4Z" fill="#7A9F22" fill-opacity="0.45"/>
+<rect x="22" y="23" width="56" height="2" fill="#1E100A" fill-opacity="0.3"/>
+<path d="M20,85.5Q50,88.5 80,85.5L80,89Q79,93.5 74,93.5H26Q21,93.5 20,89Z" fill="url(#ls-g)"/>
+<path d="M19,83H81L80,89Q79,93.5 74,93.5H26Q21,93.5 20,89Z" fill="url(#ls-ao)"/>
+<rect x="28" y="31" width="44" height="40" rx="6" fill="#FFF7E8"/>
+<path d="M50,42C56,40.5 61,43.5 60,48C63,51 62,57 57,59C54,61.5 46,61.5 43,59C38,57 37,51 40,48C39,43.5 44,40.5 50,42Z" fill="#3ECF6A"/>
+<ellipse cx="50" cy="51.5" rx="6" ry="5" fill="#87E1A3"/>
+<path d="M50,46V58" fill="none" stroke="#34924B" stroke-width="1.5" stroke-linecap="round"/>
+<rect x="22.5" y="28" width="3" height="52" rx="1.5" fill="#FFFFFF" fill-opacity="0.25"/>
+<rect x="74" y="28" width="3" height="52" rx="1.5" fill="#FFFFFF" fill-opacity="0.25"/>
+</svg>

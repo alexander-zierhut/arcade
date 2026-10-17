@@ -1,0 +1,49 @@
+{
+  "category": "cheese",
+  "items": [
+    {
+      "id": "cheese-holey-moley",
+      "file": "cheese-holey-moley.svg",
+      "name": "Hohli Emmentaler",
+      "class": "loose",
+      "color": "#FFD23F",
+      "accent": "#FF5A4E",
+      "label": "",
+      "icon": "cheese holes",
+      "description": "Natural-proportion Emmentaler: a tall yellow cheese wedge with round holes and a red label band"
+    },
+    {
+      "id": "cheese-sun-churn",
+      "file": "cheese-sun-churn.svg",
+      "name": "Kerrigold Irische Butter",
+      "class": "box",
+      "color": "#3ECF6A",
+      "accent": "#FFD23F",
+      "label": "KERRI",
+      "icon": "cow silhouette",
+      "description": "Winks at Kerrygold Irish butter: upright gold foil block with a wide green band carrying a plain white cow silhouette and the word KERRI"
+    },
+    {
+      "id": "cheese-fluffy-cloud",
+      "file": "cheese-fluffy-cloud.svg",
+      "name": "Philadelfa Frischkäse",
+      "class": "tub",
+      "color": "#3B6CFF",
+      "accent": "#B4B4B4",
+      "label": "PHILA",
+      "icon": "blue band",
+      "description": "Winks at Philadelphia cream cheese: white tub with a wide blue band carrying the word PHILA and a silver lid"
+    },
+    {
+      "id": "cheese-ruby-wheel",
+      "file": "cheese-ruby-wheel.svg",
+      "name": "Rubinkrone Edamer",
+      "class": "loose",
+      "color": "#FF5A4E",
+      "accent": "#FFD23F",
+      "label": "",
+      "icon": "cut Edamer",
+      "description": "Natural-proportion red-wax Edamer: a round wheel seen from the side, showing its holey yellow cut face inside a thick red wax rim"
+    }
+  ]
+}

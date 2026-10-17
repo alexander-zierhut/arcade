@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Keksi Eissandwich</title>
+<defs>
+<linearGradient id="es-b" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#87E1A3"/><stop offset="0.22" stop-color="#3ECF6A"/><stop offset="0.55" stop-color="#3ECF6A"/><stop offset="0.85" stop-color="#34924B"/><stop offset="1" stop-color="#2B6032"/></linearGradient>
+<linearGradient id="es-t" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#87E1A3"/><stop offset="0.5" stop-color="#3ECF6A"/><stop offset="1" stop-color="#34924B"/></linearGradient>
+<linearGradient id="es-k" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#AD8F7B"/><stop offset="0.4" stop-color="#7A4A2A"/><stop offset="1" stop-color="#5D3720"/></linearGradient>
+<linearGradient id="es-ao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M21,22H79Q82,34 81,50Q80,68 81,86Q81,93.5 75,93.5H25Q19,93.5 19,86Q20,68 19,50Q18,34 21,22Z" fill="url(#es-b)" stroke="#2B6032" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<path d="M19.5,82.5H80.5L81,87Q81,93.5 75,93.5H25Q19,93.5 19,87Z" fill="url(#es-ao)"/>
+<rect x="29" y="28" width="3" height="56" rx="1.5" fill="#FFFFFF" fill-opacity="0.25"/>
+<rect x="68" y="28" width="3" height="56" rx="1.5" fill="#FFFFFF" fill-opacity="0.25"/>
+<path d="M21,22H79L78,11L77,8L74,11L71,8L68,11L65,8L62,11L59,8L56,11L53,8L50,11L47,8L44,11L41,8L38,11L35,8L32,11L29,8L26,11L23,8L22,11Z" fill="url(#es-t)" stroke="#2B6032" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<rect x="22" y="22" width="56" height="3" fill="#1E100A" fill-opacity="0.3"/>
+<rect x="28" y="37" width="44" height="46" rx="5" fill="#FFF7E8"/>
+<rect x="33" y="48" width="34" height="9" rx="4" fill="url(#es-k)"/>
+<rect x="34" y="57" width="32" height="7" fill="#AD8F7B"/>
+<rect x="33" y="64" width="34" height="9" rx="4" fill="url(#es-k)"/>
+</svg>

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Waldwiese Heidelbeeren</title>
+<defs>
+<linearGradient id="c11" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFFAF1"/><stop offset="0.22" stop-color="#FFF7E8"/><stop offset="0.55" stop-color="#FFF7E8"/><stop offset="0.85" stop-color="#B7ADA1"/><stop offset="1" stop-color="#7C7167"/></linearGradient>
+<linearGradient id="r11" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#85A4FF"/><stop offset="0.22" stop-color="#3B6CFF"/><stop offset="0.55" stop-color="#3B6CFF"/><stop offset="0.85" stop-color="#324FB1"/><stop offset="1" stop-color="#2A3771"/></linearGradient>
+<linearGradient id="ao11" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+<radialGradient id="b11" cx="0.38" cy="0.32" r="0.78"><stop offset="0" stop-color="#85A4FF"/><stop offset="0.5" stop-color="#3B6CFF"/><stop offset="1" stop-color="#2A3771"/></radialGradient>
+</defs>
+<path d="M21,50L26,89.7A24,4.3 0 0 0 74,89.7L79,50Z" fill="url(#c11)" stroke="#7C7167" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<path d="M24.5,82L26,89.7A24,4.3 0 0 0 74,89.7L75.5,82Q50,87 24.5,82Z" fill="url(#ao11)"/>
+<path d="M22.4,64Q50,70 77.6,64L75.4,80Q50,86 24.6,80Z" fill="url(#r11)"/>
+<circle cx="50" cy="75" r="6.5" fill="#FFFFFF"/><circle cx="50" cy="73.5" r="2" fill="#324FB1"/>
+<ellipse cx="50" cy="46" rx="31" ry="5.6" fill="#85A4FF"/>
+<ellipse cx="50" cy="46" rx="27.5" ry="4.7" fill="#324FB1"/>
+<circle cx="33" cy="39" r="9.5" fill="url(#b11)" stroke="#2A3771" stroke-width="1.5" stroke-opacity="0.7"/>
+<circle cx="50" cy="39.5" r="10" fill="url(#b11)" stroke="#2A3771" stroke-width="1.5" stroke-opacity="0.7"/>
+<circle cx="67" cy="39" r="9.5" fill="url(#b11)" stroke="#2A3771" stroke-width="1.5" stroke-opacity="0.7"/>
+<circle cx="41.5" cy="29" r="9.5" fill="url(#b11)" stroke="#2A3771" stroke-width="1.5" stroke-opacity="0.7"/>
+<circle cx="58.5" cy="29" r="9.5" fill="url(#b11)" stroke="#2A3771" stroke-width="1.5" stroke-opacity="0.7"/>
+
+<circle cx="34" cy="37.5" r="2.2" fill="#2A3771"/><circle cx="51" cy="38" r="2.2" fill="#2A3771"/><circle cx="68" cy="37.5" r="2.2" fill="#2A3771"/><circle cx="42.5" cy="27.5" r="2.2" fill="#2A3771"/><circle cx="59.5" cy="27.5" r="2.2" fill="#2A3771"/>
+<path d="M19,46A31,5.6 0 0 0 81,46V54A31,5.6 0 0 1 19,54Z" fill="url(#r11)" stroke="#2A3771" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<rect x="35" y="58" width="4.5" height="24" rx="2.25" fill="#FFFFFF" fill-opacity="0.5"/>
+</svg>

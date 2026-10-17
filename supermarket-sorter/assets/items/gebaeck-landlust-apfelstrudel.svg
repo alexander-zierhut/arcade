@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Obstwiese Apfelstrudel</title>
+<defs>
+<linearGradient id="g1f" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#87E1A3"/><stop offset="0.35" stop-color="#3ECF6A"/><stop offset="1" stop-color="#3ECF6A"/></linearGradient>
+<linearGradient id="g1ao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M18,17L26,9H80L72,17Z" fill="#87E1A3"/>
+<path d="M72,17L80,9V87.3L72,94.3Z" fill="#34924B"/>
+<rect x="18" y="17" width="54" height="77.3" fill="url(#g1f)"/>
+<rect x="18" y="83.3" width="54" height="11" fill="url(#g1ao)"/>
+<path d="M18,17H72V94.3" fill="none" stroke="#34924B" stroke-width="1"/>
+<rect x="23" y="25" width="44" height="58" rx="4" fill="#FFF7E8"/>
+<path d="M45,56C41,51 32,54 33,63C34,71 40,76 45,74C50,76 56,71 57,63C58,54 49,51 45,56Z" fill="#FF5A4E"/>
+<path d="M46,55Q47,47 54,46Q53,53 46,55Z" fill="#3ECF6A"/>
+<ellipse cx="38.5" cy="62" rx="2" ry="4" fill="#FFFFFF" fill-opacity="0.5"/>
+<path d="M18,17L26,9H80V87.3L72,94.3H18Z" fill="none" stroke="#2B6032" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+</svg>

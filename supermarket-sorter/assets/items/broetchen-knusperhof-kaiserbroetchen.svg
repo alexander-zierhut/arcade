@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Knusperhof Kaiserbrötchen</title>
+<defs>
+<linearGradient id="bh" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#7EE5DD"/><stop offset="0.22" stop-color="#2FD5C8"/><stop offset="0.55" stop-color="#2FD5C8"/><stop offset="0.85" stop-color="#2A968B"/><stop offset="1" stop-color="#25635A"/></linearGradient>
+<linearGradient id="ch" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#7EE5DD"/><stop offset="0.22" stop-color="#2FD5C8"/><stop offset="0.55" stop-color="#2FD5C8"/><stop offset="0.85" stop-color="#2A968B"/><stop offset="1" stop-color="#25635A"/></linearGradient>
+<radialGradient id="rh" cx="0.35" cy="0.3" r="0.8"><stop offset="0" stop-color="#F2BC6E"/><stop offset="0.45" stop-color="#E0963C"/><stop offset="1" stop-color="#B86A24"/></radialGradient>
+<linearGradient id="aoh" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M20,26L18,90Q18,93.5 22,93.5H78Q82,93.5 82,90L80,26Z" fill="url(#bh)" stroke="#25635A" stroke-width="1.5" stroke-opacity="0.7"/>
+<path d="M18.2,82L18,90Q18,93.5 22,93.5H78Q82,93.5 82,90L81.8,82Z" fill="url(#aoh)"/>
+<rect x="24" y="40" width="52" height="46" rx="5" fill="#FFF7E8"/>
+<ellipse cx="50" cy="63" rx="19" ry="15" fill="url(#rh)"/>
+<path d="M50,60.6Q57.1,56.3 54.1,50.8M52.9,62.3Q60.2,66.3 66,62.3M51.8,64.9Q49.2,71.8 55.7,74.8M48.2,64.9Q39.3,65.1 37.6,70.9M47.1,62.3Q44.2,55.5 36.6,56.1" fill="none" stroke="#7C4A19" stroke-width="1.5" stroke-opacity="0.75" stroke-linecap="round"/>
+<rect x="20" y="26" width="60" height="2.4" fill="#1E100A" fill-opacity="0.3"/>
+<path d="M21,12H79L80,26H20Z" fill="url(#ch)" stroke="#25635A" stroke-width="1.5" stroke-opacity="0.7"/>
+<path d="M21,12L25,9.5H75L79,12Z" fill="#7EE5DD"/>
+<rect x="22" y="12" width="56" height="1.5" fill="#FFFFFF" fill-opacity="0.3"/>
+</svg>

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Mühlenbäck Knoblauchbrot</title>
+<defs>
+<linearGradient id="pbb" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#85A4FF"/><stop offset="0.22" stop-color="#3B6CFF"/><stop offset="0.55" stop-color="#3B6CFF"/><stop offset="0.85" stop-color="#324FB1"/><stop offset="1" stop-color="#2A3771"/></linearGradient>
+<linearGradient id="pbc" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFE388"/><stop offset="0.5" stop-color="#FFD23F"/><stop offset="1" stop-color="#B7942E"/></linearGradient>
+<linearGradient id="pbr" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#F2B35E"/><stop offset="0.5" stop-color="#E0963C"/><stop offset="1" stop-color="#B86A24"/></linearGradient>
+<linearGradient id="pbao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M20,14L23,9L26,14L29,9L32,14L35,9L38,14L41,9L44,14L47,9L50,14L53,9L56,14L59,9L62,14L65,9L68,14L71,9L74,14L77,9L80,14Q83,54 80,86Q79,93.8 72,93.8H28Q21,93.8 20,86Q17,54 20,14Z" fill="url(#pbb)" stroke="#2A3771" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<path d="M18,84H82V86Q81,93.8 74,93.8H26Q19,93.8 18,86Z" fill="url(#pbao)"/>
+<rect x="24" y="28" width="3" height="50" rx="1.5" fill="#FFFFFF" fill-opacity="0.25"/>
+<rect x="19.5" y="14" width="61" height="11" fill="url(#pbc)"/>
+<rect x="19" y="25" width="62" height="2.5" fill="#1E100A" fill-opacity="0.3"/>
+<rect x="25" y="34" width="50" height="44" rx="7" fill="#FFF7E8"/>
+<path d="M30,56Q30,45 42,45H58Q70,45 70,56Q70,67 58,67H42Q30,67 30,56Z" fill="url(#pbr)"/>
+<path d="M41,48L46,64M51,48L56,64M61,48L66,64" fill="none" stroke="#FFE388" stroke-width="2" stroke-linecap="round"/>
+<ellipse cx="36" cy="56" rx="2.6" ry="1.5" fill="#3ECF6A"/>
+<ellipse cx="55" cy="51" rx="2.6" ry="1.5" fill="#3ECF6A"/>
+<ellipse cx="48" cy="62" rx="2.6" ry="1.5" fill="#3ECF6A"/>
+</svg>

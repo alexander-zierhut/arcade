@@ -1,0 +1,49 @@
+{
+  "category": "spices",
+  "items": [
+    {
+      "id": "spices-midnight-mill",
+      "file": "spices-midnight-mill.svg",
+      "name": "Nachtmühle Schwarzer Pfeffer",
+      "class": "bottle",
+      "color": "#9D7BFF",
+      "accent": "#FFD23F",
+      "label": "",
+      "icon": "three peppercorns",
+      "description": "Chunky lavender pepper grinder with a sun-yellow collar and dome knob, and a cream label with the word NACHT above three black peppercorns (Schwarzer Pfeffer)"
+    },
+    {
+      "id": "spices-tidy-tide",
+      "file": "spices-tidy-tide.svg",
+      "name": "Nordmeer Meersalz",
+      "class": "jar",
+      "color": "#2FD5C8",
+      "accent": "#FFF7E8",
+      "label": "",
+      "icon": "two teal waves",
+      "description": "Fat turquoise salt jar (Meersalz) with a cream screw lid and a cream label with the word NORD above two bold teal waves"
+    },
+    {
+      "id": "spices-ember-fox",
+      "file": "spices-ember-fox.svg",
+      "name": "Feldglut Paprika edelsüß",
+      "class": "can",
+      "color": "#A6E22E",
+      "accent": "#3ECF6A",
+      "label": "",
+      "icon": "red bell pepper",
+      "description": "Fat lime-green paprika tin (Paprika edelsüß) with a green lid and flip tab, and a cream label with the word GLUT above a red bell pepper with a green stem"
+    },
+    {
+      "id": "spices-cosy-quill",
+      "file": "spices-cosy-quill.svg",
+      "name": "Ostmanns Zimt",
+      "class": "box",
+      "color": "#FF5A4E",
+      "accent": "#FFF7E8",
+      "label": "OSTMANNS",
+      "icon": "cinnamon stick bundle",
+      "description": "Parody of the red Ostmann spice box: upright coral-red box with a cream label panel reading OSTMANNS above a bundle of three cinnamon sticks tied with a red ribbon"
+    }
+  ]
+}

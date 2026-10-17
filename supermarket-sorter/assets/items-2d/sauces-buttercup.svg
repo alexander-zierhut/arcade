@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Bautzi Senf mittelscharf</title>
+<g stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+<path fill="#F5C21B" d="M43 17 L57 17 L57 22 L70 36 L70 86 Q70 93.5 62.5 93.5 L37.5 93.5 Q30 93.5 30 86 L30 36 L43 22 Z"/>
+<rect x="40.5" y="6.5" width="19" height="11" rx="3" fill="#E8453C"/>
+<path d="M45 9.5 V14.5 M50 9.5 V14.5 M55 9.5 V14.5" fill="none" stroke-width="1.5"/>
+<rect x="33" y="42" width="34" height="44" rx="3" fill="#2F6BD6" stroke-width="2"/>
+<path fill="#E8453C" stroke-width="1.5" d="M33 45 Q33 42 36 42 H64 Q67 42 67 45 V57 H33 Z"/>
+<ellipse cx="50" cy="79" rx="10" ry="4" fill="#F5C21B" stroke-width="1.5"/>
+<ellipse cx="50" cy="73" rx="8" ry="3.5" fill="#F5C21B" stroke-width="1.5"/>
+<ellipse cx="50" cy="67.5" rx="5.5" ry="3" fill="#F5C21B" stroke-width="1.5"/>
+<circle cx="50" cy="63.5" r="2" fill="#F5C21B" stroke-width="1.5"/>
+</g>
+<text x="50" y="53" font-size="9.5" textLength="28" lengthAdjust="spacingAndGlyphs" font-family="Arial, Helvetica, sans-serif" font-weight="900" text-anchor="middle" fill="#FFFFFF">BAUTZI</text>
+<rect x="31.5" y="30" width="2.4" height="56" rx="1.2" fill="#FFFFFF" fill-opacity="0.35"/>
+<path d="M64 32 L70 36 L70 86 Q70 91.5 65 91.5 L63 91.5 Q65.5 62 64 32 Z" fill="#000000" fill-opacity="0.12"/>
+</svg>

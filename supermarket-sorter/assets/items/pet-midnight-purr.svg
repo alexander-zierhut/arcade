@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Whiski Katzenfutter</title>
+<defs>
+<linearGradient id="pmpzb" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFA6D1"/><stop offset="0.22" stop-color="#FF6FB5"/><stop offset="0.55" stop-color="#FF6FB5"/><stop offset="0.85" stop-color="#B7517E"/><stop offset="1" stop-color="#7C3852"/></linearGradient>
+<linearGradient id="pmpzl" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#C2ADFF"/><stop offset="0.22" stop-color="#9D7BFF"/><stop offset="0.55" stop-color="#9D7BFF"/><stop offset="0.85" stop-color="#7459B1"/><stop offset="1" stop-color="#533D71"/></linearGradient>
+<linearGradient id="pmpzm" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#DCDCDC"/><stop offset="0.5" stop-color="#B4B4B4"/><stop offset="1" stop-color="#8E8E8E"/></linearGradient>
+<linearGradient id="pmpzao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M21.5,15V88.5A28.5,5.1 0 0 0 78.5,88.5V15Z" fill="url(#pmpzb)" stroke="#7C3852" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<path d="M21.5,80H78.5V88.5A28.5,5.1 0 0 1 21.5,88.5Z" fill="url(#pmpzao)"/>
+<path d="M21.5,82.5A28.5,5.1 0 0 0 78.5,82.5V88.5A28.5,5.1 0 0 1 21.5,88.5Z" fill="url(#pmpzm)"/>
+<path d="M21.5,63Q50,73.2 78.5,63V79Q50,89.2 21.5,79Z" fill="url(#pmpzl)"/>
+<text x="50" y="80.5" font-size="12" font-family="Arial, Helvetica, sans-serif" font-weight="900" text-anchor="middle" fill="#FFFFFF">WHISKI</text>
+<circle cx="50" cy="45" r="13" fill="#FFF7E8"/>
+<polygon points="41.5,43 42.5,33 49,39" fill="#533D71"/><polygon points="58.5,43 57.5,33 51,39" fill="#533D71"/>
+<ellipse cx="50" cy="46" rx="9" ry="7.5" fill="#533D71"/>
+<path d="M45.2,45a1.5,2 0 1 0 0.1,0ZM54.8,45a1.5,2 0 1 0 0.1,0Z" fill="#FFF7E8"/>
+<rect x="35.2" y="28.4" width="4.6" height="38.7" rx="2.3" fill="#FFFFFF" fill-opacity="0.55"/>
+<path d="M21.5,15V21A28.5,5.1 0 0 0 78.5,21V15Z" fill="url(#pmpzm)"/>
+<ellipse cx="50" cy="15" rx="28.5" ry="5.1" fill="#DCDCDC" stroke="#5A5A5A" stroke-width="1.5" stroke-opacity="0.5"/>
+<ellipse cx="50" cy="15.4" rx="24" ry="4.1" fill="#B4B4B4"/>
+</svg>

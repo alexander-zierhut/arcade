@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Gartenkelle Gemüsesuppe</title>
+<rect x="23" y="15" width="54" height="78.5" rx="3" fill="#2F6BD6" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round"/>
+<rect x="68" y="18" width="8" height="73" fill="#000000" fill-opacity="0.12"/>
+<rect x="26" y="22" width="3" height="66" rx="1.5" fill="#FFFFFF" fill-opacity="0.35"/>
+<rect x="29" y="28" width="42" height="49" rx="5" fill="#FFF6E0" stroke="#2A1B12" stroke-width="2"/>
+<path d="M44 42Q41 39.5 44 37T44 32M55 42Q52 39.5 55 37T55 32" fill="none" stroke="#2A1B12" stroke-width="2" stroke-linecap="round"/>
+<path d="M35 48H65Q64 64 50 64Q36 64 35 48Z" fill="#F28C28" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="50" cy="48" rx="15" ry="3" fill="#E39A12" stroke="#2A1B12" stroke-width="1.5"/>
+<text x="50" y="73" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="900" text-anchor="middle" fill="#2A1B12">SUPPE</text>
+<text x="50" y="88" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="900" text-anchor="middle" fill="#FFF6E0">GARTEN</text>
+<ellipse cx="50" cy="15" rx="27" ry="4.5" fill="#FFF6E0" stroke="#2A1B12" stroke-width="2.5"/>
+<rect x="44" y="13.5" width="12" height="3.5" rx="1.8" fill="#F28C28" stroke="#2A1B12" stroke-width="1.5"/>
+</svg>

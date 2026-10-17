@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Obstwiese Apfelstrudel</title>
+<polygon points="20,12 72,12 72,94 20,94" fill="#3FA34D"/>
+<polygon points="20,12 26,8 78,8 72,12" fill="#3FA34D"/>
+<polygon points="20,12 26,8 78,8 72,12" fill="#FFFFFF" fill-opacity="0.2"/>
+<polygon points="72,12 78,8 78,90 72,94" fill="#2F8A3E"/>
+<polygon points="58,12 72,12 72,94 58,94" fill="#000000" fill-opacity="0.12"/>
+<rect x="22" y="18" width="3.5" height="70" rx="1.8" fill="#FFFFFF" fill-opacity="0.35"/>
+<rect x="26" y="22" width="40" height="56" rx="3" fill="#FFF6E0" stroke="#2A1B12" stroke-width="2"/>
+<text x="46" y="33" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="9" text-anchor="middle" fill="#2A1B12">OBSTI</text>
+<path d="M46,46Q48,37 55,35Q53,43 46,46Z" fill="#9BCB3C" stroke="#2A1B12" stroke-width="1.5" stroke-linejoin="round"/>
+<path d="M46,48C40,43 31,46 31,57C31,67 38,74 46,74C54,74 61,67 61,57C61,46 52,43 46,48Z" fill="#E8453C" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+<line x1="46" y1="46" x2="47" y2="38" stroke="#2A1B12" stroke-width="2" stroke-linecap="round"/>
+<ellipse cx="39" cy="57" rx="2" ry="4" fill="#FFFFFF" fill-opacity="0.6"/>
+<polygon points="20,12 72,12 72,94 20,94" fill="none" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round"/>
+<polygon points="20,12 26,8 78,8 72,12" fill="none" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round"/>
+<polygon points="72,12 78,8 78,90 72,94" fill="none" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round"/>
+</svg>

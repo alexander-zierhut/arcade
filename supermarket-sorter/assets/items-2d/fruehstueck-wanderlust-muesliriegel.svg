@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Knuspi Müsliriegel</title>
+<defs><path id="bg" d="M22 14Q26 4 30 14Q34 4 38 14Q42 4 46 14Q50 4 54 14Q58 4 62 14Q66 4 70 14Q74 4 78 14C81 40 81 70 79 93.5L21 93.5C19 70 19 40 22 14Z"/><clipPath id="bc"><use href="#bg"/></clipPath></defs>
+<use href="#bg" fill="#3FA34D" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round"/>
+<path d="M22 14Q26 4 30 14Q34 4 38 14Q42 4 46 14Q50 4 54 14Q58 4 62 14Q66 4 70 14Q74 4 78 14L79 22L21 22Z" fill="#F7C948" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round"/>
+<rect x="71" y="9" width="9.5" height="84" fill="#000000" fill-opacity="0.12" clip-path="url(#bc)"/>
+<rect x="24" y="30" width="3.5" height="40" rx="2" fill="#FFFFFF" fill-opacity="0.35"/>
+<rect x="27" y="36" width="46" height="48" rx="4" fill="#FFF6E0" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+<text x="50" y="46" font-family="Arial, Helvetica, sans-serif" font-weight="900" text-anchor="middle" font-size="9.5" fill="#2C7D3A">KNUSPI</text>
+<g transform="translate(50 61) rotate(-10)"><rect x="-19" y="-7.5" width="38" height="15" rx="6" fill="#D9A04A" stroke="#2A1B12" stroke-width="2"/><circle cx="-9" cy="-1" r="2.2" fill="#D9383A"/><circle cx="4" cy="2.5" r="2.2" fill="#D9383A"/><circle cx="11" cy="-2.5" r="2" fill="#D9383A"/><ellipse cx="-2" cy="2.8" rx="2.4" ry="1.5" fill="#8C5A2B"/><circle cx="-13" cy="3" r="1.2" fill="#FFF1C9"/><circle cx="2" cy="-3.5" r="1.2" fill="#FFF1C9"/></g>
+<text x="50" y="80" font-family="Arial, Helvetica, sans-serif" font-weight="900" text-anchor="middle" font-size="11" fill="#2A1B12">MÜSLI</text>
+</svg>

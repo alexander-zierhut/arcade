@@ -1,0 +1,49 @@
+{
+  "category": "kuchen",
+  "items": [
+    {
+      "id": "kuchen-kirschtorte",
+      "file": "kuchen-kirschtorte.svg",
+      "name": "Tannenzauber Schwarzwälder Kirschtorte",
+      "class": "box",
+      "color": "#FF6FB5",
+      "accent": "#FFF7E8",
+      "label": "",
+      "icon": "cake slice",
+      "description": "Candy pink cake box with a cream label showing a standing slice of Black Forest cake: chocolate sponge, pink cream layers and a cherry on top"
+    },
+    {
+      "id": "kuchen-kaesekuchen",
+      "file": "kuchen-kaesekuchen.svg",
+      "name": "Koppenrat & Wiesel Käsekuchen",
+      "class": "box",
+      "color": "#FFD23F",
+      "accent": "#FF5A4E",
+      "label": "KOPPEN",
+      "icon": "cheesecake slice",
+      "description": "Upright sun yellow frozen-cake box with a white logo band with the word KOPPEN and a cream label showing a golden cheesecake slice on a biscuit base; winks at Coppenrath & Wiese frozen cakes"
+    },
+    {
+      "id": "kuchen-erdbeertoertchen",
+      "file": "kuchen-erdbeertoertchen.svg",
+      "name": "Süssi Erdbeertörtchen",
+      "class": "tub",
+      "color": "#3ECF6A",
+      "accent": "#FFF7E8",
+      "label": "",
+      "icon": "strawberry",
+      "description": "Green tub of strawberry tartlets with a cream white lid and a cream label with one big red strawberry"
+    },
+    {
+      "id": "kuchen-schokoladenkuchen",
+      "file": "kuchen-schokoladenkuchen.svg",
+      "name": "Krümi Schokoladenkuchen",
+      "class": "box",
+      "color": "#3B6CFF",
+      "accent": "#FFF7E8",
+      "label": "",
+      "icon": "chocolate cake",
+      "description": "Upright cobalt blue cardboard box of chocolate cake with a cream front label showing a round cake with dark chocolate glaze and a hazelnut"
+    }
+  ]
+}

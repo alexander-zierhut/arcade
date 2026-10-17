@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Zesprit Kiwi</title>
+<defs>
+<radialGradient id="kiwi-k" cx="0.35" cy="0.3" r="0.8"><stop offset="0" stop-color="#AD8F7B"/><stop offset="0.55" stop-color="#7A4A2A"/><stop offset="1" stop-color="#5D3720"/></radialGradient>
+<radialGradient id="kiwi-g" cx="0.4" cy="0.35" r="0.75"><stop offset="0" stop-color="#87E1A3"/><stop offset="0.6" stop-color="#3ECF6A"/><stop offset="1" stop-color="#34924B"/></radialGradient>
+<linearGradient id="kiwi-ao" x1="0" x2="0" y1="0" y2="1"><stop offset="0.65" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<ellipse cx="41" cy="38" rx="22" ry="26" fill="url(#kiwi-k)" stroke="#452817" stroke-width="1.5" stroke-opacity="0.7"/>
+<ellipse cx="41" cy="38" rx="22" ry="26" fill="url(#kiwi-ao)"/>
+<ellipse cx="41" cy="30" rx="19" ry="6.5" fill="#FFFFFF"/>
+<text x="41" y="34" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="900" text-anchor="middle" textLength="31" lengthAdjust="spacingAndGlyphs" fill="#2B6032">ZESPRIT</text>
+<ellipse cx="61" cy="69" rx="21" ry="25" fill="url(#kiwi-k)" stroke="#452817" stroke-width="1.5" stroke-opacity="0.7"/>
+<ellipse cx="61" cy="69" rx="21" ry="25" fill="url(#kiwi-ao)"/>
+<ellipse cx="61" cy="68" rx="18" ry="22" fill="url(#kiwi-g)"/>
+<ellipse cx="61" cy="68" rx="7" ry="9.5" fill="#FFF7E8"/>
+<path d="M72,68h.1M70.9,74.1h.1M67.9,78.9h.1M63.5,81.7h.1M58.5,81.7h.1M54.1,78.9h.1M51.1,74.1h.1M50,68h.1M51.1,61.9h.1M54.1,57.1h.1M58.5,54.3h.1M63.5,54.3h.1M67.9,57.1h.1M70.9,61.9h.1" fill="none" stroke="#452817" stroke-width="2" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Onkel Benno Reis</title>
+<defs>
+<linearGradient id="ppp-f" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#FFB87D"/><stop offset="0.35" stop-color="#FF8C2E"/><stop offset="1" stop-color="#FF8C2E"/></linearGradient>
+<linearGradient id="ppp-ao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<rect x="19" y="16" width="50" height="78.5" rx="2" fill="url(#ppp-f)" stroke="#7C4419" stroke-width="1.5" stroke-opacity="0.7"/>
+<polygon points="69,16 80,8 80,86.5 69,94.5" fill="#B76422" stroke="#7C4419" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<polygon points="19,16 69,16 80,8 30,8" fill="#FFB87D" stroke="#7C4419" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<rect x="19" y="83.5" width="50" height="11" fill="url(#ppp-ao)"/>
+<polygon points="69,83.5 80,75.5 80,86.5 69,94.5" fill="url(#ppp-ao)"/>
+<rect x="19" y="22" width="50" height="16" fill="#324FB1"/>
+<text x="44" y="34.5" font-size="14" textLength="38" lengthAdjust="spacingAndGlyphs" font-family="Arial, Helvetica, sans-serif" font-weight="900" text-anchor="middle" fill="#FFFFFF">BENNO</text>
+<path d="M27,66Q28,48 44,48Q60,48 61,66Z" fill="#FFFFFF"/>
+<path d="M24,65H64Q64,84 44,84Q24,84 24,65Z" fill="#3B6CFF"/>
+</svg>

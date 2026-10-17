@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Südlust Trockenmango</title>
+<path d="M19 15Q25 9 30 13Q35 7 40 12Q45 7 50 11Q55 7 60 12Q65 7 70 13Q75 9 81 15C79 40 82 70 80 86Q79.5 93.5 72 93.5L28 93.5Q20.5 93.5 20 86C18 70 21 40 19 15Z" fill="#D6E83E"/>
+<path d="M19 15Q25 9 30 13Q35 7 40 12Q45 7 50 11Q55 7 60 12Q65 7 70 13Q75 9 81 15L81 22L19 22Z" fill="#F2602F"/>
+<rect x="26" y="34" width="48" height="44" rx="3" fill="#FFF6E0" stroke="#2A1B12" stroke-width="2"/>
+<text x="50" y="45" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="9" text-anchor="middle" fill="#2A1B12">SÜDLUST</text>
+<path d="M40 50C48 47 58 51 60 59C62 69 56 77 48 76C41 75 37 68 38 60C38.5 55 39 51 40 50Z" fill="#F7A928" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+<path d="M55 52C60 58 61 68 55 74C60 68 60 58 55 52Z" fill="#F2602F"/>
+<path d="M46 56C50 58 52 64 50 70" fill="none" stroke="#2A1B12" stroke-width="1.5" stroke-linecap="round"/>
+<ellipse cx="26" cy="62" rx="2.6" ry="16" fill="#FFFFFF" fill-opacity="0.35"/>
+<path d="M80.5 22C79 40 82 70 80 86Q79.5 93.5 72 93.5L66 93.5Q70 70 70 50Q70 32 73 22Z" fill="#000000" fill-opacity="0.12"/>
+<path d="M19 15Q25 9 30 13Q35 7 40 12Q45 7 50 11Q55 7 60 12Q65 7 70 13Q75 9 81 15C79 40 82 70 80 86Q79.5 93.5 72 93.5L28 93.5Q20.5 93.5 20 86C18 70 21 40 19 15Z" fill="none" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M19 22H81" fill="none" stroke="#2A1B12" stroke-width="1.5"/>
+</svg>

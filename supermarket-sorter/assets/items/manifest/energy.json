@@ -1,0 +1,49 @@
+{
+  "category": "energy",
+  "items": [
+    {
+      "id": "energy-neon-newt",
+      "file": "energy-neon-newt.svg",
+      "name": "Roter Büffel Energy",
+      "class": "can",
+      "color": "#3B6CFF",
+      "accent": "#FF5A4E",
+      "label": "BÜFFEL",
+      "icon": "two charging red buffalo",
+      "description": "Blue-and-silver energy drink can with two charging red buffalo around a yellow sun and the word BÜFFEL; winks at Red Bull"
+    },
+    {
+      "id": "energy-rep-rocket",
+      "file": "energy-rep-rocket.svg",
+      "name": "Hantelhof Eiweiß-Shake",
+      "class": "bottle",
+      "color": "#FFD23F",
+      "accent": "#FF5A4E",
+      "label": "",
+      "icon": "dumbbell",
+      "description": "Fat sun-yellow protein shake bottle with a coral cap and a white label with a big coral dumbbell"
+    },
+    {
+      "id": "energy-fizzy-fern",
+      "file": "energy-fizzy-fern.svg",
+      "name": "Farnquell Beeren-Kombucha",
+      "class": "bottle",
+      "color": "#FF6FB5",
+      "accent": "#3ECF6A",
+      "label": "",
+      "icon": "fern leaf",
+      "description": "Candy-pink berry kombucha bottle with a short neck, a green crown cap and a white label carrying a green fern leaf"
+    },
+    {
+      "id": "energy-leaping-kiwi",
+      "file": "energy-leaping-kiwi.svg",
+      "name": "Hüpfkiwi Grüner Smoothie",
+      "class": "carton",
+      "color": "#3ECF6A",
+      "accent": "#A6E22E",
+      "label": "",
+      "icon": "kiwi slice",
+      "description": "Green gable-top smoothie carton with a cream label showing a big sliced kiwi"
+    }
+  ]
+}

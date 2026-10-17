@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Omas Beste Butterhörnchen</title>
+<defs>
+<linearGradient id="babutf" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#FFE388"/><stop offset="0.35" stop-color="#FFD23F"/></linearGradient>
+<linearGradient id="babuto" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#FFB87D"/><stop offset="0.35" stop-color="#FF8C2E"/></linearGradient>
+<linearGradient id="babutao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M19,19L27,9H81V83.5L73,93.5H19Z" fill="#B7942E" stroke="#7C6120" stroke-width="1.5" stroke-opacity="0.7"/>
+<rect x="19" y="19" width="54" height="74.5" fill="url(#babutf)"/>
+<path d="M73,19L81,9V83.5L73,93.5Z" fill="#B7942E"/>
+<path d="M19,19L27,9H81L73,19Z" fill="#FFE388"/>
+<rect x="19" y="19" width="54" height="1" fill="#B7942E" fill-opacity="0.6"/>
+<rect x="24" y="28" width="44" height="46" rx="4" fill="#FFF7E8"/>
+<path d="M29,58C24,29 68,29 63,58C60,51 54,49 46,49C38,49 32,51 29,58Z" fill="#E0963C"/>
+<path d="M36,41L38,50M46,38V48M56,41L54,50" fill="none" stroke="#B86A24" stroke-width="1.6" stroke-linecap="round"/>
+<rect x="19" y="79" width="54" height="14.5" fill="url(#babuto)"/>
+<path d="M73,79L81,69V83.5L73,93.5Z" fill="#B76422"/>
+<rect x="19" y="82.5" width="54" height="11" fill="url(#babutao)"/>
+<path d="M73,82.5L81,72.5V83.5L73,93.5Z" fill="url(#babutao)"/>
+</svg>

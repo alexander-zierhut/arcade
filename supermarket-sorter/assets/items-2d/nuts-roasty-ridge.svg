@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Ültja Erdnüsse gesalzen</title>
+<path d="M25 15V88.5A25 5 0 0 0 75 88.5V15Z" fill="#F5DC20" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M68 15H75V88.5Q75 93.5 68 93.5Z" fill="#000000" fill-opacity="0.12"/>
+<rect x="25" y="32" width="50" height="42" fill="#2F6BD6" stroke="#2A1B12" stroke-width="2"/>
+<rect x="28.5" y="19" width="3.5" height="66" rx="1.75" fill="#FFFFFF" fill-opacity="0.35"/>
+<text x="50" y="48" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="900" text-anchor="middle" fill="#F5DC20">ÜLTJA</text>
+<g transform="translate(50 62) rotate(-15) scale(1.1)">
+<path d="M-7-7C-3-7-1-5 0-5S3-7 7-7C11-7 14-4 14 0S11 7 7 7C3 7 1 5 0 5S-3 7-7 7C-11 7-14 4-14 0S-11-7-7-7Z" fill="#E8B96A" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+<path d="M-9-3h0M-5 2h0M-9 3h0M5-2h0M9 2h0M9-3h0M5 3h0" fill="none" stroke="#A8672C" stroke-width="2" stroke-linecap="round"/>
+</g>
+<ellipse cx="50" cy="15" rx="25" ry="5" fill="#2F6BD6" stroke="#2A1B12" stroke-width="3"/>
+<ellipse cx="50" cy="15" rx="20" ry="3" fill="#4FA3E8" stroke="#2A1B12" stroke-width="1.5" stroke-opacity="0.5"/>
+</svg>

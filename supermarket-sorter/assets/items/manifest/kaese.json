@@ -1,0 +1,49 @@
+{
+  "category": "kaese",
+  "items": [
+    {
+      "id": "kaese-almwiese-emmentaler",
+      "file": "kaese-almwiese-emmentaler.svg",
+      "name": "Lehrdammer Scheiben",
+      "class": "box",
+      "color": "#FFD23F",
+      "accent": "#3B6CFF",
+      "label": "LEHRDAMM",
+      "icon": "cheese slice",
+      "description": "Winks at Leerdammer sliced cheese: chunky sun-yellow pack with a cobalt top band reading LEHRDAMM and one white panel with a holey cheese slice"
+    },
+    {
+      "id": "kaese-weidenhof-camembert",
+      "file": "kaese-weidenhof-camembert.svg",
+      "name": "Hofgut Camembert",
+      "class": "can",
+      "color": "#3ECF6A",
+      "accent": "#FFF7E8",
+      "label": "",
+      "icon": "camembert wheel",
+      "description": "Chunky leaf-green round Camembert box with a cream lid, a cream label with the word HOFGUT and a white cheese round with a slice cut out"
+    },
+    {
+      "id": "kaese-frischlust-mozzarella",
+      "file": "kaese-frischlust-mozzarella.svg",
+      "name": "Galbini Mozzarella",
+      "class": "bag",
+      "color": "#3B6CFF",
+      "accent": "#FF5A4E",
+      "label": "GALBINI",
+      "icon": "mozzarella balls",
+      "description": "Winks at Galbani mozzarella: cobalt standing pouch with crimped seal, a coral red oval badge with the word GALBINI and three white mozzarella balls"
+    },
+    {
+      "id": "kaese-bauernstolz-gouda",
+      "file": "kaese-bauernstolz-gouda.svg",
+      "name": "Bauernstolz Gouda",
+      "class": "loose",
+      "color": "#FF5A4E",
+      "accent": "#FF8C2E",
+      "label": "",
+      "icon": "cheese wedge",
+      "description": "Upright wedge of Gouda in thick glossy coral red wax with a golden orange cut face, the word STOLZ and a few small holes"
+    }
+  ]
+}

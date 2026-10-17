@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Omas Beste Zimtschnecke</title>
+<ellipse cx="50" cy="38" rx="28" ry="20" fill="#D99B5E" stroke="#2A1B12" stroke-width="3"/>
+<path d="M51.9,42.0L52.1,42.2L52.3,42.5L52.3,42.8L52.3,43.1L52.2,43.5L52.0,43.8L51.6,44.2L51.2,44.5L50.6,44.7L50.0,44.9L49.3,45.1L48.5,45.1L47.7,45.1L46.9,44.9L46.1,44.7L45.3,44.3L44.6,43.9L44.0,43.3L43.5,42.7L43.2,42.0L43.1,41.3L43.1,40.5L43.3,39.7L43.7,38.9L44.3,38.1L45.1,37.5L46.1,36.8L47.3,36.3L48.6,36.0L50.0,35.7L51.5,35.6L53.0,35.7L54.5,36.0L56.0,36.4L57.4,37.0L58.7,37.7L59.8,38.6L60.7,39.6L61.3,40.8L61.7,42.0L61.8,43.3L61.6,44.6L61.1,45.8L60.3,47.1L59.1,48.2L57.7,49.2L56.1,50.1L54.2,50.8L52.2,51.3L50.0,51.6L47.7,51.7L45.5,51.5L43.2,51.0L41.1,50.3L39.1,49.4L37.4,48.2L35.9,46.9L34.7,45.4L33.8,43.7L33.4,42.0" fill="none" stroke="#9A5528" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M24.5,33C23,22 34,18 50,18C66,18 77,22 75.5,33C74,36 73,33 72.5,33C72,39 70,41 68.5,35C67.5,32 65,30 63,32C60,34 58,31 56,30.5C54,30 52,33 50,33C48,33 46,30 44,30.5C42,31 40,34 37,32C35,30 33,32 32,35C31,40 28.5,38 28,35C27.5,33 26,33 24.5,33Z" fill="#FFFFFF" stroke="#2A1B12" stroke-width="1.5" stroke-linejoin="round"/>
+<path d="M26,60L74,60L69,93.5L31,93.5Z" fill="#9B4FD0" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M35,64L36,93M44,64L44,93M56,64L56,93M65,64L64,93" fill="none" stroke="#2A1B12" stroke-width="1.5" stroke-linecap="round"/>
+<rect x="30" y="66" width="3.5" height="22" rx="1.8" fill="#FFFFFF" fill-opacity="0.35"/>
+<path d="M68,60L74,60L69,93.5L64,93.5Z" fill="#000000" fill-opacity="0.12"/>
+<rect x="22" y="56" width="56" height="7" rx="3" fill="#FFF6E0" stroke="#2A1B12" stroke-width="2.5"/>
+</svg>

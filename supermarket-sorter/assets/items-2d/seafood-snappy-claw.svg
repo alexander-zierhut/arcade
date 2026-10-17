@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Meeresbrise Krabbenstäbchen</title>
+<rect x="26" y="26" width="12.5" height="54" rx="5" fill="#FFFFFF" stroke="#2A1B12" stroke-width="2"/>
+<rect x="31.5" y="29" width="6" height="48" rx="3" fill="#D92B3A" stroke="#2A1B12" stroke-width="1.2"/>
+<rect x="38" y="20" width="12.5" height="60" rx="5" fill="#FFFFFF" stroke="#2A1B12" stroke-width="2"/>
+<rect x="43.5" y="23" width="6" height="54" rx="3" fill="#D92B3A" stroke="#2A1B12" stroke-width="1.2"/>
+<rect x="50" y="28" width="12.5" height="52" rx="5" fill="#FFFFFF" stroke="#2A1B12" stroke-width="2"/>
+<rect x="55.5" y="31" width="6" height="46" rx="3" fill="#D92B3A" stroke="#2A1B12" stroke-width="1.2"/>
+<rect x="62" y="22" width="12.5" height="58" rx="5" fill="#FFFFFF" stroke="#2A1B12" stroke-width="2"/>
+<rect x="67.5" y="25" width="6" height="52" rx="3" fill="#D92B3A" stroke="#2A1B12" stroke-width="1.2"/>
+<path d="M20.5 61Q20.5 57 24.5 57H75.5Q79.5 57 79.5 61L77.5 89Q77 93.5 73 93.5H27Q23 93.5 22.5 89Z" fill="#D92B3A" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M70 57H75.5Q79.5 57 79.5 61L77.5 89Q77 93.5 73 93.5H69Q72 75 70 57Z" fill="#000000" fill-opacity="0.12"/>
+<rect x="23" y="62" width="3" height="24" rx="1.5" fill="#FFFFFF" fill-opacity="0.35"/>
+<rect x="27" y="65" width="46" height="19" rx="4" fill="#FFF6E0" stroke="#2A1B12" stroke-width="2"/>
+<text x="50" y="78.5" font-family="Arial, Helvetica, sans-serif" font-weight="900" text-anchor="middle" font-size="10" fill="#D92B3A">KRABBE</text>
+</svg>

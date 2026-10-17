@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Omas Beste Schmand</title>
+<defs>
+<linearGradient id="db" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#85A4FF"/><stop offset="0.22" stop-color="#3B6CFF"/><stop offset="0.55" stop-color="#3B6CFF"/><stop offset="0.85" stop-color="#324FB1"/><stop offset="1" stop-color="#2A3771"/></linearGradient>
+<linearGradient id="dc" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFFAF1"/><stop offset="0.22" stop-color="#FFF7E8"/><stop offset="0.55" stop-color="#FFF7E8"/><stop offset="0.85" stop-color="#B7ADA1"/><stop offset="1" stop-color="#7C7167"/></linearGradient>
+<linearGradient id="dao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M20,27H80L75.5,91Q75.2,94.5 72,94.5H28Q24.8,94.5 24.5,91Z" fill="url(#db)" stroke="#2A3771" stroke-width="1.5" stroke-opacity="0.7"/>
+<path d="M24,83.5H76L75.5,91Q75.2,94.5 72,94.5H28Q24.8,94.5 24.5,91Z" fill="url(#dao)"/>
+<rect x="24.3" y="36" width="3.4" height="44" rx="1.7" fill="#FFFFFF" fill-opacity="0.55"/>
+<path d="M29,43Q50,47 71,43L70,75Q50,79 30,75Z" fill="url(#dc)"/>
+<path d="M40,70Q38,64.5 44,62.5Q43,56.5 50,53.5Q57,56.5 56,62.5Q62,64.5 60,70Z" fill="#3B6CFF"/>
+<path d="M20,31.5Q50,37 80,31.5V34Q50,39.5 20,34Z" fill="#1E100A" fill-opacity="0.3"/>
+<path d="M19,21V31Q50,36.5 81,31V21Z" fill="url(#dc)" stroke="#7C7167" stroke-width="1.5" stroke-opacity="0.7"/>
+<ellipse cx="50" cy="21" rx="31" ry="4.8" fill="#FFFAF1"/>
+<ellipse cx="50" cy="20.2" rx="21" ry="3" fill="#FFF7E8"/>
+<rect x="23" y="22.5" width="3" height="6" rx="1.5" fill="#FFFFFF" fill-opacity="0.6"/>
+</svg>

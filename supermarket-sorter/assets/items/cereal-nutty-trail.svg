@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Krümelwald Erdnuss-Müsli</title>
+<defs>
+<linearGradient id="q11xb" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFA6D1"/><stop offset="0.22" stop-color="#FF6FB5"/><stop offset="0.55" stop-color="#FF6FB5"/><stop offset="0.85" stop-color="#B7517E"/><stop offset="1" stop-color="#7C3852"/></linearGradient>
+<linearGradient id="q11xs" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#E7C9A3"/><stop offset="0.22" stop-color="#D9A86B"/><stop offset="0.55" stop-color="#D9A86B"/><stop offset="0.85" stop-color="#9D774C"/><stop offset="1" stop-color="#6D5033"/></linearGradient>
+<linearGradient id="q11xcr" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFFAF1"/><stop offset="0.25" stop-color="#FFF7E8"/><stop offset="0.6" stop-color="#FFF7E8"/><stop offset="1" stop-color="#B7ADA1"/></linearGradient>
+<linearGradient id="q11xao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M21,19Q18,26 18,36V86Q18,93.5 26,93.5H74Q82,93.5 82,86V36Q82,26 79,19Z" fill="url(#q11xb)" stroke="#7C3852" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<rect x="30" y="30" width="2.5" height="54" rx="1.2" fill="#FFFFFF" fill-opacity="0.25"/>
+<rect x="66" y="32" width="2" height="50" rx="1" fill="#FFFFFF" fill-opacity="0.2"/>
+<ellipse cx="50" cy="58" rx="22" ry="25" fill="url(#q11xcr)"/>
+<path d="M-2,-5.5A6.5,6.5 0 1 0 -2,5.5Q0,3.8 2,5.5A6.5,6.5 0 1 0 2,-5.5Q0,-3.8 -2,-5.5Z" transform="translate(50 58) rotate(-35) scale(1.25)" fill="#D9A86B"/>
+<ellipse cx="-6" cy="-2.5" rx="2.5" ry="1.4" fill="#E7C9A3" transform="translate(50 58) rotate(-35) scale(1.25)"/>
+<path d="M18,82.5V86Q18,93.5 26,93.5H74Q82,93.5 82,86V82.5Z" fill="url(#q11xao)"/>
+<path d="M21,19V13L21,13L24.6,9L28.3,13L31.9,9L35.5,13L39.1,9L42.8,13L46.4,9L50,13L53.6,9L57.3,13L60.9,9L64.5,13L68.1,9L71.8,13L75.4,9L79,13L79,13V19Z" fill="url(#q11xs)" stroke="#6D5033" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<rect x="21" y="19" width="58" height="2.5" fill="#1E100A" fill-opacity="0.3"/>
+<rect x="30" y="11" width="2" height="7" rx="1" fill="#FFFFFF" fill-opacity="0.25"/>
+</svg>

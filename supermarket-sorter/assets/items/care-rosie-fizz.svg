@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Rosenhauch Seife</title>
+<defs>
+<linearGradient id="q6xfv" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#FFA6D1"/><stop offset="0.35" stop-color="#FF6FB5"/><stop offset="1" stop-color="#FF6FB5"/></linearGradient>
+<linearGradient id="q6xcr" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFFAF1"/><stop offset="0.25" stop-color="#FFF7E8"/><stop offset="0.6" stop-color="#FFF7E8"/><stop offset="1" stop-color="#B7ADA1"/></linearGradient>
+<linearGradient id="q6xsh" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFFFFF" stop-opacity="0.2"/><stop offset="0.5" stop-color="#FFFFFF" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.2"/></linearGradient>
+<linearGradient id="q6xao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<rect x="20" y="72" width="50" height="21.5" fill="url(#q6xfv)"/>
+<path d="M70,72L78,65V86.5L70,93.5Z" fill="#B7517E"/>
+<path d="M20,72H70L78,65H28Z" fill="#FFA6D1"/>
+<rect x="20" y="72" width="50" height="21.5" fill="url(#q6xsh)"/>
+<path d="M20,72H70V93.5" fill="none" stroke="#B7517E" stroke-width="1" stroke-opacity="0.5"/>
+<path d="M20,72L28,65H78V86.5L70,93.5H20Z" fill="none" stroke="#7C3852" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<rect x="22" y="49" width="50" height="21.5" fill="url(#q6xfv)"/>
+<path d="M72,49L80,42V63.5L72,70.5Z" fill="#B7517E"/>
+<path d="M22,49H72L80,42H30Z" fill="#FFA6D1"/>
+<rect x="22" y="49" width="50" height="21.5" fill="url(#q6xsh)"/>
+<path d="M22,49H72V70.5" fill="none" stroke="#B7517E" stroke-width="1" stroke-opacity="0.5"/>
+<path d="M22,49L30,42H80V63.5L72,70.5H22Z" fill="none" stroke="#7C3852" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<rect x="20" y="26" width="50" height="21.5" fill="url(#q6xfv)"/>
+<path d="M70,26L78,19V40.5L70,47.5Z" fill="#B7517E"/>
+<path d="M20,26H70L78,19H28Z" fill="#FFA6D1"/>
+<rect x="20" y="26" width="50" height="21.5" fill="url(#q6xsh)"/>
+<path d="M20,26H70V47.5" fill="none" stroke="#B7517E" stroke-width="1" stroke-opacity="0.5"/>
+<path d="M20,26L28,19H78V40.5L70,47.5H20Z" fill="none" stroke="#7C3852" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<path d="M20,82.5H70L78,75.5V86.5L70,93.5H20Z" fill="url(#q6xao)"/>
+<rect x="39" y="26" width="24" height="67.5" fill="url(#q6xcr)"/>
+<path d="M39,26L47,19H71L63,26Z" fill="#FFFAF1"/>
+<circle cx="51" cy="59" r="9.5" fill="#FF5A4E"/>
+<circle cx="51" cy="59" r="5" fill="#B74238"/>
+<path d="M43,68Q47,66 49,70Q46,73 43,68ZM59,68Q55,66 53,70Q56,73 59,68Z" fill="#3ECF6A"/>
+</svg>

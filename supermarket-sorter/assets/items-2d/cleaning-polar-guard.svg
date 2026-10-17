@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Nordmeer Hygienespray</title>
+<rect x="25" y="14" width="50" height="79.5" fill="#3FA34D"/>
+<rect x="67" y="18" width="6" height="72" rx="3" fill="#000000" fill-opacity="0.12"/>
+<rect x="27.5" y="18" width="3" height="68" rx="1.5" fill="#FFFFFF" fill-opacity="0.35"/>
+<ellipse cx="50" cy="14" rx="25" ry="4" fill="#5CB86A" stroke="#2A1B12" stroke-width="3"/>
+<rect x="31" y="33" width="38" height="47" rx="3" fill="#FFFFFF" stroke="#2A1B12" stroke-width="2"/>
+<text x="50" y="45" font-family="Arial, Helvetica, sans-serif" font-size="9.5" font-weight="900" text-anchor="middle" fill="#1F3A5F">NORDI</text>
+<path d="M50 51L61 55V65Q61 73.5 50 79Q39 73.5 39 65V55Z" fill="#F7C948" stroke="#2A1B12" stroke-width="2.5" stroke-linejoin="round"/>
+<path d="M43.5 65L48 69.5L56.5 60.5" fill="none" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M25 14V93.5H75V14" fill="none" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="43" y="7.5" width="14" height="6" rx="2" fill="#F7C948" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round"/>
+</svg>

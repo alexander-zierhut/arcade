@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Bökli Würstchen im Glas</title>
+<path d="M21,24H79V87Q79,93.5 73,93.5H27Q21,93.5 21,87Z" fill="#8FD0F2" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="25" y="27" width="11" height="36" rx="5.5" fill="#E8785A" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+<rect x="37.5" y="29" width="11" height="34" rx="5.5" fill="#E8785A" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+<rect x="50" y="27" width="11" height="36" rx="5.5" fill="#E8785A" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+<rect x="62.5" y="29" width="11" height="34" rx="5.5" fill="#E8785A" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+<rect x="69.5" y="28" width="9.5" height="60" fill="#000000" fill-opacity="0.12"/>
+<rect x="22" y="12" width="56" height="12" rx="3" fill="#E8453C" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M28,15V21M34,15V21M40,15V21M46,15V21M52,15V21M58,15V21M64,15V21M70,15V21" fill="none" stroke="#2A1B12" stroke-width="1.5" stroke-linecap="round"/>
+<rect x="24.5" y="53" width="51" height="30" rx="3" fill="#FFF6E0" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+<rect x="24.5" y="53" width="51" height="5" fill="#E8453C" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+<text x="50" y="72" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="900" text-anchor="middle" fill="#E8453C">BÖKLI</text>
+<rect x="33" y="75" width="34" height="5" rx="2.5" fill="#E8785A" stroke="#2A1B12" stroke-width="1.5" stroke-linejoin="round"/>
+<rect x="25" y="30" width="3.5" height="50" rx="1.8" fill="#FFFFFF" fill-opacity="0.35"/>
+</svg>

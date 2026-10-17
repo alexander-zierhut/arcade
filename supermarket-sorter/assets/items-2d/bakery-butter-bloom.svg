@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Omas Beste Butterhörnchen</title>
+<path d="M20,20L28,10L78,10L70,20Z" fill="#F7C948" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round"/>
+<path d="M20,20L28,10L78,10L70,20Z" fill="#FFFFFF" fill-opacity="0.2"/>
+<path d="M70,20L78,10L78,85L70,93.5Z" fill="#E9A92A" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round"/>
+<rect x="20" y="20" width="50" height="73.5" fill="#F7C948"/>
+<rect x="20" y="84" width="50" height="9.5" fill="#EE9C2A"/>
+<rect x="60" y="20" width="10" height="73.5" fill="#000000" fill-opacity="0.12"/>
+<rect x="27" y="28" width="36" height="50" rx="4" fill="#FFF6E0" stroke="#2A1B12" stroke-width="2"/>
+<text x="45" y="41" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="10" text-anchor="middle" fill="#2A1B12">OMAS</text>
+<path d="M30,70C30,57 36,49 45,49C54,49 60,57 60,70C56.5,65 52,63 45,63C38,63 33.5,65 30,70Z" fill="#D98B2B" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+<path d="M38.5,55L39.5,63M45,51V63M51.5,55L50.5,63" fill="none" stroke="#2A1B12" stroke-width="1.5" stroke-linecap="round"/>
+<rect x="23" y="26" width="4" height="56" rx="2" fill="#FFFFFF" fill-opacity="0.35"/>
+<path d="M20,84H70" fill="none" stroke="#2A1B12" stroke-width="2"/>
+<rect x="20" y="20" width="50" height="73.5" fill="none" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round"/>
+</svg>

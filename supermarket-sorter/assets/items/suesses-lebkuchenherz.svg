@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Hofgut Lebkuchenherz</title>
+<defs>
+<linearGradient id="sl21b" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFA6D1"/><stop offset="0.22" stop-color="#FF6FB5"/><stop offset="0.55" stop-color="#FF6FB5"/><stop offset="0.85" stop-color="#B7517E"/><stop offset="1" stop-color="#7C3852"/></linearGradient><linearGradient id="sl21ah" x1="0" x2="0" y1="0" y2="1"><stop offset="0.7" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M50,90.5C28,76 19.5,62 19.5,44C19.5,27 31,11 50,24C69,11 80.5,27 80.5,44C80.5,62 72,76 50,90.5Z" transform="translate(0 4)" fill="#B7517E" stroke="#7C3852" stroke-width="1.5" stroke-opacity="0.7"/>
+<path d="M50,90.5C28,76 19.5,62 19.5,44C19.5,27 31,11 50,24C69,11 80.5,27 80.5,44C80.5,62 72,76 50,90.5Z" fill="url(#sl21b)" stroke="#7C3852" stroke-width="1.5" stroke-opacity="0.7"/>
+<path d="M50,90.5C28,76 19.5,62 19.5,44C19.5,27 31,11 50,24C69,11 80.5,27 80.5,44C80.5,62 72,76 50,90.5Z" fill="url(#sl21ah)"/>
+<path d="M50,90.5C28,76 19.5,62 19.5,44C19.5,27 31,11 50,24C69,11 80.5,27 80.5,44C80.5,62 72,76 50,90.5Z" transform="translate(50 50) scale(0.8) translate(-50 -50)" fill="none" stroke="#FFF7E8" stroke-width="2" stroke-opacity="0.9"/>
+<circle cx="50" cy="52" r="17" fill="#FFF7E8"/>
+<circle cx="50" cy="44.5" r="6" fill="#FF5A4E"/><circle cx="50" cy="59.5" r="6" fill="#FF5A4E"/><circle cx="42.5" cy="52" r="6" fill="#FF5A4E"/><circle cx="57.5" cy="52" r="6" fill="#FF5A4E"/>
+<circle cx="50" cy="52" r="4" fill="#FFD23F"/>
+<ellipse cx="29" cy="34" rx="2.6" ry="8" transform="rotate(25 29 34)" fill="#FFFFFF" fill-opacity="0.55"/>
+</svg>

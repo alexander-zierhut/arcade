@@ -1,0 +1,49 @@
+{
+  "category": "water",
+  "items": [
+    {
+      "id": "water-peak-spring",
+      "file": "water-peak-spring.svg",
+      "name": "Gipfelklar Stilles Wasser",
+      "class": "bottle",
+      "color": "#4FB6FF",
+      "accent": "#3B6CFF",
+      "label": "",
+      "icon": "snowy mountain with sun",
+      "description": "Sky-blue glossy plastic still water bottle with a cobalt cap and a white label band showing a snowy mountain and a sun; own brand, no text"
+    },
+    {
+      "id": "water-bubbly-brook",
+      "file": "water-bubbly-brook.svg",
+      "name": "Volvik Naturelle",
+      "class": "bottle",
+      "color": "#3ECF6A",
+      "accent": "#FF5A4E",
+      "label": "VOLVIK",
+      "icon": "volcano",
+      "description": "Green glossy plastic water bottle with a coral-red cap and a cream label with VOLVIK and a dark volcano with red lava; winks at Volvic Naturelle"
+    },
+    {
+      "id": "water-volt-rush",
+      "file": "water-volt-rush.svg",
+      "name": "Blitzkraft Sportdrink",
+      "class": "can",
+      "color": "#FF6FB5",
+      "accent": "#FFD23F",
+      "label": "",
+      "icon": "lightning bolt",
+      "description": "Candy-pink sports drink can with metal rims and a sun-yellow band carrying one pink lightning bolt; no text"
+    },
+    {
+      "id": "water-coco-breeze",
+      "file": "water-coco-breeze.svg",
+      "name": "Palmio Kokoswasser",
+      "class": "carton",
+      "color": "#FFF7E8",
+      "accent": "#A6E22E",
+      "label": "",
+      "icon": "coconut with palm leaves",
+      "description": "Cream gable-top carton with a lime green roof and a lime band showing a coconut under palm leaves, coconut water; no text"
+    }
+  ]
+}

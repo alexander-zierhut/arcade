@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Dr. Ötti Backin</title>
+<defs>
+<linearGradient id="f1" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#FF9991"/><stop offset="0.35" stop-color="#FF5A4E"/><stop offset="1" stop-color="#FF5A4E"/></linearGradient>
+<linearGradient id="ao1" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<rect x="19" y="18" width="52" height="75.5" fill="url(#f1)"/>
+<path d="M71,18L81,12V89L71,93.5Z" fill="#B74238"/>
+<path d="M19,18L29,12H81L71,18Z" fill="#FF9991"/>
+<rect x="25" y="25" width="40" height="17" rx="8.5" fill="#FFFFFF"/>
+<text x="45" y="38" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="900" text-anchor="middle" fill="#B74238">ÖTTI</text>
+<rect x="19" y="48" width="52" height="34" fill="#FFFFFF"/>
+<path d="M36,64H54L52,77H38Z" fill="#FF5A4E"/>
+<path d="M34,65Q33,53 45,52Q57,53 56,65Z" fill="#E0963C"/>
+<circle cx="45" cy="50.5" r="3.5" fill="#FF5A4E"/>
+<rect x="19" y="82.5" width="52" height="11" fill="url(#ao1)"/>
+<path d="M71,80L81,76V89L71,93.5Z" fill="url(#ao1)"/>
+<path d="M71,18V93.5M19,18H71" fill="none" stroke="#7C2F27" stroke-width="1" stroke-opacity="0.6"/>
+<path d="M19,18L29,12H81V89L71,93.5H19Z" fill="none" stroke="#7C2F27" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+</svg>

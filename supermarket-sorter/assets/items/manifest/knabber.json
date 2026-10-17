@@ -1,0 +1,49 @@
+{
+  "category": "knabber",
+  "items": [
+    {
+      "id": "knabber-erdnussflips",
+      "file": "knabber-erdnussflips.svg",
+      "name": "Flippis Erdnussflips",
+      "class": "bag",
+      "color": "#FF6FB5",
+      "accent": "#FFD23F",
+      "label": "FLIPPIS",
+      "icon": "curly peanut flips",
+      "description": "Parody of the Erdnuss Flippies bag: candy-pink standing bag with a sun-yellow crimped seal and banner with the word FLIPPIS and three golden peanut puffs"
+    },
+    {
+      "id": "knabber-salzstangen",
+      "file": "knabber-salzstangen.svg",
+      "name": "Saltlets Salzstangen",
+      "class": "box",
+      "color": "#3B6CFF",
+      "accent": "#FFD23F",
+      "label": "SALTLETS",
+      "icon": "fan of salt sticks",
+      "description": "Parody of the Saltletts salt sticks box: chunky cobalt box with a sun-yellow header band with the word SALTLETS and golden salt sticks fanning out of a cream circle"
+    },
+    {
+      "id": "knabber-cracker",
+      "file": "knabber-cracker.svg",
+      "name": "Sonnenhof Cracker",
+      "class": "box",
+      "color": "#3ECF6A",
+      "accent": "#D9A86B",
+      "label": "",
+      "icon": "cracker",
+      "description": "Chunky leaf-green cracker pack with one cream label panel and a big golden square cracker with four holes"
+    },
+    {
+      "id": "knabber-kaesewuerfel",
+      "file": "knabber-kaesewuerfel.svg",
+      "name": "Alpenhof Käsewürfel",
+      "class": "tub",
+      "color": "#FFD23F",
+      "accent": "#FFF7E8",
+      "label": "",
+      "icon": "cheese cube",
+      "description": "Chunky sun-yellow tub of cheese snacks with a cream lid and a cream label showing one big holey cheese cube"
+    }
+  ]
+}

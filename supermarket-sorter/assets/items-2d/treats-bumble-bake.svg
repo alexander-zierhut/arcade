@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100"><title>Mühlenbäck Minz-Schokomuffin</title>
+<path d="M28 64H72L68 90Q67.5 93.5 64 93.5H36Q32.5 93.5 32 90Z" fill="#8E5BD9" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M64 70H70.5L68 90Q67.5 93.5 64 93.5H63Z" fill="#000000" fill-opacity="0.12"/>
+<rect x="33" y="74" width="34" height="10" rx="2" fill="#FFF6E0" stroke="#2A1B12" stroke-width="1.5"/>
+<text x="50" y="81.5" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="900" text-anchor="middle" fill="#2A1B12">MÜHLE</text>
+<path d="M22 64C19 40 31 14 50 14C69 14 81 40 78 64Q76 68 70 68H30Q24 68 22 64Z" fill="#3FA34D" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M66 20C76 30 80 48 78 64Q76 68 70 68H66Q72 50 66 20Z" fill="#000000" fill-opacity="0.12"/>
+<ellipse cx="31" cy="44" rx="3" ry="9" transform="rotate(12 31 44)" fill="#FFFFFF" fill-opacity="0.35"/>
+<circle cx="38" cy="42" r="3.6" fill="#6B3A1A" stroke="#2A1B12" stroke-width="1.5"/>
+<circle cx="52" cy="30" r="3.6" fill="#6B3A1A" stroke="#2A1B12" stroke-width="1.5"/>
+<circle cx="64" cy="44" r="3.6" fill="#6B3A1A" stroke="#2A1B12" stroke-width="1.5"/>
+<circle cx="45" cy="54" r="3.6" fill="#6B3A1A" stroke="#2A1B12" stroke-width="1.5"/>
+<circle cx="60" cy="58" r="3.6" fill="#6B3A1A" stroke="#2A1B12" stroke-width="1.5"/>
+<circle cx="32" cy="58" r="3.6" fill="#6B3A1A" stroke="#2A1B12" stroke-width="1.5"/>
+</svg>

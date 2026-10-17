@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Lehrdammer Scheiben</title>
+<rect x="23.5" y="10.5" width="53" height="83" rx="3" fill="#F5E62A"/>
+<path d="M23.5 13.5Q23.5 10.5 26.5 10.5H73.5Q76.5 10.5 76.5 13.5V45H23.5Z" fill="#2F6BD6"/>
+<line x1="23.5" y1="45" x2="76.5" y2="45" stroke="#2A1B12" stroke-width="2"/>
+<text x="50" y="27" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="900" text-anchor="middle" fill="#FFFFFF">LEHR</text>
+<text x="50" y="39.5" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="900" text-anchor="middle" fill="#FFFFFF">DAMMER</text>
+<path d="M31 55H61L69 63V87H31Z" fill="#FFD23C" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="42" cy="66" r="3.4" fill="#C99A12" stroke="#2A1B12" stroke-width="1.2"/>
+<circle cx="56" cy="74" r="3" fill="#C99A12" stroke="#2A1B12" stroke-width="1.2"/>
+<circle cx="42" cy="79" r="2.2" fill="#C99A12" stroke="#2A1B12" stroke-width="1.2"/>
+<circle cx="52" cy="62" r="1.8" fill="#C99A12" stroke="#2A1B12" stroke-width="1.2"/>
+<rect x="26" y="16" width="4" height="26" rx="2" fill="#FFFFFF" fill-opacity="0.35"/>
+<rect x="66" y="10.5" width="10.5" height="83" fill="#000000" fill-opacity="0.12"/>
+<rect x="23.5" y="10.5" width="53" height="83" rx="3" fill="none" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round"/>
+</svg>

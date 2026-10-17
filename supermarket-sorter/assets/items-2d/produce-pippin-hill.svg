@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Obstig Rote Äpfel</title>
+<path d="M-1 -14Q0 -22 3 -26" transform="translate(40 40) scale(.85)" fill="none" stroke="#8C5A2B" stroke-width="3.5" stroke-linecap="round"/>
+<path d="M2-20Q10-30 22-26Q16-16 2-20Z" transform="translate(40 40) scale(.85)" fill="#3FA34D" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round"/>
+<path transform="translate(40 40) scale(.85)" d="M0-15C6-21 21-19 21-3C21 11 12 21 5 20C2 19-2 19-5 20C-12 21-21 11-21-3C-21-19-6-21 0-15Z" fill="#E02E4C" stroke="#2A1B12" stroke-width="3.5" stroke-linejoin="round"/>
+<path d="M0-14Q1-20 3-23" transform="translate(57 74)" fill="none" stroke="#2A1B12" stroke-width="6" stroke-linecap="round"/>
+<path d="M0-14Q1-20 3-23" transform="translate(57 74)" fill="none" stroke="#8C5A2B" stroke-width="3" stroke-linecap="round"/>
+<path transform="translate(57 74)" d="M0-15C6-21 21-19 21-3C21 11 12 21 5 20C2 19-2 19-5 20C-12 21-21 11-21-3C-21-19-6-21 0-15Z" fill="#E02E4C" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round"/>
+<path d="M0-12Q4-12 6-10" transform="translate(57 74)" fill="none" stroke="#2A1B12" stroke-width="1.5" stroke-linecap="round"/>
+<ellipse cx="41" cy="70" rx="2.6" ry="9" fill="#FFFFFF" fill-opacity="0.35"/>
+<path d="M70 62Q77 73 70 86Q73 74 70 62Z" fill="#000000" fill-opacity="0.12"/>
+</svg>

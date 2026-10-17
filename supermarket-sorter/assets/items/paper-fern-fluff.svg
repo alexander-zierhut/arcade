@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Wolki Taschentücher</title>
+<defs>
+<linearGradient id="pffzfv" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#FFA6D1"/><stop offset="0.35" stop-color="#FF6FB5"/><stop offset="1" stop-color="#FF6FB5"/></linearGradient>
+<linearGradient id="pffzt" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFFAF1"/><stop offset="0.6" stop-color="#FFF7E8"/><stop offset="1" stop-color="#B7ADA1"/></linearGradient>
+<linearGradient id="pffzao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<rect x="19" y="24" width="53" height="69.5" rx="1" fill="url(#pffzfv)"/>
+<polygon points="72,24 81,17 81,86.5 72,93.5" fill="#B7517E"/>
+<polygon points="19,24 72,24 81,17 28,17" fill="#FFA6D1"/>
+<polygon points="19,82.5 72,82.5 81,75.5 81,86.5 72,93.5 19,93.5" fill="url(#pffzao)"/>
+<line x1="72" y1="24" x2="72" y2="93.5" stroke="#7C3852" stroke-width="1" stroke-opacity="0.6"/>
+<polygon points="31,22 65,22 68.6,19.2 34.6,19.2" fill="#7C3852"/>
+<path d="M35,20.5Q31,13 37,10.5Q41,13 44,9Q47,12 51,8.5Q56,11 59,10Q64,14 62,20.5Z" fill="url(#pffzt)"/>
+<path d="M44,20.5Q41,15 46,13Q50,17 54,13Q58,16 57,20.5Z" fill="#B7ADA1" fill-opacity="0.55"/>
+<rect x="25" y="38" width="42" height="42" rx="7" fill="#FFFFFF"/>
+<rect x="33" y="64" width="23" height="9" rx="4.5" fill="#4FB6FF"/>
+<circle cx="40.5" cy="64.5" r="5.5" fill="#4FB6FF"/><circle cx="47.5" cy="60" r="8" fill="#4FB6FF"/><circle cx="53.5" cy="64.5" r="5.5" fill="#4FB6FF"/>
+<path d="M19,24L28,17H81V86.5L72,93.5H19Z" fill="none" stroke="#7C3852" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+</svg>

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Alpenhof Spekulatius</title>
+<defs><clipPath id="b"><path d="M22 13H78C81.5 40 81.5 70 79.5 88Q78.5 93.5 72.5 93.5H27.5Q21.5 93.5 20.5 88C18.5 70 18.5 40 22 13Z"/></clipPath></defs>
+<path d="M22 13H78C81.5 40 81.5 70 79.5 88Q78.5 93.5 72.5 93.5H27.5Q21.5 93.5 20.5 88C18.5 70 18.5 40 22 13Z" fill="#F7C948" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="21" y="10.5" width="58" height="8.5" rx="2.5" fill="#E8453C" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round"/>
+<path d="M28 14.5V17M35 14.5V17M42 14.5V17M49 14.5V17M56 14.5V17M63 14.5V17M70 14.5V17" stroke="#2A1B12" stroke-width="1.5" stroke-linecap="round"/>
+<rect x="29" y="30" width="42" height="52" rx="3" fill="#FFF1C9" stroke="#2A1B12" stroke-width="2"/>
+<text x="50" y="41" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="9.5" text-anchor="middle" fill="#7A4420">ALPEN</text>
+<path d="M50 60L38 48M50 60L62 48M50 60L38 72M50 60L62 72" stroke="#7A4420" stroke-width="4" stroke-linecap="round"/>
+<polygon points="45,80 55,80 52,64 48,64" fill="#7A4420" stroke="#2A1B12" stroke-width="1.5" stroke-linejoin="round"/>
+<circle cx="50" cy="60" r="3.2" fill="#FFF1C9" stroke="#2A1B12" stroke-width="1.5"/>
+<ellipse cx="25.5" cy="60" rx="2.5" ry="22" fill="#FFFFFF" fill-opacity="0.35"/>
+<rect x="72" y="30" width="10" height="58" fill="#000000" fill-opacity="0.12" clip-path="url(#b)"/>
+</svg>

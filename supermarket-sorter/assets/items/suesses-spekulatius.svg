@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Alpenhof Spekulatius</title>
+<defs>
+<linearGradient id="ss19b" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#E7C9A3"/><stop offset="0.22" stop-color="#D9A86B"/><stop offset="0.55" stop-color="#D9A86B"/><stop offset="0.85" stop-color="#9D774C"/><stop offset="1" stop-color="#6D5033"/></linearGradient><linearGradient id="ss19c" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#E7C9A3"/><stop offset="0.22" stop-color="#D9A86B"/><stop offset="0.55" stop-color="#D9A86B"/><stop offset="0.85" stop-color="#9D774C"/><stop offset="1" stop-color="#6D5033"/></linearGradient><linearGradient id="ss19ao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M21,19Q17,50 18.5,86Q19,94.5 26,94.5H74Q81,94.5 81.5,86Q83,50 79,19Z" fill="url(#ss19b)" stroke="#6D5033" stroke-width="1.5" stroke-opacity="0.7"/>
+<rect x="18.5" y="83.5" width="63" height="11" fill="url(#ss19ao)"/>
+<rect x="27" y="23" width="4" height="30" rx="2" fill="#FFFFFF" fill-opacity="0.25"/><rect x="68" y="23" width="3.5" height="30" rx="1.7" fill="#FFFFFF" fill-opacity="0.2"/>
+<rect x="29" y="38" width="42" height="46" rx="4" fill="#FFF7E8"/>
+<path d="M44.5,79L47,64H53L55.5,79Z" fill="#7A4A2A"/>
+<path d="M44,64L50,57L56,64Z" fill="#5D3720"/>
+<rect x="48.6" y="42" width="2.8" height="30" rx="1.2" transform="rotate(45 50 59)" fill="#7A4A2A"/><rect x="48.6" y="42" width="2.8" height="30" rx="1.2" transform="rotate(-45 50 59)" fill="#7A4A2A"/>
+<circle cx="50" cy="59" r="3" fill="#5D3720"/>
+<rect x="21" y="19" width="58" height="3" fill="#1E100A" fill-opacity="0.3"/>
+<path d="M21,13L24,10L27,13L30,10L33,13L36,10L39,13L42,10L45,13L48,10L51,13L54,10L57,13L60,10L63,13L66,10L69,13L72,10L75,13L78,10L79,13V21H21Z" fill="url(#ss19c)" stroke="#6D5033" stroke-width="1.5" stroke-opacity="0.7"/>
+</svg>

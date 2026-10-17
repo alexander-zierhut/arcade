@@ -1,0 +1,49 @@
+{
+  "category": "oils",
+  "items": [
+    {
+      "id": "oils-oliva-hill",
+      "file": "oils-oliva-hill.svg",
+      "name": "Bertollo Olivenöl",
+      "class": "bottle",
+      "color": "#3ECF6A",
+      "accent": "#FFD23F",
+      "label": "BERTOLLO",
+      "icon": "olive branch",
+      "description": "Winks at Bertolli olive oil: chunky leaf-green glass bottle with a short neck, a sun-yellow cap and a white label saying BERTOLLO over an olive branch"
+    },
+    {
+      "id": "oils-golden-petal",
+      "file": "oils-golden-petal.svg",
+      "name": "Sonnenhof Sonnenblumenöl",
+      "class": "can",
+      "color": "#FFD23F",
+      "accent": "#FF8C2E",
+      "label": "",
+      "icon": "sunflower",
+      "description": "Chunky sun-yellow oil tin (Speiseöl-Dose) with metal rims, a white label and one big orange sunflower"
+    },
+    {
+      "id": "oils-tangy-vine",
+      "file": "oils-tangy-vine.svg",
+      "name": "Rebenhof Rotweinessig",
+      "class": "jar",
+      "color": "#9D7BFF",
+      "accent": "#FF5A4E",
+      "label": "",
+      "icon": "grape bunch",
+      "description": "Chunky glass jar of lavender red wine vinegar (Rotweinessig) with a coral-red screw lid and a bunch of grapes on a cream label"
+    },
+    {
+      "id": "oils-bamboo-bay",
+      "file": "oils-bamboo-bay.svg",
+      "name": "Kikkoma Sojasauce",
+      "class": "bottle",
+      "color": "#FF6FB5",
+      "accent": "#FF5A4E",
+      "label": "KIKKOMA",
+      "icon": "soybean pod",
+      "description": "Winks at Kikkoman soy sauce: squat table dispenser with a red cone pouring cap and a cream label with a red band saying KIKKOMA over a soybean pod (body candy pink so its hue stays 60 degrees from the yellow tin)"
+    }
+  ]
+}

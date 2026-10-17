@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Federhof Räucherpute</title>
+<defs>
+<linearGradient id="lgb" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#7EE5DD"/><stop offset="0.22" stop-color="#2FD5C8"/><stop offset="0.55" stop-color="#2FD5C8"/><stop offset="0.85" stop-color="#2A968B"/><stop offset="1" stop-color="#25635A"/></linearGradient>
+<linearGradient id="lgc" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FF9991"/><stop offset="0.22" stop-color="#FF5A4E"/><stop offset="0.55" stop-color="#FF5A4E"/><stop offset="0.85" stop-color="#B74238"/><stop offset="1" stop-color="#7C2F27"/></linearGradient>
+<linearGradient id="lgao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M19.4,28H80.6L76.9,88.5Q76.5,94.5 70.5,94.5H29.5Q23.5,94.5 23.1,88.5Z" fill="url(#lgb)" stroke="#25635A" stroke-width="1.5" stroke-opacity="0.7"/>
+<path d="M22.9,83.5H77.1L76.9,88.5Q76.5,94.5 70.5,94.5H29.5Q23.5,94.5 23.1,88.5Z" fill="url(#lgao)"/>
+<path d="M20.6,42Q50,45.5 79.4,42L77,76Q50,79.5 23,76Z" fill="#FFF7E8"/>
+<ellipse cx="50" cy="58" rx="5" ry="11" transform="rotate(-55 50 70)" fill="#FF5A4E"/>
+<ellipse cx="50" cy="58" rx="5" ry="11" transform="rotate(55 50 70)" fill="#FF5A4E"/>
+<ellipse cx="50" cy="58" rx="5" ry="11" fill="#FF9991"/>
+<ellipse cx="50" cy="72" rx="9" ry="7" fill="#B74238"/>
+<circle cx="50" cy="62" r="4.5" fill="#B74238"/>
+<path d="M48,65L52,65L50,69Z" fill="#FF5A4E"/>
+<path d="M19.5,29.5Q50,35 80.5,29.5V31.8Q50,37.3 19.5,31.8Z" fill="#1E100A" fill-opacity="0.3"/>
+<path d="M19,22V29Q50,35 81,29V22Z" fill="url(#lgc)" stroke="#7C2F27" stroke-width="1.5" stroke-opacity="0.7"/>
+<ellipse cx="50" cy="22" rx="31" ry="5.6" fill="#FF9991" stroke="#7C2F27" stroke-width="1.5" stroke-opacity="0.7"/>
+<ellipse cx="50" cy="22" rx="25.5" ry="4.3" fill="#B74238" fill-opacity="0.3"/>
+<rect x="34" y="36" width="4.6" height="42" rx="2.3" fill="#FFFFFF" fill-opacity="0.55"/>
+</svg>

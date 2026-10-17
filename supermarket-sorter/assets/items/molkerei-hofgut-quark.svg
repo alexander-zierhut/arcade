@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Exquiso Speisequark</title>
+<defs>
+<linearGradient id="aw" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFFAF1"/><stop offset="0.22" stop-color="#FFF7E8"/><stop offset="0.55" stop-color="#FFF7E8"/><stop offset="0.85" stop-color="#B7ADA1"/><stop offset="1" stop-color="#7C7167"/></linearGradient>
+<linearGradient id="ag" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#87E1A3"/><stop offset="0.22" stop-color="#3ECF6A"/><stop offset="0.55" stop-color="#3ECF6A"/><stop offset="0.85" stop-color="#34924B"/><stop offset="1" stop-color="#2B6032"/></linearGradient>
+<linearGradient id="aao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M20,26H80L75.7,91Q75.4,94.5 72,94.5H28Q24.6,94.5 24.3,91Z" fill="url(#aw)" stroke="#7C7167" stroke-width="1.5" stroke-opacity="0.7"/>
+<path d="M23.9,83.5H76.1L75.7,91Q75.4,94.5 72,94.5H28Q24.6,94.5 24.3,91Z" fill="url(#aao)"/>
+<path d="M21,41Q35,35 50,41T79,41L77,76Q50,80 23,76Z" fill="url(#ag)"/>
+<path d="M20,28.5Q50,34 80,28.5V31.2Q50,36.7 20,31.2Z" fill="#1E100A" fill-opacity="0.3"/>
+<text x="50" y="55" font-size="11" font-family="Arial, Helvetica, sans-serif" font-weight="900" text-anchor="middle" fill="#FFFFFF">EXQUISO</text>
+<path d="M42,72Q40,67 45,65.5Q44.5,61 50,59Q55.5,61 55,65.5Q60,67 58,72Z" fill="#FFFFFF"/>
+<rect x="33" y="40" width="4.5" height="42" rx="2.2" fill="#FFFFFF" fill-opacity="0.55"/>
+<path d="M19,20.5V28Q50,33.5 81,28V20.5Z" fill="url(#ag)" stroke="#2B6032" stroke-width="1.5" stroke-opacity="0.7"/>
+<ellipse cx="50" cy="20.5" rx="31" ry="5" fill="#87E1A3"/>
+<ellipse cx="50" cy="20.5" rx="25" ry="3.6" fill="#3ECF6A"/>
+<rect x="23" y="22" width="3" height="5" rx="1.5" fill="#FFFFFF" fill-opacity="0.5"/>
+</svg>

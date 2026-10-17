@@ -1,0 +1,49 @@
+{
+  "category": "asia",
+  "items": [
+    {
+      "id": "asia-seeblick-sushi",
+      "file": "asia-seeblick-sushi.svg",
+      "name": "Noriko Sushi-Box",
+      "class": "box",
+      "color": "#3B6CFF",
+      "accent": "#FFF7E8",
+      "label": "",
+      "icon": "two maki rolls in a window",
+      "description": "Upright cobalt-blue sushi box with a cream lid carrying the word NORIKO and a dark window showing two maki rolls"
+    },
+    {
+      "id": "asia-drachenhof-teigtaschen",
+      "file": "asia-drachenhof-teigtaschen.svg",
+      "name": "Drachenhof Teigtaschen",
+      "class": "bag",
+      "color": "#3ECF6A",
+      "accent": "#FFD23F",
+      "label": "",
+      "icon": "steamed dumpling",
+      "description": "Standing green dumpling pouch with a golden crimped seal and a cream window showing a pleated dumpling with a seared base, labelled DRACHEN"
+    },
+    {
+      "id": "asia-landlust-fruehlingsrollen",
+      "file": "asia-landlust-fruehlingsrollen.svg",
+      "name": "Bambusgarten Frühlingsrollen",
+      "class": "loose",
+      "color": "#FFD23F",
+      "accent": "#3ECF6A",
+      "label": "BAMBUS",
+      "icon": "three spring rolls standing in a tray",
+      "description": "Natural, no parody: three golden spring rolls standing upright in a cream tray with a green BAMBUS band, cut ends showing a green and orange filling"
+    },
+    {
+      "id": "asia-tannenblick-reisschale",
+      "file": "asia-tannenblick-reisschale.svg",
+      "name": "Tannenblick Reisschale",
+      "class": "tub",
+      "color": "#FF6FB5",
+      "accent": "#FF5A4E",
+      "label": "",
+      "icon": "rice bowl",
+      "description": "Pink ready-meal tub with a cream lid and red chopsticks, a cream label with a red rice bowl icon, labelled TANNE"
+    }
+  ]
+}

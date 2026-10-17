@@ -1,0 +1,49 @@
+{
+  "category": "household",
+  "items": [
+    {
+      "id": "household-bubbly-brook",
+      "file": "household-bubbly-brook.svg",
+      "name": "Prill Spülmittel",
+      "class": "bottle",
+      "color": "#3ECF6A",
+      "accent": "#FFF7E8",
+      "label": "PRILL",
+      "icon": "flower",
+      "description": "Parody of the green Pril dish soap bottle: fat glossy green squeeze bottle with a cream cap, a white label with a pink flower and the word PRILL"
+    },
+    {
+      "id": "household-breezy-blue",
+      "file": "household-breezy-blue.svg",
+      "name": "Persill Vollwaschmittel",
+      "class": "box",
+      "color": "#4FB6FF",
+      "accent": "#3ECF6A",
+      "label": "PERSILL",
+      "icon": "t-shirt",
+      "description": "Parody of the Persil detergent box: sky-blue upright box with a white wordmark panel reading PERSILL in red above a green disc with a white t-shirt"
+    },
+    {
+      "id": "household-happy-scrub",
+      "file": "household-happy-scrub.svg",
+      "name": "Schrubbfix Putzschwämme",
+      "class": "loose",
+      "color": "#FFD23F",
+      "accent": "#3ECF6A",
+      "label": "",
+      "icon": "drop",
+      "description": "Two stacked yellow scrubbing sponges with green scouring tops, the lower one wrapped in a cream sleeve with a green drop"
+    },
+    {
+      "id": "household-bin-buddy",
+      "file": "household-bin-buddy.svg",
+      "name": "Tonnenfreund Müllbeutel",
+      "class": "bag",
+      "color": "#FF6FB5",
+      "accent": "#FFD23F",
+      "label": "",
+      "icon": "bin",
+      "description": "Standing pink bin bag with a crimped top, a yellow seal band and a white label showing a pink bin"
+    }
+  ]
+}

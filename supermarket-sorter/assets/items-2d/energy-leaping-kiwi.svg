@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Hüpfkiwi Grüner Smoothie</title>
+<path d="M25 25L50 11.5L75 25V93.5H25Z" fill="#3FA34D" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M25 25L50 11.5L75 25Z" fill="#FFFFFF" fill-opacity="0.2"/>
+<path d="M25 25H75" fill="none" stroke="#2A1B12" stroke-width="2"/>
+<rect x="66" y="27" width="7.5" height="65" fill="#000000" fill-opacity="0.12"/>
+<rect x="27" y="30" width="3" height="60" rx="1.5" fill="#FFFFFF" fill-opacity="0.35"/>
+<rect x="31" y="36" width="38" height="46" rx="3" fill="#FFF6E0" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+<text x="50" y="46" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="900" text-anchor="middle" fill="#1F6B33">HÜPF</text>
+<circle cx="50" cy="61" r="12.5" fill="#8C5A2B" stroke="#2A1B12" stroke-width="2"/>
+<circle cx="50" cy="61" r="10.5" fill="#9BCB3C"/>
+<circle cx="50" cy="61" r="3" fill="#FFF6E0"/>
+<path d="M57.5 61h0M55.3 66.3h0M50 68.5h0M44.7 66.3h0M42.5 61h0M44.7 55.7h0M50 53.5h0M55.3 55.7h0" fill="none" stroke="#2A1B12" stroke-width="2.2" stroke-linecap="round"/>
+<text x="50" y="79" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="900" text-anchor="middle" fill="#1F6B33">GRÜN</text>
+</svg>

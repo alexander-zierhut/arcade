@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Wischi Küchenrolle</title>
+<defs>
+<linearGradient id="pmhzb" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#87E1A3"/><stop offset="0.22" stop-color="#3ECF6A"/><stop offset="0.55" stop-color="#3ECF6A"/><stop offset="0.85" stop-color="#34924B"/><stop offset="1" stop-color="#2B6032"/></linearGradient>
+<linearGradient id="pmhzao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+<linearGradient id="pmhzsh" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="0.6" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.28"/></linearGradient>
+</defs>
+<path d="M22,16V88.5A28,5 0 0 0 78,88.5V16Z" fill="url(#pmhzb)" stroke="#2B6032" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<path d="M22,80H78V88.5A28,5 0 0 1 22,88.5Z" fill="url(#pmhzao)"/>
+<path d="M22,40Q50,50 78,40V74Q50,84 22,74Z" fill="#FFFFFF"/>
+<path d="M22,40Q50,50 78,40V74Q50,84 22,74Z" fill="url(#pmhzsh)"/>
+<path d="M50,52C50,52 43.5,60 43.5,64.5A6.5,6.5 0 0 0 56.5,64.5C56.5,60 50,52 50,52Z" fill="#4FB6FF"/>
+<ellipse cx="47.5" cy="65" rx="1.2" ry="2.6" fill="#FFFFFF" fill-opacity="0.7"/>
+<ellipse cx="50" cy="16" rx="28" ry="5" fill="#FFFAF1" stroke="#7C7167" stroke-width="1.5" stroke-opacity="0.5"/>
+<ellipse cx="50" cy="16.3" rx="9" ry="3.3" fill="#AD8F7B"/>
+<ellipse cx="50" cy="17" rx="7.3" ry="2.6" fill="#5D3720"/>
+</svg>

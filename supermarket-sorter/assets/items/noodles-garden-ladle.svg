@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Gartenkelle Gemüsesuppe</title>
+<defs>
+<linearGradient id="hb" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#85A4FF"/><stop offset="0.22" stop-color="#3B6CFF"/><stop offset="0.55" stop-color="#3B6CFF"/><stop offset="0.85" stop-color="#324FB1"/><stop offset="1" stop-color="#2A3771"/></linearGradient>
+<linearGradient id="hm" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#DCDCDC"/><stop offset="0.22" stop-color="#B4B4B4"/><stop offset="0.55" stop-color="#B4B4B4"/><stop offset="0.85" stop-color="#8E8E8E"/><stop offset="1" stop-color="#5A5A5A"/></linearGradient>
+<linearGradient id="hc" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFFAF1"/><stop offset="0.22" stop-color="#FFF7E8"/><stop offset="0.55" stop-color="#FFF7E8"/><stop offset="0.85" stop-color="#B7ADA1"/><stop offset="1" stop-color="#7C7167"/></linearGradient>
+<linearGradient id="hao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M22,20V90Q50,99 78,90V20Z" fill="url(#hb)" stroke="#2A3771" stroke-width="1.5" stroke-opacity="0.7"/>
+<path d="M22,20V26Q50,32 78,26V20Z" fill="url(#hm)"/>
+<path d="M22,86Q50,92 78,86V90Q50,99 22,90Z" fill="url(#hm)"/>
+<path d="M22,82V90Q50,99 78,90V82Z" fill="url(#hao)"/>
+<rect x="35.4" y="30" width="4.5" height="52" rx="2.2" fill="#FFFFFF" fill-opacity="0.55"/>
+<path d="M22,38Q50,43 78,38V80Q50,85 22,80Z" fill="url(#hc)"/>
+<path d="M40,59H60Q60,70 50,70Q40,70 40,59Z" fill="#3B6CFF"/>
+<ellipse cx="50" cy="59" rx="10" ry="2" fill="#85A4FF"/>
+<path d="M45.5,55Q43.5,52.5 45.5,50.5M54.5,55Q52.5,52.5 54.5,50.5" fill="none" stroke="#324FB1" stroke-width="2" stroke-linecap="round"/>
+<ellipse cx="50" cy="20" rx="28" ry="5" fill="#DCDCDC"/>
+<ellipse cx="50" cy="20.3" rx="24.5" ry="4" fill="#B4B4B4"/>
+<rect x="53" y="17.8" width="9" height="4.2" rx="2.1" fill="#8E8E8E"/>
+</svg>

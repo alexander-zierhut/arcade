@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Omas Beste Lasagne</title>
+<defs>
+<linearGradient id="plf" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#87E1A3"/><stop offset="0.35" stop-color="#3ECF6A"/><stop offset="1" stop-color="#3ECF6A"/></linearGradient>
+<linearGradient id="plao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M19.5,18L29.5,8H80.5V83.8L70.5,93.8H19.5Z" fill="#34924B" stroke="#2B6032" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<rect x="19.5" y="18" width="51" height="75.8" fill="url(#plf)"/>
+<path d="M19.5,18L29.5,8H80.5L70.5,18Z" fill="#87E1A3"/>
+<path d="M19.5,83H80.5V83.8L70.5,93.8H19.5Z" fill="url(#plao)"/>
+<rect x="70" y="18" width="1" height="75.8" fill="#2B6032" fill-opacity="0.5"/>
+<rect x="19.5" y="18" width="51" height="2" fill="#1E100A" fill-opacity="0.12"/>
+<rect x="24" y="28" width="42" height="52" rx="4" fill="#FFF7E8"/>
+<path d="M31,48V43Q31,38 36,38H54Q59,38 59,43V48Z" fill="#FFD23F"/>
+<rect x="31" y="48" width="28" height="6" fill="#FF5A4E"/>
+<rect x="31" y="54" width="28" height="5" fill="#FFE388"/>
+<path d="M31,59H59V64Q59,69 54,69H36Q31,69 31,64Z" fill="#B74238"/>
+</svg>

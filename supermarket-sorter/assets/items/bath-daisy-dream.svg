@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Blumi Körpercreme</title>
+<defs>
+<linearGradient id="b8" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFE388"/><stop offset="0.22" stop-color="#FFD23F"/><stop offset="0.55" stop-color="#FFD23F"/><stop offset="0.85" stop-color="#B7942E"/><stop offset="1" stop-color="#7C6120"/></linearGradient>
+<linearGradient id="c8" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFB87D"/><stop offset="0.22" stop-color="#FF8C2E"/><stop offset="0.55" stop-color="#FF8C2E"/><stop offset="0.85" stop-color="#B76422"/><stop offset="1" stop-color="#7C4419"/></linearGradient>
+<linearGradient id="ao8" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M20,32L25,89.3A26,4.7 0 0 0 75,89.3L80,32Z" fill="url(#b8)" stroke="#7C6120" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<path d="M24.5,82L25,89.3A26,4.7 0 0 0 75,89.3L75.5,82Q50,87 24.5,82Z" fill="url(#ao8)"/>
+<path d="M21.5,46Q50,52 78.5,46L76.5,76Q50,82 23.5,76Z" fill="#FFFFFF"/>
+<circle cx="50" cy="55.5" r="5" fill="#FF8C2E"/><circle cx="56.3" cy="60" r="5" fill="#FF8C2E"/><circle cx="53.9" cy="67.4" r="5" fill="#FF8C2E"/><circle cx="46.1" cy="67.4" r="5" fill="#FF8C2E"/><circle cx="43.7" cy="60" r="5" fill="#FF8C2E"/>
+<circle cx="50" cy="62.2" r="3.6" fill="#FFD23F"/>
+<path d="M20.5,32.5A30.5,5.6 0 0 0 79.5,32.5V35A30.5,5.6 0 0 1 20.5,35Z" fill="#1E100A" fill-opacity="0.3"/>
+<path d="M19,22V31A31,5.6 0 0 0 81,31V22Z" fill="url(#c8)" stroke="#7C4419" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<ellipse cx="50" cy="22" rx="31" ry="5.6" fill="#FFB87D"/>
+<ellipse cx="50" cy="22" rx="25" ry="3.8" fill="#FF8C2E"/>
+<rect x="34" y="42" width="4.5" height="40" rx="2.25" fill="#FFFFFF" fill-opacity="0.55"/>
+</svg>

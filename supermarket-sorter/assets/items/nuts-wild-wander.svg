@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Seebärger Studentenfutter</title>
+<defs>
+<linearGradient id="nww20f" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#FFA6D1"/><stop offset="0.35" stop-color="#FF6FB5"/><stop offset="1" stop-color="#FF6FB5"/></linearGradient>
+<linearGradient id="nww20s" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#B7517E"/><stop offset="1" stop-color="#7C3852"/></linearGradient>
+<linearGradient id="nww20ao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M71.5,14L80.5,9V88.5L71.5,93.5Z" fill="url(#nww20s)"/>
+<path d="M19.5,14H71.5V93.5H19.5Z" fill="url(#nww20f)"/>
+<path d="M19.5,14L28.5,9H80.5L71.5,14Z" fill="#FFA6D1"/>
+<rect x="19.5" y="20" width="52" height="20" fill="#FFFFFF"/>
+<text x="45.5" y="35" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="900" text-anchor="middle" textLength="44" lengthAdjust="spacingAndGlyphs" fill="#B7517E">BÄRGER</text>
+<circle cx="45.5" cy="64" r="18" fill="#FFF7E8"/>
+<g transform="translate(40 62) rotate(-25) scale(0.8)"><path d="M0-15C6.5-9 9-1 8 5C7 11 3.5 14.5 0 14.5S-7 11-8 5C-9-1-6.5-9 0-15Z" fill="#C98A45"/></g>
+<g transform="translate(53 68) rotate(12) scale(0.75)"><path d="M-7-7C-3-7-1-5 0-5S3-7 7-7C11-7 14-4 14 0S11 7 7 7C3 7 1 5 0 5S-3 7-7 7C-11 7-14 4-14 0S-11-7-7-7Z" fill="#D9A05B"/></g>
+<circle cx="44.5" cy="54" r="3.6" fill="#5D3720"/>
+<circle cx="54.5" cy="56" r="3.6" fill="#5D3720"/>
+<circle cx="48.5" cy="77" r="3.6" fill="#5D3720"/>
+<path d="M19.5,82.5H71.5V93.5H19.5Z" fill="url(#nww20ao)"/>
+<path d="M71.5,83.5L80.5,78.5V88.5L71.5,93.5Z" fill="url(#nww20ao)"/>
+<path d="M71.5,14V93.5" stroke="#B7517E" stroke-width="1"/>
+<path d="M19.5,14L28.5,9H80.5V88.5L71.5,93.5H19.5Z" fill="none" stroke="#7C3852" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+</svg>

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Hofgut Guacamole</title>
+<path d="M22,28L27,91Q27.5,93.5 30,93.5H70Q72.5,93.5 73,91L78,28Z" fill="#3FA34D" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M69,28H78L73,93.5H67Z" fill="#000000" fill-opacity="0.12"/>
+<rect x="25" y="36" width="3.5" height="50" rx="1.7" fill="#FFFFFF" fill-opacity="0.35"/>
+<rect x="20" y="21" width="60" height="7" rx="3" fill="#FFF6E0" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<ellipse cx="50" cy="20.5" rx="26" ry="3.5" fill="#A5D04A" stroke="#2A1B12" stroke-width="2"/>
+<circle cx="40" cy="20" r="1.4" fill="#E8453C"/>
+<circle cx="55" cy="21" r="1.4" fill="#E8453C"/>
+<circle cx="62" cy="19.5" r="1.2" fill="#E8453C"/>
+<polygon points="46,19 52,17.5 50,22" fill="#F7C948" stroke="#2A1B12" stroke-width="1.2" stroke-linejoin="round"/>
+<rect x="32" y="40" width="36" height="34" rx="4" fill="#FFF6E0" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M50,47C57,47 61,55 61,61C61,69 56,74 50,74C44,74 39,69 39,61C39,55 43,47 50,47Z" fill="#2E7D32" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<ellipse cx="50" cy="61.5" rx="7" ry="8.5" fill="#C9E265"/>
+<circle cx="50" cy="63" r="4" fill="#8C5A2B" stroke="#2A1B12" stroke-width="1.5"/>
+</svg>

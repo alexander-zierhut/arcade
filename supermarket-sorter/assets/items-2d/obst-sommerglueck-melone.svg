@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Sommerglück Wassermelone</title>
+<circle cx="50" cy="42" r="28" fill="#3FA34D" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M50 14Q36 42 50 70M50 14Q64 42 50 70M50 14Q24 40 40 66M50 14Q76 40 60 66" fill="none" stroke="#1F6B33" stroke-width="2.5" stroke-linecap="round"/>
+<path d="M50 14V10" fill="none" stroke="#8C5A2B" stroke-width="3" stroke-linecap="round"/>
+<rect x="26" y="31" width="48" height="13" rx="3" fill="#FFF6E0" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="50" y="41" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="900" text-anchor="middle" fill="#2A1B12">SOMMER</text>
+<ellipse cx="33" cy="42" rx="3" ry="9" transform="rotate(8 33 42)" fill="#FFFFFF" fill-opacity="0.35"/>
+<path d="M72 30C77 40 76 52 70 62C73 52 73 40 69 30Z" fill="#000000" fill-opacity="0.12"/>
+<path d="M20 64H80A30 29.5 0 0 1 20 64Z" fill="#3FA34D" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M25 64H75A25 24 0 0 1 25 64Z" fill="#E4F4B0"/>
+<path d="M28 64H72A22 21 0 0 1 28 64Z" fill="#F2455A"/>
+<ellipse cx="40" cy="73" rx="1.8" ry="2.8" fill="#2A1B12"/>
+<ellipse cx="50" cy="78" rx="1.8" ry="2.8" fill="#2A1B12"/>
+<ellipse cx="60" cy="73" rx="1.8" ry="2.8" fill="#2A1B12"/>
+<path d="M20 64H80" fill="none" stroke="#2A1B12" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+</svg>

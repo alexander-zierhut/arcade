@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Onkel Benno Reis</title>
+<rect x="19" y="8" width="62" height="85.5" rx="3" fill="#F28C28" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M71 8H78Q81 8 81 11V90.5Q81 93.5 78 93.5H71Z" fill="#000000" fill-opacity="0.12"/>
+<rect x="21.5" y="10.5" width="4.5" height="80" rx="2.2" fill="#FFFFFF" fill-opacity="0.35"/>
+<rect x="19" y="8" width="62" height="5" rx="3" fill="#FFFFFF" fill-opacity="0.2"/>
+<rect x="23" y="15" width="54" height="26" rx="6" fill="#1F3A5F" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+<text x="50" y="25" font-size="9" font-family="Arial, Helvetica, sans-serif" font-weight="900" text-anchor="middle" fill="#F7C948">ONKEL</text>
+<text x="50" y="37" font-size="12" font-family="Arial, Helvetica, sans-serif" font-weight="900" text-anchor="middle" fill="#FFFFFF">BENNO</text>
+<rect x="24" y="46" width="52" height="42" rx="5" fill="#FFF1C9" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+<path d="M32 70Q33 51 50 51Q67 51 68 70Z" fill="#FFFFFF" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="43" cy="60" rx="3" ry="1.4" transform="rotate(-30 43 60)" fill="#FFF6E0" stroke="#2A1B12" stroke-width="1.2"/>
+<ellipse cx="52" cy="57" rx="3" ry="1.4" transform="rotate(20 52 57)" fill="#FFF6E0" stroke="#2A1B12" stroke-width="1.2"/>
+<ellipse cx="58" cy="64" rx="3" ry="1.4" transform="rotate(-20 58 64)" fill="#FFF6E0" stroke="#2A1B12" stroke-width="1.2"/>
+<ellipse cx="42" cy="66" rx="3" ry="1.4" transform="rotate(25 42 66)" fill="#FFF6E0" stroke="#2A1B12" stroke-width="1.2"/>
+<path d="M29 69H71Q69 84 50 84Q31 84 29 69Z" fill="#E8453C" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+</svg>

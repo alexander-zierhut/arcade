@@ -1,0 +1,49 @@
+{
+  "category": "pantry",
+  "items": [
+    {
+      "id": "pantry-curly-cove",
+      "file": "pantry-curly-cove.svg",
+      "name": "Barillo Spaghetti",
+      "class": "box",
+      "color": "#3B6CFF",
+      "accent": "#FF5A4E",
+      "label": "BARILLO",
+      "icon": "spaghetti window",
+      "description": "Parody of the blue Barilla spaghetti box: upright cobalt box with a cream name plaque reading BARILLO in red and a window showing golden spaghetti strands"
+    },
+    {
+      "id": "pantry-paddy-pal",
+      "file": "pantry-paddy-pal.svg",
+      "name": "Onkel Benno Reis",
+      "class": "box",
+      "color": "#FF8C2E",
+      "accent": "#3B6CFF",
+      "label": "BENNO",
+      "icon": "rice bowl",
+      "description": "Parody of the orange Uncle Ben's rice box: orange upright box with a dark blue banner reading BENNO and a blue bowl heaped with white rice"
+    },
+    {
+      "id": "pantry-mill-meadow",
+      "file": "pantry-mill-meadow.svg",
+      "name": "Kornlicht Weizenmehl",
+      "class": "bag",
+      "color": "#3ECF6A",
+      "accent": "#7A4A2A",
+      "label": "",
+      "icon": "wheat ear",
+      "description": "Chunky leaf-green flour sack with a gathered neck tied by a brown band and a cream oval label with one wheat ear"
+    },
+    {
+      "id": "pantry-sparkle-sweet",
+      "file": "pantry-sparkle-sweet.svg",
+      "name": "Süsszucker Feinzucker",
+      "class": "bag",
+      "color": "#FFF7E8",
+      "accent": "#3B6CFF",
+      "label": "SÜSS",
+      "icon": "sun with sugar beet",
+      "description": "Parody of the Südzucker sugar pack: cream paper pack with blue crimped top and bottom stripe, the word SÜSS and a yellow sun around a blue sugar beet"
+    }
+  ]
+}

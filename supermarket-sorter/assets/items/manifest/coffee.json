@@ -1,0 +1,49 @@
+{
+  "category": "coffee",
+  "items": [
+    {
+      "id": "coffee-dusky-ridge",
+      "file": "coffee-dusky-ridge.svg",
+      "name": "Jakoby Krönung",
+      "class": "box",
+      "color": "#1E8F4A",
+      "accent": "#FFD23F",
+      "label": "JAKOBY",
+      "icon": "gold crown",
+      "description": "Upright lavender vacuum-sealed ground coffee brick pack with a gold crown above a white band with the word JAKOBY; winks at Jacobs Krönung"
+    },
+    {
+      "id": "coffee-willow-brook",
+      "file": "coffee-willow-brook.svg",
+      "name": "Mesmer Pfefferminztee",
+      "class": "box",
+      "color": "#2FD5C8",
+      "accent": "#FFF7E8",
+      "label": "MESMER",
+      "icon": "steaming teacup",
+      "description": "Tall turquoise tea box with the word MESMER on top and a cream panel with a steaming peppermint tea cup on a saucer; winks at Meßmer tea boxes"
+    },
+    {
+      "id": "coffee-zip-brew",
+      "file": "coffee-zip-brew.svg",
+      "name": "Neskaffee Gold",
+      "class": "jar",
+      "color": "#FF5A4E",
+      "accent": "#7A4A2A",
+      "label": "NESKAFFE",
+      "icon": "coffee bean",
+      "description": "Instant coffee glass jar in coral red with a chocolate-brown screw lid and a white label band with a coffee bean and NESKAFFE; winks at Nescafé Gold"
+    },
+    {
+      "id": "coffee-lemon-lark",
+      "file": "coffee-lemon-lark.svg",
+      "name": "Pfannier Eistee Pfirsich",
+      "class": "carton",
+      "color": "#A6E22E",
+      "accent": "#FF8C2E",
+      "label": "PFANNIER",
+      "icon": "peach",
+      "description": "Tall lime-green gable-top iced tea carton with an orange cap, a white label with PFANNIER and a big peach; winks at Pfanner Eistee Pfirsich"
+    }
+  ]
+}

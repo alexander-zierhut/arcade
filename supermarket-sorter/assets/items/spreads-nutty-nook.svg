@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Nutello Nuss-Nougat-Creme</title>
+<defs>
+<linearGradient id="snn18b" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#AD8F7B"/><stop offset="0.22" stop-color="#7A4A2A"/><stop offset="0.55" stop-color="#7A4A2A"/><stop offset="0.85" stop-color="#5D3720"/><stop offset="1" stop-color="#452817"/></linearGradient><linearGradient id="snn18c" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFFAF1"/><stop offset="0.22" stop-color="#FFF7E8"/><stop offset="0.55" stop-color="#FFF7E8"/><stop offset="0.85" stop-color="#B7ADA1"/><stop offset="1" stop-color="#7C7167"/></linearGradient><linearGradient id="snn18ao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M20,35Q20,28 27,28H73Q80,28 80,35V88Q80,94.5 73,94.5H27Q20,94.5 20,88Z" fill="url(#snn18b)" stroke="#452817" stroke-width="1.5" stroke-opacity="0.7"/>
+<rect x="20" y="83.5" width="60" height="11" fill="url(#snn18ao)"/>
+<path d="M20,42Q50,46 80,42V80Q50,84 20,80Z" fill="#FFF7E8"/>
+<path d="M36,66Q34,59 41,59Q45,57 49,59Q56,59 54,66V77H36Z" fill="#E0963C"/><path d="M39,67Q38,62 42,62Q45,60.5 48,62Q52,62 51,67V74H39Z" fill="#7A4A2A"/><circle cx="60" cy="72" r="4.5" fill="#5D3720"/><circle cx="67" cy="67" r="4.5" fill="#5D3720"/>
+<text x="50" y="56" font-family="Arial, Helvetica, sans-serif" font-weight="900" text-anchor="middle" font-size="13" textLength="46" lengthAdjust="spacingAndGlyphs" fill="#B74238">NUTELLO</text>
+<rect x="21" y="28" width="58" height="3" fill="#1E100A" fill-opacity="0.3"/>
+<rect x="20" y="17" width="60" height="11" rx="2" fill="url(#snn18c)" stroke="#7C7167" stroke-width="1.5" stroke-opacity="0.7"/>
+<ellipse cx="50" cy="17" rx="30" ry="5" fill="#FFFAF1"/>
+<ellipse cx="50" cy="17" rx="24" ry="3.8" fill="#B7ADA1" fill-opacity="0.45"/>
+<rect x="34.5" y="36" width="4.8" height="42" rx="2.4" fill="#FFFFFF" fill-opacity="0.55"/>
+<rect x="72" y="40" width="1.8" height="36" rx="0.9" fill="#FFFFFF" fill-opacity="0.3"/>
+<rect x="25" y="19" width="3.5" height="6" rx="1.7" fill="#FFFFFF" fill-opacity="0.5"/>
+</svg>

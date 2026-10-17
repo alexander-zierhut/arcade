@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Krümi Schokoladenkuchen</title>
+<defs>
+<linearGradient id="kscf" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#85A4FF"/><stop offset="0.35" stop-color="#3B6CFF"/><stop offset="1" stop-color="#3B6CFF"/></linearGradient>
+<linearGradient id="kscs" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#324FB1"/><stop offset="1" stop-color="#2A3771"/></linearGradient>
+<linearGradient id="kscao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<rect x="19" y="15" width="52" height="79.5" fill="url(#kscf)" stroke="#2A3771" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<path d="M71,15L81,7V86.5L71,94.5Z" fill="url(#kscs)" stroke="#2A3771" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<rect x="23" y="32" width="44" height="44" rx="3" fill="#FFF7E8"/>
+<path d="M33,54V66A12,3.6 0 0 0 57,66V54Z" fill="#7A4A2A"/><ellipse cx="45" cy="54" rx="12" ry="3.6" fill="#5D3720"/>
+<path d="M33,54V59Q34.5,61 36,58Q37.5,64 39.5,58Q41.5,61 43,57L43,54Z" fill="#5D3720"/><ellipse cx="42" cy="53.5" rx="4" ry="1" fill="#AD8F7B"/>
+<circle cx="47" cy="50.5" r="3.2" fill="#D9A86B"/>
+<path d="M19,83.5H71V94.5H19Z" fill="url(#kscao)"/>
+<path d="M71,83.5L81,75.5V86.5L71,94.5Z" fill="url(#kscao)"/>
+<path d="M19,15H71L81,7H29Z" fill="#85A4FF" stroke="#2A3771" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+</svg>

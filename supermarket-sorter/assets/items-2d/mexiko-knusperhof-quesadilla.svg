@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Alt El Paso Taco Kit</title>
+<path d="M21,14H73V93.5H21Z" fill="#FAD02E" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M73,14L79,8.5V88L73,93.5Z" fill="#E8A21E" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M73,14L79,8.5V88L73,93.5Z" fill="#000000" fill-opacity="0.12"/>
+<path d="M21,14L27,8.5H79L73,14Z" fill="#FAD02E" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M21,14L27,8.5H79L73,14Z" fill="#FFFFFF" fill-opacity="0.2"/>
+<rect x="64" y="14" width="9" height="79.5" fill="#000000" fill-opacity="0.12"/>
+<rect x="24" y="18" width="46" height="26" rx="3" fill="#D93A2B" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+<text x="47" y="28.5" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="900" text-anchor="middle" fill="#FFFFFF">ALT EL</text>
+<text x="47" y="41" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="900" text-anchor="middle" fill="#FAD02E">PASO</text>
+<circle cx="47" cy="68" r="19" fill="#FFF6E0" stroke="#2A1B12" stroke-width="2"/>
+<path d="M30,74C30,50 64,50 64,74Z" fill="#E8A21E" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+<path d="M33,64Q37,58 41,64T49,64T57,64T61,66" fill="none" stroke="#3FA34D" stroke-width="3" stroke-linecap="round"/>
+<circle cx="42" cy="68" r="2.4" fill="#D93A2B"/>
+<circle cx="52" cy="67" r="2.4" fill="#D93A2B"/>
+<rect x="24" y="84" width="46" height="6" rx="2" fill="#D93A2B" stroke="#2A1B12" stroke-width="1.5"/>
+<rect x="23.5" y="46" width="3.5" height="36" rx="1.7" fill="#FFFFFF" fill-opacity="0.35"/>
+</svg>

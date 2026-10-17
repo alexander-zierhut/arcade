@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Hofgut Gulaschtopf</title>
+<defs>
+<linearGradient id="gulb" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#C2ADFF"/><stop offset="0.22" stop-color="#9D7BFF"/><stop offset="0.55" stop-color="#9D7BFF"/><stop offset="0.85" stop-color="#7459B1"/><stop offset="1" stop-color="#533D71"/></linearGradient>
+<linearGradient id="gulc" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFE388"/><stop offset="0.25" stop-color="#FFD23F"/><stop offset="0.6" stop-color="#FFD23F"/><stop offset="0.88" stop-color="#B7942E"/><stop offset="1" stop-color="#7C6120"/></linearGradient>
+<linearGradient id="gulw" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFFAF1"/><stop offset="0.22" stop-color="#FFF7E8"/><stop offset="0.55" stop-color="#FFF7E8"/><stop offset="0.85" stop-color="#B7ADA1"/><stop offset="1" stop-color="#7C7167"/></linearGradient>
+<linearGradient id="gulao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M22,34Q22,28 28,28H72Q78,28 78,34V88Q78,94.5 71,94.5H29Q22,94.5 22,88Z" fill="url(#gulb)" stroke="#533D71" stroke-width="1.5" stroke-opacity="0.7"/>
+<rect x="22" y="82.5" width="56" height="12" fill="url(#gulao)"/>
+<path d="M22.5,46Q50,49 77.5,46V78Q50,81 22.5,78Z" fill="url(#gulw)"/>
+<path d="M37,57H63Q63,71 50,71Q37,71 37,57Z" fill="#FFD23F"/>
+<ellipse cx="50" cy="57" rx="13" ry="3.2" fill="#FF5A4E"/>
+<ellipse cx="45" cy="56.5" rx="3.6" ry="2.2" fill="#7A4A2A"/>
+<ellipse cx="55" cy="57" rx="3.6" ry="2.2" fill="#7A4A2A"/>
+<rect x="23" y="28" width="54" height="2.5" fill="#1E100A" fill-opacity="0.3"/>
+<rect x="21" y="16" width="58" height="12" rx="2.5" fill="url(#gulc)" stroke="#7C6120" stroke-width="1.5" stroke-opacity="0.7"/>
+<ellipse cx="50" cy="16" rx="29" ry="2.8" fill="#FFE388"/>
+<rect x="27" y="18" width="3" height="8" rx="1.5" fill="#FFFFFF" fill-opacity="0.5"/>
+<rect x="30" y="38" width="4.5" height="40" rx="2.2" fill="#FFFFFF" fill-opacity="0.55"/>
+<rect x="70" y="38" width="2" height="36" rx="1" fill="#FFFFFF" fill-opacity="0.3"/>
+</svg>

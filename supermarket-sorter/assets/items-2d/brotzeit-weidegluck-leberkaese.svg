@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Weidenzauber Leberkäse</title>
+<path d="M24,16Q30,8 37,14Q43,8 50,14Q57,8 63,14Q70,8 76,16L80,30Q82,52 80,72Q79.5,92 73,93.5H27Q20.5,92 20,72Q18,52 20,30Z" fill="#E9529A" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M27,23.5Q50,27.5 73,23.5" fill="none" stroke="#2A1B12" stroke-width="1.5" stroke-linecap="round"/>
+<rect x="26" y="38" width="48" height="42" rx="4" fill="#FFF6E0" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="50" y="52" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="900" text-anchor="middle" fill="#2A1B12">WEIDEN</text>
+<rect x="35" y="57" width="30" height="22" rx="9" fill="#A5593A" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="39" y="61" width="22" height="14" rx="6" fill="#F2A0B8"/>
+<rect x="22.5" y="34" width="3.5" height="52" rx="2" fill="#FFFFFF" fill-opacity="0.35"/>
+<path d="M72,30H79.5Q82,52 80,72Q79.5,91 73.5,92.5Q76,70 72,30Z" fill="#000000" fill-opacity="0.12"/>
+</svg>

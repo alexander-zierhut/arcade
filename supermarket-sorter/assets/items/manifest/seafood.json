@@ -1,0 +1,49 @@
+{
+  "category": "seafood",
+  "items": [
+    {
+      "id": "seafood-coral-cove",
+      "file": "seafood-coral-cove.svg",
+      "name": "Nordmeer Gambas",
+      "class": "bag",
+      "color": "#FFD23F",
+      "accent": "#FF8C2E",
+      "label": "",
+      "icon": "shrimp",
+      "description": "Sun-yellow frozen shrimp (Gambas) standing pouch with a crimped orange seal and a cream label showing one curled orange shrimp; not a parody, no text"
+    },
+    {
+      "id": "seafood-maple-stream",
+      "file": "seafood-maple-stream.svg",
+      "name": "Küstenfang Lachsfilet",
+      "class": "loose",
+      "color": "#3ECF6A",
+      "accent": "#FF5A4E",
+      "label": "",
+      "icon": "fish on a label band",
+      "description": "Natural proportions: green supermarket tray with two stacked coral-red salmon fillets and a cream label band with a small fish, not a parody, no text"
+    },
+    {
+      "id": "seafood-dippy-dock",
+      "file": "seafood-dippy-dock.svg",
+      "name": "Frosti Fischstäbchen",
+      "class": "box",
+      "color": "#3B6CFF",
+      "accent": "#FFD23F",
+      "label": "FROSTI",
+      "icon": "golden fish fingers on a plate",
+      "description": "Parody of the blue Frosta/Iglo-style fish fingers box: upright cobalt box with a cream top band reading FROSTI and three golden fish fingers on a cream plate"
+    },
+    {
+      "id": "seafood-snappy-claw",
+      "file": "seafood-snappy-claw.svg",
+      "name": "Meeresbrise Krabbenstäbchen",
+      "class": "loose",
+      "color": "#FF6FB5",
+      "accent": "#FF5A4E",
+      "label": "",
+      "icon": "crab on a label band",
+      "description": "Natural proportions: four red-and-white crab sticks standing in a candy-pink tray with a cream label band showing a small crab, not a parody, no text"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Sonnenhof Cracker</title>
+<defs>
+<linearGradient id="kcf" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#87E1A3"/><stop offset="0.35" stop-color="#3ECF6A"/><stop offset="1" stop-color="#3ECF6A"/></linearGradient>
+<linearGradient id="kcao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M68.5,18L80.5,10V86.5L68.5,94.5Z" fill="#34924B" stroke="#2B6032" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<path d="M19.5,18L31.5,10H80.5L68.5,18Z" fill="#87E1A3" stroke="#2B6032" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<rect x="19.5" y="18" width="49" height="76.5" rx="1.5" fill="url(#kcf)" stroke="#2B6032" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<rect x="19.5" y="83.5" width="49" height="11" fill="url(#kcao)"/>
+<path d="M68.5,83.5L80.5,76V86.5L68.5,94.5Z" fill="url(#kcao)"/>
+<rect x="24" y="30" width="40" height="52" rx="3" fill="#FFF7E8"/>
+<g transform="translate(44 56) rotate(-10)"><rect x="-11" y="-11" width="22" height="22" rx="3.5" fill="#D9A86B"/><circle cx="-5" cy="-5" r="1.8" fill="#9D774C"/><circle cx="5" cy="-5" r="1.8" fill="#9D774C"/><circle cx="-5" cy="5" r="1.8" fill="#9D774C"/><circle cx="5" cy="5" r="1.8" fill="#9D774C"/></g>
+</svg>

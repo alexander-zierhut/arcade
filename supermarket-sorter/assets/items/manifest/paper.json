@@ -1,0 +1,49 @@
+{
+  "category": "paper",
+  "items": [
+    {
+      "id": "paper-mop-hop",
+      "file": "paper-mop-hop.svg",
+      "name": "Wischi Küchenrolle",
+      "class": "can",
+      "color": "#3ECF6A",
+      "accent": "#FFFFFF",
+      "label": "",
+      "icon": "water drop",
+      "description": "Fat leaf green kitchen roll standing on end with a cream paper top and brown core, and a white label band with a big blue water drop"
+    },
+    {
+      "id": "paper-fern-fluff",
+      "file": "paper-fern-fluff.svg",
+      "name": "Wolki Taschentücher",
+      "class": "box",
+      "color": "#FF6FB5",
+      "accent": "#FFFFFF",
+      "label": "",
+      "icon": "cloud",
+      "description": "Candy pink tissue box with a lighter top face, a cream tissue pulled out of the slot, and a blue cloud on a white front panel"
+    },
+    {
+      "id": "paper-picnic-pal",
+      "file": "paper-picnic-pal.svg",
+      "name": "Wiesi Partyservietten",
+      "class": "bag",
+      "color": "#FFD23F",
+      "accent": "#FF5A4E",
+      "label": "",
+      "icon": "flower",
+      "description": "Sun yellow party napkin pouch with a coral red zigzag top seal and a red flower on a round cream label"
+    },
+    {
+      "id": "paper-twinkle-wrap",
+      "file": "paper-twinkle-wrap.svg",
+      "name": "Glanzi Alufolie",
+      "class": "box",
+      "color": "#4FB6FF",
+      "accent": "#FFFFFF",
+      "label": "",
+      "icon": "star",
+      "description": "Sky blue aluminium foil box with a white lid band, a silver zigzag cutter edge, and a yellow star on a navy panel"
+    }
+  ]
+}

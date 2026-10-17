@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Spezzi Cola-Orange</title>
+<defs>
+<linearGradient id="oldoak-b" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#AD8F7B"/><stop offset="0.22" stop-color="#7A4A2A"/><stop offset="0.55" stop-color="#7A4A2A"/><stop offset="0.85" stop-color="#5D3720"/><stop offset="1" stop-color="#452817"/></linearGradient>
+<linearGradient id="oldoak-c" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFB87D"/><stop offset="0.22" stop-color="#FF8C2E"/><stop offset="0.55" stop-color="#FF8C2E"/><stop offset="0.85" stop-color="#B76422"/><stop offset="1" stop-color="#7C4419"/></linearGradient>
+<linearGradient id="oldoak-ao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+<linearGradient id="oldoak-sh" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFFFFF" stop-opacity="0.3"/><stop offset="0.25" stop-color="#FFFFFF" stop-opacity="0"/><stop offset="0.6" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.4"/></linearGradient>
+</defs>
+<path d="M40.5,22V32C40.5,40 27,40 27,54V87Q27,93.5 33.5,93.5H66.5Q73,93.5 73,87V54C73,40 59.5,40 59.5,32V22Z" fill="url(#oldoak-b)" stroke="#452817" stroke-width="1.5" stroke-opacity="0.7"/>
+<path d="M27,82.5H73V87Q73,93.5 66.5,93.5H33.5Q27,93.5 27,87Z" fill="url(#oldoak-ao)"/>
+<path d="M27.5,53Q50,56.5 72.5,53V80Q50,83.5 27.5,80Z" fill="#FFF7E8"/>
+<path d="M27.5,53Q50,56.5 72.5,53V80Q50,83.5 27.5,80Z" fill="url(#oldoak-sh)"/>
+<text x="50" y="65" font-size="12" font-weight="900" font-family="Arial, Helvetica, sans-serif" text-anchor="middle" textLength="36" lengthAdjust="spacingAndGlyphs" fill="#5D3720">SPEZZI</text>
+<circle cx="50" cy="73.5" r="6.5" fill="#FF8C2E"/>
+<circle cx="50" cy="73.5" r="4.8" fill="#FFB87D"/>
+<path d="M45.2,73.5H54.8M46.6,70.1L53.4,76.9M53.4,70.1L46.6,76.9" fill="none" stroke="#FFF7E8" stroke-width="1" stroke-linecap="round"/>
+<rect x="40.5" y="23" width="19" height="2" fill="#1E100A" fill-opacity="0.3"/>
+<rect x="37" y="12" width="26" height="11" rx="2" fill="url(#oldoak-c)" stroke="#7C4419" stroke-width="1.5" stroke-opacity="0.7"/>
+<ellipse cx="50" cy="12" rx="13" ry="2.6" fill="#FFB87D"/>
+<rect x="39" y="14" width="3" height="7" rx="1.5" fill="#FFFFFF" fill-opacity="0.5"/>
+<rect x="38.2" y="40" width="3.7" height="34" rx="1.9" fill="#FFFFFF" fill-opacity="0.5"/>
+<rect x="66.5" y="48" width="1.8" height="30" rx="0.9" fill="#FFFFFF" fill-opacity="0.25"/>
+</svg>

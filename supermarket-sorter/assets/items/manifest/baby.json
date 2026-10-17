@@ -1,0 +1,49 @@
+{
+  "category": "baby",
+  "items": [
+    {
+      "id": "baby-little-pip",
+      "file": "baby-little-pip.svg",
+      "name": "Hippo Birne",
+      "class": "jar",
+      "color": "#3B6CFF",
+      "accent": "#FFF7E8",
+      "label": "HIPPO",
+      "icon": "smiling pear",
+      "description": "Winks at a Hipp baby food jar: blue glass jar with a cream lid, a white label reading HIPPO and a smiling pear where the baby face would be"
+    },
+    {
+      "id": "baby-milky-moon",
+      "file": "baby-milky-moon.svg",
+      "name": "Mondschein Babymilch",
+      "class": "can",
+      "color": "#3ECF6A",
+      "accent": "#FFD23F",
+      "label": "",
+      "icon": "crescent moon",
+      "description": "Green baby milk tin with metal rims and a yellow plastic lid, a yellow crescent moon and a cream label with the word MONDI"
+    },
+    {
+      "id": "baby-dapper-duck",
+      "file": "baby-dapper-duck.svg",
+      "name": "Bärli Windeln",
+      "class": "bag",
+      "color": "#FFD23F",
+      "accent": "#7A4A2A",
+      "label": "",
+      "icon": "teddy bear",
+      "description": "Tall honey-yellow diaper pack with a brown crimped top seal and a cream label with a brown teddy bear and the word BÄRLI"
+    },
+    {
+      "id": "baby-puff-pals",
+      "file": "baby-puff-pals.svg",
+      "name": "Wölki Feuchttücher",
+      "class": "box",
+      "color": "#FF6FB5",
+      "accent": "#4FB6FF",
+      "label": "",
+      "icon": "smiling cloud",
+      "description": "Tall pink wet wipes pack with a white flip-top lid and a cream label with a blue cloud and the word WÖLKI"
+    }
+  ]
+}

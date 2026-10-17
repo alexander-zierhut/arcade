@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Sonnenhof Maiskolben</title>
+<ellipse cx="38" cy="36" rx="11" ry="27" fill="#F7C948" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" transform="translate(0 0)"/>
+<path d="M33 14V56M38 10V60M43 14V56M29 24Q38 28 47 24M28 34Q38 38 48 34M28 44Q38 48 48 44" fill="none" stroke="#2A1B12" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" transform="translate(0 0)"/>
+<path d="M26 44C26 62 29 76 38 82C47 76 50 62 50 44C45 58 31 58 26 44Z" fill="#6DBE45" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" transform="translate(0 0)"/>
+<path d="M38 60V78M31 58Q30 68 33 76M45 58Q46 68 43 76" fill="none" stroke="#2A1B12" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" transform="translate(0 0)"/>
+<path d="M26 44C21 36 20 26 22 18C28 26 30 34 31 44Z" fill="#6DBE45" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" transform="translate(0 0)"/>
+<path d="M50 44C55 36 56 26 54 18C48 26 46 34 45 44Z" fill="#6DBE45" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" transform="translate(0 0)"/>
+<ellipse cx="38" cy="36" rx="11" ry="27" fill="#F7C948" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" transform="translate(24 8)"/>
+<path d="M33 14V56M38 10V60M43 14V56M29 24Q38 28 47 24M28 34Q38 38 48 34M28 44Q38 48 48 44" fill="none" stroke="#2A1B12" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" transform="translate(24 8)"/>
+<path d="M26 44C26 62 29 76 38 82C47 76 50 62 50 44C45 58 31 58 26 44Z" fill="#6DBE45" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" transform="translate(24 8)"/>
+<path d="M38 60V78M31 58Q30 68 33 76M45 58Q46 68 43 76" fill="none" stroke="#2A1B12" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" transform="translate(24 8)"/>
+<path d="M26 44C21 36 20 26 22 18C28 26 30 34 31 44Z" fill="#6DBE45" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" transform="translate(24 8)"/>
+<path d="M50 44C55 36 56 26 54 18C48 26 46 34 45 44Z" fill="#6DBE45" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" transform="translate(24 8)"/>
+<ellipse cx="30.5" cy="32" rx="2.2" ry="9" fill="#FFFFFF" fill-opacity="0.35"/>
+<path d="M80 62C79 70 76 78 71 84C76 78 78 68 78 60Z" fill="#000000" fill-opacity="0.12"/>
+<path d="M18 74H82L79 93.5H21Z" fill="#C98F4A" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="27" y="78" width="46" height="12" rx="2" fill="#FFF6E0" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="50" y="87" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="900" text-anchor="middle" fill="#2A1B12">SONNE</text>
+</svg>

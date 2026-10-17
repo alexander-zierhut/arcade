@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Omas Beste Obatzda</title>
+<path d="M21,34H79L76,88Q75.5,93.5 70,93.5H30Q24.5,93.5 24,88Z" fill="#3FA34D" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M24,29C26,19.5 38,17 50,17C62,17 74,19.5 76,29Z" fill="#F6A54A" stroke="#2A1B12" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M35,24L38,22M52,22L55,20.5M62,27L65,25.5" fill="none" stroke="#9BCB3C" stroke-width="2.5" stroke-linecap="round"/>
+<rect x="19" y="28" width="62" height="8" rx="3" fill="#FFF6E0" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="28" y="43" width="44" height="39" rx="3" fill="#FFF6E0" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="50" y="54.5" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="900" text-anchor="middle" fill="#2A1B12">OMAS</text>
+<g transform="translate(50 68) scale(0.8) translate(-50 -67.5)">
+<path d="M41,57C37,64 39,73 47,80C50,81.5 52.5,79 52,75C57,71 60,64 58,57C54,56 46,56 41,57Z" fill="#E8453C" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M47,58C47.5,55 50,53.5 54,54" fill="none" stroke="#3FA34D" stroke-width="3" stroke-linecap="round"/>
+<ellipse cx="45" cy="64" rx="1.8" ry="3.2" fill="#FFFFFF" fill-opacity="0.6"/>
+</g>
+<rect x="25" y="40" width="4" height="46" rx="2" fill="#FFFFFF" fill-opacity="0.35"/>
+<path d="M68,38H76L72.5,87Q71.5,92 67.5,92.5Q70,88 68,38Z" fill="#000000" fill-opacity="0.12"/>
+</svg>

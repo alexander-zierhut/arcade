@@ -1,0 +1,49 @@
+{
+  "category": "juice",
+  "items": [
+    {
+      "id": "juice-sunny-grove",
+      "file": "juice-sunny-grove.svg",
+      "name": "Hohes Z Orange",
+      "class": "bottle",
+      "color": "#FF8C2E",
+      "accent": "#FFD23F",
+      "label": "HOHES",
+      "icon": "big Z in orange circle",
+      "description": "Winks at Hohes C orange juice: glossy orange juice bottle with a yellow cap and a white label with HOHES and a big Z in an orange circle"
+    },
+    {
+      "id": "juice-orchard-joy",
+      "file": "juice-orchard-joy.svg",
+      "name": "Granino Apfelsaft",
+      "class": "bottle",
+      "color": "#3ECF6A",
+      "accent": "#FF5A4E",
+      "label": "GRANINO",
+      "icon": "apple with leaf",
+      "description": "Winks at the granini juice bottle: fat green apple juice bottle with a red cap and a white label with GRANINO and a red apple"
+    },
+    {
+      "id": "juice-bramble-bay",
+      "file": "juice-bramble-bay.svg",
+      "name": "Bergi Holundersaft",
+      "class": "jar",
+      "color": "#9D7BFF",
+      "accent": "#FFD23F",
+      "label": "",
+      "icon": "elderberry cluster",
+      "description": "Wide lavender glass jar with a gold screw lid and a white label with BERGI and a bunch of elderberries"
+    },
+    {
+      "id": "juice-garden-zing",
+      "file": "juice-garden-zing.svg",
+      "name": "Safti Melonensaft",
+      "class": "can",
+      "color": "#FF6FB5",
+      "accent": "#DCDCDC",
+      "label": "",
+      "icon": "watermelon slice",
+      "description": "Candy-pink juice can with silver rims and a white label with SAFTI and a red and green watermelon slice"
+    }
+  ]
+}

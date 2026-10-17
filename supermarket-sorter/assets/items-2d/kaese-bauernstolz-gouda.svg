@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Bauernstolz Gouda</title>
+<path d="M24 93.5L32 12Q78 40 77.5 93.5Z" fill="#E8453C"/>
+<path d="M30.5 88.5L35 34Q64 50 70 88.5Z" fill="#F39A1E"/>
+<path d="M68 62Q76 74 76 91H71Q71 76 66 64Z" fill="#000000" fill-opacity="0.12"/>
+<circle cx="45" cy="62" r="2.6" fill="#D98512" stroke="#2A1B12" stroke-width="1.2" stroke-linejoin="round"/>
+<circle cx="57" cy="68" r="2.2" fill="#D98512" stroke="#2A1B12" stroke-width="1.2" stroke-linejoin="round"/>
+<circle cx="41" cy="72" r="1.8" fill="#D98512" stroke="#2A1B12" stroke-width="1.2" stroke-linejoin="round"/>
+<text x="51" y="83" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="900" text-anchor="middle" fill="#2A1B12">STOLZ</text>
+<rect x="34" y="50" width="3.5" height="20" rx="1.8" fill="#FFFFFF" fill-opacity="0.35"/>
+<path d="M30.5 88.5L35 34Q64 50 70 88.5Z" fill="none" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+<path d="M24 93.5L32 12Q78 40 77.5 93.5Z" fill="none" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round"/>
+</svg>

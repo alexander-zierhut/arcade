@@ -1,0 +1,49 @@
+{
+  "category": "brotzeit",
+  "items": [
+    {
+      "id": "brotzeit-hofgut-laugenbrezel",
+      "file": "brotzeit-hofgut-laugenbrezel.svg",
+      "name": "Hofgut Laugenbrezel",
+      "class": "loose",
+      "color": "#E0963C",
+      "accent": "#FFF7E8",
+      "label": "",
+      "icon": "pretzel",
+      "description": "Two golden lye pretzels with a few salt crystals, one lying and one leaning against it, no packaging; the classic Bavarian Laugenbrezel"
+    },
+    {
+      "id": "brotzeit-alpenhof-weisswuerste",
+      "file": "brotzeit-alpenhof-weisswuerste.svg",
+      "name": "Alpenhof Weißwürste",
+      "class": "jar",
+      "color": "#4FB6FF",
+      "accent": "#3B6CFF",
+      "label": "ALPEN",
+      "icon": "white sausages",
+      "description": "Glass jar of sky-blue brine with a cobalt screw lid, two plump white sausages and a white label with the word ALPEN; winks at the Bavarian Weißwürste in the jar"
+    },
+    {
+      "id": "brotzeit-weidegluck-leberkaese",
+      "file": "brotzeit-weidegluck-leberkaese.svg",
+      "name": "Weidenzauber Leberkäse",
+      "class": "bag",
+      "color": "#FF6FB5",
+      "accent": "#FF8C2E",
+      "label": "",
+      "icon": "Leberkaese slice",
+      "description": "Standing candy-pink pouch with a crimped top seal and a cream label with a big Leberkaese slice icon, no text"
+    },
+    {
+      "id": "brotzeit-omas-beste-obatzda",
+      "file": "brotzeit-omas-beste-obatzda.svg",
+      "name": "Omas Beste Obatzda",
+      "class": "tub",
+      "color": "#3ECF6A",
+      "accent": "#FF8C2E",
+      "label": "",
+      "icon": "red chili pepper",
+      "description": "Wide leaf-green tub with a cream rim, an open orange Obatzda spread dome with chives and a cream label with a big red chili pepper"
+    }
+  ]
+}

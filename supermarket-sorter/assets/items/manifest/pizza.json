@@ -1,0 +1,49 @@
+{
+  "category": "pizza",
+  "items": [
+    {
+      "id": "pizza-knusperhof-pizzastueck",
+      "file": "pizza-knusperhof-pizzastueck.svg",
+      "name": "Knusperhof Pizzastück",
+      "class": "loose",
+      "color": "#FFD23F",
+      "accent": "#D9A86B",
+      "label": "",
+      "icon": "pizza slice",
+      "description": "Natural pizza slice with cheese, three salami rounds and a basil leaf, tip-down in a kraft cardboard tray with a cream label band and a salami dot"
+    },
+    {
+      "id": "pizza-omas-beste-lasagne",
+      "file": "pizza-omas-beste-lasagne.svg",
+      "name": "Omas Beste Lasagne",
+      "class": "box",
+      "color": "#3ECF6A",
+      "accent": "#FFF7E8",
+      "label": "",
+      "icon": "lasagne layers",
+      "description": "Upright leaf-green cardboard box with a cream front panel and a big lasagne square: golden cheese, red sauce, pasta and sauce layers"
+    },
+    {
+      "id": "pizza-landlust-sugo",
+      "file": "pizza-landlust-sugo.svg",
+      "name": "Mütti Polpa",
+      "class": "can",
+      "color": "#FF5A4E",
+      "accent": "#FFFFFF",
+      "label": "MÜTTI",
+      "icon": "tomato",
+      "description": "Coral red tomato can with metal rims and a white band reading MÜTTI over one big tomato; winks at the Italian Mutti Polpa chopped tomato can"
+    },
+    {
+      "id": "pizza-muehlenbaeck-knoblauchbrot",
+      "file": "pizza-muehlenbaeck-knoblauchbrot.svg",
+      "name": "Mühlenbäck Knoblauchbrot",
+      "class": "bag",
+      "color": "#3B6CFF",
+      "accent": "#FFD23F",
+      "label": "",
+      "icon": "garlic bread loaf",
+      "description": "Standing cobalt foil bag with a zigzag top and sun-yellow seal band, a cream label with a golden garlic bread loaf with green herbs"
+    }
+  ]
+}

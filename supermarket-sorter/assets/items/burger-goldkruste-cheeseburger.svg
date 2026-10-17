@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Goldkruste Cheeseburger</title>
+<defs>
+<linearGradient id="bgc_b" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#F0B764"/><stop offset="0.22" stop-color="#E0963C"/><stop offset="0.55" stop-color="#E0963C"/><stop offset="0.85" stop-color="#B86A24"/><stop offset="1" stop-color="#8A4D18"/></linearGradient>
+<linearGradient id="bgc_p" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#AD8F7B"/><stop offset="0.22" stop-color="#7A4A2A"/><stop offset="0.55" stop-color="#7A4A2A"/><stop offset="0.85" stop-color="#5D3720"/><stop offset="1" stop-color="#452817"/></linearGradient>
+<linearGradient id="bgc_y" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFE388"/><stop offset="0.4" stop-color="#FFD23F"/><stop offset="1" stop-color="#B7942E"/></linearGradient>
+<linearGradient id="bgc_l" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#C8ED7D"/><stop offset="0.4" stop-color="#A6E22E"/><stop offset="1" stop-color="#7A9F22"/></linearGradient>
+<linearGradient id="bgc_t" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FF9991"/><stop offset="0.4" stop-color="#FF5A4E"/><stop offset="1" stop-color="#B74238"/></linearGradient>
+<linearGradient id="bgc_ao" x1="0" x2="0" y1="0" y2="1"><stop offset="0.4" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M19,78H81V87Q81,94 74,94H26Q19,94 19,87Z" fill="url(#bgc_b)" stroke="#7C4419" stroke-width="1.5" stroke-opacity="0.7"/>
+<path d="M19,78H81V87Q81,94 74,94H26Q19,94 19,87Z" fill="url(#bgc_ao)"/>
+<rect x="20" y="65" width="60" height="13" rx="6.5" fill="url(#bgc_p)"/>
+<path d="M20,63H80V67H73Q72,74 68,74Q64,74 63,67H41Q40,71 37,71Q34,71 33,67H20Z" fill="url(#bgc_y)"/>
+<rect x="21" y="57" width="58" height="7.5" rx="3.7" fill="url(#bgc_t)"/>
+<path d="M19,51Q19,49 22,49H78Q81,49 81,51Q81,54 78,55.5Q74,60.5 70,55.5Q66,60.5 62,55.5Q58,60.5 54,55.5Q50,60.5 46,55.5Q42,60.5 38,55.5Q34,60.5 30,55.5Q26,60.5 22,55.5Q19,54 19,51Z" fill="url(#bgc_l)"/>
+<path d="M19,46V32Q19,14 50,14Q81,14 81,32V46Q81,49.5 77,49.5H23Q19,49.5 19,46Z" fill="url(#bgc_b)" stroke="#7C4419" stroke-width="1.5" stroke-opacity="0.7"/>
+<ellipse cx="33" cy="24" rx="2.6" ry="1.4" transform="rotate(-25 33 24)" fill="#FFF7E8"/>
+<ellipse cx="44" cy="19" rx="2.6" ry="1.4" transform="rotate(15 44 19)" fill="#FFF7E8"/>
+<ellipse cx="56" cy="20" rx="2.6" ry="1.4" transform="rotate(-10 56 20)" fill="#FFF7E8"/>
+<ellipse cx="67" cy="25" rx="2.6" ry="1.4" transform="rotate(20 67 25)" fill="#FFF7E8"/>
+<ellipse cx="45" cy="31" rx="2.6" ry="1.4" transform="rotate(10 45 31)" fill="#FFF7E8"/>
+<ellipse cx="58" cy="31" rx="2.6" ry="1.4" transform="rotate(-5 58 31)" fill="#FFF7E8"/>
+<rect x="21" y="49.5" width="58" height="2.3" fill="#1E100A" fill-opacity="0.3"/>
+</svg>

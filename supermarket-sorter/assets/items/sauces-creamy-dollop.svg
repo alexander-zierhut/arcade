@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Thommy Delikatess-Mayonnaise</title>
+<defs>
+<linearGradient id="b-creamydollop" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#85A4FF"/><stop offset="0.22" stop-color="#3B6CFF"/><stop offset="0.55" stop-color="#3B6CFF"/><stop offset="0.85" stop-color="#324FB1"/><stop offset="1" stop-color="#2A3771"/></linearGradient>
+<linearGradient id="c-creamydollop" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFE388"/><stop offset="0.25" stop-color="#FFD23F"/><stop offset="0.6" stop-color="#FFD23F"/><stop offset="0.88" stop-color="#B7942E"/><stop offset="1" stop-color="#7C6120"/></linearGradient>
+<linearGradient id="ao-creamydollop" x1="0" x2="0" y1="0" y2="1"><stop offset="0.86" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M23,24H77V68Q77,76 70,80H30Q23,76 23,68Z" fill="url(#b-creamydollop)" stroke="#2A3771" stroke-width="1.5" stroke-opacity="0.7"/>
+<path d="M23,24H77V68Q77,76 70,80H30Q23,76 23,68Z" fill="url(#ao-creamydollop)"/>
+<path d="M23,12L28,10.5L33,12L38,10.5L43,12L48,10.5L53,12L58,10.5L63,12L68,10.5L73,12L77,10.5V25H23Z" fill="url(#b-creamydollop)" stroke="#2A3771" stroke-width="1.5" stroke-opacity="0.7"/>
+<rect x="23" y="24" width="54" height="2" fill="#1E100A" fill-opacity="0.3"/>
+<rect x="28" y="31" width="44" height="42" rx="9" fill="#FFD23F"/>
+<text x="50" y="45" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="900" text-anchor="middle" textLength="38" lengthAdjust="spacingAndGlyphs" fill="#324FB1">THOMMY</text>
+<ellipse cx="50" cy="66" rx="12" ry="4.5" fill="#B7ADA1"/>
+<ellipse cx="50" cy="64.5" rx="12" ry="4.5" fill="#FFF7E8"/>
+<ellipse cx="50" cy="60" rx="8.5" ry="3.6" fill="#B7ADA1"/>
+<ellipse cx="50" cy="58.5" rx="8.5" ry="3.6" fill="#FFF7E8"/>
+<path d="M45,55Q50,48 55,55Z" fill="#FFF7E8"/>
+<rect x="31" y="78" width="38" height="3" fill="#1E100A" fill-opacity="0.3"/>
+<rect x="29" y="81" width="42" height="12.5" rx="3" fill="url(#c-creamydollop)" stroke="#7C6120" stroke-width="1.5" stroke-opacity="0.7"/>
+<ellipse cx="50" cy="81" rx="21" ry="2.2" fill="#FFE388"/>
+<rect x="30" y="31" width="4" height="40" rx="2" fill="#FFFFFF" fill-opacity="0.55"/>
+</svg>

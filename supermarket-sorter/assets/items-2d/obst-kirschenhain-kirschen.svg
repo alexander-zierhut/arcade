@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Hainfee Süßkirschen</title>
+<path d="M25 21L75 21L78 28L78 86Q78 93.5 70 93.5L30 93.5Q22 93.5 22 86L22 28Z" fill="#8E2A8F"/>
+<rect x="25" y="34" width="50" height="42" rx="3" fill="#FFF6E0" stroke="#2A1B12" stroke-width="2"/>
+<text x="50" y="44" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="9" text-anchor="middle" fill="#2A1B12">HAINFEE</text>
+<path d="M42 54Q43 48 49 46M58 53Q57 48 51 46" fill="none" stroke="#2A1B12" stroke-width="1.8" stroke-linecap="round"/>
+<circle cx="42" cy="62" r="8" fill="#E8453C" stroke="#2A1B12" stroke-width="2"/>
+<circle cx="58" cy="61" r="8" fill="#E8453C" stroke="#2A1B12" stroke-width="2"/>
+<ellipse cx="39.5" cy="58.5" rx="1.8" ry="3" transform="rotate(20 39.5 58.5)" fill="#FFFFFF" fill-opacity="0.6"/>
+<ellipse cx="55.5" cy="57.5" rx="1.8" ry="3" transform="rotate(20 55.5 57.5)" fill="#FFFFFF" fill-opacity="0.6"/>
+<path d="M28 80V88" fill="none" stroke="#FFFFFF" stroke-opacity="0.5" stroke-width="1.5" stroke-linecap="round"/>
+<ellipse cx="27" cy="56" rx="2.5" ry="12" fill="#FFFFFF" fill-opacity="0.35"/>
+<path d="M66 21L75 21L78 28L78 86Q78 93.5 70 93.5L65 93.5Q68 80 68 60Q68 40 66 21Z" fill="#000000" fill-opacity="0.12"/>
+<path d="M25 21L75 21L78 28L78 86Q78 93.5 70 93.5L30 93.5Q22 93.5 22 86L22 28Z" fill="none" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="25" y="12.5" width="50" height="9" rx="2.5" fill="#F7C948" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round"/>
+</svg>

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Kräuterhof Basilikum im Topf</title>
+<defs>
+<linearGradient id="qbg" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#87E1A3"/><stop offset="0.45" stop-color="#3ECF6A"/><stop offset="1" stop-color="#34924B"/></linearGradient>
+<linearGradient id="qbb" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#92D2FF"/><stop offset="0.22" stop-color="#4FB6FF"/><stop offset="0.55" stop-color="#4FB6FF"/><stop offset="0.85" stop-color="#3F81B1"/><stop offset="1" stop-color="#335671"/></linearGradient>
+<linearGradient id="qbw" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFFFFF"/><stop offset="0.55" stop-color="#FFF7E8"/><stop offset="1" stop-color="#B7ADA1"/></linearGradient>
+<linearGradient id="qbao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M23,69L27,89.8A23,4.1 0 0 0 73,89.8L77,69Z" fill="url(#qbb)" stroke="#335671" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<path d="M26.5,83L27,89.8A23,4.1 0 0 0 73,89.8L73.5,83Z" fill="url(#qbao)"/>
+<path d="M24,74Q50,83 76,74L74.5,83Q50,92 25.5,83Z" fill="url(#qbw)"/>
+<path d="M50,86C45.5,84.9 46,78.3 50,75C54.1,78.3 54.5,84.9 50,86Z" fill="#3ECF6A"/>
+<path d="M20,60V69Q50,79.8 80,69V60Z" fill="url(#qbb)" stroke="#335671" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<path d="M21,69Q50,79.8 79,69V71.5Q50,82.3 21,71.5Z" fill="#1E100A" fill-opacity="0.3"/>
+<ellipse cx="50" cy="60" rx="30" ry="5.4" fill="#92D2FF"/>
+<ellipse cx="50" cy="60" rx="26.5" ry="4.5" fill="#5D3720"/>
+<path d="M50,66C44.1,74.6 27.2,68.1 21.5,56.7C32.8,51 50.2,55.6 50,66Z" fill="url(#qbg)"/>
+<path d="M50,66C49.8,55.6 67.2,51 78.5,56.7C72.8,68.1 55.9,74.6 50,66Z" fill="url(#qbg)"/>
+<path d="M50,65C37.1,69.4 24.1,49.2 26.5,32.6C43,35.5 58.2,54.1 50,65Z" fill="url(#qbg)"/>
+<path d="M50,65C41.8,54.1 57,35.5 73.5,32.6C75.9,49.2 62.9,69.4 50,65Z" fill="url(#qbg)"/>
+<path d="M50,66C33.4,64.1 30,35.4 41.7,18.7C58.3,30.4 64.9,58.5 50,66Z" fill="url(#qbg)"/>
+<path d="M50,66C39.5,59.2 46.6,38.8 59.9,31.4C67.3,44.8 62.5,65.8 50,66Z" fill="url(#qbg)"/>
+</svg>

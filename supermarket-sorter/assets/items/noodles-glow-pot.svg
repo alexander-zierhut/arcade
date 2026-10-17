@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Knorri Brühwürfel</title>
+<defs>
+<linearGradient id="gf" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#87E1A3"/><stop offset="0.35" stop-color="#3ECF6A"/><stop offset="1" stop-color="#3ECF6A"/></linearGradient>
+<linearGradient id="gy" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFE388"/><stop offset="0.22" stop-color="#FFD23F"/><stop offset="0.55" stop-color="#FFD23F"/><stop offset="0.85" stop-color="#B7942E"/><stop offset="1" stop-color="#7C6120"/></linearGradient>
+<linearGradient id="gcy" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#FFE388"/><stop offset="1" stop-color="#FFD23F"/></linearGradient>
+<linearGradient id="gao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M19,19H71V94.5H19Z" fill="url(#gf)" stroke="#2B6032" stroke-width="1.5" stroke-opacity="0.7"/>
+<path d="M71,19L81,12V87.5L71,94.5Z" fill="#34924B" stroke="#2B6032" stroke-width="1.5" stroke-opacity="0.7"/>
+<path d="M19,19H71L81,12H29Z" fill="#87E1A3" stroke="#2B6032" stroke-width="1.5" stroke-opacity="0.7"/>
+<path d="M19,83.5H71V94.5H19Z" fill="url(#gao)"/>
+<path d="M71,80.5L81,73.5V87.5L71,94.5Z" fill="url(#gao)"/>
+<path d="M19,30H71V46H19Z" fill="url(#gy)"/>
+<path d="M71,30L81,23V39L71,46Z" fill="#B7942E"/>
+<text x="45" y="42" font-size="12" font-family="Arial, Helvetica, sans-serif" font-weight="900" text-anchor="middle" fill="#2B6032">KNORRI</text>
+<path d="M44,56H57V69H44Z" fill="url(#gcy)"/>
+<path d="M44,56H57L62,51H49Z" fill="#FFE388"/>
+<path d="M57,56L62,51V64L57,69Z" fill="#B7942E"/>
+<path d="M27,68H40V81H27Z" fill="url(#gcy)"/>
+<path d="M27,68H40L45,63H32Z" fill="#FFE388"/>
+<path d="M40,68L45,63V76L40,81Z" fill="#B7942E"/>
+</svg>

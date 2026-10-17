@@ -1,0 +1,49 @@
+{
+  "category": "spreads",
+  "items": [
+    {
+      "id": "spreads-golden-hive",
+      "file": "spreads-golden-hive.svg",
+      "name": "Langnäse Blütenhonig",
+      "class": "bottle",
+      "color": "#FFD23F",
+      "accent": "#FF8C2E",
+      "label": "LANGNÄSE",
+      "icon": "bee",
+      "description": "Parody of the Langnese squeeze honey bottle: fat sun-yellow glossy plastic bottle with an orange flip cap with nozzle, white label band with the brand word LANGNÄSE and a bee"
+    },
+    {
+      "id": "spreads-berry-merry",
+      "file": "spreads-berry-merry.svg",
+      "name": "Bonne Oma Erdbeer-Konfitüre",
+      "class": "jar",
+      "color": "#FF5A4E",
+      "accent": "#FFF7E8",
+      "label": "BONNE OMA",
+      "icon": "strawberry",
+      "description": "Parody of the French Bonne Maman strawberry preserve: glass jar of coral-red jam with a cream lid (gingham wink: a coral inner ring), a cream label with a strawberry and BONNE OMA"
+    },
+    {
+      "id": "spreads-nutty-nook",
+      "file": "spreads-nutty-nook.svg",
+      "name": "Nutello Nuss-Nougat-Creme",
+      "class": "jar",
+      "color": "#7A4A2A",
+      "accent": "#FFF7E8",
+      "label": "NUTELLO",
+      "icon": "bread slice with spread and two hazelnuts",
+      "description": "Parody of the famous hazelnut spread: glass jar of chocolate-brown nougat cream with a cream-white screw lid, a big cream label with NUTELLO, a bread slice with spread and two hazelnuts"
+    },
+    {
+      "id": "spreads-zest-orchard",
+      "file": "spreads-zest-orchard.svg",
+      "name": "Zentus Heidelbeer-Konfitüre",
+      "class": "jar",
+      "color": "#3B6CFF",
+      "accent": "#FFD23F",
+      "label": "ZENTUS",
+      "icon": "three blueberries",
+      "description": "Parody of Zentis fruit preserve: glass jar of cobalt-blue blueberry jam with a sun-yellow gold lid and a cream label with ZENTUS and three big blueberries"
+    }
+  ]
+}

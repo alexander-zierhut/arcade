@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Granino Apfelsaft</title>
+<defs>
+<linearGradient id="grb" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#87E1A3"/><stop offset="0.22" stop-color="#3ECF6A"/><stop offset="0.55" stop-color="#3ECF6A"/><stop offset="0.85" stop-color="#34924B"/><stop offset="1" stop-color="#2B6032"/></linearGradient>
+<linearGradient id="grc" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FF9991"/><stop offset="0.22" stop-color="#FF5A4E"/><stop offset="0.55" stop-color="#FF5A4E"/><stop offset="0.85" stop-color="#B74238"/><stop offset="1" stop-color="#7C2F27"/></linearGradient>
+<linearGradient id="grao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+<linearGradient id="grw" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFFFFF"/><stop offset="0.55" stop-color="#FFFFFF"/><stop offset="0.88" stop-color="#E3DAD0"/><stop offset="1" stop-color="#B7ADA1"/></linearGradient>
+</defs>
+<path d="M38,20V26Q38,30 33,33Q26,37 26,47V89Q26,94.5 33,94.5H67Q74,94.5 74,89V47Q74,37 67,33Q62,30 62,26V20Z" fill="url(#grb)" stroke="#2B6032" stroke-width="1.5" stroke-opacity="0.7"/>
+<path d="M26,83.5H74V89Q74,94.5 67,94.5H33Q26,94.5 26,89Z" fill="url(#grao)"/>
+<path d="M27,47Q50,50 73,47V88Q50,91 27,88Z" fill="url(#grw)"/>
+<text x="50" y="58.5" font-size="11" textLength="42" lengthAdjust="spacingAndGlyphs" font-family="Arial, Helvetica, sans-serif" font-weight="900" text-anchor="middle" fill="#B74238">GRANINO</text>
+<path d="M50,68C46,64 40,66 40,73C40,80 45,84 48,83.5C49,83.3 49.5,83 50,83C50.5,83 51,83.3 52,83.5C55,84 60,80 60,73C60,66 54,64 50,68Z" fill="#FF5A4E"/>
+<path d="M50,68C50,64 52.5,62 56,61.5C56,65 53.5,67.5 50,68Z" fill="#3ECF6A"/>
+<rect x="38" y="20" width="24" height="2" fill="#1E100A" fill-opacity="0.3"/>
+<rect x="36" y="8" width="28" height="12" rx="2.5" fill="url(#grc)" stroke="#7C2F27" stroke-width="1.5" stroke-opacity="0.7"/>
+<ellipse cx="50" cy="8" rx="14" ry="2.5" fill="#FF9991"/>
+<rect x="38" y="40.4" width="3.8" height="38.7" rx="2" fill="#FFFFFF" fill-opacity="0.55"/>
+<rect x="38" y="10" width="3" height="8" rx="1.5" fill="#FFFFFF" fill-opacity="0.5"/>
+</svg>

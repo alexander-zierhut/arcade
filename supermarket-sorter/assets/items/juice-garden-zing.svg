@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Safti Melonensaft</title>
+<defs>
+<linearGradient id="sfb" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFA6D1"/><stop offset="0.22" stop-color="#FF6FB5"/><stop offset="0.55" stop-color="#FF6FB5"/><stop offset="0.85" stop-color="#B7517E"/><stop offset="1" stop-color="#7C3852"/></linearGradient>
+<linearGradient id="sfm" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#DCDCDC"/><stop offset="0.3" stop-color="#CBCBCB"/><stop offset="0.6" stop-color="#B4B4B4"/><stop offset="0.88" stop-color="#8E8E8E"/><stop offset="1" stop-color="#5A5A5A"/></linearGradient>
+<linearGradient id="sfao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+<linearGradient id="sfw" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFFFFF"/><stop offset="0.55" stop-color="#FFFFFF"/><stop offset="0.88" stop-color="#E3DAD0"/><stop offset="1" stop-color="#B7ADA1"/></linearGradient>
+</defs>
+<path d="M23,17V90.5Q50,98 77,90.5V17Z" fill="url(#sfb)" stroke="#7C3852" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<path d="M23,83Q50,95 77,83V90.5Q50,98 23,90.5Z" fill="url(#sfm)"/>
+<path d="M23,17V23Q50,33 77,23V17Z" fill="url(#sfm)"/>
+<path d="M24,35Q50,41 76,35V77Q50,83 24,77Z" fill="url(#sfw)"/>
+<path d="M23,83Q50,95 77,83V90.5Q50,98 23,90.5Z" fill="url(#sfao)"/>
+<path d="M36,58H64A14,14 0 0 1 36,58Z" fill="#3ECF6A"/>
+<path d="M39,58H61A11,11 0 0 1 39,58Z" fill="#FF5A4E"/>
+<circle cx="45" cy="63" r="1.2" fill="#7C2F27"/><circle cx="50" cy="66" r="1.2" fill="#7C2F27"/><circle cx="55" cy="63" r="1.2" fill="#7C2F27"/>
+<ellipse cx="50" cy="17" rx="27" ry="4.9" fill="#DCDCDC" stroke="#5A5A5A" stroke-width="1.5" stroke-opacity="0.7"/>
+<ellipse cx="50" cy="17.4" rx="24" ry="3.9" fill="#B4B4B4"/>
+<rect x="36" y="31" width="4.6" height="41.6" rx="2.3" fill="#FFFFFF" fill-opacity="0.55"/>
+</svg>

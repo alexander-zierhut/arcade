@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Blubbi Schaumbad</title>
+<defs>
+<linearGradient id="b5" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFA6D1"/><stop offset="0.22" stop-color="#FF6FB5"/><stop offset="0.55" stop-color="#FF6FB5"/><stop offset="0.85" stop-color="#B7517E"/><stop offset="1" stop-color="#7C3852"/></linearGradient>
+<linearGradient id="c5" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFE388"/><stop offset="0.22" stop-color="#FFD23F"/><stop offset="0.55" stop-color="#FFD23F"/><stop offset="0.85" stop-color="#B7942E"/><stop offset="1" stop-color="#7C6120"/></linearGradient>
+<linearGradient id="ao5" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M26,44Q26,34 36,31.5L38,30.5V26H62V30.5L64,31.5Q74,34 74,44V87Q74,94 67,94H33Q26,94 26,87Z" fill="url(#b5)" stroke="#7C3852" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<path d="M26,83H74V87Q74,94 67,94H33Q26,94 26,87Z" fill="url(#ao5)"/>
+<path d="M27,52Q50,55 73,52V80Q50,83 27,80Z" fill="#FFFFFF"/>
+<circle cx="42" cy="68" r="8" fill="#4FB6FF"/><circle cx="58" cy="61" r="5.5" fill="#4FB6FF"/><circle cx="57" cy="73.5" r="4" fill="#4FB6FF"/>
+<circle cx="39.5" cy="65.5" r="2.2" fill="#FFFFFF"/><circle cx="56" cy="59" r="1.5" fill="#FFFFFF"/>
+<path d="M37,26H63V28.5H37Z" fill="#1E100A" fill-opacity="0.3"/>
+<rect x="35" y="12" width="30" height="14" rx="2.5" fill="url(#c5)" stroke="#7C6120" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<ellipse cx="50" cy="12" rx="15" ry="2.7" fill="#FFE388"/>
+<rect x="37" y="40" width="4" height="38" rx="2" fill="#FFFFFF" fill-opacity="0.55"/>
+<rect x="69" y="42" width="2" height="38" rx="1" fill="#FFFFFF" fill-opacity="0.3"/>
+<rect x="37.5" y="14" width="3" height="9" rx="1.5" fill="#FFFFFF" fill-opacity="0.5"/>
+</svg>

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Glutherz Grillspieß</title>
+<path d="M36,70L31,8M64,70L69,8" fill="none" stroke="#2A1B12" stroke-width="5.5" stroke-linecap="round"/>
+<path d="M36,70L31,8M64,70L69,8" fill="none" stroke="#E3B26B" stroke-width="2.5" stroke-linecap="round"/>
+<rect x="28" y="52" width="14" height="13" rx="3" fill="#3FA34D" stroke="#2A1B12" stroke-width="2.5" stroke-linejoin="round" transform="rotate(-5 35 58)"/>
+<rect x="27.5" y="39" width="14" height="13" rx="3" fill="#B8692F" stroke="#2A1B12" stroke-width="2.5" stroke-linejoin="round" transform="rotate(-5 34.5 45)"/>
+<rect x="26.5" y="26" width="14" height="13" rx="3" fill="#E8453C" stroke="#2A1B12" stroke-width="2.5" stroke-linejoin="round" transform="rotate(-5 33.5 32)"/>
+<rect x="26" y="13" width="14" height="13" rx="3" fill="#B8692F" stroke="#2A1B12" stroke-width="2.5" stroke-linejoin="round" transform="rotate(-5 33 19)"/>
+<rect x="58" y="52" width="14" height="13" rx="3" fill="#B8692F" stroke="#2A1B12" stroke-width="2.5" stroke-linejoin="round" transform="rotate(5 65 58)"/>
+<rect x="58.5" y="39" width="14" height="13" rx="3" fill="#F7C948" stroke="#2A1B12" stroke-width="2.5" stroke-linejoin="round" transform="rotate(5 65.5 45)"/>
+<rect x="59.5" y="26" width="14" height="13" rx="3" fill="#B8692F" stroke="#2A1B12" stroke-width="2.5" stroke-linejoin="round" transform="rotate(5 66.5 32)"/>
+<rect x="60" y="13" width="14" height="13" rx="3" fill="#E8453C" stroke="#2A1B12" stroke-width="2.5" stroke-linejoin="round" transform="rotate(5 67 19)"/>
+<path d="M31,43L37,49M30,17L36,23M62,56L68,62M63,30L69,36" fill="none" stroke="#4A2410" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M21,64H79L75.5,91Q75,93.5 72,93.5H28Q25,93.5 24.5,91Z" fill="#3FA34D" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M68,66H78L75,91Q74.5,92 73,92H66Z" fill="#000000" fill-opacity="0.12"/>
+<rect x="19" y="62" width="62" height="6" rx="3" fill="#2E8A3E" stroke="#2A1B12" stroke-width="2.5" stroke-linejoin="round"/>
+<rect x="28" y="72" width="44" height="15" rx="3" fill="#FFF6E0" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+<text x="50" y="84" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="900" text-anchor="middle" fill="#E8453C">GLUT</text>
+<rect x="23" y="71" width="3" height="16" rx="1.5" fill="#FFFFFF" fill-opacity="0.35"/>
+</svg>

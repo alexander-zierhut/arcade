@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Mütti Polpa</title>
+<defs>
+<linearGradient id="pcb" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FF9991"/><stop offset="0.22" stop-color="#FF5A4E"/><stop offset="0.55" stop-color="#FF5A4E"/><stop offset="0.85" stop-color="#B74238"/><stop offset="1" stop-color="#7C2F27"/></linearGradient>
+<linearGradient id="pcm" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#DCDCDC"/><stop offset="0.45" stop-color="#B4B4B4"/><stop offset="1" stop-color="#8E8E8E"/></linearGradient>
+<linearGradient id="pcw" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFFFFF"/><stop offset="0.55" stop-color="#FFF7E8"/><stop offset="1" stop-color="#B7ADA1"/></linearGradient>
+<linearGradient id="pcao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M22.5,16V89.2A27.5,5 0 0 0 77.5,89.2V16Z" fill="url(#pcb)" stroke="#7C2F27" stroke-width="1.5" stroke-opacity="0.7"/>
+<path d="M22.5,82V89.2A27.5,5 0 0 0 77.5,89.2V82Z" fill="url(#pcao)"/>
+<path d="M22.5,34Q50,43 77.5,34V76Q50,85 22.5,76Z" fill="url(#pcw)"/>
+<text x="50" y="54" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="900" text-anchor="middle" fill="#B74238">MÜTTI</text>
+<circle cx="50" cy="68" r="8.5" fill="#FF5A4E"/>
+<path d="M50,59.5Q46,53 41,56Q45,61 50,59.5ZM50,59.5Q54,53 59,56Q55,61 50,59.5Z" fill="#3ECF6A"/>
+<path d="M22.5,16V22Q50,32 77.5,22V16Z" fill="url(#pcm)"/>
+<path d="M22.5,22Q50,32 77.5,22V24Q50,34 22.5,24Z" fill="#1E100A" fill-opacity="0.3"/>
+<path d="M22.5,82Q50,92 77.5,82V89.2A27.5,5 0 0 1 22.5,89.2Z" fill="url(#pcm)"/>
+<ellipse cx="50" cy="16" rx="27.5" ry="5" fill="#DCDCDC"/>
+<ellipse cx="50" cy="16" rx="24" ry="4" fill="#B4B4B4"/>
+<rect x="35" y="25" width="4.4" height="49" rx="2.2" fill="#FFFFFF" fill-opacity="0.55"/>
+</svg>

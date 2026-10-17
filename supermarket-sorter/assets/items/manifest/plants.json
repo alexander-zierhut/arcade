@@ -1,0 +1,49 @@
+{
+  "category": "plants",
+  "items": [
+    {
+      "id": "plants-pinkie-posy",
+      "file": "plants-pinkie-posy.svg",
+      "name": "Frühlingsgruß Tulpenstrauß",
+      "class": "loose",
+      "color": "#FF6FB5",
+      "accent": "#FFF7E8",
+      "label": "",
+      "icon": "tulip",
+      "description": "Bouquet of three candy-pink tulips with green stems and leaves in a cream paper cone with a pink fold and a sun-yellow bow"
+    },
+    {
+      "id": "plants-prickle-patch",
+      "file": "plants-prickle-patch.svg",
+      "name": "Stachelgarten Kaktus",
+      "class": "tub",
+      "color": "#3ECF6A",
+      "accent": "#FF8C2E",
+      "label": "",
+      "icon": "cactus",
+      "description": "Chunky green two-armed cactus with a pink flower in a wide terracotta-orange pot"
+    },
+    {
+      "id": "plants-happy-sprout",
+      "file": "plants-happy-sprout.svg",
+      "name": "Sonnix Sonnenblumen-Samen",
+      "class": "bag",
+      "color": "#FFD23F",
+      "accent": "#3ECF6A",
+      "label": "",
+      "icon": "sunflower",
+      "description": "Tall sun-yellow seed packet with a green zigzag-crimped top seal and a cream label with one big sunflower"
+    },
+    {
+      "id": "plants-pesto-patch",
+      "file": "plants-pesto-patch.svg",
+      "name": "Kräuterhof Basilikum im Topf",
+      "class": "loose",
+      "color": "#4FB6FF",
+      "accent": "#3ECF6A",
+      "label": "",
+      "icon": "basil leaf",
+      "description": "Bushy green basil with broad leaves in a sky-blue pot with a cream band and one leaf"
+    }
+  ]
+}

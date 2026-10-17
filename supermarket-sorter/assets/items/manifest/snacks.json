@@ -1,0 +1,49 @@
+{
+  "category": "snacks",
+  "items": [
+    {
+      "id": "snacks-spudly",
+      "file": "snacks-spudly.svg",
+      "name": "Lustig-Frisch Chipsfrisch Ungarisch",
+      "class": "bag",
+      "color": "#FF5A4E",
+      "accent": "#FFD23F",
+      "label": "CHIPS",
+      "icon": "paprika",
+      "description": "Parody of the red Chipsfrisch Ungarisch paprika crisps bag: coral red standing bag with a dark red crimped seal and a sun yellow badge with the word CHIPS above a red paprika"
+    },
+    {
+      "id": "snacks-nacho-nova",
+      "file": "snacks-nacho-nova.svg",
+      "name": "Sonnenmais Tortilla-Chips",
+      "class": "bag",
+      "color": "#3ECF6A",
+      "accent": "#FF8C2E",
+      "label": "",
+      "icon": "tortilla chip triangle",
+      "description": "Leaf green stand-up pouch of corn tortilla chips with an orange zigzag seal and a cream round label showing a golden triangle chip above the word MAIS"
+    },
+    {
+      "id": "snacks-buttercup-pop",
+      "file": "snacks-buttercup-pop.svg",
+      "name": "Kinoglück Popcorn",
+      "class": "tub",
+      "color": "#FFD23F",
+      "accent": "#FF5A4E",
+      "label": "POP",
+      "icon": "popcorn",
+      "description": "Sun yellow cinema-style popcorn tub, wider at the top, with a red rim, a heap of fluffy popcorn on top and a cream label band with the word POP"
+    },
+    {
+      "id": "snacks-salty-knot",
+      "file": "snacks-salty-knot.svg",
+      "name": "Brezli Salzbrezeln",
+      "class": "box",
+      "color": "#3B6CFF",
+      "accent": "#FF8C2E",
+      "label": "BREZLI",
+      "icon": "pretzel",
+      "description": "Parody of the Lorenz Saltletts style salted pretzel pack: cobalt upright box with an orange band reading BREZLI, an orange top flap and a cream panel with a salted pretzel"
+    }
+  ]
+}

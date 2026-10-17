@@ -1,0 +1,49 @@
+{
+  "category": "suesses",
+  "items": [
+    {
+      "id": "suesses-lebkuchenherz",
+      "file": "suesses-lebkuchenherz.svg",
+      "name": "Hofgut Lebkuchenherz",
+      "class": "loose",
+      "color": "#FF6FB5",
+      "accent": "#FFF7E8",
+      "label": "",
+      "icon": "red flower",
+      "description": "Chunky candy-pink iced gingerbread heart with a visible thick edge, a cream icing ring and a big red flower on a cream disc"
+    },
+    {
+      "id": "suesses-dominosteine",
+      "file": "suesses-dominosteine.svg",
+      "name": "Lambärtz Dominosteine",
+      "class": "box",
+      "color": "#3B6CFF",
+      "accent": "#FFD23F",
+      "label": "LAMBÄRTZ",
+      "icon": "stacked cubes",
+      "description": "Cobalt-and-gold box with a gold LAMBÄRTZ banner and a cream window with a pyramid of three Dominosteine with red jelly layers; winks at Lambertz Dominosteine"
+    },
+    {
+      "id": "suesses-spekulatius",
+      "file": "suesses-spekulatius.svg",
+      "name": "Alpenhof Spekulatius",
+      "class": "bag",
+      "color": "#D9A86B",
+      "accent": "#FFF7E8",
+      "label": "",
+      "icon": "windmill",
+      "description": "Wide cinnamon-cardboard biscuit bag with a crimped zigzag top seal and a cream label panel showing a brown windmill with four sails"
+    },
+    {
+      "id": "suesses-marzipanbrot",
+      "file": "suesses-marzipanbrot.svg",
+      "name": "Weidenzauber Marzipanbrot",
+      "class": "loose",
+      "color": "#3ECF6A",
+      "accent": "#FFD23F",
+      "label": "",
+      "icon": "almond",
+      "description": "Chunky leaf-green foil-wrapped marzipan loaf with gold twisted ends on top and a round cream label showing a big gold almond"
+    }
+  ]
+}

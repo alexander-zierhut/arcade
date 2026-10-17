@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Thommy Delikatess-Mayonnaise</title>
+<g stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+<path fill="#2F6BD6" d="M25 21 L75 21 L75 74 Q75 80 68 85 L32 85 Q25 80 25 74 Z"/>
+<rect x="25" y="9.5" width="50" height="12" rx="2" fill="#2F6BD6"/>
+<path d="M31 12.5 V18.5 M37 12.5 V18.5 M43 12.5 V18.5 M49 12.5 V18.5 M55 12.5 V18.5 M61 12.5 V18.5 M67 12.5 V18.5" fill="none" stroke-width="1.5"/>
+<rect x="32" y="85" width="36" height="8.5" rx="3" fill="#F7C948"/>
+<rect x="28.5" y="30" width="43" height="46" rx="9" fill="#F7C948" stroke-width="2"/>
+<ellipse cx="50" cy="68" rx="12" ry="4.5" fill="#FFF6E0" stroke-width="1.5"/>
+<ellipse cx="50" cy="62" rx="9" ry="4" fill="#FFF6E0" stroke-width="1.5"/>
+<ellipse cx="50" cy="56.5" rx="6" ry="3.5" fill="#FFF6E0" stroke-width="1.5"/>
+<circle cx="50" cy="53.5" r="2" fill="#FFF6E0" stroke-width="1.5"/>
+</g>
+<text x="50" y="44" font-size="9.5" textLength="37" lengthAdjust="spacingAndGlyphs" font-family="Arial, Helvetica, sans-serif" font-weight="900" text-anchor="middle" fill="#1F3A5F">THOMMY</text>
+<rect x="27" y="24" width="2.4" height="56" rx="1.2" fill="#FFFFFF" fill-opacity="0.35"/>
+<path d="M68 22 L75 22 L75 74 Q75 80 68 85 L66 85 Q70.5 55 68 22 Z" fill="#000000" fill-opacity="0.12"/>
+</svg>

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Kornlicht Landbrot</title>
+<defs>
+<linearGradient id="baheab" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#87E1A3"/><stop offset="0.22" stop-color="#3ECF6A"/><stop offset="0.55" stop-color="#3ECF6A"/><stop offset="0.85" stop-color="#34924B"/><stop offset="1" stop-color="#2B6032"/></linearGradient>
+<linearGradient id="baheas" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#3ECF6A"/><stop offset="0.22" stop-color="#34924B"/><stop offset="0.55" stop-color="#34924B"/><stop offset="0.85" stop-color="#34924B"/><stop offset="1" stop-color="#2B6032"/></linearGradient>
+<radialGradient id="bahear" cx="0.4" cy="0.3" r="0.8"><stop offset="0" stop-color="#F2B866"/><stop offset="0.6" stop-color="#E0963C"/><stop offset="1" stop-color="#B86A24"/></radialGradient>
+<linearGradient id="baheaao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+<clipPath id="baheak"><path d="M22,36C17.6,52 17.6,70 20.5,86Q21.5,93.5 29,93.5H71Q78.5,93.5 79.5,86C82.4,70 82.4,52 78,36Z"/></clipPath>
+</defs>
+<path d="M26,32C26,15 37,8.5 50,8.5S74,15 74,32Z" fill="url(#bahear)" stroke="#7C4818" stroke-width="1.5" stroke-opacity="0.7"/>
+<path d="M38,16L43,25M48,13.5L53,23M58,16L63,24" fill="none" stroke="#FFF7E8" stroke-width="2" stroke-linecap="round" stroke-opacity="0.55"/>
+<path d="M22,36C17.6,52 17.6,70 20.5,86Q21.5,93.5 29,93.5H71Q78.5,93.5 79.5,86C82.4,70 82.4,52 78,36Z" fill="url(#baheab)" stroke="#2B6032" stroke-width="1.5" stroke-opacity="0.7"/>
+<rect x="18" y="80" width="64" height="14" fill="url(#baheaao)" clip-path="url(#baheak)"/>
+<rect x="23" y="44" width="3" height="40" rx="1.5" fill="#FFFFFF" fill-opacity="0.25"/>
+<rect x="74" y="44" width="2.5" height="40" rx="1.2" fill="#FFFFFF" fill-opacity="0.2"/>
+<rect x="28" y="45" width="44" height="40" rx="4" fill="#FFF7E8"/>
+<path d="M50,69V50" fill="none" stroke="#B86A24" stroke-width="1.6" stroke-linecap="round"/>
+<path d="M50,50Q47,53 50,57Q53,53 50,50Z" fill="#E0963C"/>
+<path d="M49,57Q43,57 41.5,52Q47,52 49,57ZM49,63Q42,63 40.5,58Q46.5,58 49,63Z" fill="#E0963C"/>
+<path d="M51,57Q57,57 58.5,52Q53,52 51,57ZM51,63Q58,63 59.5,58Q53.5,58 51,63Z" fill="#E0963C"/>
+<path d="M22,30.5L24,27L26,30.5L28,27L30,30.5L32,27L34,30.5L36,27L38,30.5L40,27L42,30.5L44,27L46,30.5L48,27L50,30.5L52,27L54,30.5L56,27L58,30.5L60,27L62,30.5L64,27L66,30.5L68,27L70,30.5L72,27L74,30.5L76,27L78,30.5V36H22Z" fill="url(#baheas)" stroke="#2B6032" stroke-width="1.5" stroke-opacity="0.7"/>
+<rect x="22.5" y="36" width="55" height="2" fill="#1E100A" fill-opacity="0.3"/>
+</svg>

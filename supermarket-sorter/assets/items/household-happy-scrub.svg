@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Schrubbfix Putzschwämme</title>
+<defs>
+<linearGradient id="spy" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#FFE388"/><stop offset="0.35" stop-color="#FFD23F"/><stop offset="1" stop-color="#FFD23F"/></linearGradient>
+<linearGradient id="spg" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#87E1A3"/><stop offset="0.4" stop-color="#3ECF6A"/><stop offset="1" stop-color="#34924B"/></linearGradient>
+<linearGradient id="spao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M70,60L80,54V89L70,94.5Z" fill="#B7942E"/>
+<path d="M70,60L80,54V63L70,69Z" fill="#34924B"/>
+<path d="M70,71L80,65V84L70,90Z" fill="#B7ADA1"/>
+<path d="M18,60H70L80,54H28Z" fill="#87E1A3"/>
+<rect x="18" y="60" width="52" height="34.5" fill="url(#spy)" stroke="#7C6120" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<rect x="18" y="60" width="52" height="9" fill="url(#spg)" stroke="#2B6032" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<rect x="18" y="71" width="52" height="19" fill="#FFF7E8"/>
+<path d="M44,73.5C47,77.5 49.2,79.8 49.2,82.5A5.2,5.2 0 0 1 38.8,82.5C38.8,79.8 41,77.5 44,73.5Z" fill="#34924B"/>
+<rect x="18" y="83.5" width="52" height="11" fill="url(#spao)"/>
+<path d="M70,83.5L80,77.5V89L70,94.5Z" fill="url(#spao)"/>
+<path d="M64,31L72,26.5V54L64,58.5Z" fill="#B7942E"/>
+<path d="M64,31L72,26.5V35L64,39.5Z" fill="#34924B"/>
+<path d="M24,31H64L72,26.5H32Z" fill="#87E1A3"/>
+<rect x="24" y="31" width="40" height="27.5" fill="url(#spy)" stroke="#7C6120" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<rect x="24" y="31" width="40" height="8.5" fill="url(#spg)" stroke="#2B6032" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<rect x="24" y="49" width="40" height="9.5" fill="url(#spao)"/>
+</svg>

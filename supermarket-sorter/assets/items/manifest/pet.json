@@ -1,0 +1,49 @@
+{
+  "category": "pet",
+  "items": [
+    {
+      "id": "pet-waggle-wonder",
+      "file": "pet-waggle-wonder.svg",
+      "name": "Pedigri Hundefutter",
+      "class": "bag",
+      "color": "#FFD23F",
+      "accent": "#FF5A4E",
+      "label": "PEDIGRI",
+      "icon": "dog head",
+      "description": "Sun yellow dog food bag with a coral red band and the word PEDIGRI over a dog face on a cream disc; winks at Pedigree dog food"
+    },
+    {
+      "id": "pet-midnight-purr",
+      "file": "pet-midnight-purr.svg",
+      "name": "Whiski Katzenfutter",
+      "class": "can",
+      "color": "#FF6FB5",
+      "accent": "#9D7BFF",
+      "label": "WHISKI",
+      "icon": "cat head",
+      "description": "Candy pink cat food can with metal rims, a lavender band with the word WHISKI and a dark cat head on a cream disc; winks at Whiskas cat food"
+    },
+    {
+      "id": "pet-chirpy-nest",
+      "file": "pet-chirpy-nest.svg",
+      "name": "Piepmatz Vogelsaat",
+      "class": "box",
+      "color": "#3ECF6A",
+      "accent": "#FFD23F",
+      "label": "",
+      "icon": "bird",
+      "description": "Leaf green bird seed box with a sun yellow header band and a cream panel showing a round red crested bird"
+    },
+    {
+      "id": "pet-bubble-fin",
+      "file": "pet-bubble-fin.svg",
+      "name": "Blubberflosse Fischfutter",
+      "class": "tub",
+      "color": "#4FB6FF",
+      "accent": "#FFD23F",
+      "label": "",
+      "icon": "goldfish",
+      "description": "Sky blue fish flakes tub with a yellow lid and a cream label showing a chubby orange goldfish with a red tail"
+    }
+  ]
+}

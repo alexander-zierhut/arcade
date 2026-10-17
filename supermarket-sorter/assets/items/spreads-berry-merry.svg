@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Bonne Oma Erdbeer-Konfitüre</title>
+<defs>
+<linearGradient id="sbm19b" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FF9991"/><stop offset="0.22" stop-color="#FF5A4E"/><stop offset="0.55" stop-color="#FF5A4E"/><stop offset="0.85" stop-color="#B74238"/><stop offset="1" stop-color="#7C2F27"/></linearGradient><linearGradient id="sbm19c" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFFAF1"/><stop offset="0.22" stop-color="#FFF7E8"/><stop offset="0.55" stop-color="#FFF7E8"/><stop offset="0.85" stop-color="#B7ADA1"/><stop offset="1" stop-color="#7C7167"/></linearGradient><linearGradient id="sbm19ao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M20,35Q20,28 27,28H73Q80,28 80,35V88Q80,94.5 73,94.5H27Q20,94.5 20,88Z" fill="url(#sbm19b)" stroke="#7C2F27" stroke-width="1.5" stroke-opacity="0.7"/>
+<rect x="20" y="83.5" width="60" height="11" fill="url(#sbm19ao)"/>
+<path d="M20,42Q50,46 80,42V80Q50,84 20,80Z" fill="#FFF7E8"/>
+<path d="M42,53.5Q42,65 50,68.5Q58,65 58,53.5Q50,50 42,53.5Z" fill="#FF5A4E"/><path d="M45,53L47.5,50L50,52.5L52.5,50L55,53L50,55Z" fill="#3ECF6A"/>
+<text x="50" y="77" font-family="Arial, Helvetica, sans-serif" font-weight="900" text-anchor="middle" font-size="11" textLength="44" lengthAdjust="spacingAndGlyphs" fill="#B74238">BONNE OMA</text>
+<rect x="21" y="28" width="58" height="3" fill="#1E100A" fill-opacity="0.3"/>
+<rect x="20" y="17" width="60" height="11" rx="2" fill="url(#sbm19c)" stroke="#7C7167" stroke-width="1.5" stroke-opacity="0.7"/>
+<ellipse cx="50" cy="17" rx="30" ry="5" fill="#FFFAF1"/>
+<ellipse cx="50" cy="17" rx="24" ry="3.8" fill="#FF9991"/>
+<rect x="34.5" y="36" width="4.8" height="42" rx="2.4" fill="#FFFFFF" fill-opacity="0.55"/>
+<rect x="72" y="40" width="1.8" height="36" rx="0.9" fill="#FFFFFF" fill-opacity="0.3"/>
+<rect x="25" y="19" width="3.5" height="6" rx="1.7" fill="#FFFFFF" fill-opacity="0.5"/>
+</svg>

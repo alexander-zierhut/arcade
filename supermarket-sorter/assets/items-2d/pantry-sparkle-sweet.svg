@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Süsszucker Feinzucker</title>
+<path d="M20 17Q18 55 19 86Q19 93.5 27 93.5H73Q81 93.5 81 86Q82 55 80 17Z" fill="#FFFFFF"/>
+<path d="M19.5 86H80.5V86.5Q80.5 92 73 92H27Q19.5 92 19.5 86.5Z" fill="#2F6BD6"/>
+<rect x="19" y="8" width="62" height="11" rx="2" fill="#2F6BD6" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M27 10.5V16.5M35 10.5V16.5M43 10.5V16.5M51 10.5V16.5M59 10.5V16.5M67 10.5V16.5M75 10.5V16.5" fill="none" stroke="#FFFFFF" stroke-width="1.2" stroke-opacity="0.6" stroke-linecap="round"/>
+<text x="50" y="35" font-size="15" font-family="Arial, Helvetica, sans-serif" font-weight="900" text-anchor="middle" fill="#2F6BD6">SÜSS</text>
+<text x="50" y="48" font-size="12" font-family="Arial, Helvetica, sans-serif" font-weight="900" text-anchor="middle" fill="#2F6BD6">ZUCKER</text>
+<polygon points="50,51 53.0,56.0 58.0,53.0 58.0,59.0 63.8,59.0 60.8,64.0 66,67 60.8,70.0 63.8,75.0 58.0,75.0 58.0,81.0 53.0,78.0 50,83 47.0,78.0 42.0,81.0 42.0,75.0 36.2,75.0 39.2,70.0 34,67 39.2,64.0 36.2,59.0 42.0,59.0 42.0,53.0 47.0,56.0" fill="#F7C948" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="46" cy="59" rx="2.5" ry="5" transform="rotate(-30 46 59)" fill="#3FA34D" stroke="#2A1B12" stroke-width="1.5"/>
+<ellipse cx="54" cy="59" rx="2.5" ry="5" transform="rotate(30 54 59)" fill="#3FA34D" stroke="#2A1B12" stroke-width="1.5"/>
+<path d="M50 79Q41 74 42 68Q43 62 50 62Q57 62 58 68Q59 74 50 79Z" fill="#FFF6E0" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+<path d="M69 19H80Q82 55 81 86Q81 93.5 73 93.5H69Z" fill="#000000" fill-opacity="0.12"/>
+<rect x="21.5" y="10" width="4.5" height="80" rx="2.2" fill="#FFFFFF" fill-opacity="0.35"/>
+<path d="M20 17Q18 55 19 86Q19 93.5 27 93.5H73Q81 93.5 81 86Q82 55 80 17Z" fill="none" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round"/>
+</svg>

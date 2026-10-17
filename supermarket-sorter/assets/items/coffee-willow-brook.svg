@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Mesmer Pfefferminztee</title>
+<defs>
+<linearGradient id="cwbwi19f" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#7EE5DD"/><stop offset="0.35" stop-color="#2FD5C8"/><stop offset="1" stop-color="#2FD5C8"/></linearGradient>
+<linearGradient id="cwbwi19ao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M19,14L27,8H81V88.3L73,94.3H19Z" fill="#2A968B" stroke="#25635A" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<path d="M73,14L81,8V88.3L73,94.3Z" fill="#2A968B"/>
+<path d="M19,14L27,8H81L73,14Z" fill="#7EE5DD"/>
+<rect x="19" y="14" width="54" height="80.3" fill="url(#cwbwi19f)"/>
+<path d="M19,14H73V94.3" fill="none" stroke="#2A968B" stroke-width="1" stroke-opacity="0.6"/>
+<rect x="19" y="83.3" width="54" height="11" fill="url(#cwbwi19ao)"/>
+<text x="46" y="32" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="900" text-anchor="middle" textLength="42" lengthAdjust="spacingAndGlyphs" fill="#FFFFFF">MESMER</text>
+<rect x="25" y="40" width="42" height="46" rx="3" fill="#FFF7E8"/>
+<rect x="38.5" y="45" width="3" height="10" rx="1.5" fill="#2FD5C8"/><rect x="44.5" y="45" width="3" height="10" rx="1.5" fill="#2FD5C8"/><rect x="50.5" y="45" width="3" height="10" rx="1.5" fill="#2FD5C8"/>
+<ellipse cx="46" cy="79" rx="17" ry="3.2" fill="#2FD5C8"/>
+<path d="M32,62H60Q60,78 46,78Q32,78 32,62Z" fill="#2A968B"/>
+<path d="M59.5,64Q69,63 68,69Q67,74 57,73L57.5,70Q63,70 63.5,68Q63.5,66 59.5,67Z" fill="#2A968B"/>
+<ellipse cx="46" cy="62" rx="14.5" ry="3.3" fill="#25635A"/><ellipse cx="46" cy="62" rx="12" ry="2.4" fill="#2FD5C8"/>
+</svg>

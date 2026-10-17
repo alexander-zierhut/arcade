@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Bökli Würstchen im Glas</title>
+<defs>
+<linearGradient id="bsh_b" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#92D2FF"/><stop offset="0.22" stop-color="#4FB6FF"/><stop offset="0.55" stop-color="#4FB6FF"/><stop offset="0.85" stop-color="#3F81B1"/><stop offset="1" stop-color="#335671"/></linearGradient>
+<linearGradient id="bsh_c" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FF9991"/><stop offset="0.4" stop-color="#FF5A4E"/><stop offset="1" stop-color="#B74238"/></linearGradient>
+<linearGradient id="bsh_ao" x1="0" x2="0" y1="0" y2="1"><stop offset="0.86" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+<linearGradient id="bsh_s" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FF9991"/><stop offset="0.22" stop-color="#FF5A4E"/><stop offset="0.55" stop-color="#FF5A4E"/><stop offset="0.85" stop-color="#B74238"/><stop offset="1" stop-color="#7C2F27"/></linearGradient>
+</defs>
+<path d="M21,32Q21,28 25,28H75Q79,28 79,32V87Q79,91 72,92.5Q50,95.5 28,92.5Q21,91 21,87Z" fill="url(#bsh_b)" stroke="#335671" stroke-width="1.5" stroke-opacity="0.7"/>
+<rect x="26" y="33" width="10" height="36" rx="5" fill="url(#bsh_s)" stroke="#7C2F27" stroke-width="1" stroke-opacity="0.6"/>
+<rect x="39" y="36" width="10" height="34" rx="5" fill="url(#bsh_s)" stroke="#7C2F27" stroke-width="1" stroke-opacity="0.6"/>
+<rect x="52" y="33" width="10" height="36" rx="5" fill="url(#bsh_s)" stroke="#7C2F27" stroke-width="1" stroke-opacity="0.6"/>
+<rect x="65" y="36" width="10" height="34" rx="5" fill="url(#bsh_s)" stroke="#7C2F27" stroke-width="1" stroke-opacity="0.6"/>
+<path d="M22,60Q50,64 78,60V87Q50,91 22,87Z" fill="#FFF7E8"/>
+<path d="M22,60Q50,64 78,60V66.5Q50,70.5 22,66.5Z" fill="#FF5A4E"/>
+<text x="50" y="81" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="900" text-anchor="middle" fill="#B74238">BÖKLI</text>
+<path d="M21,32Q21,28 25,28H75Q79,28 79,32V87Q79,91 72,92.5Q50,95.5 28,92.5Q21,91 21,87Z" fill="url(#bsh_ao)"/>
+<rect x="34.9" y="36" width="4.6" height="41.6" rx="2.3" fill="#FFFFFF" fill-opacity="0.55"/>
+<rect x="71.5" y="40" width="2" height="30" rx="1.0" fill="#FFFFFF" fill-opacity="0.3"/>
+<rect x="23" y="28" width="54" height="3" fill="#1E100A" fill-opacity="0.3"/>
+<rect x="20" y="17" width="60" height="11" rx="2" fill="url(#bsh_c)" stroke="#7C2F27" stroke-width="1.5" stroke-opacity="0.7"/>
+<ellipse cx="50" cy="17" rx="30" ry="5" fill="#FF9991"/>
+<rect x="24" y="19.5" width="3.5" height="6.5" rx="1.75" fill="#FFFFFF" fill-opacity="0.5"/>
+</svg>

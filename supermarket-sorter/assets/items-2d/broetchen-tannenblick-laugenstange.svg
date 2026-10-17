@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Tannenblick Laugenstange</title>
+<rect x="24" y="12" width="12.5" height="81.5" rx="6" fill="#9C4F24" stroke="#2A1B12" stroke-width="3"/>
+<rect x="37.5" y="9" width="12.5" height="84.5" rx="6" fill="#9C4F24" stroke="#2A1B12" stroke-width="3"/>
+<rect x="51" y="14" width="12.5" height="79.5" rx="6" fill="#9C4F24" stroke="#2A1B12" stroke-width="3"/>
+<rect x="64.5" y="10" width="12.5" height="83.5" rx="6" fill="#9C4F24" stroke="#2A1B12" stroke-width="3"/>
+<path d="M30.5,26h0M29,36h0M43,18h0M45,30h0M56,24h0M58.5,34h0M69.5,20h0M71.5,31h0" fill="none" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round"/>
+<path d="M20,46Q50,53 80,46L80,91.5Q80,93.5 78,93.5L22,93.5Q20,93.5 20,91.5Z" fill="#3FA34D" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<polygon points="50,55 59,69 54,69 62,80 53,80 53,86 47,86 47,80 38,80 46,69 41,69" fill="#FFF6E0" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+<rect x="22.5" y="14" width="4" height="74" rx="2" fill="#FFFFFF" fill-opacity="0.35"/>
+<path d="M70,49L80,46L80,91.5Q80,93.5 78,93.5L70,93.5Z" fill="#000000" fill-opacity="0.12"/>
+</svg>

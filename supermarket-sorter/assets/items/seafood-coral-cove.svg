@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Nordmeer Gambas</title>
+<defs>
+<linearGradient id="gbb" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFE388"/><stop offset="0.22" stop-color="#FFD23F"/><stop offset="0.55" stop-color="#FFD23F"/><stop offset="0.85" stop-color="#B7942E"/><stop offset="1" stop-color="#7C6120"/></linearGradient>
+<linearGradient id="gbo" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFB87D"/><stop offset="0.22" stop-color="#FF8C2E"/><stop offset="0.55" stop-color="#FF8C2E"/><stop offset="0.85" stop-color="#B76422"/><stop offset="1" stop-color="#7C4419"/></linearGradient>
+<linearGradient id="gbao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+<clipPath id="gbk"><path d="M22,19C17.5,35 17.5,70 20,92Q21,94.5 25,94.5H75Q79,94.5 80,92C82.5,70 82.5,35 78,19Z"/></clipPath>
+</defs>
+<path d="M22,19C17.5,35 17.5,70 20,92Q21,94.5 25,94.5H75Q79,94.5 80,92C82.5,70 82.5,35 78,19Z" fill="url(#gbb)" stroke="#7C6120" stroke-width="1.5" stroke-opacity="0.7"/>
+<rect x="19" y="83.5" width="62" height="11" fill="url(#gbao)" clip-path="url(#gbk)"/>
+<rect x="30" y="30" width="2.4" height="55" rx="1.2" fill="#FFFFFF" fill-opacity="0.25"/>
+<rect x="68" y="30" width="2" height="55" rx="1" fill="#FFFFFF" fill-opacity="0.2"/>
+<rect x="28" y="34" width="44" height="44" rx="8" fill="#FFF7E8"/>
+<path d="M37,47C45,38 62,40 64,52C66,62 58,70 48,68C54,64 56,58 54,52C52,47 44,47 38,53Z" fill="#FF8C2E"/>
+<path d="M49,67L40,63Q38,69 43,73Q47,72 50,70Z" fill="#B76422"/>
+<path d="M44,50L47,56M51,49L54,55" fill="none" stroke="#FFB87D" stroke-width="1.5" stroke-linecap="round"/>
+<circle cx="42" cy="47" r="1.4" fill="#7C4419"/>
+<rect x="22" y="19" width="56" height="2.5" fill="#1E100A" fill-opacity="0.3"/>
+<path d="M21,19V12L23.4,7.5L25.8,12L28.2,7.5L30.7,12L33.1,7.5L35.5,12L37.9,7.5L40.3,12L42.7,7.5L45.2,12L47.6,7.5L50,12L52.4,7.5L54.8,12L57.2,7.5L59.6,12L62.1,7.5L64.5,12L66.9,7.5L69.3,12L71.7,7.5L74.1,12L76.5,7.5L79,12V19Z" fill="url(#gbo)" stroke="#7C4419" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+</svg>

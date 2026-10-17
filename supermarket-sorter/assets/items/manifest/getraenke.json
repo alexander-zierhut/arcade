@@ -1,0 +1,49 @@
+{
+  "category": "getraenke",
+  "items": [
+    {
+      "id": "getraenke-hofgut-apfelschorle",
+      "file": "getraenke-hofgut-apfelschorle.svg",
+      "name": "Hofgut Apfelschorle",
+      "class": "carton",
+      "color": "#3ECF6A",
+      "accent": "#FFD23F",
+      "label": "",
+      "icon": "red apple with leaf",
+      "description": "Chunky leaf-green gable-top carton with a sun-yellow roof and a cream label with one big red apple with a leaf, an apple spritzer"
+    },
+    {
+      "id": "getraenke-sonnenhof-colamix",
+      "file": "getraenke-sonnenhof-colamix.svg",
+      "name": "Mezzi Mix",
+      "class": "can",
+      "color": "#FFD23F",
+      "accent": "#7A4A2A",
+      "label": "MEZZI",
+      "icon": "cola bubbles on a brown wave",
+      "description": "Sun-yellow can with a brown wave band, a silver lid and the word MEZZI; winks at the Mezzo Mix cola-orange can"
+    },
+    {
+      "id": "getraenke-bergquell-mineralwasser",
+      "file": "getraenke-bergquell-mineralwasser.svg",
+      "name": "Gerolsterner Sprudel",
+      "class": "bottle",
+      "color": "#3B6CFF",
+      "accent": "#FFF7E8",
+      "label": "GEROL",
+      "icon": "star badge",
+      "description": "Cobalt mineral water bottle with a cream cap and a white label with a star and GEROL; winks at the Gerolsteiner sparkling mineral water"
+    },
+    {
+      "id": "getraenke-tannenblick-malzbier",
+      "file": "getraenke-tannenblick-malzbier.svg",
+      "name": "Vitalmalz",
+      "class": "bottle",
+      "color": "#7A4A2A",
+      "accent": "#FFD23F",
+      "label": "MALZ",
+      "icon": "yellow label with a pink band",
+      "description": "Plum-pink malt drink bottle with a gold cap and a yellow label with a pink band reading MALZ; winks at the Vitamalz malt drink"
+    }
+  ]
+}

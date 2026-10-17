@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Kirschhof Kirschlimo</title>
+<defs>
+<linearGradient id="spb" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFA6D1"/><stop offset="0.22" stop-color="#FF6FB5"/><stop offset="0.55" stop-color="#FF6FB5"/><stop offset="0.85" stop-color="#B7517E"/><stop offset="1" stop-color="#7C3852"/></linearGradient>
+<linearGradient id="spm" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#DCDCDC"/><stop offset="0.22" stop-color="#B4B4B4"/><stop offset="0.55" stop-color="#B4B4B4"/><stop offset="0.85" stop-color="#8E8E8E"/><stop offset="1" stop-color="#5A5A5A"/></linearGradient>
+<linearGradient id="spao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M22.5,14V88.3Q50,98.7 77.5,88.3V14Z" fill="url(#spb)" stroke="#7C3852" stroke-width="1.5" stroke-opacity="0.7"/>
+<path d="M22.5,82.5V88.3Q50,98.7 77.5,88.3V82.5Z" fill="url(#spao)"/>
+<path d="M22.5,36Q50,39 77.5,36V80Q50,83 22.5,80Z" fill="#FFF7E8"/>
+<circle cx="43" cy="68" r="6" fill="#FF5A4E"/><circle cx="57" cy="68" r="6" fill="#FF5A4E"/><path d="M43,62Q46,56 51,55Q55,56 57,62" fill="none" stroke="#3ECF6A" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M22.5,83Q50,93.4 77.5,83V88.3Q50,98.7 22.5,88.3Z" fill="url(#spm)"/>
+<path d="M22.5,14V20Q50,30.4 77.5,20V14Z" fill="url(#spm)"/>
+<ellipse cx="50" cy="14" rx="27.5" ry="5" fill="#DCDCDC" stroke="#5A5A5A" stroke-width="1.5" stroke-opacity="0.7"/>
+<ellipse cx="50" cy="14.4" rx="24" ry="4.2" fill="#8E8E8E"/>
+<rect x="32" y="32" width="4" height="48" rx="2" fill="#FFFFFF" fill-opacity="0.55"/>
+<rect x="71" y="32" width="1.5" height="48" rx="0.75" fill="#FFFFFF" fill-opacity="0.3"/>
+</svg>

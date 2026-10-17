@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Landlust Nudelsuppe</title>
+<path d="M21 25H79L73.5 93.5H26.5Z" fill="#3FA34D" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M68 25H79L73.5 93.5H67.2Z" fill="#000000" fill-opacity="0.12"/>
+<rect x="25" y="30" width="3.6" height="36" rx="1.8" fill="#FFFFFF" fill-opacity="0.35"/>
+<rect x="27" y="33" width="46" height="41" rx="3" fill="#FFF6E0" stroke="#2A1B12" stroke-width="2"/>
+<text x="50" y="42" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="900" text-anchor="middle" fill="#2A1B12">Landlust</text>
+<path d="M30 47H70Q69 63 50 63Q31 63 30 47Z" fill="#F7B02A" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="50" cy="47" rx="20" ry="3.6" fill="#FFD76A" stroke="#2A1B12" stroke-width="1.5"/>
+<path d="M35 46.5Q39.5 43 44 46.5T53 46.5T62 46.5T66 46.5" fill="none" stroke="#D98E1F" stroke-width="1.6" stroke-linecap="round"/>
+<circle cx="61" cy="55" r="3.4" fill="#E8691E" stroke="#2A1B12" stroke-width="1.5"/>
+<path d="M37 56Q40.5 52 44 56Q40.5 60 37 56Z" fill="#3FA34D" stroke="#2A1B12" stroke-width="1.2"/>
+<text x="50" y="71" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="900" text-anchor="middle" fill="#2A1B12">SUPPE</text>
+<rect x="20" y="16.5" width="60" height="9" rx="2.5" fill="#FFFFFF" stroke="#2A1B12" stroke-width="3"/>
+<path d="M30 21H70" fill="none" stroke="#2A1B12" stroke-width="1.5" stroke-linecap="round" stroke-opacity="0.4"/>
+</svg>

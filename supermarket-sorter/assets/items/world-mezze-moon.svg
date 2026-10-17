@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Mondhof Hummus</title>
+<defs>
+<linearGradient id="mmb" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#92D2FF"/><stop offset="0.22" stop-color="#4FB6FF"/><stop offset="0.55" stop-color="#4FB6FF"/><stop offset="0.85" stop-color="#3F81B1"/><stop offset="1" stop-color="#335671"/></linearGradient>
+<linearGradient id="mmc" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#7EE5DD"/><stop offset="0.22" stop-color="#2FD5C8"/><stop offset="0.55" stop-color="#2FD5C8"/><stop offset="0.85" stop-color="#2A968B"/><stop offset="1" stop-color="#25635A"/></linearGradient>
+<linearGradient id="mmao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M21,20H79L75.5,88Q75,93.5 69,93.5H31Q25,93.5 24.5,88Z" fill="url(#mmb)"/>
+<path d="M24.8,82.5H75.2L75.5,88Q75,93.5 69,93.5H31Q25,93.5 24.5,88Z" fill="url(#mmao)"/>
+<path d="M22.6,52Q50,55 77.4,52L76.2,74Q50,77 23.8,74Z" fill="#FFF7E8"/>
+<circle cx="43" cy="62" r="5.2" fill="#E0963C"/>
+<circle cx="56.5" cy="62" r="5.2" fill="#E0963C"/>
+<circle cx="49.8" cy="70" r="5.2" fill="#E0963C"/>
+<path d="M56,57Q58,51 64,52Q63,58 56,57Z" fill="#3ECF6A"/>
+<path d="M20,25Q50,31.5 80,25V28Q50,34.5 20,28Z" fill="#1E100A" fill-opacity="0.3"/>
+<path d="M19.5,20V25Q50,31.5 80.5,25V20Z" fill="url(#mmc)" stroke="#25635A" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+<ellipse cx="50" cy="20" rx="30.5" ry="5.4" fill="#7EE5DD" stroke="#25635A" stroke-width="1.5" stroke-opacity="0.7"/>
+<rect x="27.5" y="38" width="4.3" height="38" rx="2.1" fill="#FFFFFF" fill-opacity="0.55"/>
+<path d="M21,20H79L75.5,88Q75,93.5 69,93.5H31Q25,93.5 24.5,88Z" fill="none" stroke="#335671" stroke-width="1.5" stroke-opacity="0.7" stroke-linejoin="round"/>
+</svg>

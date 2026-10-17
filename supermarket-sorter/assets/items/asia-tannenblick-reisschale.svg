@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Tannenblick Reisschale</title>
+<defs>
+<linearGradient id="astanb" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFA6D1"/><stop offset="0.22" stop-color="#FF6FB5"/><stop offset="0.55" stop-color="#FF6FB5"/><stop offset="0.85" stop-color="#B7517E"/><stop offset="1" stop-color="#7C3852"/></linearGradient>
+<linearGradient id="astanw" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFFAF1"/><stop offset="0.22" stop-color="#FFF7E8"/><stop offset="0.55" stop-color="#FFF7E8"/><stop offset="0.85" stop-color="#B7ADA1"/><stop offset="1" stop-color="#7C7167"/></linearGradient>
+<linearGradient id="astanao" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1E100A" stop-opacity="0"/><stop offset="1" stop-color="#1E100A" stop-opacity="0.38"/></linearGradient>
+</defs>
+<path d="M20,28L24,88.8A26,4.7 0 0 0 76,88.8L80,28Z" fill="url(#astanb)" stroke="#7C3852" stroke-width="1.5" stroke-opacity="0.7"/>
+<path d="M22.4,76H77.6L76,88.8A26,4.7 0 0 1 24,88.8Z" fill="url(#astanao)"/>
+<path d="M21.2,46A28.8,5.2 0 0 0 78.8,46L76.6,80A26.6,4.8 0 0 1 23.4,80Z" fill="url(#astanw)"/>
+<path d="M36,60H64Q64,70 50,70Q36,70 36,60Z" fill="#FF5A4E"/>
+<path d="M38.5,60Q38.5,51 50,51Q61.5,51 61.5,60Z" fill="#FFFFFF"/>
+<path d="M20,29.5A30,5.4 0 0 0 80,29.5V31.5A30,5.4 0 0 1 20,31.5Z" fill="#1E100A" fill-opacity="0.3"/>
+<path d="M18.5,22V29.5A31.5,5.7 0 0 0 81.5,29.5V22Z" fill="url(#astanw)" stroke="#7C7167" stroke-width="1.5" stroke-opacity="0.7"/>
+<ellipse cx="50" cy="22" rx="31.5" ry="5.7" fill="#FFFAF1"/>
+<path d="M31,25.5L68,18.5L68.8,20.6L31.8,27.6Z" fill="#FF5A4E"/>
+<path d="M34,27.8L71,20.8L71.5,22.6L34.6,29.6Z" fill="#B74238"/>
+<rect x="24.5" y="38" width="3.2" height="40" rx="1.6" fill="#FFFFFF" fill-opacity="0.55"/>
+</svg>

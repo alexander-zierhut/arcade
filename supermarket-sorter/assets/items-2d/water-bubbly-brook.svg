@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Volvik Naturelle</title>
+<path d="M45 14V24C45 29 28 31 28 44V87.5Q28 93.5 34 93.5H66Q72 93.5 72 87.5V44C72 31 55 29 55 24V14Z" fill="#D9F2E6" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="42" y="6.5" width="16" height="8" rx="2" fill="#E8453C" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round"/>
+<rect x="29.5" y="46" width="41" height="40" rx="3" fill="#2E9E5B" stroke="#2A1B12" stroke-width="2" stroke-linejoin="round"/>
+<text x="50" y="57" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="900" text-anchor="middle" textLength="34" lengthAdjust="spacingAndGlyphs" fill="#FFFFFF">VOLVIK</text>
+<polygon points="34,78 46,62 51,67 56,62 66,78" fill="#2A1B12" stroke="#2A1B12" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="43.5,65.5 46,62 51,67 56,62 58,64.5 51,69" fill="#FFFFFF"/>
+<circle cx="51" cy="60" r="2.2" fill="#E8453C"/>
+<path d="M30.5 82Q37 77 43 82T56 82T69.5 82V85H30.5Z" fill="#2F6BD6"/>
+<path d="M47.5 18V26" fill="none" stroke="#FFFFFF" stroke-opacity="0.6" stroke-width="1.5" stroke-linecap="round"/>
+<rect x="30.5" y="40" width="4" height="50" rx="2" fill="#FFFFFF" fill-opacity="0.35"/>
+<path d="M64 40H72V87.5Q72 93.5 66 93.5H64Z" fill="#000000" fill-opacity="0.12"/>
+</svg>

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<title>Funkelbäck Zuckerguss-Donut</title>
+<path d="M21,63.5A29,8 0 0 1 79,63.5L79,85.5A29,8 0 0 1 21,85.5Z" fill="#E9A23B" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round"/>
+<path d="M21,63.5A29,8 0 0 0 79,63.5L79,66.5Q76,73.5 72,68.5Q68,75.5 63,69.5Q59,74.5 54,68.5Q50,75.5 46,69.5Q41,74.5 37,68.5Q32,75.5 28,69.5Q24,73.5 21,66.5Z" fill="#F26B9E"/>
+<path d="M21,41.5A29,8 0 0 1 79,41.5L79,63.5A29,8 0 0 1 21,63.5Z" fill="#E9A23B" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round"/>
+<path d="M21,41.5A29,8 0 0 0 79,41.5L79,44.5Q76,51.5 72,46.5Q68,53.5 63,47.5Q59,52.5 54,46.5Q50,53.5 46,47.5Q41,52.5 37,46.5Q32,53.5 28,47.5Q24,51.5 21,44.5Z" fill="#F26B9E"/>
+<path d="M21,19.5A29,8 0 0 1 79,19.5L79,41.5A29,8 0 0 1 21,41.5Z" fill="#F26B9E" stroke="#2A1B12" stroke-width="3" stroke-linejoin="round"/>
+<path d="M62,30H76V84H62Z" fill="#000000" fill-opacity="0.12"/>
+<ellipse cx="50" cy="19.5" rx="29" ry="8" fill="#F26B9E" stroke="#2A1B12" stroke-width="3"/>
+<ellipse cx="50" cy="19.5" rx="9" ry="3" fill="#8A4F1E" stroke="#2A1B12" stroke-width="2"/>
+<path d="M31,19L35,17M66,17L70.5,19M37,14.5L41,13.8M60,13.5L64,15M40,25L44,26M56,24.5L60,24" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+<path d="M31,80L35,78M43,85L47,86M57,79L61,77M66,86L70,85" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+<path d="M43,85L47,86M66,86L70,85" fill="none" stroke="#4FA3E8" stroke-width="2.5" stroke-linecap="round"/>
+<rect x="25" y="26" width="4.5" height="58" rx="2" fill="#FFFFFF" fill-opacity="0.35"/>
+<rect x="24" y="52" width="52" height="12" rx="2" fill="#FFF6E0" stroke="#2A1B12" stroke-width="2"/>
+<text x="50" y="61" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="9" text-anchor="middle" fill="#2A1B12">FUNKEL</text>
+</svg>

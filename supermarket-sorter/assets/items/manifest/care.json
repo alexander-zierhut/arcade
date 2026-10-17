@@ -1,0 +1,49 @@
+{
+  "category": "care",
+  "items": [
+    {
+      "id": "care-minty-pearl",
+      "file": "care-minty-pearl.svg",
+      "name": "Minzperle Zahnpasta",
+      "class": "box",
+      "color": "#2FD5C8",
+      "accent": "#3B6CFF",
+      "label": "",
+      "icon": "tooth",
+      "description": "Turquoise toothpaste box with cobalt top and bottom bands and a cream panel with a big blue tooth"
+    },
+    {
+      "id": "care-velvet-lather",
+      "file": "care-velvet-lather.svg",
+      "name": "Samtschaum Shampoo",
+      "class": "bottle",
+      "color": "#9D7BFF",
+      "accent": "#FFD23F",
+      "label": "",
+      "icon": "drop",
+      "description": "Squat lavender shampoo bottle with a sun-yellow pump head and a cream label showing a turquoise water drop"
+    },
+    {
+      "id": "care-rosie-fizz",
+      "file": "care-rosie-fizz.svg",
+      "name": "Rosenhauch Seife",
+      "class": "loose",
+      "color": "#FF6FB5",
+      "accent": "#FFF7E8",
+      "label": "",
+      "icon": "rose",
+      "description": "Stack of three candy-pink soap bars wrapped in a cream paper band carrying a coral rose"
+    },
+    {
+      "id": "care-sky-puff",
+      "file": "care-sky-puff.svg",
+      "name": "Wolkenweich Toilettenpapier",
+      "class": "bag",
+      "color": "#FFD23F",
+      "accent": "#FFFFFF",
+      "label": "",
+      "icon": "cloud",
+      "description": "Standing sun-yellow toilet paper pack with a crimped top seal and a cream label panel with a sky-blue cloud"
+    }
+  ]
+}
