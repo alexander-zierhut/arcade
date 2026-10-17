@@ -18,7 +18,8 @@ import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const site = join(root, '_site');
+// SITE_DIR lets tests/build.test.mjs build into a temp dir; the immutable list always sits beside it
+const site = process.env.SITE_DIR ? resolve(process.env.SITE_DIR) : join(root, '_site');
 const SITE_URL = 'https://arcade.alzlper.com/';
 
 const hashOf = (file) => createHash('sha256').update(readFileSync(file)).digest('hex').slice(0, 10);
@@ -136,6 +137,7 @@ ${ogImage ? `<meta property="og:image" content="${ogImage}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="${ogImage}">` : ''}
 <meta name="theme-color" content="#14161f">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%2314161f'/%3E%3Ctext x='50' y='70' font-size='60' text-anchor='middle'%3E%F0%9F%95%B9%3C/text%3E%3C/svg%3E">
 <style>
   :root { color-scheme: dark; }
   * { box-sizing: border-box; }
@@ -169,5 +171,5 @@ ${ogImage ? `<meta property="og:image" content="${ogImage}">
 </html>
 `);
 
-writeFileSync(join(root, '_site-immutable.txt'), immutable.join('\n') + '\n');
-console.log(`_site/ ready: ${games.map((g) => g.name).join(', ')} (${immutable.length} hashed files in _site-immutable.txt)`);
+writeFileSync(`${site}-immutable.txt`, immutable.join('\n') + '\n');
+console.log(`${site} ready: ${games.map((g) => g.name).join(', ')} (${immutable.length} hashed files in ${site}-immutable.txt)`);

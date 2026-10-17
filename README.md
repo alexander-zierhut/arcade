@@ -116,3 +116,12 @@ The folder name is the URL, and the deploy deletes what is no longer in the buil
 home-screen icons working, add the old name to `REDIRECTS` in `scripts/build-site.mjs`: the build then puts
 a small page at the old URL that forwards to the new one. Saved games survive the rename on their own,
 since localStorage belongs to the origin, not the path.
+
+## Tests
+
+`npm ci && npm test` at the root builds the site into a temp dir (not `_site/`) and checks it: every script,
+stylesheet and preview image a page references exists and is content-hashed, `_site-immutable.txt` lists
+exactly the hashed files, the selector has a card per game, the redirects and `VERSION.txt` are there; then
+it serves the build and boots every game in headless Chrome (no failed request, no console error, the
+game's global is up). A new game needs one line in `BOOT` in `tests/site.test.mjs`. Each game has its own
+`npm test` and `npm run test:browser`. `bash scripts/deploy.sh --dry-run` prints the upload plan.

@@ -1,0 +1,11 @@
+{
+  "name": "arcade",
+  "private": true,
+  "description": "Repo-level checks for the arcade site build and deploy. The games have their own package.json.",
+  "scripts": {
+    "test": "node --test --test-concurrency=1 \"tests/*.test.mjs\""
+  },
+  "devDependencies": {
+    "playwright-core": "^1.63.0"
+  }
+}
