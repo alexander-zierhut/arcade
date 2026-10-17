@@ -19,9 +19,29 @@ workflow, the site build and the selector page all discover them from the folder
   and the selector at `_site/index.html`. Check it locally with
   `node scripts/build-site.mjs && python3 -m http.server --directory _site`.
 - `.github/workflows/ci.yml` tests the games whose files changed in the push or pull request (a change
-  outside every game folder tests all of them), then on `main` builds `_site/` and syncs it to the
-  Scaleway bucket `arcade.alzlper.com` (`nl-ams`). It needs the repository secrets `SCW_ACCESS_KEY` and
-  `SCW_SECRET_KEY`, the same pair the minigames repo uses.
+  outside every game folder tests all of them), then on `main` builds `_site/` and uploads it with
+  `scripts/deploy.sh` to the Scaleway bucket `arcade.alzlper.com` (`nl-ams`). It needs the repository
+  secrets `SCW_ACCESS_KEY` and `SCW_SECRET_KEY`, the same pair the minigames repo uses.
+
+## Content hashes and caching
+
+The games are written without a bundler and their `release.sh` copies plain files. Caching is handled
+once, centrally, by the site build, so a game does not need to know about it:
+
+- `build-site.mjs` renames every script and stylesheet that a game's `index.html` references to
+  `name.<10 hex of sha256>.ext` (`src/main.js` → `src/main.3f9c2a7b1e.js`) and rewrites the references.
+  Files a game loads by name at runtime (sprites, backgrounds, the web manifest, icons) keep their names.
+  The hashed paths are listed in `_site-immutable.txt`.
+- `deploy.sh` uploads in an order that never leaves a page pointing at a missing file: hashed files first
+  as `public, max-age=31536000, immutable` (skipped when already in the bucket), then everything else as
+  `no-cache`, then the HTML pages, then it deletes what the build no longer contains.
+- Result: browsers and the CDN keep scripts for a year, but a new `index.html` (never cached) always
+  names the exact scripts it was built with, so a release can never mix old and new code. A changed
+  sprite under an unchanged name may be served from a cache for up to the CDN's browser TTL; that is
+  cosmetic, and a game that needs a hard cut can rename the file.
+
+For a game this means: reference scripts and stylesheets with plain relative paths in `index.html`
+(no query strings), and load runtime assets by stable names. Nothing else.
 
 ## Storage
 

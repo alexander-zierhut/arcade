@@ -122,25 +122,13 @@ jobs:
       - name: Build every game and the selector page into _site/
         run: node scripts/build-site.mjs
 
-      # The games ship plain files without content hashes, so nothing may be cached across a
-      # release: an old src/*.js next to a new index.html would break the game. no-cache still
-      # lets browsers revalidate with ETags, so unchanged files cost a 304, not a download.
+      # Hashed scripts and stylesheets go up first as immutable, then the rest as no-cache, the HTML
+      # pages last, then stale files are removed. scripts/deploy.sh has the details.
       - name: Upload
-        run: |
-          aws s3 sync _site "s3://$BUCKET" \
-            --endpoint-url "$S3_ENDPOINT" \
-            --cache-control "no-cache, max-age=0, must-revalidate" \
-            --delete
-      - name: Fix content types the CLI does not know
-        run: |
-          for f in $(cd _site && find . -name '*.webmanifest' | sed 's#^\./##'); do
-            aws s3 cp "_site/$f" "s3://$BUCKET/$f" \
-              --endpoint-url "$S3_ENDPOINT" \
-              --content-type "application/manifest+json" \
-              --cache-control "no-cache, max-age=0, must-revalidate"
-          done
+        run: bash scripts/deploy.sh
 
       - name: Summary
         run: |
           echo "Deployed $(git rev-parse --short HEAD) to https://$BUCKET/" >> "$GITHUB_STEP_SUMMARY"
+          echo "$(wc -l < _site-immutable.txt) immutable files" >> "$GITHUB_STEP_SUMMARY"
           ls _site >> "$GITHUB_STEP_SUMMARY"

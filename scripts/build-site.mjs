@@ -3,14 +3,44 @@
 // under _site/<game>/, plus a selector page at _site/index.html that shows a card per game, filled from the
 // game's own Open Graph tags (og:title, og:description, og:image). A folder is a game when it has
 // scripts/release.sh and its dist ends up with an index.html. Run from anywhere: node scripts/build-site.mjs
+//
+// Content hashes: the games ship plain files, so this step gives every script and stylesheet that
+// index.html references a name with its content hash (src/main.js -> src/main.3f9c2a7b1e.js) and rewrites
+// the references. Those files never change under their name, so the deploy uploads them as immutable
+// (cached for a year) while index.html and everything else stay no-cache: a new index.html always names
+// the matching scripts, and nothing in between can serve a stale one. Files that a game loads by name at
+// runtime (sprites, backgrounds, the manifest) keep their names. The list of hashed paths goes to
+// _site-immutable.txt for scripts/deploy.sh.
 import { execFileSync } from 'node:child_process';
-import { cpSync, existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
+import { cpSync, existsSync, mkdirSync, readdirSync, readFileSync, renameSync, rmSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const site = join(root, '_site');
 const SITE_URL = 'https://arcade.alzlper.com/';
+
+/** hashAssets(dir) -> relative paths of the files it renamed. dir holds a copied release with an index.html. */
+function hashAssets(dir) {
+  const page = join(dir, 'index.html');
+  let html = readFileSync(page, 'utf8');
+  const hashed = [];
+  const refs = [...html.matchAll(/<script\b[^>]*\bsrc="([^"]+)"/g), ...html.matchAll(/<link\b[^>]*\brel="stylesheet"[^>]*\bhref="([^"]+)"/g)]
+    .map((m) => m[1]);
+  for (const ref of new Set(refs)) {
+    if (/^(?:[a-z]+:|\/|#)/i.test(ref) || ref.includes('?')) continue;        // absolute, data: or already versioned
+    const file = join(dir, ref);
+    if (!existsSync(file)) throw new Error(`${page}: references ${ref}, which is not in the release`);
+    const hash = createHash('sha256').update(readFileSync(file)).digest('hex').slice(0, 10);
+    const target = ref.replace(/(\.[^./]+)$/, `.${hash}$1`);
+    renameSync(file, join(dir, target));
+    html = html.split(`"${ref}"`).join(`"${target}"`);
+    hashed.push(target);
+  }
+  writeFileSync(page, html);
+  return hashed;
+}
 
 // Old game folders that moved: a tiny page at the old URL sends the browser on (query and hash kept).
 // Saved games are unaffected: localStorage belongs to the origin, not the path.
@@ -29,6 +59,7 @@ rmSync(site, { recursive: true, force: true });
 mkdirSync(site);
 
 const games = [];
+const immutable = [];
 for (const name of readdirSync(root).sort()) {
   const dir = join(root, name);
   if (!existsSync(join(dir, 'scripts', 'release.sh'))) continue;
@@ -36,6 +67,7 @@ for (const name of readdirSync(root).sort()) {
   const dist = join(dir, 'dist');
   if (!existsSync(join(dist, 'index.html'))) throw new Error(`${name}: release.sh left no dist/index.html`);
   cpSync(dist, join(site, name), { recursive: true });
+  for (const p of hashAssets(join(site, name))) immutable.push(`${name}/${p}`);
   const html = readFileSync(join(dist, 'index.html'), 'utf8');
   const title = meta(html, 'og:title') || (html.match(/<title>(.*?)<\/title>/) || [])[1] || name;
   const image = meta(html, 'og:image').replace(SITE_URL + name + '/', '');   // the tag is absolute; the card links relative
@@ -124,4 +156,5 @@ ${ogImage ? `<meta property="og:image" content="${ogImage}">
 </html>
 `);
 
-console.log(`_site/ ready: ${games.map((g) => g.name).join(', ')}`);
+writeFileSync(join(root, '_site-immutable.txt'), immutable.join('\n') + '\n');
+console.log(`_site/ ready: ${games.map((g) => g.name).join(', ')} (${immutable.length} hashed files in _site-immutable.txt)`);
