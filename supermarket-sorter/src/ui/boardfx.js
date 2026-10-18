@@ -113,7 +113,7 @@
     var x = X(), el = x.els[e.item]; if (!el) return;
     delete x.els[e.item];
     if (el.parentNode !== x.itemsEl) { var tile = parseFloat(el.style.width), r = e.where === 'belt' ? ui.belts.itemRect(e.ref.beltIndex, e.ref.cell, tile) : null; el.style.transition = 'none'; if (r) el.style.transform = 'translate3d(' + r.x + 'px,' + r.y + 'px,0)'; x.itemsEl.appendChild(el); void el.offsetWidth; el.style.transition = ''; }
-    var target = doc.getElementById('hud-bunny'), rr = x.root.getBoundingClientRect(), tx = 20, ty = -60;
+    var target = doc.getElementById('btn-bunny'), rr = x.root.getBoundingClientRect(), tx = 20, ty = -60;   // flies to the bunny button in the HUD
     if (target) { var tr = target.getBoundingClientRect(); tx = tr.left + tr.width / 2 - rr.left - parseFloat(el.style.width) / 2; ty = tr.top - rr.top; }
     el.classList.add('fly'); el.classList.remove('bunny');
     el.style.transform = 'translate3d(' + tx + 'px,' + ty + 'px,0) scale(0.5)'; el.style.opacity = '0.2';

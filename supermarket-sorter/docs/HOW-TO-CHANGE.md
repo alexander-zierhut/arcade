@@ -18,7 +18,7 @@ after a view change.
 | tune the clock after a playtest | `tauMs`, the slack and the minimums in `rules.timeLimitS`; the belt-wait share in `levels.timeMs`; no rebake |
 | change which levels are turbo or how fast | `rules.isTurbo`, the factor and cap in `rules.speed100` |
 | prefer other products in levels | the `TIER1` / `TIER3` category lists in `scripts/build-catalog.js`, then `npm run catalog` |
-| change the look of the cabinet, items, belts, HUD, cards | colour tokens in `src/style/base.css`; `board.css` (cabinet, boards, compartments, shadows), `belts.css`, `hud.css` (band, pills, bottom row), `overlays.css` |
+| change the look of the cabinet, items, belts, HUD, cards | colour tokens in `src/style/base.css`; `board.css` (cabinet, boards, compartments, shadows), `belts.css`, `hud.css` (band, pills, action buttons, combo line), `overlays.css` |
 | change how products are drawn | `docs/ART-STYLE.md` (binding look) and `docs/ART-SPEC.md` (file rules); the validator in `tests/items-check.js` enforces the v3 rules |
 | change how many side cells are visible | they equal the rack rows (`computeGeometry`); the drift speed for belts that must scroll in still levels is `DRIFT100` in `src/ui/board.js` |
 | change how large products are | `TARGET_W` (share of a slot a product fills in width, 0.90) and `MAX_H` (row height in slots, 1.7) in `src/art/sprites.js`; the per-product scale comes from the measured `w`/`h` in the catalog (`npm run items`, then `npm run catalog`) |

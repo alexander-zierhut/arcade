@@ -7,7 +7,7 @@ from an S3 bucket. Same conventions as cocktail-merge (see `docs/RESEARCH.md` se
 ## Layers and files
 
 ```
-index.html                 DOM shell: HUD band, board container, bottom action row, overlays, inline boot guard
+index.html                 DOM shell: HUD band (one row: pills, action buttons, combo line), board container, overlays, inline boot guard
 manifest.webmanifest       app mode (fullscreen display, icons, theme colour); no service worker
 src/config.js              every number: layout, timings, scoring, storage keys, versions
 src/game/rng.js        P   mulberry32 seeded RNG: SS.rng.create(seed) -> { next, int, pick, shuffle }
@@ -37,10 +37,10 @@ src/ui/board.js            board coordinator: cabinet geometry (one slot width d
                            tap, belt picks, hand spot, bunny collect, spend arming, refusal reasons)
 src/ui/boardfx.js          animations for the rule events (move, take, match, reveal, lock, bar, sweep, collect, spend...); bursts and
                            point popups through the Web Animations API (compositor)
-src/ui/bottombar.js        the slim action row at the bottom: Rückgängig / Goldhase / Tipp (writes the DOM only on change)
 src/ui/coach.js            coach marks (one sentence per new mechanic, shown once)
-src/ui/hud.js              the dark HUD band: level + tag + "Noch N", bunny counter, clock or moves, score, pause; combo tag (timed) or
-                           pips (relaxed); writes the DOM only on change (it runs every frame in timed play)
+src/ui/hud.js              the dark HUD band, one row (v0.3.3): level pill with "Noch N" (its colour is the difficulty), clock + Serie
+                           score or moves + par with the xN combo badge, the combo line on the band's bottom edge, the action buttons
+                           Rückgängig / Tipp / Goldhase (count, arms a spend) / pause; writes the DOM only on change (every frame in timed play)
 src/ui/overlays.js         title (NEU badge, "Als App"), intro, pause, win, timeout, serie, stuck sheet, how-to, what's new, install card,
                            highscores, settings (incl. 2D/3D products, fullscreen)
 src/audio/engine.js        AudioContext, iOS unlock, master gain, mute
@@ -53,7 +53,7 @@ src/main.js                boot, viewport measuring, lifecycle, settings handler
 src/style/base.css         colour tokens (wall, wood, HUD), reset, iOS page rules, boot-guard card
 src/style/board.css        the cabinet (boards, compartments, glow, shadows, back layer), chains, items (compositor-only animations), FX
 src/style/belts.css        side columns and bottom shelf cells, bars
-src/style/hud.css          HUD band, pills, bottom action row, coach marks
+src/style/hud.css          HUD band, pills, action buttons, combo line, coach marks
 assets/items/*.svg         the 3D product set (docs/ART-STYLE.md); assets/items-2d/*.svg the flat set; assets/items/manifest/ the
                            manifests, geometry.json and geometry-2d.json (generated)
 src/style/overlays.css     overlays and cards
@@ -76,7 +76,7 @@ hide, so choosing the mode again restores it after a reload.
 2. `app/states.js` calls `SS.game.act(...)`, which applies the move, resolves reveals, cascades, the orphan sweep and
    thresholds (`board.resolve`) and returns events (`move`, `take`, `bar`, `match`, `reveal`, `lockTick`, `unlock`,
    `beltAppear`, `sweep`, `collect`, `spend`, `bunnyEarned`, `warnSpace`, `combo`, `score`, `cleared`, `stuck`, ...).
-3. Events go to `ui/boardfx.js` (animations), `ui/hud.js` + `ui/bottombar.js` (numbers), `audio/sounds.js` and back to
+3. Events go to `ui/boardfx.js` (animations), `ui/hud.js` (numbers, buttons), `audio/sounds.js` and back to
    `app/states.js` (win, timeout, stuck sheet, saves).
 4. Belt motion is a compositor animation (`ui/belts.js`); the rules see belts as take-only pools without time. The
    frame loop runs only in timed play for the clock (`SS.game.tick`).

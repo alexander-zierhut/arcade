@@ -1,6 +1,9 @@
-/* src/style/hud.css: the HUD band (v0.3.1, docs/ART-STYLE.md): a dark wood band with white numbers in dark pills: level
-   (+ tag, + "Noch N"), bunny counter (tap = arm), clock or moves, score, blue pause; below it a small combo tag (timed)
-   or the combo pips (relaxed). The action buttons live in a slim bottom row (.bottombar). Coach marks too. */
+/* src/style/hud.css: the HUD band (v0.3.3, docs/ART-STYLE.md): ONE dark wood row, so the cabinet below gets every other
+   pixel. White numbers in dark pills: level with "Noch N" under it (the pill's colour is the difficulty: amber hard, red
+   very hard, violet turbo), the clock with the Serie score under it (timed) or the moves with the par under them (relaxed).
+   Beside them the cream action buttons: Rückgängig, Tipp (relaxed), Goldhase with its count (tap = arm a spend), and the
+   blue pause. The combo window is a progress line drawn on the band's own bottom edge, no text; the xN badge sits after
+   the score. Labels on the action buttons from 640 px up, icons only on phones. Coach marks too. */
 .hud {
   position: absolute; left: 0; right: 0; top: 0;
   padding: calc(var(--safe-top) + 6px) max(8px, env(safe-area-inset-right)) 6px max(8px, env(safe-area-inset-left));
@@ -9,26 +12,23 @@
   z-index: 3; pointer-events: none;
 }
 .hud-row { display: -webkit-box; display: flex; align-items: center; justify-content: space-between; max-width: 560px; margin: 0 auto; min-width: 0; }
-.hud-sub { display: -webkit-box; display: flex; align-items: center; justify-content: center; height: 18px; margin-top: 4px; }
 .hud .pill, .hud button { pointer-events: auto; }
 .pill {
-  display: -webkit-box; display: flex; align-items: center; justify-content: center;
-  height: 44px; padding: 0 12px; margin: 0 3px;
+  display: -webkit-box; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  height: 44px; padding: 0 12px; margin: 0 3px; line-height: 1;
   flex: 0 1 auto; min-width: 0;                     /* the pills give way before the pause button leaves the screen */
   background: var(--hud-pill); border: 0; border-radius: 14px;
   box-shadow: inset 0 3px 0 rgba(0, 0, 0, 0.25), inset 0 -2px 0 rgba(255, 255, 255, 0.08);
   font-size: 19px; font-weight: 900; color: #FFF8EA; text-shadow: 0 2px 0 rgba(0, 0, 0, 0.35);
   white-space: nowrap; position: relative;
 }
-.pill-level { flex-direction: column; line-height: 1; min-width: 72px; }
-.pill-level .pill-sub { font-size: 10px; color: #F3D7B5; margin-top: 3px; text-shadow: none; }
-.pill-tag { position: absolute; left: 50%; bottom: -9px; transform: translateX(-50%); padding: 1px 8px; border-radius: 999px; background: var(--red); color: #fff; font-size: 10px; border: 2px solid #FFF8EA; text-shadow: none; white-space: nowrap; }
-.pill-bunny { padding: 0 10px 0 6px; min-width: 60px; }
-.pill-bunny .bunny-ic { width: 26px; height: 26px; background: url("../../assets/items/special-golden-bunny.svg") center / contain no-repeat; margin-right: 3px; opacity: 0.45; }
-.pill-bunny.has .bunny-ic { opacity: 1; }
-.pill-bunny.has { box-shadow: inset 0 0 0 2px #F2B632, inset 0 3px 0 rgba(0, 0, 0, 0.25); }
-.pill-bunny.pop { animation: combo-pop 0.35s var(--ease-back); }
-.pill-bunny.armed { background: #C9901A; }
+.pill-line { display: -webkit-box; display: flex; align-items: center; }
+.pill-sub { display: -webkit-box; display: flex; align-items: center; margin-top: 3px; font-size: 10px; color: #F3D7B5; text-shadow: none; }
+.pill-level { min-width: 72px; transition: background 0.3s ease; }
+.pill-level.hard { background: #B07A00; }                 /* the level tag is the pill's colour (the intro card names it) */
+.pill-level.vhard { background: #C8352C; }
+.pill-level.turbo { background: #6A3FB5; }
+.pill-level.hard .pill-sub, .pill-level.vhard .pill-sub, .pill-level.turbo .pill-sub { color: #FFF1DC; }
 .pill-mid { min-width: 104px; font-variant-numeric: tabular-nums; }
 .pill-mid .pill-icon { display: inline-block; width: 22px; height: 22px; margin-right: 5px; }
 .pill-mid.warn { background: var(--red); animation: pill-pulse 0.5s ease-in-out infinite alternate; }
@@ -37,8 +37,35 @@
 @keyframes pill-pulse { from { transform: scale(1); } to { transform: scale(1.06); } }
 @keyframes pill-flash { 0% { background: #3FA34D; } 100% { background: var(--hud-pill); } }
 @keyframes combo-pop { from { transform: scale(0.5); } to { transform: scale(1); } }
-.pill-score { min-width: 92px; }
-.pill-score .star-ic { width: 22px; height: 22px; margin-right: 5px; background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6L2.5 9.4l6.6-.8z' fill='%23FFD23F' stroke='%237C6120' stroke-width='1.2' stroke-linejoin='round'/></svg>") center / contain no-repeat; }
+.pill-mid .star-ic { width: 13px; height: 13px; margin-right: 3px; background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6L2.5 9.4l6.6-.8z' fill='%23FFD23F' stroke='%237C6120' stroke-width='1.2' stroke-linejoin='round'/></svg>") center / contain no-repeat; }
+#hud-score { font-size: 12px; color: #FFE9A8; }
+#hud-score.is-par { font-size: 10px; color: #F3D7B5; }        /* relaxed: "Ziel N" under the moves, no star */
+#hud-score.is-par .star-ic { display: none; }
+/* the combo window is a progress line on the band's bottom edge (the 4 px border it has anyway, so it costs no space): it
+   drains with the window (timed: 6 s, relaxed: 3 moves), green, amber from x2 on. The multiplier badge sits after the
+   score; its space is always reserved, so the row never shifts. */
+.combo-bar { position: absolute; left: 0; right: 0; bottom: -4px; height: 4px; overflow: hidden; pointer-events: none; }
+.combo-bar .fill { position: absolute; left: 0; top: 0; bottom: 0; width: 100%; background: #4CD964; transform-origin: 0 50%; transform: scaleX(0); transition: transform 0.25s linear; }
+.combo-bar.hot .fill { background: #FFB020; }
+.combo-x { margin-left: 5px; padding: 0 5px; border-radius: 7px; background: #FFD23F; color: #5A2A12; font-size: 11px; line-height: 15px; text-shadow: none; visibility: hidden; }
+.combo-x.on { visibility: visible; animation: combo-pop 0.3s var(--ease-back); }
+/* the cream action buttons: as tall as the pills, square on phones, with a label from 600 px up */
+.act {
+  position: relative; display: -webkit-box; display: flex; align-items: center; justify-content: center;
+  height: 44px; min-width: 44px; padding: 0 10px; margin: 0 3px; border-radius: 12px; flex-shrink: 0;
+  background: linear-gradient(180deg, #FFF3DC, #F2D9B0); box-shadow: 0 4px 0 #B9884C, inset 0 2px 0 rgba(255, 255, 255, 0.6);
+  font-size: 12px; font-weight: 900; color: var(--ink); line-height: 1; white-space: nowrap;
+}
+.act .lbl { display: none; margin-left: 6px; }
+.act:disabled { opacity: 0.45; }
+.act:active:not(:disabled) { transform: translateY(2px); box-shadow: 0 2px 0 #B9884C; }
+.act svg { width: 24px; height: 24px; fill: none; stroke: var(--ink); stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
+.act .ic-bunny { width: 28px; height: 28px; background: url("../../assets/items/special-golden-bunny.svg") center / contain no-repeat; opacity: 0.45; }
+.act-bunny.has .ic-bunny { opacity: 1; }
+.act-bunny.has { box-shadow: 0 4px 0 #C99A12, inset 0 0 0 2px #F2B632; }
+.act-bunny.armed { background: var(--gold); animation: pill-pulse 0.5s ease-in-out infinite alternate; }
+.act .count { position: absolute; right: -5px; top: -5px; min-width: 20px; height: 20px; padding: 0 5px; border-radius: 999px; background: var(--primary); color: #fff; border: 2px solid #FFF8EA; font-size: 11px; line-height: 16px; text-align: center; }
+.act.pulse { animation: combo-pop 0.4s var(--ease-back); }
 .pause-btn {
   width: 44px; height: 44px; margin-left: 3px; border-radius: 12px; flex-shrink: 0;   /* same height as the pills */
   background: linear-gradient(180deg, #5FC4FF, #2E9BE8); box-shadow: 0 4px 0 #1E6FAE, inset 0 2px 0 rgba(255, 255, 255, 0.35);
@@ -46,46 +73,28 @@
 }
 .pause-btn:active { transform: translateY(2px); box-shadow: 0 2px 0 #1E6FAE; }
 .pause-btn svg { width: 24px; height: 24px; fill: none; stroke: #fff; stroke-width: 4; stroke-linecap: round; }
-.combo-tag { position: relative; min-width: 120px; height: 18px; border-radius: 9px; background: #2C7D38; overflow: hidden; box-shadow: 0 2px 0 #1D5426; }
-.combo-tag .fill { position: absolute; left: 0; top: 0; bottom: 0; width: 100%; background: #4CD964; transform-origin: 0 50%; transform: scaleX(0); transition: transform 0.25s linear; }
-.combo-tag.hot .fill { background: #FFB020; }
-.combo-tag span { position: relative; display: block; font-size: 12px; font-weight: 900; line-height: 18px; text-align: center; color: #fff; text-shadow: 0 1px 0 rgba(0, 0, 0, 0.35); }
-.pips-row { display: -webkit-box; display: flex; align-items: center; height: 18px; }
-.pips-row i { display: inline-block; width: 12px; height: 12px; margin-right: 5px; border-radius: 50%; background: #5A2A12; border: 2px solid #C98C4B; }
-.pips-row i.on { background: #4CD964; }
-.pips-row span { margin-left: 2px; font-size: 13px; font-weight: 900; color: #FFD23F; }
-/* Narrow phones: the pills drop their fixed widths and sit on their content, so the row (four pills plus the
-   pause button in timed mode) fits 320 px without clipping. */
+@media (min-width: 640px) { .act .lbl { display: inline; } .hud-row { max-width: 600px; } }   /* tablets and desktops: labelled buttons, the row grows with them */
+/* Narrow phones: the pills drop their fixed widths and sit on their content, the buttons get narrower, so the row (two
+   pills, up to three action buttons and the pause button in relaxed mode) fits 360 px, and with smaller type 320 px. */
 @media (max-width: 399px) {
-  .pill { padding: 0 8px; margin: 0 2px; font-size: 16px; }
-  .pill-level, .pill-bunny, .pill-mid, .pill-score { min-width: 0; }
-  .pill-bunny { padding: 0 8px 0 5px; }
-  .pill-mid .pill-icon, .pill-score .star-ic, .pill-bunny .bunny-ic { width: 20px; height: 20px; margin-right: 3px; }
+  .pill { padding: 0 7px; margin: 0 2px; font-size: 16px; }
+  .pill-level, .pill-mid { min-width: 0; }
+  .pill-mid .pill-icon { width: 18px; height: 18px; margin-right: 3px; }
+  .act { min-width: 40px; padding: 0 8px; margin: 0 2px; }
+  .act svg { width: 22px; height: 22px; }
+  .act .ic-bunny { width: 26px; height: 26px; }
 }
-
-/* the slim action row at the bottom */
-.bottombar { position: absolute; left: 0; right: 0; bottom: 0; padding: 6px 8px calc(var(--safe-bottom) + 6px); display: -webkit-box; display: flex; justify-content: center; z-index: 3; pointer-events: none; }
-.bottombar button {
-  pointer-events: auto; position: relative; width: 96px; height: 56px; margin: 0 6px; border-radius: 16px;
-  background: linear-gradient(180deg, #FFF3DC, #F2D9B0); border: 0; box-shadow: 0 4px 0 #B9884C, inset 0 2px 0 rgba(255, 255, 255, 0.6);
-  display: -webkit-box; display: flex; flex-direction: column; align-items: center; justify-content: center;
-  font-size: 11px; font-weight: 900; color: var(--ink); line-height: 1;
+@media (max-width: 359px) {
+  .pill { padding: 0 5px; margin: 0 1px; font-size: 15px; }
+  .pill-mid .pill-icon { display: none; }
+  .act { min-width: 36px; padding: 0 6px; margin: 0 1px; }
+  .pause-btn { width: 40px; }
 }
-.bottombar button .lbl { margin-top: 3px; }
-.bottombar button:disabled { opacity: 0.45; }
-.bottombar button:active:not(:disabled) { transform: translateY(2px); box-shadow: 0 2px 0 #B9884C; }
-.bottombar button svg { width: 26px; height: 26px; fill: none; stroke: var(--ink); stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
-.bottombar .ic-bunny { width: 28px; height: 28px; background: url("../../assets/items/special-golden-bunny.svg") center / contain no-repeat; opacity: 0.45; }
-.bottombar #btn-bunny.has .ic-bunny { opacity: 1; }
-.bottombar #btn-bunny.has { box-shadow: 0 4px 0 #C99A12, inset 0 0 0 2px #F2B632; }
-.bottombar #btn-bunny.armed { background: var(--gold); animation: pill-pulse 0.5s ease-in-out infinite alternate; }
-.bottombar .count { position: absolute; right: -6px; top: -8px; min-width: 22px; height: 22px; padding: 0 5px; border-radius: 999px; background: var(--primary); color: #fff; border: 2px solid #FFF8EA; font-size: 12px; line-height: 18px; }
-.bottombar button.pulse { animation: combo-pop 0.4s var(--ease-back); }
 
 /* coach marks */
-.coach { position: absolute; left: 0; top: 0; width: 100%; height: 100%; z-index: 4;   /* above the HUD (3), under the overlays (5): a pause card covers the coach mark */ display: -webkit-box; display: flex; align-items: flex-end; justify-content: center; padding: 0 14px calc(var(--safe-bottom) + 80px); background: rgba(58, 36, 18, 0.25); pointer-events: auto; }
+.coach { position: absolute; left: 0; top: 0; width: 100%; height: 100%; z-index: 4;   /* above the HUD (3), under the overlays (5): a pause card covers the coach mark */ display: -webkit-box; display: flex; align-items: flex-end; justify-content: center; padding: 0 14px calc(var(--safe-bottom) + 24px); background: rgba(58, 36, 18, 0.25); pointer-events: auto; }
 .coach-card { width: 100%; max-width: 380px; padding: 16px 16px 12px; background: var(--card); border: 4px solid var(--card-border); border-radius: 22px; box-shadow: 0 8px 0 var(--card-shadow), 0 16px 30px rgba(60, 30, 0, 0.3); text-align: center; animation: card-in 0.25s var(--ease-back); }
 .coach-text { font-size: 18px; line-height: 1.35; color: var(--ink); margin-bottom: 10px; }
 .coach-hand { width: 40px; height: 40px; margin: 0 auto 6px; background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M9 11V4a1.5 1.5 0 0 1 3 0v6l1-.3a1.5 1.5 0 0 1 3 .6v.7l1-.2a1.5 1.5 0 0 1 2.5 1.2V17a5 5 0 0 1-5 5h-2.5a5 5 0 0 1-4-2L5 15.5a1.5 1.5 0 0 1 2.3-1.9L9 15z' fill='%23FFD9B3' stroke='%233A2412' stroke-width='1.3'/></svg>") center / contain no-repeat; animation: hand-tap 1.2s ease-in-out infinite; }
 @keyframes hand-tap { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(6px) scale(0.95); } }
-body.reduced-motion .coach-hand, body.reduced-motion #btn-bunny.armed, body.reduced-motion .pill-bunny.pop { animation: none; }
+body.reduced-motion .coach-hand, body.reduced-motion .act-bunny.armed, body.reduced-motion .act.pulse, body.reduced-motion .combo-x.on { animation: none; }

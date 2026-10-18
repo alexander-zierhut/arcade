@@ -215,7 +215,7 @@
     var arms = doc.querySelectorAll('[data-arm]');
     for (var a = 0; a < arms.length; a++) { var act = arms[a].getAttribute('data-act'); arms[a].setAttribute('data-arm', t(act === 'restart' ? 'arm_restart' : act === 'end-serie' ? 'arm_end' : 'arm_quit')); }
     doc.documentElement.lang = SS.strings.lang();
-    if (ui.bottombar) ui.bottombar.applyLang();
+    if (ui.hud) ui.hud.applyLang();
   }
   function setSave(s) { save = s; }
   function toast(text) {

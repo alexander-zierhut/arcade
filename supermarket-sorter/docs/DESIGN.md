@@ -175,6 +175,16 @@ v0.3.1 (2026-10-16, the "Vorbild look"):
 | Performance | compositor-only item animations, change-only HUD writes, Web-Animations bursts, opacity flash overlay, change-only belt playback rate; `npm run perf` | `board.css`, `hud.js`, `bottombar.js`, `boardfx.js`, `belts.js` |
 | Refusal feedback | the toast names the reason (full, locked, source locked); a drop onto the own compartment without a free slot springs back silently; a tap on a back-layer product explains the rule | `ui/board.refuseReason`, `main.js` handlers |
 
+v0.3.3 (2026-10-18, one HUD row; owner: the products were still smaller than the original's on his phone in the browser):
+
+| Topic | Shipped | Where |
+|---|---|---|
+| One HUD row | the bottom action row is gone; Rückgängig, Tipp (relaxed) and Goldhase (count, arms a spend) are 44 px buttons in the HUD row beside the pause button, icons only under 640 px; `ui/bottombar.js` folded into `ui/hud.js`; the band is 56 px + safe area, the board gets everything below it down to the bottom safe area | `index.html`, `hud.css`, `ui/hud.js`, `main.relayout` |
+| Pills | level pill with "Noch N" under it; middle pill with the clock and the Serie score under it (timed) or the moves and the par under them (relaxed); the xN combo badge after the score with reserved space (the row never shifts); narrow tiers at 399 and 359 px | `hud.css`, `ui/hud.js` |
+| Difficulty as colour | the level pill is amber (hard), red (very hard) or violet (turbo) instead of carrying a badge; the intro card still names it | `hud.css .pill-level.hard/.vhard/.turbo` |
+| Combo line | the combo window is a progress line drawn on the band's own 4 px bottom edge (green, amber from x2), no text; relaxed drains in thirds (3 moves) | `hud.css .combo-bar`, `ui/hud.js` |
+| Measured | 360×678 (owner's phone in Chrome): cabinet 272 → 331 px (76 → 92 % of the width); levels without the bottom shelf and app/fullscreen mode reach the full width; see `docs/STATUS.md` | `tests/browser/layout.js`, `run.js` |
+
 ## 1. Game model, formal
 
 ### 1.1 Terms

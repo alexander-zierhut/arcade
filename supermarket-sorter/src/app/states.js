@@ -19,29 +19,29 @@
   function vibrate(ms) { if (ctx.save && ctx.save.haptics === false) return; try { if (root.navigator && root.navigator.vibrate) root.navigator.vibrate(ms); } catch (e) { /* none */ } }
   function writeSave() { if (ui().storage && ctx.save) ctx.save = guard('save', ui().storage.save, ctx.save) || ctx.save; if (ui().overlays) ui().overlays.setSave(ctx.save); }
   function boardOpts() { return { stillBelts: !!ctx.save.stillBelts, showDepth: !!ctx.save.showDepth }; }
-  function refreshHud() { if (ctx.game) { guard('hud', ui().hud.update, ctx.game, ctx.save, R().serieScore(ctx)); guard('bar', ui().bottombar.update, ctx.game); } }
+  function refreshHud() { if (ctx.game) guard('hud', ui().hud.update, ctx.game, ctx.save, R().serieScore(ctx)); }
   function clearTimer() { if (timer) { root.clearTimeout(timer); timer = 0; } }
   function after(ms, fn) { clearTimer(); timer = root.setTimeout(function () { timer = 0; fn(); }, ms); }
 
   // ---------- states ----------
   function setState(name) {
     var prev = ctx.state; ctx.state = name;
-    var O = ui().overlays, B = ui().board, H = ui().hud, BB = ui().bottombar, BE = ui().belts;
+    var O = ui().overlays, B = ui().board, H = ui().hud, BE = ui().belts;
     clearTimer();
     if (name === 'TITLE') {
       if (B) { B.setEnabled(false); B.setGame(null); }
-      H.show(false); BB.show(false); root.document.getElementById('board').hidden = true;
+      H.show(false); root.document.getElementById('board').hidden = true;
       ctx.game = null; ctx.stuckOpen = false;
       O.show('title', { save: ctx.save });
       app.loop.want('clock', false);
     } else if (name === 'INTRO') {
-      root.document.getElementById('board').hidden = false; H.show(true); BB.show(true); refreshHud();
+      root.document.getElementById('board').hidden = false; H.show(true); refreshHud();
       B.setEnabled(false);
       if (BE) BE.pause();
       O.show('intro', { level: ctx.game.level, line: R().introLine(ctx.mode, ctx.game.level, ctx.save) });
       guard('relayout', SS.main && SS.main.relayout);
     } else if (name === 'PLAY') {
-      root.document.getElementById('board').hidden = false; H.show(true); BB.show(true);
+      root.document.getElementById('board').hidden = false; H.show(true);
       O.show(null); refreshHud();
       ctx.game.frozen = false;
       if (prev === 'INTRO') showTips(); else resumePlay();
@@ -133,7 +133,7 @@
   function onDrop(itemId, comp, slot) { return act(function () { return SS.game.moveItem(ctx.game, itemId, comp, slot); }); }
   function onShift(itemId, slot) { return act(function () { return SS.game.shiftItem(ctx.game, itemId, slot); }); }
   function onCollect(itemId) { return act(function () { return SS.game.collect(ctx.game, itemId); }); }
-  function onSpend(comp) { var ev = act(function () { return SS.game.spend(ctx.game, comp); }); ui().bottombar.setArmed(false); return ev; }
+  function onSpend(comp) { var ev = act(function () { return SS.game.spend(ctx.game, comp); }); ui().hud.setArmed(false); return ev; }
   function onTouch() { if (ctx.game && ctx.mode === 'timed' && !ctx.game.started && !ctx.game.frozen) { SS.game.start(ctx.game); app.resetClock(); } }
   function undo() {
     if (!ctx.game || (ctx.state !== 'PLAY' && ctx.state !== 'TIMEOUT')) return;
@@ -146,8 +146,8 @@
   }
   function toggleBunny() {
     if (ctx.state !== 'PLAY' || !ctx.game || ctx.game.board.bunnies < 1) return;
-    var arm = !ui().bottombar.isArmed();
-    ui().bottombar.setArmed(arm); ui().board.armSpend(arm);
+    var arm = !ui().hud.isArmed();
+    ui().hud.setArmed(arm); ui().board.armSpend(arm);
     if (arm) ui().overlays.toast(SS.t('bunny_arm'));
   }
   function rescue() {
@@ -179,7 +179,7 @@
         case 'bar': guard('snd', S.refuse); break;
         case 'collect': guard('snd', S.combo, 3); O.toast(SS.t('bunny_found')); break;
         case 'spend': guard('snd', S.clear); vibrate([30, 40]); break;
-        case 'bunnyEarned': if (e.reason === 'combo5') O.toast(SS.t('bunny_earned')); ui().bottombar.pulse('bunny'); break;
+        case 'bunnyEarned': if (e.reason === 'combo5') O.toast(SS.t('bunny_earned')); break;   // the HUD pops the bunny button when its count rises
         case 'sweep': if (e.first) O.toast(SS.t('orphan')); break;
         case 'warnSpace': if (e.first) O.toast(SS.t('warn_space')); break;
         case 'beltAppear': O.toast(SS.t('belt_appear')); break;

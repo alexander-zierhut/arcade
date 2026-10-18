@@ -1,6 +1,35 @@
-# Status and handoff (v0.3.2, 2026-10-16)
+# Status and handoff (v0.3.3, 2026-10-18)
 
 Read this first in a new session. It says what exists, how to run and prove it, what is tuned and what is open.
+
+## What changed in v0.3.3 (one HUD row, the shelf gets the rest)
+
+- **The bottom action row is gone.** Rückgängig, Tipp (relaxed) and Goldhase (with its count; tap = arm a spend) sit in
+  the HUD row next to the pause button, icons only on phones, labelled from 640 px up. `src/ui/bottombar.js` was folded
+  into `src/ui/hud.js` (`setArmed`, `isArmed`, `pulse`, `applyLang` live there now).
+- **One row, 56 px plus the safe area.** Level pill with "Noch N" under it, the clock with the Serie score under it (timed)
+  or the moves with the par under them (relaxed), then the buttons. The difficulty is the level pill's colour (amber hard,
+  red very hard, violet turbo) instead of a badge; the combo window is a progress line drawn on the band's own bottom edge
+  (green, amber from x2 on) with the xN badge next to the score (its space is reserved, so the row never shifts). Nothing
+  hangs below the band; the board starts 8 px under it and runs to the bottom safe area.
+- **Why (owner, 2026-10-18):** on his phone in Chrome (360×678 CSS px with the toolbar) the cabinet was 272 px wide, 76 % of
+  the screen, the products smaller than in the original game. The owner's design: reuse the band's border as the progress
+  line and make the difficulty a colour, "same info, way less space". Measured with the real page in headless Chrome:
+
+  | viewport | before | after |
+  |---|---|---|
+  | 360×678 (owner's phone, Chrome with toolbar), timed L130 | 272 px (76 %) | 331 px (92 %) |
+  | 360×800 (same phone, app or fullscreen) | 353 px (98 %) | 353 px (98 %) |
+  | 390×664 (iPhone 14, Safari) | 261 px (67 %) | 320 px (82 %) |
+  | 412×780 (Pixel 7, Chrome) | 341 px (83 %) | 401 px (97 %) |
+  | 320×568 (iPhone SE 1) | 194 px (61 %) | 254 px (79 %) |
+
+  Levels without the bottom shelf (most relaxed levels) reach the full width on every phone. The last 8 % on the
+  owner's phone in the browser would need a band under 41 px; app mode or the Fullscreen API ("Als App") gives it.
+- **Browser suite:** `tests/browser/layout.js` checks the row in relaxed (hint shown, widest moves line "123 / Ziel 247",
+  x2 badge, combo line on the edge) and timed (red level pill, no combo line before a match) at 320-430 px; `run.js`
+  asserts the one-row band and the full-width cabinet at 390×844.
+- What's-new card for 0.3.3 (`save.seenVersion`).
 
 ## What changed in v0.3.2 (small fixes, English first)
 

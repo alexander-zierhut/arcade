@@ -195,19 +195,20 @@ async function main() {
     console.log('    frame intervals with moving belts (headless): p50 ' + perf.p50.toFixed(1) + ' ms, p95 ' + perf.p95.toFixed(1) + ' ms, max ' + perf.max.toFixed(1) + ' ms');
     if (perf.p95 < 40) ok('p95 frame interval under 40 ms'); else fail('p95 frame interval ' + perf.p95.toFixed(1) + ' ms');
 
-    // ---- v0.3: one product size everywhere (rack, side shelves, bottom shelf) and the HUD is one bar at the top ----
+    // ---- v0.3: one product size everywhere (rack, side shelves, bottom shelf); v0.3.3: one HUD row, nothing under the board ----
     await startLevel(page, 'timed', 40);
     var sizes = await page.evaluate(function () {
       var byType = {}, bad = [];
       Array.prototype.forEach.call(document.querySelectorAll('#items .item, .cell .item'), function (el) { var t = el.getAttribute('data-type'), w = el.style.width; if (!t) return; if (byType[t] && byType[t] !== w) bad.push(t + ' ' + byType[t] + ' vs ' + w); byType[t] = w; });
       var g = SS.ui.board.geometry(), hud = document.getElementById('hud').getBoundingClientRect(), board = document.getElementById('board').getBoundingClientRect();
-      var bar = document.getElementById('bottombar').getBoundingClientRect();
-      return { bad: bad, types: Object.keys(byType).length, hudBottom: hud.bottom, boardTop: board.top, boardBottom: board.bottom, barTop: bar.top, slotW: g.slotW, hasH: g.hasH, hW: g.belts.H && g.belts.H.w, boardW: g.w, sideCells: g.belts.L && g.belts.L.Wv, rows: g.rows };
+      return { bad: bad, types: Object.keys(byType).length, hudH: hud.height, hudBottom: hud.bottom, boardTop: board.top, boardBottom: board.bottom, vh: innerHeight, vw: innerWidth, slotW: g.slotW, hasH: g.hasH, hW: g.belts.H && g.belts.H.w, boardW: g.w, sideCells: g.belts.L && g.belts.L.Wv, rows: g.rows };
     });
     if (!sizes.bad.length && sizes.types > 5) ok('timed L40: every product has one tile size on rack, side shelves and bottom shelf (' + sizes.types + ' types, slot ' + sizes.slotW.toFixed(1) + ' px)'); else fail('tile sizes differ: ' + sizes.bad.join(', '));
-    if (sizes.boardTop >= sizes.hudBottom - 1 && sizes.barTop >= sizes.boardBottom - 1) ok('HUD band above, slim action row below, the board in between'); else fail('layout: ' + JSON.stringify(sizes));
+    // the board sits between the band and the bottom edge and is limited by one of them: it spans the width, or it runs down to the edge
+    var limited = sizes.boardW >= sizes.vw - 10 || sizes.boardBottom >= sizes.vh - 12;
+    if (sizes.hudH <= 60 && sizes.boardTop >= sizes.hudBottom + 4 && sizes.boardBottom <= sizes.vh - 4 && limited) ok('one HUD row (' + sizes.hudH + ' px) above, nothing below the board (' + sizes.boardTop.toFixed(0) + '..' + sizes.boardBottom.toFixed(0) + ' of ' + sizes.vh + ')'); else fail('layout: ' + JSON.stringify(sizes));
     if (sizes.sideCells === sizes.rows && sizes.hW === sizes.boardW) ok('side columns show one cell per rack row (' + sizes.rows + ') and the bottom shelf spans the cabinet'); else fail('cabinet: ' + JSON.stringify(sizes));
-    if (sizes.slotW >= 40) ok('slot width at 390x844 with belts and bottom shelf is ' + sizes.slotW.toFixed(1) + ' px (was 36 in v0.2)'); else fail('slot width ' + sizes.slotW);
+    if (sizes.boardW >= sizes.vw - 10 && sizes.slotW >= 42) ok('at 390x844 the cabinet with belts and bottom shelf spans the width (' + sizes.boardW.toFixed(0) + ' of ' + sizes.vw + ' px, slot ' + sizes.slotW.toFixed(1) + ' px; was 36 in v0.2, 40 in v0.3)'); else fail('cabinet width ' + sizes.boardW + ' of ' + sizes.vw + ', slot ' + sizes.slotW);
     // forgiving drop: release the finger in the gap just below the target compartment, the item still lands there
     var fg = await page.evaluate(function () {
       var b = SS.app.ctx.game.board, g = SS.ui.board.geometry(), r = document.getElementById('board').getBoundingClientRect(), m = SS.solver.hint(b, 20000), it = m && b.items[m.item], to = m && m.to;
@@ -317,7 +318,7 @@ async function main() {
     }
     if (errors.length) errors.forEach(function (e) { fail(e); }); else ok('no page errors');
 
-    // ---- layout at four phone widths (HUD, bottom bar, pause card, title) ----
+    // ---- layout at four phone widths (one-row HUD in both modes, combo line, pause card, title) ----
     await require('./layout.js').run(browser, PAGE, { ok: ok, fail: fail, waitState: waitState });
   } finally { await browser.close(); }
   console.log(failures.length ? failures.length + ' failure(s)' : 'all browser checks passed');

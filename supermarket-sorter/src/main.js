@@ -30,10 +30,10 @@
   function relayout() {
     var m = measure(), safe = readSafe(), de = doc.documentElement.style;
     de.setProperty('--vw', m.vw + 'px'); de.setProperty('--vh', m.vh + 'px'); de.setProperty('--safe-top', safe.top + 'px'); de.setProperty('--safe-bottom', safe.bottom + 'px');
-    var hudH = SS.ui.hud ? SS.ui.hud.height() : 0; if (!hudH) hudH = safe.top + 6 + 44 + 22 + 6;
+    var hudH = SS.ui.hud ? SS.ui.hud.height() : 0; if (!hudH) hudH = safe.top + 6 + 44 + 6;
     de.setProperty('--hud-h', hudH + 'px');
-    var barH = SS.ui.bottombar ? SS.ui.bottombar.height() : 0; if (!barH) barH = safe.bottom + 12 + 56;
-    var top = hudH + 8, bottom = barH + 4;
+    // the board gets everything under the HUD band (its 4 px edge plus the badges hanging off the pills) down to the safe area
+    var top = hudH + 8, bottom = safe.bottom + 8;
     var lay = { vw: m.vw, vh: m.vh, safe: safe, board: { x: 4 + safe.left, y: top, w: m.vw - 8 - safe.left - safe.right, h: Math.max(160, m.vh - top - bottom) } };
     ctx().lay = lay;
     if (SS.ui.board) guard('board', SS.ui.board.layout, lay.board);
@@ -171,8 +171,7 @@
     if (c.save.lang === 'de') SS.strings.setLang('de');
     SS.ui.input.installGuards(); SS.ui.input.installKeys(keyAction);
     guard('audio', SS.audio.engine.init, { muted: !!c.save.muted });
-    SS.ui.hud.init({ onPause: function () { SS.app.pause(); }, onBunny: function () { SS.app.toggleBunny(); } });
-    SS.ui.bottombar.init({ onUndo: function () { SS.app.undo(); }, onBunny: function () { SS.app.toggleBunny(); }, onHint: function () { SS.app.hint(); } });
+    SS.ui.hud.init({ onPause: function () { SS.app.pause(); }, onUndo: function () { SS.app.undo(); }, onBunny: function () { SS.app.toggleBunny(); }, onHint: function () { SS.app.hint(); } });
     SS.ui.overlays.init(handlers()); SS.ui.overlays.setSave(c.save);
     SS.ui.hooks = { onCoachOpen: function () { if (SS.ui.belts) SS.ui.belts.pause(); if (c.game) c.game.frozen = true; SS.ui.board.setEnabled(false); }, onCoachClose: function () { /* the last tip's callback resumes */ } };
     SS.ui.board.init(doc.getElementById('board'), {

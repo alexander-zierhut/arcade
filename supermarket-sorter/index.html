@@ -36,16 +36,17 @@
 <div id="app" class="app">
   <div id="hud" class="hud" hidden>
     <div class="hud-row">
-      <div id="hud-level" class="pill pill-level"><span id="hud-level-text">Lv. 1</span><span id="hud-left" class="pill-sub">Noch 0</span><span id="hud-tag" class="pill-tag" hidden></span></div>
-      <button id="hud-bunny" class="pill pill-bunny" type="button" aria-label="Goldhase"><span class="bunny-ic"></span><span id="hud-bunny-n">0</span></button>
-      <div id="hud-mid" class="pill pill-mid"><span id="hud-mid-icon" class="pill-icon"></span><span id="hud-mid-text">00:00</span></div>
-      <div id="hud-score" class="pill pill-score" hidden><span class="star-ic"></span><span id="hud-score-text">0</span></div>
+      <div id="hud-level" class="pill pill-level"><span id="hud-level-text">Lv. 1</span><span id="hud-left" class="pill-sub">Noch 0</span></div>
+      <div id="hud-mid" class="pill pill-mid">
+        <span class="pill-line"><span id="hud-mid-icon" class="pill-icon"></span><span id="hud-mid-text">00:00</span></span>
+        <span id="hud-score" class="pill-sub"><span class="star-ic"></span><span id="hud-score-text">0</span><span id="hud-combo-x" class="combo-x">x1</span></span>
+      </div>
+      <button id="btn-undo" class="act" type="button" aria-label="Rückgängig"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 14l-4-4 4-4"/><path d="M5 10h9a5 5 0 0 1 0 10h-3"/></svg><span class="lbl">Rückgängig</span></button>
+      <button id="btn-hint" class="act" type="button" aria-label="Tipp" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.8.6 1.5 1.6 1.5 2.6h4c0-1 .7-2 1.5-2.6A6 6 0 0 0 12 3z"/></svg><span class="lbl">Tipp</span></button>
+      <button id="btn-bunny" class="act act-bunny" type="button" aria-label="Goldhase"><span class="ic-bunny"></span><span class="lbl">Goldhase</span><span id="bunny-count" class="count">0</span></button>
       <button id="btn-pause" class="pause-btn" type="button" aria-label="Pause"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14M16 5v14"/></svg></button>
     </div>
-    <div class="hud-sub">
-      <div id="hud-combo" class="combo-tag" hidden><div id="hud-combo-fill" class="fill"></div><span id="hud-combo-text">Kombo x1</span></div>
-      <div id="hud-pips" class="pips-row" hidden><i></i><i></i><i></i><span></span></div>
-    </div>
+    <div id="hud-combo" class="combo-bar" hidden aria-hidden="true"><div id="hud-combo-fill" class="fill"></div></div>
   </div>
 
   <div id="board" class="board" hidden>
@@ -53,12 +54,6 @@
     <div id="items" class="items"></div>
     <div id="locks" class="locks"></div>
     <div id="fx" class="fx" aria-hidden="true"></div>
-  </div>
-
-  <div id="bottombar" class="bottombar" hidden>
-    <button id="btn-undo" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 14l-4-4 4-4"/><path d="M5 10h9a5 5 0 0 1 0 10h-3"/></svg><span class="lbl">Rückgängig</span></button>
-    <button id="btn-bunny" type="button"><span class="ic-bunny"></span><span class="lbl">Goldhase</span><span id="bunny-count" class="count">0</span></button>
-    <button id="btn-hint" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.8.6 1.5 1.6 1.5 2.6h4c0-1 .7-2 1.5-2.6A6 6 0 0 0 12 3z"/></svg><span class="lbl">Tipp</span></button>
   </div>
 
   <div id="toasts" class="toasts" aria-live="polite"></div>
@@ -191,7 +186,7 @@
 
     <section id="ov-whatsnew" class="ov ov-modal" hidden inert aria-label="Neuigkeiten">
       <div class="card scroll">
-        <div class="ribbon ribbon-green"><h2 class="card-title js-title">Neu in Version 0.3.2</h2></div>
+        <div class="ribbon ribbon-green"><h2 class="card-title js-title">Neu in Version 0.3.3</h2></div>
         <div class="howto js-text"></div>
         <div class="btn-col"><button class="btn btn-primary" type="button" data-act="close">Alles klar</button></div>
       </div>
@@ -227,7 +222,6 @@
 <script src="src/ui/belts.js"></script>
 <script src="src/ui/board.js"></script>
 <script src="src/ui/boardfx.js"></script>
-<script src="src/ui/bottombar.js"></script>
 <script src="src/ui/coach.js"></script>
 <script src="src/ui/hud.js"></script>
 <script src="src/ui/overlays.js"></script>
