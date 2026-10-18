@@ -14,6 +14,17 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const SITE_URL = 'https://arcade.alzlper.com/';
 const HASHED = /\.[0-9a-f]{10}\.[^./]+$/;
 const games = readdirSync(root).filter((n) => existsSync(join(root, n, 'scripts', 'release.sh'))).sort();
+/** statusOf(game) -> 'ready' | 'beta' as the game's release.json says it (ready without a manifest or a status). */
+const statusOf = (game) => {
+  const file = join(root, game, 'release.json');
+  if (!existsSync(file)) return 'ready';
+  const status = JSON.parse(readFileSync(file, 'utf8')).status;
+  return status === undefined ? 'ready' : status;
+};
+// the build decodes the og tags to text and escapes once when it writes them (scripts/build-site.mjs esc/unesc)
+const esc = (s) => s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const unesc = (s) => s.replace(/&(amp|lt|gt|quot|#39);/g, (c, n) => ({ amp: '&', lt: '<', gt: '>', quot: '"', '#39': "'" }[n]));
+const count = (n, what) => `${n} ${what}${n === 1 ? '' : 's'}`;
 // parsed from the script itself, so a new redirect is tested without touching this file
 const redirects = Object.entries(JSON.parse(
   readFileSync(join(root, 'scripts', 'build-site.mjs'), 'utf8').match(/const REDIRECTS = (\{.*?\});/s)[1].replace(/'/g, '"')));
@@ -98,14 +109,45 @@ describe('site build', () => {
     assert.deepEqual([...listed].sort(), walk(site).filter((f) => HASHED.test(f)).sort());
   });
 
-  it('the selector has one card per game, titled by the game\'s og:title', () => {
-    const cards = [...read('index.html').matchAll(/<a class="card" href="([^"]+)">([\s\S]*?)<\/a>/g)];
-    assert.deepEqual(cards.map((c) => c[1]), games.map((g) => `${g}/`));
-    cards.forEach((c, i) => {
-      const title = metaContent(read(games[i], 'index.html'), 'og:title');
-      assert.ok(title, `${games[i]} has no og:title`);
-      assert.equal(c[2].match(/<h2>(.*?)<\/h2>/)[1], title.replace(/&/g, '&amp;').replace(/&amp;amp;/g, '&amp;'));
-    });
+  const titleOf = (g) => {
+    const title = metaContent(read(g, 'index.html'), 'og:title');
+    assert.ok(title, `${g} has no og:title`);
+    return unesc(title);
+  };
+
+  it('the selector has one card per game in its section, ready first, each titled by the game\'s og:title', () => {
+    const html = read('index.html');
+    const ready = games.filter((g) => statusOf(g) === 'ready'), beta = games.filter((g) => statusOf(g) === 'beta');
+    const cardsIn = (part) => [...part.matchAll(/<a class="card( beta)?" href="([^"]+)">([\s\S]*?)<\/a>/g)];
+    const section = (cls) => (html.match(new RegExp(`<section class="group ${cls}"[\\s\\S]*?</section>`)) || [''])[0];
+    const cards = cardsIn(html);
+    assert.deepEqual(cards.map((c) => c[2]), [...ready, ...beta].map((g) => `${g}/`));
+    if (beta.length) {
+      assert.deepEqual(cardsIn(section('ready')).map((c) => c[2]), ready.map((g) => `${g}/`), 'the cards of the ready section');
+      assert.deepEqual(cardsIn(section('beta')).map((c) => c[2]), beta.map((g) => `${g}/`), 'the cards of the beta section');
+    }
+    const h = beta.length ? 'h3' : 'h2';   // card titles sit one level under the section headings, when there are sections
+    for (const c of cards) {
+      const game = c[2].slice(0, -1), isBeta = statusOf(game) === 'beta';
+      assert.equal((c[3].match(new RegExp(`<${h}>(.*?)</${h}>`)) || [])[1], esc(titleOf(game)), `${game}: title as <${h}>`);
+      assert.equal(!!c[1], isBeta, `${game}: card class`);
+      assert.equal(c[3].includes('<span class="badge">Beta</span>'), isBeta, `${game}: badge`);
+      assert.ok(c[3].includes(`<span class="play">${isBeta ? 'Play the beta' : 'Play'}</span>`), `${game}: button`);
+    }
+  });
+
+  it('the selector has the ready and beta sections exactly when there is a beta game, and counts the games the same way everywhere', () => {
+    const html = read('index.html');
+    const ready = games.filter((g) => statusOf(g) === 'ready'), beta = games.filter((g) => statusOf(g) === 'beta');
+    assert.equal(html.includes('<section class="group beta"'), beta.length > 0, 'beta section');
+    assert.equal(html.includes('<section class="group ready"'), beta.length > 0 && ready.length > 0, 'ready section');
+    assert.equal(/progress saved in a beta game may not carry over/.test(html), beta.length > 0, 'beta note');
+    // the outline never skips a level: h2 per section when there are sections, else h2 per card
+    assert.equal((html.match(/<h2\b/g) || []).length, beta.length ? (ready.length ? 2 : 1) : games.length, 'h2 headings');
+    const expected = `${count(games.length, 'free browser game')}, no ads, no account: ${[...ready, ...beta].map((g) => titleOf(g) + (statusOf(g) === 'beta' ? ' (beta)' : '')).join(', ')}.`;
+    assert.equal(unesc(metaContent(html, 'description')), expected);
+    assert.equal(unesc(metaContent(html, 'og:description')), expected);
+    assert.equal(html.match(/<footer>(.*?)<\/footer>/)[1], count(games.length, 'game') + (beta.length ? `, ${beta.length} in beta` : ''));
   });
 
   it('every game has a VERSION.txt', () => {

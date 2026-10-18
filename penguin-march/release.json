@@ -1,5 +1,6 @@
 {
   "name": "Penguin March",
+  "status": "beta",
   "files": ["index.html", "src", "assets/sprites/*.svg", "assets/icons"],
   "copy": { "assets/icons/favicon.svg": "favicon.svg" }
 }

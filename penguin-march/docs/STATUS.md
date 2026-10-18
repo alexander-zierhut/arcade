@@ -1,6 +1,6 @@
 # Status
 
-Version 1.0.0, 2026-10-18.
+Version 1.0.0, 2026-10-18. **Beta**: listed in the selector's beta section (`"status": "beta"` in `release.json`). Big changes are still planned, and a new version may reset the saved progress instead of migrating it.
 
 ## What is in it
 

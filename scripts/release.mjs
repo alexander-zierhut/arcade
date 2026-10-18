@@ -3,6 +3,7 @@
 // used to carry their own copy of this script; now the steps live here and each game only says what ships,
 // in <game>/release.json:
 //   name    first line of dist/VERSION.txt
+//   status  "ready" (default) or "beta": where the selector page lists the game (optional; see build-site.mjs)
 //   before  shell commands run in the game folder before copying (optional)
 //   files   paths relative to the game folder: a file, a folder (copied whole) or a glob with `*` in the
 //           last segment (matches land in the same relative folder; no match is fine, a missing plain path
@@ -31,6 +32,7 @@ let manifest;
 try { manifest = JSON.parse(readFileSync(join(game, 'release.json'), 'utf8')); } catch (e) { fail(`${name}/release.json: ${e.message}`); }
 if (typeof manifest.name !== 'string' || !manifest.name) fail('release.json needs a non-empty "name"');
 if (!Array.isArray(manifest.files) || !manifest.files.length) fail('release.json needs a non-empty "files" list');
+if (manifest.status !== undefined && !['ready', 'beta'].includes(manifest.status)) fail(`release.json: "status" must be "ready" or "beta", not ${JSON.stringify(manifest.status)}`);
 const version = JSON.parse(readFileSync(join(game, 'package.json'), 'utf8')).version;
 const stamp = (() => { const d = new Date(), p = (n) => String(n).padStart(2, '0'); return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}`; })();
 

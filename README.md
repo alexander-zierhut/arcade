@@ -5,7 +5,7 @@ and every game under `/<game>/`.
 
 - `cocktail-merge`: cocktail physics-merge game
 - `supermarket-sorter`: shelf-sorting match-3 grocery game
-- `penguin-march`: the gate-runner from the mobile ads, made real (penguins, numbered gates, a walrus)
+- `penguin-march` (beta): the gate-runner from the mobile ads, made real (penguins, numbered gates, a walrus)
 
 ## How it fits together
 
@@ -18,6 +18,10 @@ workflow, the site build and the selector page all discover them from the folder
   wrapper that calls the shared script (and the place for anything the manifest cannot express).
 - `<game>/index.html` carries Open Graph tags. The selector page is built from `og:title`,
   `og:description` and `og:image`, so a game's card is whatever the game itself says it is.
+- A game is ready or beta, as `status` in its `release.json` says (ready when absent). The selector lists
+  the ready games first and the beta games in their own section below, with a Beta badge and a note that a
+  beta game still changes a lot and that its saved progress may not carry over to the next version. That is
+  the contract: a beta game may drop or reset its save format between versions, a ready game must migrate.
 - `scripts/build-site.mjs` builds everything into `_site/`: each game's release under `_site/<game>/`
   and the selector at `_site/index.html`. Check it locally with
   `node scripts/build-site.mjs && python3 -m http.server --directory _site`.
@@ -95,6 +99,8 @@ line on the title screen in `index.html`).
    rest (copies the files, writes `dist/VERSION.txt`, fails if a `src` or `href` in `index.html` is missing
    from `dist/`, zips into `release/`). The manifest keys:
    - `name`: the game's title, first line of `VERSION.txt`.
+   - `status` (optional): `"beta"` lists the game in the selector's beta section (see above); `"ready"`
+     or no status lists it as ready. Start a new game as beta and drop the field when it is done.
    - `files`: what ships, relative to the game folder. A folder is copied whole; `assets/items/*.svg`
      (a `*` in the last segment) copies the matching files, and matching nothing is fine.
    - `copy` (optional): extra `{ "source": "destination in dist" }` pairs, e.g. a favicon also served from `/`.

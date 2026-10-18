@@ -54,6 +54,8 @@ The hashed paths go into `_site-immutable.txt`. `scripts/deploy.sh` uploads thos
 
 `index.html` carries the Open Graph and Twitter tags: `og:title` ("Penguin March"), `og:description`, `og:url`, and `og:image`, an absolute URL under `https://arcade.alzlper.com/penguin-march/`, with a size of 1200 by 630. It also has `twitter:card` and `twitter:image`. The selector page builds this game's card from `og:title`, `og:description` and `og:image`.
 
+`release.json` says `"status": "beta"`, so the selector lists this game in its Beta section, with a Beta badge and a note that the game still changes a lot and that saved progress may not carry over to the next version. While the game is beta, a version may drop `penguinMarch.v1` instead of migrating it. Remove the `status` field when the game is ready; from then on every version must migrate the save.
+
 The image is `assets/icons/og-image.png`, 1200 by 630. The root script `scripts/og-images.mjs` renders it from `docs/preview/game-play.png`, a phone screenshot, with the title, subtitle, pitch and tags from its table. Run it from the repository root:
 
 ```
