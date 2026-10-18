@@ -26,6 +26,7 @@
 <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+<link rel="stylesheet" href="shared/arcade.css">
 <link rel="stylesheet" href="src/style/base.css">
 <link rel="stylesheet" href="src/style/board.css">
 <link rel="stylesheet" href="src/style/belts.css">
@@ -33,6 +34,20 @@
 <link rel="stylesheet" href="src/style/overlays.css">
 </head>
 <body>
+<!-- the arcade kit (shared/, see docs/GAME-SPEC.md): loading screen, language, app mode, home, performance mode, news, share, backup -->
+<script src="shared/core.js"></script>
+<script src="shared/ui.js"></script>
+<script src="shared/app.js"></script>
+<script src="shared/perf.js"></script>
+<script src="shared/stats.js"></script>
+<script src="shared/campaigns.js"></script>
+<script src="shared/news.js"></script>
+<script src="shared/share.js"></script>
+<script src="shared/backup.js"></script>
+<script src="shared/menu.js"></script>
+<script src="shared/hooks.js"></script>
+<script src="news.js"></script>
+<script>Arcade.init({ game: 'supermarket-sorter', title: 'Supermarket Sorter', version: '0.3.4' });</script>
 <div id="app" class="app">
   <div id="hud" class="hud" hidden>
     <div class="hud-row">
@@ -76,7 +91,7 @@
           <button class="chip" type="button" data-act="scores">Bestenliste</button>
           <button class="chip" type="button" data-act="settings">Einstellungen</button>
           <button class="chip chip-new" type="button" data-act="whatsnew">Neuigkeiten<span class="new-badge" hidden>NEU</span></button>
-          <button class="chip" type="button" data-act="install">Als App</button>
+          <button class="chip" type="button" data-arcade="home">Alle Spiele</button>
         </div>
       </div>
     </section>
@@ -115,6 +130,7 @@
         <div class="newbest-ribbon js-newbest" hidden>Neuer Rekord!</div>
         <div class="btn-col">
           <button class="btn btn-primary" type="button" data-act="next">Nächstes Level</button>
+          <button class="btn btn-secondary" type="button" data-act="share">Teilen</button>
           <button class="btn btn-secondary" type="button" data-act="quit">Zum Menü</button>
         </div>
       </div>
@@ -139,6 +155,7 @@
         <div class="newbest-ribbon js-newbest" hidden>Neuer Rekord!</div>
         <div class="btn-col">
           <button class="btn btn-primary" type="button" data-act="retry">Weiter</button>
+          <button class="btn btn-secondary" type="button" data-act="share">Teilen</button>
           <button class="btn btn-secondary" type="button" data-act="quit">Zum Menü</button>
         </div>
       </div>
@@ -173,20 +190,9 @@
       </div>
     </section>
 
-    <section id="ov-install" class="ov ov-modal" hidden inert aria-label="Als App spielen">
-      <div class="card scroll">
-        <h2 class="card-title js-title">Als App spielen</h2>
-        <div class="howto js-text"></div>
-        <div class="btn-col">
-          <button class="btn btn-primary js-fullscreen" type="button" data-act="fullscreen">Vollbild</button>
-          <button class="btn btn-secondary" type="button" data-act="close">Alles klar</button>
-        </div>
-      </div>
-    </section>
-
     <section id="ov-whatsnew" class="ov ov-modal" hidden inert aria-label="Neuigkeiten">
       <div class="card scroll">
-        <div class="ribbon ribbon-green"><h2 class="card-title js-title">Neu in Version 0.3.3</h2></div>
+        <div class="ribbon ribbon-green"><h2 class="card-title js-title">Neu in Version 0.3.4</h2></div>
         <div class="howto js-text"></div>
         <div class="btn-col"><button class="btn btn-primary" type="button" data-act="close">Alles klar</button></div>
       </div>

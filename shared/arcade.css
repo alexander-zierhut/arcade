@@ -1,0 +1,48 @@
+/* shared/arcade.css: the kit's own UI (loading screen, sheets, toast) over the game. The look is deliberately plain so
+   it goes with any game: rounded card, system font, and every colour from the game's CSS variables, set on :root in
+   the game's own stylesheet:
+     --arcade-bg          the loading screen's background            (default: the page's theme-color, else #202020)
+     --arcade-card        the card background                        (default #FFFFFF)
+     --arcade-ink         text on the card                           (default #222222)
+     --arcade-accent      the primary button                         (default #2E6BE6)
+     --arcade-accent-ink  text on the primary button                 (default #FFFFFF)
+     --arcade-muted       secondary buttons                          (default rgba(0,0,0,0.08))
+     --arcade-font        the font                                   (default system-ui)
+     --arcade-radius      the card's corner radius                   (default 20px)
+   Everything lives under #arcade-ui, above the game (z-index 2147483000); the root itself lets touches through. */
+#arcade-ui { position: fixed; left: 0; top: 0; width: 100%; height: 100%; z-index: 2147483000; pointer-events: none; font-family: var(--arcade-font, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif); -webkit-text-size-adjust: 100%; }
+#arcade-ui * { box-sizing: border-box; }
+
+/* loading screen: covers the page until Arcade.ready() */
+.arcade-loading { position: absolute; left: 0; top: 0; width: 100%; height: 100%; pointer-events: auto; display: -webkit-box; display: flex; align-items: center; justify-content: center; background: var(--arcade-bg, #202020); color: var(--arcade-loading-ink, #FFFFFF); transition: opacity 0.25s ease; }
+.arcade-loading-out { opacity: 0; pointer-events: none; }
+.arcade-loading-box { width: min(72vw, 320px); text-align: center; }
+.arcade-loading-title { font-size: 22px; font-weight: 800; margin-bottom: 8px; opacity: 0.95; }
+.arcade-loading-label { font-size: 14px; opacity: 0.75; margin-bottom: 14px; }
+.arcade-loading-bar { height: 6px; border-radius: 3px; background: rgba(255, 255, 255, 0.25); overflow: hidden; }
+.arcade-loading-fill { height: 100%; width: 100%; background: currentColor; transform-origin: 0 50%; transform: scaleX(0.08); transition: transform 0.3s ease; animation: arcade-pulse 1.4s ease-in-out infinite alternate; }
+@keyframes arcade-pulse { from { opacity: 0.5; } to { opacity: 1; } }
+
+/* sheet: one card in the middle, the page dimmed behind it */
+.arcade-sheet { position: absolute; left: 0; top: 0; width: 100%; height: 100%; pointer-events: auto; display: -webkit-box; display: flex; align-items: center; justify-content: center; padding: 16px; background: rgba(0, 0, 0, 0.45); animation: arcade-fade 0.18s ease-out; }
+@keyframes arcade-fade { from { opacity: 0; } to { opacity: 1; } }
+.arcade-card { width: 100%; max-width: 380px; max-height: calc(100% - 32px); overflow: auto; -webkit-overflow-scrolling: touch; padding: 20px 18px 16px; border-radius: var(--arcade-radius, 20px); background: var(--arcade-card, #FFFFFF); color: var(--arcade-ink, #222222); box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35); animation: arcade-pop 0.22s cubic-bezier(0.34, 1.4, 0.64, 1); }
+@keyframes arcade-pop { from { transform: scale(0.92); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.arcade-title { margin: 0 0 10px; font-size: 22px; font-weight: 800; line-height: 1.2; }
+.arcade-text { font-size: 16px; line-height: 1.4; }
+.arcade-text p { margin: 0 0 10px; }
+.arcade-text p:last-child { margin-bottom: 0; }
+.arcade-btns { display: -webkit-box; display: flex; flex-direction: column; margin-top: 14px; }
+.arcade-btn { -webkit-appearance: none; appearance: none; border: 0; margin: 0 0 8px; padding: 0 16px; min-height: 46px; border-radius: 14px; font: inherit; font-size: 16px; font-weight: 800; cursor: pointer; background: var(--arcade-muted, rgba(0, 0, 0, 0.08)); color: inherit; }
+.arcade-btn:last-child { margin-bottom: 0; }
+.arcade-btn.primary { background: var(--arcade-accent, #2E6BE6); color: var(--arcade-accent-ink, #FFFFFF); }
+.arcade-btn:active { transform: translateY(1px); }
+.arcade-news h3 { margin: 12px 0 4px; font-size: 15px; font-weight: 800; opacity: 0.8; }
+.arcade-news h3:first-child { margin-top: 0; }
+.arcade-news-text { font-size: 15px; line-height: 1.4; }
+.arcade-news-text p { margin: 0 0 8px; }
+
+/* toast: one line at the bottom */
+.arcade-toast { position: absolute; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom)); transform: translateX(-50%); max-width: calc(100% - 32px); padding: 10px 16px; border-radius: 999px; background: rgba(20, 20, 20, 0.92); color: #FFFFFF; font-size: 14px; font-weight: 700; text-align: center; animation: arcade-fade 0.2s ease-out; }
+
+@media (prefers-reduced-motion: reduce) { .arcade-loading-fill, .arcade-sheet, .arcade-card, .arcade-toast { animation: none; } }

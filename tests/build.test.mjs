@@ -142,8 +142,13 @@ describe('site build', () => {
     assert.equal(html.includes('<section class="group beta"'), beta.length > 0, 'beta section');
     assert.equal(html.includes('<section class="group ready"'), beta.length > 0 && ready.length > 0, 'ready section');
     assert.equal(/progress saved in a beta game may not carry over/.test(html), beta.length > 0, 'beta note');
-    // the outline never skips a level: h2 per section when there are sections, else h2 per card
-    assert.equal((html.match(/<h2\b/g) || []).length, beta.length ? (ready.length ? 2 : 1) : games.length, 'h2 headings');
+    // the outline never skips a level: h2 per section when there are sections, else h2 per card (the backup section
+    // under the games has its own h2)
+    const main = html.match(/<main[\s\S]*?<\/main>/)[0];
+    assert.equal((main.match(/<h2\b/g) || []).length, beta.length ? (ready.length ? 2 : 1) : games.length, 'h2 headings');
+    assert.ok(/<section class="backup"[\s\S]*<h2 id="backup-title">/.test(html), 'the backup section');
+    assert.ok(/id="backup-export"/.test(html) && /id="backup-import"/.test(html), 'export and import buttons');
+    assert.ok(/<p class="news"><b>New in \d+\.\d+\.\d+<\/b>/.test(html), 'a news line on the cards');
     const expected = `${count(games.length, 'free browser game')}, no ads, no account: ${[...ready, ...beta].map((g) => titleOf(g) + (statusOf(g) === 'beta' ? ' (beta)' : '')).join(', ')}.`;
     assert.equal(unesc(metaContent(html, 'description')), expected);
     assert.equal(unesc(metaContent(html, 'og:description')), expected);

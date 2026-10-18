@@ -1,0 +1,7 @@
+// news.js: what changed, per version, in both languages (docs/GAME-SPEC.md "News"). The arcade kit shows it in the
+// game ("What's new") and the selector page shows the newest entry on the game's card. Newest first. Simple HTML.
+window.ARCADE_NEWS = [
+  { "version": "1.1.1", "date": "2026-10-18",
+    "de": "<p><b>Teilen:</b> Nach dem Spiel gibt es einen Teilen-Knopf: ein Bild mit deiner Punktzahl und dem höchsten Drink, zum Beispiel für WhatsApp.</p><p><b>Alle Spiele:</b> Der Startbildschirm führt zur Arcade mit allen Spielen; dort kannst du die Spielstände aller Spiele sichern und auf ein neues Handy mitnehmen.</p><p><b>Als App:</b> Auf dem Handy bietet das Spiel einmal an, ohne Adressleiste zu laufen: Installation, wo der Browser sie kann, sonst Vollbild.</p><p><b>Sparmodus von selbst:</b> Kommt dein Gerät nicht hinterher, schaltet das Spiel in den Sparmodus und sagt es dir.</p>",
+    "en": "<p><b>Share:</b> after a game there is a Share button: a picture with your score and your highest drink, for WhatsApp and the like.</p><p><b>All games:</b> the title screen leads to the arcade with every game; there you can back up the progress of all games and take it to a new phone.</p><p><b>As an app:</b> on phones the game offers once to run without the address bar: the installation where the browser can, else fullscreen.</p><p><b>Performance mode by itself:</b> when your device cannot keep up, the game switches to performance mode and tells you.</p>" }
+];

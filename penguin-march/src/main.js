@@ -19,6 +19,10 @@
 
   var DT = 1 / 60, acc = 0, last = 0, clock = 0;
 
+  function kit() { return root.Arcade || null; }
+  /** tell(name): the arcade kit hears every screen change (play time, performance sampling, campaign moments). */
+  function tell(name) { var A = kit(); if (A) { try { A.screen(name); } catch (e) { /* the kit never stops the game */ } } }
+
   function start(n) {
     app.levelNo = n;
     app.sim = S.create(L.get(n), app.save.upgrades);
@@ -26,6 +30,7 @@
     R.clearEffects(); IN.reset();
     UI.show(null); UI.hud(app.sim, n);
     app.state = 'PLAY';                     // after show(null): onScreen leaves PLAY/PAUSE alone
+    tell('play');
     AU.play('click');
   }
 
@@ -37,6 +42,7 @@
       UI.hud(s, app.levelNo);
     } else AU.play('lose');
     UI.end(won, s, app.coinsWon);          // shows the end screen; onScreen sets app.state = 'END'
+    tell(won ? 'win' : 'lose');
   }
 
   var MILESTONES = [100, 500, 1000, 5000, 10000, 100000, 1000000];
@@ -91,17 +97,26 @@
       toggleMute: function () { app.save.muted = !app.save.muted; AU.setMuted(app.save.muted); SV.save(app.save); },
       backTo: function () { return app.sim && (app.sim.phase === 'WON' || app.sim.phase === 'LOST') ? 'end' : 'title'; },
       // the menus change the screen on their own; the app state follows (PLAY/PAUSE/END are set by the app itself)
-      onScreen: function (name) { if (name === 'map') app.state = 'MAP'; else if (name === 'shop') app.state = 'SHOP'; else if (name === 'title') app.state = 'TITLE'; else if (name === 'end') app.state = 'END'; }
+      onScreen: function (name) {
+        if (name === 'map') app.state = 'MAP'; else if (name === 'shop') app.state = 'SHOP'; else if (name === 'title') app.state = 'TITLE'; else if (name === 'end') app.state = 'END';
+        if (name === 'map' || name === 'shop') tell('menu'); else if (name === 'title') tell('title'); else if (name === 'pause') tell('pause');
+      }
     });
-    PM.assets.load('assets/sprites/', function (st) { app.assets = st; });
+    var A = kit();
+    if (A) {                                                // the arcade's performance mode: fewer penguins drawn, lower resolution
+      R.setLow(A.perf.low());
+      A.on('perf', function (low) { R.setLow(!!low); });
+    }
+    // every sprite is loaded before the game shows (the kit's loading screen covers the wait: no sprites popping in)
+    PM.assets.load('assets/sprites/', function (st) { app.assets = st; if (A) A.ready(); }, function (done, total) { if (A) A.loading.progress(done, total); });
     app.state = 'TITLE';
     UI.show('title');
     root.requestAnimationFrame(frame);
   }
 
   app.start = start;
-  app.pause = function () { if (app.state !== 'PLAY') return; app.state = 'PAUSE'; UI.show('pause'); };
-  app.resume = function () { if (app.state !== 'PAUSE') return; UI.show(null); IN.reset(); app.state = 'PLAY'; };
+  app.pause = function () { if (app.state !== 'PLAY') return; app.state = 'PAUSE'; UI.show('pause'); tell('pause'); };
+  app.resume = function () { if (app.state !== 'PAUSE') return; UI.show(null); IN.reset(); app.state = 'PLAY'; tell('play'); };
   app.retry = function () { start(app.levelNo); };
   app.next = function () { start(app.levelNo + 1); };
   app.quitToMap = function () { app.sim = null; app.state = 'MAP'; UI.show('map'); };

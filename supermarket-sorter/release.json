@@ -1,6 +1,6 @@
 {
   "name": "Supermarket Sorter",
   "before": ["node scripts/build-catalog.js"],
-  "files": ["index.html", "manifest.webmanifest", "src", "assets/items/*.svg", "assets/items-2d/*.svg", "assets/icons"],
+  "files": ["index.html", "news.js", "shared", "manifest.webmanifest", "src", "assets/items/*.svg", "assets/items-2d/*.svg", "assets/icons"],
   "after": ["node scripts/check-dist.js"]
 }

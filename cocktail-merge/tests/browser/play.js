@@ -257,8 +257,9 @@ async function playFlow(browser, h) {
     if (digits(ov.best) === String(wantBest) || (ov.best && ov.best.indexOf(String(wantBest)) >= 0)) h.ok('play: the game-over card shows the best ("' + ov.best.trim() + '")');
     else h.fail('play: game-over best line "' + ov.best + '", expected ' + wantBest);
     if (!sv4.run) h.ok('play: the lost run is not stored'); else h.fail('play: a run record is still stored after the loss');
-    var badKeys = (sv4.keys || []).filter(function (k) { return k.indexOf('cocktailMerge.') !== 0; });
-    if (!badKeys.length) h.ok('play: every localStorage key uses the cocktailMerge. prefix'); else h.fail('play: unexpected localStorage keys ' + badKeys.join(', '));
+    // the game's keys carry its prefix; the arcade kit's (language, perf, stats) carry arcade. (README "Storage")
+    var badKeys = (sv4.keys || []).filter(function (k) { return k.indexOf('cocktailMerge.') !== 0 && k.indexOf('arcade.') !== 0; });
+    if (!badKeys.length) h.ok('play: every localStorage key uses the cocktailMerge. prefix (or the kit\'s arcade.)'); else h.fail('play: unexpected localStorage keys ' + badKeys.join(', '));
 
     // Play Again: a fresh board, best kept.
     await h.sleep(300);

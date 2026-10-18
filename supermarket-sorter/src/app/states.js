@@ -24,10 +24,12 @@
   function after(ms, fn) { clearTimer(); timer = root.setTimeout(function () { timer = 0; fn(); }, ms); }
 
   // ---------- states ----------
+  var ARCADE_SCREEN = { TITLE: 'title', INTRO: 'menu', PLAY: 'play', PAUSE: 'pause', WIN: 'win', TIMEOUT: 'lose', LOSE: 'lose' };
   function setState(name) {
     var prev = ctx.state; ctx.state = name;
     var O = ui().overlays, B = ui().board, H = ui().hud, BE = ui().belts;
     clearTimer();
+    if (root.Arcade && !ctx.debug) guard('arcade', root.Arcade.screen, ARCADE_SCREEN[name] || 'menu');   // play time, performance sampling, campaign moments
     if (name === 'TITLE') {
       if (B) { B.setEnabled(false); B.setGame(null); }
       H.show(false); root.document.getElementById('board').hidden = true;

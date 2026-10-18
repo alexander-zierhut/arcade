@@ -176,9 +176,16 @@
   function toggleNumbers(b) { setting('showNumbers', b); CM.app.writeSave(); syncUi(); }
   function toggleRelaxed(b) { setting('relaxed', b); CM.app.writeSave(); syncUi(); }
   // Performance mode (owner): pins the DPR cap at 1.25 and halves the particles; off restores the adaptive cap.
+  // The switch itself is the arcade's (shared/perf.js: the player's choice or the measured verdict, the same in
+  // every game); save.lowGfx mirrors it and the kit's 'perf' event applies it here.
   function applyLowGfx(on) {
     var c = ctx(); c.lowGfx = !!on; c.dprCap = on ? 1.25 : 2; c.lowFx = !!on;
     guard('main', CM.main && CM.main.relayout);
+  }
+  function kit() { return root.Arcade || null; }
+  function wireKit() {
+    var A = kit(); if (!A) return;
+    A.on('perf', function (low) { guard('settings', function () { setting('lowGfx', !!low); applyLowGfx(!!low); CM.app.writeSave(); syncUi(); }); });
   }
   // Bomb button: arm (choose a spot on the table) or disarm. Only in PLAY with a charge left.
   function toggleBomb() {
@@ -188,7 +195,11 @@
     if (c.state !== 'PLAY' || !g || !(g.bombs > 0)) return;
     it.bombMode = true; it.bombAt = null; it.bomb = null; it.launch = null;
   }
-  function toggleLowGfx(b) { var on = setting('lowGfx', b); applyLowGfx(on); CM.app.writeSave(); syncUi(); }
+  function toggleLowGfx(b) {
+    var A = kit(), s = ctx().save;
+    if (A) { A.perf.set((typeof b === 'boolean' ? b : !(s && s.lowGfx)) ? 'low' : 'high'); return; }   // the 'perf' event applies it
+    var on = setting('lowGfx', b); applyLowGfx(on); CM.app.writeSave(); syncUi();
+  }
 
   // The handlers given to CM.ui.init (5.5) plus onPause, onToggleMusic, onPlayAgain and onTitle.
   function handlers() {
@@ -263,8 +274,13 @@
     guard('audio', CM.audio && CM.audio.setMuted, !!c.save.muted);
     guard('audio', CM.audio && CM.audio.setAmbience, c.save.ambience !== false);
     guard('audio', applyMusic);
+    var A = kit();
+    if (A) {                                                // the arcade's performance mode; a player who had chosen it here keeps it
+      if (A.perf.mode() === 'auto' && c.save.lowGfx) A.perf.set('low');
+      c.save.lowGfx = A.perf.low();
+    }
     if (c.save.lowGfx) guard('main', applyLowGfx, true);   // Performance mode persists across loads
-    if (c.save.lowGfx) guard('main', applyLowGfx, true);
+    wireKit();
 
     c.intents = makeIntents();
     guard('ui', CM.ui && CM.ui.init, handlers());
@@ -304,6 +320,7 @@
     CM.app.setState('TITLE');
     guard('main', relayout);                                      // ROTATE check now that BOOT is over
     CM.app.start();
+    if (kit()) kit().ready();                                     // the arcade's loading screen goes once the title scene is there
   }
 
   // Boots after every classic script (and the inline boot guard) ran, unless the guard failed.

@@ -34,6 +34,9 @@
   --ease-back: cubic-bezier(0.34, 1.56, 0.64, 1);
   --ease-out-cubic: cubic-bezier(0.33, 1, 0.68, 1);
   --ease-in-cubic: cubic-bezier(0.32, 0, 0.67, 0);
+  /* the arcade kit's UI (shared/arcade.css: loading screen, app hint, news, campaigns) in this game's colours */
+  --arcade-bg: #6CC9F2; --arcade-loading-ink: #3A2A12; --arcade-card: #FFF6E4; --arcade-ink: #5A3A14; --arcade-accent: #0F8A5F; --arcade-accent-ink: #FFF8E1;
+  --arcade-muted: #F2D6A2; --arcade-font: var(--font); --arcade-radius: 22px;
 }
 
 *, *::before, *::after { box-sizing: border-box; }

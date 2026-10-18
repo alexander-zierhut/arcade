@@ -1,5 +1,6 @@
 // src/main.js: boot, viewport measuring, layout of the board area, lifecycle and the settings handlers. Last script
-// before the inline boot guard. Defines SS.main.
+// before the inline boot guard. Defines SS.main. The arcade kit (window.Arcade, shared/) owns the language, the
+// performance mode, the app / fullscreen flow, the share button and the news text; this file wires them.
 (function (root) {
   'use strict';
   var SS = root.SS = root.SS || {};
@@ -60,25 +61,39 @@
     var g = c.game;
     SS.sprites.preload(g.level.types || [], function () { if (ctx().game !== g) return; SS.ui.board.rebuild(); if (ctx().state !== 'PLAY' && SS.ui.belts) SS.ui.belts.pause(); }, 2500);
   }
+  function kit() { return root.Arcade || null; }
+  /** applyFlags(): the performance mode is the arcade's (shared/perf.js: set by the player or measured); save.lowGfx mirrors it. */
   function applyFlags() {
-    var s = ctx().save;
+    var s = ctx().save, A = kit();
+    if (A) s.lowGfx = A.perf.low();
     SS.lowGfx = !!s.lowGfx; doc.body.classList.toggle('low-gfx', !!s.lowGfx);
     var reduced = !!s.reducedMotion; try { reduced = reduced || !!(root.matchMedia && root.matchMedia('(prefers-reduced-motion: reduce)').matches); } catch (e) { /* none */ }
     doc.body.classList.toggle('reduced-motion', reduced);
   }
   function toggle(key, value) {
-    var s = ctx().save; s[key] = !!value; SS.app.writeSave();
+    var s = ctx().save, A = kit();
+    if (key === 'lowGfx' && A) { A.perf.set(value ? 'low' : 'high'); return; }   // the kit's 'perf' event applies it below
+    s[key] = !!value; SS.app.writeSave();
     if (key === 'muted') guard('audio', SS.audio.engine.setMuted, !!value);
     if (key === 'lowGfx' || key === 'reducedMotion') applyFlags();
     if (key === 'flatIcons') applySpriteSet();
     if ((key === 'stillBelts' || key === 'showDepth') && ctx().game) { SS.ui.board.setOptions({ stillBelts: !!s.stillBelts, showDepth: !!s.showDepth }); SS.ui.board.rebuild(); if (ctx().state !== 'PLAY' && SS.ui.belts) SS.ui.belts.pause(); }
   }
-  function setLang(code) {
-    SS.strings.setLang(code); ctx().save.lang = code; SS.app.writeSave();
+  /** setLang(code): the language is the arcade's (one choice for every game); the kit's 'lang' event applies it here. */
+  function setLang(code) { var A = kit(); if (A) A.lang.set(code); else applyLang(code); }
+  function applyLang(code) {
+    if (code === SS.strings.lang() && ctx().save.lang === code) return;
+    SS.strings.setLang(code); ctx().save.lang = SS.strings.lang(); SS.app.writeSave();
     SS.ui.overlays.applyLang(); SS.ui.hud.reset();
     var cur = SS.ui.overlays.current();
     if (cur) SS.ui.overlays.show(cur);
     SS.app.refreshHud();
+  }
+  /** wireKit(): what the game takes from the arcade kit: the language, the performance mode, the settings refresh. */
+  function wireKit() {
+    var A = kit(); if (!A) return;
+    A.on('lang', function (code) { guard('lang', applyLang, code); });
+    A.on('perf', function () { guard('perf', function () { applyFlags(); SS.app.writeSave(); var cur = SS.ui.overlays.current(); if (cur === 'settings' || cur === 'pause') SS.ui.overlays.show(cur); }); });
   }
   /** markVersionSeen(): the what's-new card of this version was seen; the NEU badge disappears. */
   function markVersionSeen() { var s = ctx().save; if (s.seenVersion === C.VERSION) return; s.seenVersion = C.VERSION; SS.app.writeSave(); }
@@ -88,25 +103,10 @@
     if (s.seenVersion === C.VERSION || !played) return;                                // new players keep the badge until they look
     if (ctx().state === 'TITLE') SS.ui.overlays.show('whatsnew');
   }
-  // ---- fullscreen / app mode ----
-  function standalone() { try { return !!(root.navigator.standalone || (root.matchMedia && root.matchMedia('(display-mode: standalone)').matches) || (root.matchMedia && root.matchMedia('(display-mode: fullscreen)').matches)); } catch (e) { return false; } }
-  function canFullscreen() { return !!(doc.fullscreenEnabled && doc.documentElement.requestFullscreen) && !standalone(); }
-  /** setFullscreen(on): toggles the Fullscreen API (Android Chrome and desktops; iOS Safari has no element fullscreen). */
-  function setFullscreen(on) {
-    if (on === undefined) on = !doc.fullscreenElement;
-    try {
-      if (on && !doc.fullscreenElement) { var p = doc.documentElement.requestFullscreen({ navigationUI: 'hide' }); if (p && p.catch) p.catch(function () { /* refused */ }); }
-      else if (!on && doc.fullscreenElement && doc.exitFullscreen) doc.exitFullscreen();
-    } catch (e) { /* not available */ }
-    root.setTimeout(function () { guard('main', relayout); }, 300);
-  }
-  function markInstallSeen() { var s = ctx().save; if (s.seenInstallHint) return; s.seenInstallHint = true; SS.app.writeSave(); }
-  /** installHintOnBoot(): once, on the title, when the game runs inside a browser tab on a phone. */
-  function installHintOnBoot() {
-    var s = ctx().save;
-    if (s.seenInstallHint || standalone() || !(root.navigator && /Android|iPhone|iPad|iPod/i.test(root.navigator.userAgent))) return;
-    if (ctx().state === 'TITLE' && SS.ui.overlays.current() === 'title') SS.ui.overlays.show('install');
-  }
+  // ---- fullscreen / app mode: the arcade kit's (shared/app.js: install prompt, fullscreen, the once-only hint on phones) ----
+  function standalone() { var A = kit(); return A ? A.app.isStandalone() : false; }
+  function canFullscreen() { var A = kit(); return A ? A.app.canFullscreen() : false; }
+  function setFullscreen(on) { var A = kit(); if (A) A.app.setFullscreen(on); root.setTimeout(function () { guard('main', relayout); }, 300); }
   function resetTips() { var s = ctx().save; for (var k in s.seenTips) s.seenTips[k] = false; SS.app.writeSave(); }
   // ---- progress export / import (settings) ----
   function exportProgress() {
@@ -146,7 +146,8 @@
       onUndo: function () { if (ctx().stuckOpen) { SS.ui.overlays.hide('stuck'); ctx().stuckOpen = false; } A.undo(); if (ctx().state === 'PLAY') A.resumePlay(); },
       onRescue: function () { A.rescue(); if (ctx().state === 'PLAY') A.resumePlay(); },
       onToggle: toggle, onLang: setLang, onResetTips: resetTips, onExport: exportProgress, onImport: importProgress,
-      onWhatsNewSeen: markVersionSeen, onInstallSeen: markInstallSeen, onFullscreen: setFullscreen, canFullscreen: canFullscreen,
+      onWhatsNewSeen: markVersionSeen, onFullscreen: setFullscreen, canFullscreen: canFullscreen,
+      onShare: function () { var A = kit(); if (A) A.share.go(); },
       onClick: function () { guard('snd', SS.sounds && SS.sounds.click); }
     };
   }
@@ -168,7 +169,17 @@
     c.save = (SS.ui.storage && guard('storage', SS.ui.storage.load)) || SS.save.normalizeSave(null);
     var legacy = SS.ui.storage && guard('storage', SS.ui.storage.legacyRun);
     if (legacy && legacy.mode === 'timed' && legacy.game && legacy.game.score > 0) { c.save = SS.save.recordRun(c.save, 'timed', { score: legacy.game.score, level: legacy.levelNo, fromLevel: 1, date: SS.app.run.today() }).save; }
+    // the language: the arcade's choice when there is one; a player with progress but no arcade choice yet keeps the
+    // language of this save (seeded into the arcade); a new player starts in the browser's language (the kit's default)
+    var A = kit();
+    if (A) {
+      var played = c.save.records.relaxed.reached > 1 || c.save.records.timed.reached > 1 || c.save.records.timed.top.length > 0 || c.save.records.relaxed.top.length > 0;
+      if (!A.lang.stored() && played) A.lang.set(c.save.lang);
+      c.save.lang = A.lang.get();
+      if (A.perf.mode() === 'auto' && c.save.lowGfx) A.perf.set('low');   // a player who had chosen the cheap mode keeps it
+    }
     if (c.save.lang === 'de') SS.strings.setLang('de');
+    wireKit();
     SS.ui.input.installGuards(); SS.ui.input.installKeys(keyAction);
     guard('audio', SS.audio.engine.init, { muted: !!c.save.muted });
     SS.ui.hud.init({ onPause: function () { SS.app.pause(); }, onUndo: function () { SS.app.undo(); }, onBunny: function () { SS.app.toggleBunny(); }, onHint: function () { SS.app.hint(); } });
@@ -187,8 +198,12 @@
     SS.app.setState('TITLE');
     root.setTimeout(function () { guard('main', relayout); }, 50);
     var q = query();
-    if (q.level) root.setTimeout(function () { guard('debug', SS.app.debugLevel, q.mode || 'timed', parseInt(q.level, 10)); }, 80);   // ?level=34&mode=timed: test mode (see docs/HOW-TO-CHANGE.md)
-    else root.setTimeout(function () { guard('whatsnew', whatsNewOnBoot); guard('install', installHintOnBoot); }, 120);
+    if (q.level) { if (A) A.config().autoHint = false; root.setTimeout(function () { guard('debug', SS.app.debugLevel, q.mode || 'timed', parseInt(q.level, 10)); }, 80); }   // ?level=34&mode=timed: test mode (see docs/HOW-TO-CHANGE.md)
+    else root.setTimeout(function () { guard('whatsnew', whatsNewOnBoot); }, 120);
+    if (A) {                                                            // the kit's loading screen goes; its app hint (once, phones) waits while a card of ours is open
+      A.config().quiet = function () { var cur = SS.ui.overlays.current(); return !!cur && cur !== 'title' && cur !== 'pause' && cur !== 'win' && cur !== 'serie'; };
+      A.ready();
+    }
     doc.addEventListener('fullscreenchange', scheduleRelayout);
   }
   function query() { var out = {}; try { String(root.location.search || '').replace(/^\?/, '').split('&').forEach(function (kv) { var p = kv.split('='); if (p[0]) out[decodeURIComponent(p[0])] = decodeURIComponent(p[1] || ''); }); } catch (e) { /* none */ } return out; }

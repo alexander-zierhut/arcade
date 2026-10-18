@@ -47,13 +47,14 @@ function inside(base, rel) {
   if (p !== base && !p.startsWith(base + sep)) fail(`${rel} points outside ${base}`);
   return p;
 }
-/** put(srcRel, destRel): copy a file or folder from the game folder into dist. */
+/** put(srcRel, destRel): copy a file or folder from the game folder into dist. A symlink is copied as what it points
+ *  at (every game's `shared` is a link to the repo's shared/ kit, which ships inside each game's dist). */
 function put(srcRel, destRel) {
   const src = inside(game, srcRel);
   if (!existsSync(src)) fail(`${srcRel} does not exist`);
   const dest = inside(dist, destRel);
   mkdirSync(dirname(dest), { recursive: true });
-  cpSync(src, dest, { recursive: true });
+  cpSync(src, dest, { recursive: true, dereference: true });
 }
 
 for (const cmd of manifest.before || []) run(cmd, true);

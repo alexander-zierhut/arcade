@@ -30,8 +30,11 @@
     resize();
   }
 
+  var low = false;        // the arcade's performance mode (main.js): half the resolution cap, fewer penguins drawn
+  function setLow(on) { low = !!on; if (canvas) resize(); }
+  function drawCap() { return low ? Math.min(C.DRAW_CAP, 100) : C.DRAW_CAP; }
   function resize() {
-    dpr = Math.min(2, root.devicePixelRatio || 1);
+    dpr = Math.min(low ? 1.25 : 2, root.devicePixelRatio || 1);
     W = canvas.clientWidth || root.innerWidth; H = canvas.clientHeight || root.innerHeight;
     canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
     F = 0.85 * H; horizon = 0.27 * H; cx = W / 2;
@@ -182,7 +185,7 @@
   }
 
   function drawWaddle(state, t) {
-    var n = Math.min(state.n, C.DRAW_CAP), camZ = state.z - C.CAM_BACK, items = [];
+    var n = Math.min(state.n, drawCap()), camZ = state.z - C.CAM_BACK, items = [];
     for (var i = 0; i < n; i++) {
       var f = formation[i];
       items.push({ dz: state.z + f.z - camZ, x: Math.max(-0.95, Math.min(0.95, state.x + f.x)), i: i });
@@ -326,6 +329,6 @@
 
   function clearEffects() { pops.length = 0; balls.length = 0; confetti.length = 0; shake = 0; flash = 0; sprinkle = null; bannerT = -10; }
 
-  PM.render = { init: init, resize: resize, draw: draw, events: events, toRoadX: toRoadX, fmt: fmt, clearEffects: clearEffects, burst: burst, project: project, banner: banner,
+  PM.render = { init: init, resize: resize, setLow: setLow, draw: draw, events: events, toRoadX: toRoadX, fmt: fmt, clearEffects: clearEffects, burst: burst, project: project, banner: banner,
     size: function () { return { W: W, H: H }; }, roadW: function () { return ROAD_W; } };
 })(typeof window !== 'undefined' ? window : globalThis);

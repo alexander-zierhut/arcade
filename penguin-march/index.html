@@ -19,9 +19,25 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="stylesheet" href="shared/arcade.css">
 <link rel="stylesheet" href="src/style.css">
 </head>
 <body>
+<!-- the arcade kit (shared/, see docs/GAME-SPEC.md): loading screen, language, app mode, home, performance mode, news, share, backup -->
+<script src="shared/core.js"></script>
+<script src="shared/ui.js"></script>
+<script src="shared/app.js"></script>
+<script src="shared/perf.js"></script>
+<script src="shared/stats.js"></script>
+<script src="shared/campaigns.js"></script>
+<script src="shared/news.js"></script>
+<script src="shared/share.js"></script>
+<script src="shared/backup.js"></script>
+<script src="shared/menu.js"></script>
+<script src="shared/hooks.js"></script>
+<script src="news.js"></script>
+<script>Arcade.init({ game: 'penguin-march', title: 'Penguin March', version: '1.0.1', langs: ['en'] });</script>
 <div id="app">
   <canvas id="game" aria-label="Penguin March game"></canvas>
 
@@ -44,7 +60,7 @@
         <button id="btn-mute" class="btn" type="button" aria-pressed="false">Sound on</button>
       </div>
       <p class="hint">Drag or use the arrow keys to steer. Blue gates help, red gates hurt. Shoot the + gates to raise them.</p>
-      <p class="version">v1.0.0</p>
+      <p class="version"><a href="../" data-arcade="home">All games</a> · <span class="version-no">v1.0.1</span></p>
     </div>
   </section>
 
@@ -84,6 +100,7 @@
       <button id="btn-next" class="btn primary big" type="button">Next level</button>
       <div class="row">
         <button id="btn-retry" class="btn" type="button">Retry</button>
+        <button id="btn-share" class="btn" type="button" data-arcade="share">Share</button>
         <button id="btn-shop-end" class="btn" type="button">Shop</button>
         <button id="btn-map-end" class="btn" type="button">Levels</button>
       </div>

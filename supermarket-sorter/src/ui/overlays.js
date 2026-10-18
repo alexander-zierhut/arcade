@@ -1,5 +1,6 @@
-// src/ui/overlays.js: title, intro, pause, win, timeout, serie, stuck sheet, how-to, highscores (two tabs) and settings
-// (DESIGN 7.1). One section is visible at a time; sheets opened from the title or the pause card return there on close.
+// src/ui/overlays.js: title, intro, pause, win, timeout, serie, stuck sheet, how-to, highscores (two tabs), settings and
+// the what's-new card (DESIGN 7.1). One section is visible at a time; sheets opened from the title or the pause card
+// return there on close. The "Alle Spiele" chip and the share buttons are the arcade kit's (data-arcade / onShare).
 // Buttons carry data-act; data-arm buttons need a second tap within 2.5 s. Browser-only; sets SS.ui.overlays.
 (function (root) {
   'use strict';
@@ -49,15 +50,14 @@
       case 'scores': return show('scores');
       case 'settings': return show('settings');
       case 'whatsnew': return show('whatsnew');
-      case 'install': return show('install');
-      case 'fullscreen': if (handlers.onFullscreen) handlers.onFullscreen(); return show(returnTo || 'title', lastData[returnTo || 'title']);
-      case 'close': if (current === 'whatsnew' && handlers.onWhatsNewSeen) handlers.onWhatsNewSeen(); if (current === 'install' && handlers.onInstallSeen) handlers.onInstallSeen(); return show(returnTo || 'title', lastData[returnTo || 'title']);
+      case 'share': return H.onShare && H.onShare();
+      case 'close': if (current === 'whatsnew' && handlers.onWhatsNewSeen) handlers.onWhatsNewSeen(); return show(returnTo || 'title', lastData[returnTo || 'title']);
     }
   }
   /** show(name, data): shows one section (null hides all). Sheets remember where to return. */
   function show(name, data) {
     disarm();
-    if (name === 'howto' || name === 'scores' || name === 'settings' || name === 'whatsnew' || name === 'install') { if (current && current !== name && ['title', 'pause'].indexOf(current) >= 0) returnTo = current; }
+    if (name === 'howto' || name === 'scores' || name === 'settings' || name === 'whatsnew') { if (current && current !== name && ['title', 'pause'].indexOf(current) >= 0) returnTo = current; }
     else returnTo = null;
     var all = doc.querySelectorAll('.ov');
     for (var i = 0; i < all.length; i++) { all[i].hidden = true; all[i].inert = true; }
@@ -107,6 +107,7 @@
       if (d.levelBest) extras.push(t('level_best', { n: d.levelBest }));
       $('.js-extra', sec).textContent = extras.join(' · ');
       $('.js-newbest', sec).hidden = !d.newBest;
+      if (root.Arcade) root.Arcade.share.set({ line: t('share_win', { n: g.level.n, score: g.mode === 'timed' ? (d.serie || 0) : (w.levelScore || 0) }) });
     } else if (name === 'timeout') {
       $('.js-title', sec).textContent = t('lose_timeout');
       $('.js-text', sec).textContent = t('timeout_text');
@@ -115,6 +116,7 @@
       $('.js-score', sec).textContent = t('serie_banked', { score: d.score, rank: d.rank + 1 });
       $('.js-detail', sec).textContent = t('serie_next', { n: d.nextLevel });
       $('.js-newbest', sec).hidden = !d.newBest;
+      if (root.Arcade) root.Arcade.share.set({ line: t('share_serie', { score: d.score, level: Math.max(1, (d.nextLevel || 1) - 1) }) });
     } else if (name === 'stuck') {
       sec.classList.toggle('timed', !!(g && g.mode === 'timed'));
       $('.js-title', sec).textContent = t('stuck_title');
@@ -126,13 +128,10 @@
       $('[data-act="undo"]', sec).disabled = !d.canUndo;
     } else if (name === 'howto') {
       $('.js-howto', sec).innerHTML = t('howto_text');
-    } else if (name === 'install') {
-      $('.js-title', sec).textContent = t('install_title');
-      $('.js-text', sec).innerHTML = t('install_text');
-      var fsBtn = $('.js-fullscreen', sec); fsBtn.textContent = t('fullscreen'); fsBtn.hidden = !(handlers.canFullscreen && handlers.canFullscreen());
     } else if (name === 'whatsnew') {
-      $('.js-title', sec).textContent = t('whatsnew_title', { v: SS.config.VERSION });
-      $('.js-text', sec).innerHTML = t('whatsnew_text');
+      var A = root.Arcade, entry = A ? A.news.latest() : null;                 // the text is news.js (the selector shows the same)
+      $('.js-title', sec).textContent = t('whatsnew_title', { v: entry ? entry.version : SS.config.VERSION });
+      $('.js-text', sec).innerHTML = entry ? A.news.text(entry, SS.strings.lang()) : '';
     } else if (name === 'scores') {
       renderScores($('.js-scores', sec), s); updateTabs();
     } else if (name === 'settings') {
@@ -199,7 +198,7 @@
   function applyLang() {
     var map = {
       '#logo-title': 'title', '#logo-sub': 'subtitle',
-      '[data-act="howto"]': 'howto', '[data-act="scores"]': 'scores', '[data-act="settings"]': 'settings', '#ov-whatsnew [data-act="close"]': 'ok', '[data-act="install"]': 'install', '#ov-install [data-act="close"]': 'ok',
+      '[data-act="howto"]': 'howto', '[data-act="scores"]': 'scores', '[data-act="settings"]': 'settings', '#ov-whatsnew [data-act="close"]': 'ok', '[data-arcade="home"]': 'all_games', '[data-act="share"]': 'share',
       '#ov-pause .card-title': 'pause', '[data-act="resume"]': 'resume', '[data-act="restart"]': 'restart', '[data-act="next"]': 'next',
       '[data-act="retry"]': 'resume', '[data-act="extend"]': 'extend', '[data-act="end-serie"]': 'end_serie', '[data-act="undo"]': 'undo',
       '#ov-howto .card-title': 'howto', '#ov-scores .card-title': 'scores', '#ov-settings .card-title': 'settings',

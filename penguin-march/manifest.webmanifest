@@ -1,0 +1,17 @@
+{
+  "name": "Penguin March",
+  "short_name": "Penguin March",
+  "description": "Steer a waddle of penguins through numbered gates, grow the crowd, beat the walrus. Free, no ads.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "fullscreen",
+  "orientation": "portrait",
+  "background_color": "#1b4f7a",
+  "theme_color": "#1b4f7a",
+  "lang": "en",
+  "icons": [
+    { "src": "assets/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "assets/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "assets/icons/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+  ]
+}

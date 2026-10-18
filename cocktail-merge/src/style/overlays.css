@@ -166,6 +166,7 @@
   .ov-title { -webkit-backdrop-filter: blur(5px) saturate(1.05); backdrop-filter: blur(5px) saturate(1.05); }
 }
 .title-mute { position: absolute; top: calc(var(--safe-top) + 12px); right: calc(var(--stage-x) + 12px); }
+.title-home { position: absolute; top: calc(var(--safe-top) + 12px); left: calc(var(--stage-x) + 12px); }   /* the way back to the arcade (data-arcade="home"), in the mute button's corner so the column keeps its room */
 .title-col {
   position: absolute; left: var(--stage-x); width: var(--S);
   top: 9%; bottom: 4%;

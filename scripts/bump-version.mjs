@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 // Sets a game's version everywhere scripts/check-versions.mjs knows: package.json, the version constants
-// and static titles listed in RULES, and (supermarket-sorter) a new progress-export fixture copied from the
-// previous one. Then it runs the checker. The what's-new texts are NOT touched; they are written by hand.
+// and static titles listed in RULES, the Arcade.init line, and (supermarket-sorter) a new progress-export
+// fixture copied from the previous one. Then it runs the checker. The news entry is NOT written; add it by hand.
 //   node scripts/bump-version.mjs <game> <new version>      e.g. supermarket-sorter 0.3.3
 import { copyFileSync, existsSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { spawnSync } from 'node:child_process';
-import { RULES, games, pkgVersion, root } from './check-versions.mjs';
+import { KIT_PLACES, RULES, games, pkgVersion, root } from './check-versions.mjs';
 
 const [game, next] = process.argv.slice(2);
 if (!game || !next || !games().includes(game) || !/^\d+\.\d+\.\d+$/.test(next)) {
@@ -38,7 +38,7 @@ if (existsSync(lockPath)) {
   writeFileSync(lockPath, JSON.stringify(lock, null, 2) + '\n');
   done.push('package-lock.json');
 }
-for (const p of rules.places) {
+for (const p of rules.places.concat(KIT_PLACES)) {
   if (!existsSync(join(root, game, p.file))) continue;
   if (setIn(p.file, p.re)) done.push(p.label); else if (p.required !== false) errors.push(`${p.file}: no version found`);
 }
@@ -62,7 +62,7 @@ console.log(`${game}: ${prev} -> ${next} (${done.join(', ')})`);
 if (errors.length) { console.error('\nbump problems:\n  ' + errors.join('\n  ')); process.exit(1); }
 
 console.log('\nStill to do by hand:');
-if (rules.whatsnew) console.log(`  - write whatsnew_text for ${next} in ${rules.whatsnew}, de AND en (the checker only tests they are non-empty)`);
+console.log(`  - add the ${next} entry to ${game}/news.js (version, date, de AND en; the checker tests they are there)`);
 if (existsSync(join(root, game, 'docs', 'STATUS.md'))) console.log(`  - ${game}/docs/STATUS.md: version and what changed`);
 console.log(`  - see ${game}/docs/RELEASE.md for the full checklist\n`);
 const r = spawnSync(process.execPath, [join(root, 'scripts', 'check-versions.mjs')], { stdio: 'inherit' });

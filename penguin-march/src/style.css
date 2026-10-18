@@ -4,6 +4,9 @@
   --ice: #dff4ff; --ice-mid: #9ad8f5; --deep: #1b4f7a; --ink: #1d2330; --snow: #ffffff;
   --good: #3d8bff; --bad: #d64545; --fish: #ffb84d; --panel: rgba(27, 79, 122, 0.92);
   color-scheme: light;
+  /* the arcade kit's UI (shared/arcade.css: loading screen, app hint, news, campaigns) in this game's colours */
+  --arcade-bg: #1b4f7a; --arcade-card: #1b4f7a; --arcade-ink: #ffffff; --arcade-accent: #ffb84d; --arcade-accent-ink: #1d2330;
+  --arcade-muted: rgba(255, 255, 255, 0.14); --arcade-font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; --arcade-radius: 20px;
 }
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 html, body { margin: 0; height: 100%; overflow: hidden; background: var(--deep); font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; color: var(--snow); }
@@ -33,6 +36,7 @@ html, body { margin: 0; height: 100%; overflow: hidden; background: var(--deep);
 .tagline { margin: 0; color: var(--ice); font-size: 16px; }
 .hint { margin: 0; color: var(--ice-mid); font-size: 13px; line-height: 1.4; }
 .version { margin: 0; color: rgba(255, 255, 255, 0.45); font-size: 11px; }
+.version a { color: inherit; text-decoration: underline; padding: 6px 0; }   /* the way back to the arcade (data-arcade="home") */
 .row { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
 .btn { border: 0; border-radius: 14px; padding: 12px 18px; font-size: 16px; font-weight: 700; cursor: pointer; background: rgba(255, 255, 255, 0.14); color: var(--snow); min-width: 96px; }
 .btn.primary { background: var(--fish); color: var(--ink); }

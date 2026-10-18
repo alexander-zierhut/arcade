@@ -1,6 +1,16 @@
 # Status
 
-Version 1.0.0, 2026-10-18. **Beta**: listed in the selector's beta section (`"status": "beta"` in `release.json`). Big changes are still planned, and a new version may reset the saved progress instead of migrating it.
+Version 1.0.1, 2026-10-18. **Beta**: listed in the selector's beta section (`"status": "beta"` in `release.json`). Big changes are still planned, and a new version may reset the saved progress instead of migrating it.
+
+## What changed in 1.0.1 (the arcade kit)
+
+The game loads the arcade kit (`shared/`, see `../docs/GAME-SPEC.md` and `../shared/README.md`) first: its loading
+screen stays until every sprite is loaded (`assets.load` reports progress; no sprites popping in), the title's
+version line has the "All games" link back to the selector, the end card has a Share button (a picture with the
+result), the kit's performance mode makes the renderer draw at most 100 penguins at a 1.25 DPR cap
+(`render.setLow`), `Arcade.screen()` is told every screen change, and `manifest.webmanifest` with 192 / 512 px
+icons makes the game installable. `news.js` holds what changed per version. Nothing in the game itself changed.
+Gap against the spec: the game is English only (`langs: ['en']` in `Arcade.init`).
 
 ## What is in it
 

@@ -27,11 +27,27 @@
 <link rel="icon" type="image/png" sizes="64x64" href="assets/icons/favicon-64.png">
 <link rel="shortcut icon" href="assets/icons/favicon.ico">
 <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="stylesheet" href="shared/arcade.css">
 <link rel="stylesheet" href="src/style/base.css">
 <link rel="stylesheet" href="src/style/hud.css">
 <link rel="stylesheet" href="src/style/overlays.css">
 </head>
 <body>
+<!-- the arcade kit (shared/, see docs/GAME-SPEC.md): loading screen, language, app mode, home, performance mode, news, share, backup -->
+<script src="shared/core.js"></script>
+<script src="shared/ui.js"></script>
+<script src="shared/app.js"></script>
+<script src="shared/perf.js"></script>
+<script src="shared/stats.js"></script>
+<script src="shared/campaigns.js"></script>
+<script src="shared/news.js"></script>
+<script src="shared/share.js"></script>
+<script src="shared/backup.js"></script>
+<script src="shared/menu.js"></script>
+<script src="shared/hooks.js"></script>
+<script src="news.js"></script>
+<script>Arcade.init({ game: 'cocktail-merge', title: 'Cocktail Merge', version: '1.1.1', langs: ['en'] });</script>
 <!-- ui-shell-begin (tests/browser/ui-check.js copies everything up to ui-shell-end) -->
 <canvas id="game-bg" aria-hidden="true"></canvas>
 <canvas id="game" tabindex="-1" aria-label="Cocktail Merge game table"></canvas>
@@ -64,6 +80,9 @@
 
 <div id="overlays" class="overlays">
   <section id="ov-title" class="ov ov-title" hidden inert aria-label="Title">
+    <button class="round-btn title-home" type="button" data-arcade="home" aria-label="All games" title="All games">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11.5 12 5l8 6.5"/><path d="M6.5 10.5V19h11v-8.5"/><path d="M10 19v-5h4v5"/></svg>
+    </button>
     <button class="round-btn js-mute title-mute" type="button" data-act="mute" aria-label="Sound on">
       <svg class="ic-on" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/></svg>
       <svg class="ic-off" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M15.5 9.5l5 5M20.5 9.5l-5 5"/></svg>
@@ -125,6 +144,7 @@
       <div class="newbest-ribbon js-newbest" hidden>NEW BEST!</div>
       <div class="btn-col">
         <button class="btn btn-primary" type="button" data-act="keep" data-primary>Keep Playing</button>
+        <button class="btn btn-secondary" type="button" data-act="share">Share</button>
         <button class="btn btn-secondary" type="button" data-act="newgame-win">New Game</button>
       </div>
     </div>
@@ -140,6 +160,7 @@
       <div class="highest"><span>Highest drink:</span><canvas id="over-icon-c" class="highest-c"></canvas><b id="over-name"></b></div>
       <div class="btn-col">
         <button class="btn btn-primary" type="button" data-act="again" data-primary>Play Again</button>
+        <button class="btn btn-secondary" type="button" data-act="share">Share</button>
         <button class="btn btn-secondary" type="button" data-act="title">Title</button>
       </div>
     </div>

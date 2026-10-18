@@ -110,11 +110,13 @@
   function setHudVisible(on) { guard('hud', CM.ui && CM.ui.setHudVisible, !!on); }
 
   // setState(name) (5.5, 5.7).
+  var ARCADE_SCREEN = { TITLE: 'title', PLAY: 'play', PAUSE: 'pause', WIN_SEQ: 'win', WIN_MENU: 'win', LOSE_SEQ: 'lose', OVER_MENU: 'lose' };
   function setState(name) {
     var c = ctx(), prev = c.state;
     if (prev === 'PLAY' && name !== 'PLAY') leavePlay();
     c.prevState = prev;
     c.state = name;
+    if (root.Arcade) guard('arcade', root.Arcade.screen, ARCADE_SCREEN[name] || 'menu');   // the kit: play time, performance sampling, campaign moments
     if (c.intents) c.intents.playing = name === 'PLAY';
 
     if (name === 'TITLE' && prev !== 'TITLE' && prev !== 'ROTATE' && !(prev === 'BOOT' && c.attract)) {

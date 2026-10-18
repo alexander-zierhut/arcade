@@ -25,8 +25,10 @@ after a view change.
 | change paddings, belt width, visible cells of the bottom shelf, the largest slot | the constants at the top of `src/ui/board.js` (`PAD`, `GAP`, `BELT_W_K`, `H_VISIBLE`), `SLOT_MAX_PX` in `src/config.js` |
 | change how forgiving drops and taps are | `compNear` / `dropTarget` in `src/ui/board.js` (snap radius 0.55 of a row), `TAP_SLOP_PX` in `src/config.js` |
 | switch or add a product set | `SS.sprites.setFlat`, `assets/items-2d/` (flat set), `geometry-2d.json` and `w2`/`h2` in the catalog; the setting is `save.flatIcons` |
-| change the what's-new card | `whatsnew_text` in `src/ui/strings.js`; it shows once per `VERSION` to players with progress (`save.seenVersion`), new players get the NEU badge on the title until they open it |
-| change the "Als App spielen" card or fullscreen | `install_text` in `strings.js`, `main.setFullscreen`, `manifest.webmanifest` (display, colours, icons) |
+| change the what's-new card | the entry in `news.js` (de and en; the arcade's selector shows the same); the card shows once per `VERSION` to players with progress (`save.seenVersion`), new players get the NEU badge on the title until they open it |
+| change the "play as an app" sheet or fullscreen | the arcade kit's (`shared/app.js`, strings in `shared/core.js`); `manifest.webmanifest` (display, colours, icons) is the game's |
+| change the share text | `share_win` / `share_serie` in `strings.js`; the picture and the sharing are the kit's (`shared/share.js`) |
+| change the language or performance mode logic | both are the arcade's (`Arcade.lang`, `Arcade.perf`); `main.applyLang` / `main.applyFlags` apply them here |
 | change silhouette colours or rules | `SIL_PALETTE` and `skin()` in `src/game/levels.js` |
 | change what counts as a confusable pair | `confusablePairs()` in `src/game/gen.js` and `pickProducts()` in `levels.js` |
 

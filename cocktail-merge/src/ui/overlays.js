@@ -200,6 +200,7 @@
   function fillWin(d) {
     var el = sec('win'), c = $('win-jug-c'), art = CM.art;
     fillScores(el, d);
+    if (root.Arcade) root.Arcade.share.set({ line: 'Sangria Verde mixed! Score ' + fmt(playScore(d)) });
     if (!c || !art || !art.paintTier) return;
     var w = 120, h = 150, dd = dpr(), ctx;
     c.style.width = w + 'px'; c.style.height = h + 'px'; c.width = w * dd; c.height = h * dd;
@@ -215,6 +216,7 @@
     var el = sec('over'), g = fillScores(el, d), t = d.highestTier || (g && g.highestTier) || 1;
     if ($('over-icon-c')) icon($('over-icon-c'), 40, 40, t, 'run');
     if ($('over-name')) $('over-name').textContent = name(t);
+    if (root.Arcade) root.Arcade.share.set({ line: 'Score ' + fmt(playScore(d)) + ', highest drink: ' + name(t) });
   }
   function fillPause(d) {
     var el = sec('pause');
@@ -310,6 +312,7 @@
       case 'title': if (!call('onTitle')) call('onQuit'); break;
       case 'howto': case 'settings': case 'collection': openSheet(a); break;
       case 'exportPerf': if (CM.app && CM.app.perf) CM.app.perf.exportReport(); break;
+      case 'share': if (root.Arcade) root.Arcade.share.go(); break;       // the arcade kit: a picture with the score (shared/share.js)
       case 'close': closeSheet(false); break;
       case 'mute': toggle('muted'); break;
     }

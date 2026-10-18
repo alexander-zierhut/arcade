@@ -6,6 +6,26 @@ and every game under `/<game>/`.
 - `cocktail-merge`: cocktail physics-merge game
 - `supermarket-sorter`: shelf-sorting match-3 grocery game
 - `penguin-march` (beta): the gate-runner from the mobile ads, made real (penguins, numbered gates, a walrus)
+- `shared/`: the arcade kit, what every game has in common (see below)
+
+## The kit and the game spec
+
+Every game is its own thing: its own art, colours, sounds and feel, built without looking at the other games.
+What is the same in all of them is built once, in `shared/` (the **arcade kit**, `window.Arcade`), and every game
+loads it first: the loading screen, the language preference (one choice for the whole arcade), "play as an app"
+(install prompt, fullscreen, the iOS hint, once on phones), the way back to the selector, the low-performance
+mode (measured while playing, or set by the player, the same in every game), the campaign hooks (`shared/hooks.js`:
+a card every N minutes across all games), local play statistics, the news sheet (a game's `news.js`), the share
+button (a picture of the game's OG image with the score line) and the backup of every game's progress (the
+selector's export / import, so a player switches phones with one file).
+
+- [`docs/GAME-SPEC.md`](docs/GAME-SPEC.md) is the contract a game follows (folder, storage, `index.html`, manifest,
+  languages, title structure, menus, loading, screens, news, share, tests, docs). A new game is built from that
+  page and [`shared/README.md`](shared/README.md) (the kit's API) alone.
+- `tests/spec.test.mjs` (root `npm test`) checks the parts of the spec a script can check; `tests/kit.test.mjs`
+  runs the kit's helpers in node; `tests/site.test.mjs` exercises the kit in every game in Chrome.
+- Each game folder has `shared` as a symlink to the repo's `shared/`; the release copies the files in, so a
+  deployed game is self-contained and a kit change reaches every game with the next deploy.
 
 ## How it fits together
 
@@ -17,7 +37,9 @@ workflow, the site build and the selector page all discover them from the folder
   `scripts/release.mjs`; the game says what ships in `<game>/release.json`, and `release.sh` is a thin
   wrapper that calls the shared script (and the place for anything the manifest cannot express).
 - `<game>/index.html` carries Open Graph tags. The selector page is built from `og:title`,
-  `og:description` and `og:image`, so a game's card is whatever the game itself says it is.
+  `og:description` and `og:image`, so a game's card is whatever the game itself says it is; the card also
+  shows the newest entry of the game's `news.js`. Under the cards the selector offers the backup of every
+  game's progress on the device (export / import, `shared/backup.js`).
 - A game is ready or beta, as `status` in its `release.json` says (ready when absent). The selector lists
   the ready games first and the beta games in their own section below, with a Beta badge and a note that a
   beta game still changes a lot and that its saved progress may not carry over to the next version. That is
@@ -67,33 +89,41 @@ same key would read each other's saves. The rule:
   never `/`.
 - A game's folder name is also its prefix, so renaming a folder means either keeping the old
   `STORAGE_KEY` (saves survive, the check below needs an exception) or migrating the keys in the game.
+- The kit owns the prefix `arcade.` (language, performance mode, statistics, campaign state, a pending
+  import); those keys are the same in every game on purpose. No game may be called `arcade`.
 
 `node scripts/check-storage.mjs` enforces this (CI runs it on every push): keys handed to storage calls
-and `*_KEY` constants must carry the game's prefix, no game may contain another game's prefix, and the
-origin-wide APIs above are flagged.
+and `*_KEY` constants must carry the game's prefix, no game may contain another game's prefix, the kit
+uses only `arcade.`, and the origin-wide APIs above are flagged.
 
 ## Versions
 
 A game's version is stated in several places that must agree. `package.json` is the source of truth
-(the release names the zip and `dist/VERSION.txt` from it); the other places are listed per game in
-`RULES` in `scripts/check-versions.mjs` (supermarket-sorter: `src/config.js`, the static title in
-`index.html`, the export fixture `tests/fixtures/export-v<version>.json`, non-empty `whatsnew_text` in
-German and English; cocktail-merge: `package.json` only; penguin-march: `src/config.js` and the version
-line on the title screen in `index.html`).
+(the release names the zip and `dist/VERSION.txt` from it); every game also has the `Arcade.init({ …
+version })` line in `index.html` and an entry for the version in `news.js` (a date, a German and an English
+text); the other places are listed per game in `RULES` in `scripts/check-versions.mjs` (supermarket-sorter:
+`src/config.js`, the static title in `index.html`, the export fixture `tests/fixtures/export-v<version>.json`;
+cocktail-merge: nothing more; penguin-march: `src/config.js` and the version line on the title screen).
 
 - `node scripts/check-versions.mjs` fails on any mismatch (CI runs it).
 - `node scripts/bump-version.mjs <game> <x.y.z>` sets all of those places, creates the new fixture from
-  the previous one and runs the check. It does not write the what's-new texts or `docs/STATUS.md`; it
+  the previous one and runs the check. It does not write the news entry or `docs/STATUS.md`; it
   reminds you. The per-game checklist is `<game>/docs/RELEASE.md`.
 
 ## Adding a game
 
+The contract is [`docs/GAME-SPEC.md`](docs/GAME-SPEC.md); the kit's API is [`shared/README.md`](shared/README.md).
+Build the game from those two pages, not from the other games. The repo side, in short:
+
 1. Create a folder at the repo root, say `my-game/`, with the game inside. The folder name becomes the
-   URL: `https://arcade.alzlper.com/my-game/`.
+   URL: `https://arcade.alzlper.com/my-game/`. Link the kit (`ln -s ../shared shared` inside the folder),
+   load it first in `index.html` and call `Arcade.init` (the spec has the block), add `news.js` and
+   `manifest.webmanifest`.
 2. Add `package.json` with at least `test` and `test:browser` scripts (CI runs both; `npm run
    test:browser` may be a no-op if the game has no browser tests) and commit `package-lock.json`, since
    CI installs with `npm ci`.
-3. Add `release.json` and `scripts/release.sh`. The release must be a complete, self-contained `dist/`
+3. Add `release.json` (with `news.js`, `shared` and `manifest.webmanifest` in `files`) and
+   `scripts/release.sh`. The release must be a complete, self-contained `dist/`
    with `dist/index.html` and only relative paths. Copy both files from an existing game as a start:
    `release.sh` is a short wrapper around `node ../scripts/release.mjs .`, and `scripts/release.mjs` does the
    rest (copies the files, writes `dist/VERSION.txt`, fails if a `src` or `href` in `index.html` is missing
@@ -140,7 +170,10 @@ since localStorage belongs to the origin, not the path.
 `npm ci && npm test` at the root runs every game's `release.sh` and checks the result (a valid `release.json`,
 `dist/index.html`, every relative reference present, the `VERSION.txt` format, the zip), builds the site into a temp dir (not `_site/`) and checks it: every script,
 stylesheet and preview image a page references exists and is content-hashed, `_site-immutable.txt` lists
-exactly the hashed files, the selector has a card per game, the redirects and `VERSION.txt` are there; then
-it serves the build and boots every game in headless Chrome (no failed request, no console error, the
-game's global is up). A new game needs one line in `BOOT` in `tests/site.test.mjs`. Each game has its own
+exactly the hashed files, the selector has a card per game with its news line and the backup section, the
+redirects and `VERSION.txt` are there; then it serves the build and boots every game in headless Chrome (no
+failed request, no console error, the game's global is up) and exercises the kit in each (loading screen gone,
+home and share wired, news sheet, share fallback, performance switch, campaign card, the app hint on a phone,
+the selector's backup round trip); `tests/kit.test.mjs` runs the kit's helpers in node and `tests/spec.test.mjs`
+checks the game spec. A new game needs one line in `BOOT` in `tests/site.test.mjs`. Each game has its own
 `npm test` and `npm run test:browser`. `bash scripts/deploy.sh --dry-run` prints the upload plan.

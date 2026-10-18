@@ -78,6 +78,7 @@
     $('end-text').textContent = won ? PM.render.fmt(state.n) + ' penguins made it. +' + coinsWon + ' coins.' : 'The waddle was ' + PM.render.fmt(state.peak) + ' strong at its best. Try a different gate, or visit the shop.';
     $('btn-next').hidden = !won;
     $('btn-retry').textContent = won ? 'Replay' : 'Retry';
+    if (root.Arcade) root.Arcade.share.set({ line: won ? 'Level ' + state.levelNo + ' cleared with ' + PM.render.fmt(state.n) + ' penguins' : 'Level ' + state.levelNo + ': the walrus won, waddle peak ' + PM.render.fmt(state.peak) });   // the kit's share button (#btn-share)
     show('end');
   }
 
@@ -111,7 +112,7 @@
     $('btn-retry').addEventListener('click', function () { app.retry(); });
     $('btn-shop-end').addEventListener('click', function () { show('shop'); });
     $('btn-map-end').addEventListener('click', function () { show('map'); });
-    $('title').querySelector('.version').textContent = 'v' + C.VERSION;
+    $('title').querySelector('.version-no').textContent = 'v' + C.VERSION;   // the line also holds the arcade's home link (data-arcade="home")
   }
 
   PM.ui = { init: init, show: show, hud: hud, end: end, renderShop: renderShop, renderMap: renderMap, syncMute: syncMute };

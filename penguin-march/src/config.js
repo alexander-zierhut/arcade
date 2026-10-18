@@ -8,7 +8,7 @@
   var PM = root.PM = root.PM || {};
 
   var C = {
-    VERSION: '1.0.0',
+    VERSION: '1.0.1',
     STORAGE_KEY: 'penguinMarch.v1',          // every storage key of this game starts with "penguinMarch." (README "Storage")
 
     // the run

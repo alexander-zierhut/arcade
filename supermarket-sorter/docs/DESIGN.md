@@ -168,7 +168,7 @@ v0.3.1 (2026-10-16, the "Vorbild look"):
 | Cabinet geometry | side cells = rack rows (pitch `compH + GAP`, aligned), belts with more cells than rows scroll (relaxed: drift 0.08 cells/s even with "stehen still"), bottom shelf full width, frame height = rack stack only; width-limited on every phone | `board.computeGeometry`, `board.beltSpeed`, `levels.timeMs` (real hidden count) |
 | Look | one light-wood cabinet with continuous boards, light compartment backs, darkened back-layer copies on canvas, contact shadows per occupied slot, dark HUD band, slim bottom action row, blue pause | `board.css`, `belts.css`, `hud.css`, `base.css` tokens, `sprites.shaded`, `board.syncShadows` |
 | Silhouettes | dark rim + sheen + "?" badge (canvas) | `sprites.silhouette` |
-| App mode | `manifest.webmanifest`, Fullscreen API toggle, "Als App spielen" card once on phones (`save.seenInstallHint`) | `main.setFullscreen`, `main.installHintOnBoot`, `overlays` |
+| App mode | `manifest.webmanifest` (192 / 512 px icons); the install prompt, fullscreen and the once-only hint on phones are the arcade kit's (v0.3.4, `shared/app.js`) | `Arcade.app`, `main.setFullscreen` (relayout) |
 | Products v3 | the original's 3D look in SVG, see `docs/ART-STYLE.md`; `TARGET_W` 93 | `assets/items/`, `tests/items-check.js` |
 | Shift | a front product may be rearranged to a free slot of its own compartment, free of charge (no move, no undo, no combo); drag or tap-select then tap the slot | `board.shift`, `game.shiftItem`, `ui/board.tryShift` |
 | 2D/3D products | setting `flatIcons`: the flat v0.3.0 set in `assets/items-2d` with its own measured sizes | `sprites.setFlat`, `main.applySpriteSet` |

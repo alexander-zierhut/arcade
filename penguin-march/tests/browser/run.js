@@ -128,7 +128,7 @@ async function driveWithMouse(page, seconds) {
     await page.waitForFunction(function () { return window.PM && PM.app && PM.app.state === 'TITLE'; });
     var after = await page.evaluate(function () { return { size: PM.app.save.upgrades.size, reached: PM.app.save.reached, key: Object.keys(localStorage) }; });
     ok(after.size === 1 && after.reached === 2, 'save survives a reload');
-    ok(after.key.every(function (k) { return k.indexOf('penguinMarch.') === 0; }), 'storage keys carry the game prefix');
+    ok(after.key.every(function (k) { return k.indexOf('penguinMarch.') === 0 || k.indexOf('arcade.') === 0; }), 'storage keys carry the game prefix (or the arcade kit\'s)');
     ok(await page.$eval('#btn-play', function (b) { return /level 2/i.test(b.textContent); }), 'play button continues at level 2');
 
     // ---- losing ----

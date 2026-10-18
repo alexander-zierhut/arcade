@@ -29,14 +29,16 @@
     sprites[name] = c; aspect[name] = vb;
   }
 
-  /** load(base, done): starts loading every sprite from base + file; done(status) when all settled. */
-  function load(base, done) {
-    var names = Object.keys(MANIFEST);
-    pending = names.length;
+  /** load(base, done, progress): starts loading every sprite from base + file; progress(settled, total) after each
+   *  one, done(status) when all settled. */
+  function load(base, done, progress) {
+    var names = Object.keys(MANIFEST), total = names.length;
+    pending = total;
+    function settle() { if (progress) progress(total - pending, total); if (pending === 0 && done) done(status()); }
     names.forEach(function (name) {
       var img = new Image();
-      img.onload = function () { rasterise(name, img); loaded++; if (--pending === 0 && done) done(status()); };
-      img.onerror = function () { failed.push(name); if (--pending === 0 && done) done(status()); };
+      img.onload = function () { rasterise(name, img); loaded++; pending--; settle(); };
+      img.onerror = function () { failed.push(name); pending--; settle(); };
       img.src = base + MANIFEST[name][0];
     });
   }

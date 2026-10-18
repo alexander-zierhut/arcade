@@ -1,4 +1,5 @@
-// src/ui/strings.js: every user-facing text, German first, English as a toggle. SS.t(key, vars) formats {name} placeholders.
+// src/ui/strings.js: every user-facing text of the game, German and English. SS.t(key, vars) formats {name} placeholders.
+// The what's-new texts live in news.js, the "play as an app" sheet is the arcade kit's (shared/app.js).
 (function (root) {
   'use strict';
   var SS = root.SS = root.SS || {};
@@ -42,10 +43,9 @@
     toast_combo: 'Kombo x{n}!', toast_saved: 'Spielstand gespeichert', toast_nomove: 'Da geht es nicht hin', toast_locked: 'Noch verschlossen', toast_full: 'Das Fach ist voll', toast_source: 'Das Fach ist noch verschlossen',
     version: 'Version {v} · Privates Spiel ohne Werbung',
     debug_mode: 'Testmodus: Level {n}. Nichts wird gespeichert.',
-    install: 'Als App', install_title: 'Als App spielen', fullscreen: 'Vollbild', fullscreen_setting: 'Vollbild',
-    install_text: '<p>Ohne Adressleiste ist das Regal deutlich größer.</p><p><b>iPhone / iPad:</b> In Safari unten auf <b>Teilen</b> tippen, dann <b>„Zum Home-Bildschirm“</b>. Das Spiel startet dann wie eine App.</p><p><b>Android:</b> Oben rechts auf <b>⋮</b> tippen, dann <b>„Zum Startbildschirm hinzufügen“</b> (oder „App installieren“). Oder einfach unten auf <b>Vollbild</b>.</p><p>Dein Spielstand bleibt dabei erhalten, solange du dieselbe Adresse benutzt.</p>',
-    whatsnew: 'Neuigkeiten', new_badge: 'NEU', whatsnew_title: 'Neu in Version {v}',
-    whatsnew_text: '<p><b>Mehr Platz fürs Regal:</b> Rückgängig, Goldhase und Tipp sitzen jetzt oben in der Leiste, die untere Leiste ist weg. Auf dem Handy im Browser wird das Regal dadurch deutlich breiter und die Produkte größer.</p><p><b>Kombo als Linie:</b> Die Kombo-Zeit läuft als Linie an der Unterkante der Leiste ab, der Multiplikator steht neben den Punkten.</p><p><b>Schwierigkeit als Farbe:</b> Das Level-Feld ist bei schweren Leveln orange, bei sehr schweren rot, bei Turbo lila.</p><p>Dein Spielstand und deine Rekorde bleiben erhalten.</p>'
+    fullscreen: 'Vollbild', fullscreen_setting: 'Vollbild', all_games: 'Alle Spiele',
+    share: 'Teilen', share_win: 'Level {n} geschafft: {score} Punkte', share_serie: 'Serie: {score} Punkte bis Level {level}',
+    whatsnew: 'Neuigkeiten', new_badge: 'NEU', whatsnew_title: 'Neu in Version {v}'     // the text itself is in news.js (the arcade kit shows it, the selector too)
   };
   var en = {
     title: 'Supermarket Sorter', subtitle: 'Stock the shelves, match three',
@@ -86,10 +86,9 @@
     toast_combo: 'Combo x{n}!', toast_saved: 'Progress saved', toast_nomove: 'It cannot go there', toast_locked: 'Still locked', toast_full: 'That compartment is full', toast_source: 'That compartment is still locked',
     version: 'Version {v} · Private game, no ads',
     debug_mode: 'Test mode: level {n}. Nothing is saved.',
-    install: 'As an app', install_title: 'Play as an app', fullscreen: 'Fullscreen', fullscreen_setting: 'Fullscreen',
-    install_text: '<p>Without the address bar the shelf is much bigger.</p><p><b>iPhone / iPad:</b> in Safari tap <b>Share</b>, then <b>"Add to Home Screen"</b>. The game then starts like an app.</p><p><b>Android:</b> tap <b>⋮</b> at the top right, then <b>"Add to Home screen"</b> (or "Install app"). Or simply tap <b>Fullscreen</b> below.</p><p>Your progress is kept as long as you use the same address.</p>',
-    whatsnew: 'What\'s new', new_badge: 'NEW', whatsnew_title: 'New in version {v}',
-    whatsnew_text: '<p><b>More room for the shelf:</b> Undo, the golden bunny and the hint now sit in the top bar; the bottom bar is gone. On a phone in the browser the shelf gets noticeably wider and the products bigger.</p><p><b>Combo as a line:</b> the combo window drains as a line along the bottom edge of the bar; the multiplier shows next to the score.</p><p><b>Difficulty as a colour:</b> the level pill is orange on hard levels, red on very hard ones, violet on turbo levels.</p><p>Your progress and records are kept.</p>'
+    fullscreen: 'Fullscreen', fullscreen_setting: 'Fullscreen', all_games: 'All games',
+    share: 'Share', share_win: 'Level {n} cleared: {score} points', share_serie: 'Streak: {score} points up to level {level}',
+    whatsnew: 'What\'s new', new_badge: 'NEW', whatsnew_title: 'New in version {v}'
   };
   var LANGS = { de: de, en: en };
   var current = 'en';

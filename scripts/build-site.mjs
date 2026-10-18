@@ -44,6 +44,7 @@ function hashAssets(dir, base) {
   }
   for (const ref of new Set(refs)) {
     if (/^(?:[a-z]+:|\/|#)/i.test(ref) || ref.includes('?')) continue;        // absolute, data: or already versioned
+    if (/\.[0-9a-f]{10}\.[^./]+$/.test(ref)) continue;                        // hashed by an earlier pass (the root og-image)
     const file = join(dir, ref);
     if (!existsSync(file)) throw new Error(`${page}: references ${ref}, which is not in the release`);
     const target = hashedName(ref, hashOf(file));
@@ -84,6 +85,21 @@ function statusOf(dir, name) {
   return status;
 }
 
+/** latestNews(dir, name) -> { version, date, text } of the newest entry of the game's news.js, or null. The text is
+ *  the English entry as plain text (the selector is English), cut to one card line. */
+function latestNews(dir, name) {
+  const file = join(dir, 'news.js');
+  if (!existsSync(file)) return null;
+  const m = readFileSync(file, 'utf8').match(/window\.ARCADE_NEWS\s*=\s*(\[[\s\S]*\]);/);
+  if (!m) throw new Error(`${name}/news.js: must be \`window.ARCADE_NEWS = [ ... ];\``);
+  const list = JSON.parse(m[1]).filter((e) => e && typeof e.version === 'string');
+  list.sort((a, b) => { const x = a.version.split('.').map(Number), y = b.version.split('.').map(Number); for (let i = 0; i < 3; i++) { const d = (y[i] || 0) - (x[i] || 0); if (d) return d; } return 0; });
+  const e = list[0];
+  if (!e) return null;
+  const text = String(e.en || e.de || '').replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+  return { version: e.version, date: e.date || '', text: text.length > 160 ? text.slice(0, 157).replace(/\s+\S*$/, '') + ' …' : text };
+}
+
 const games = [];
 const immutable = [];
 for (const name of readdirSync(root).sort()) {
@@ -98,8 +114,13 @@ for (const name of readdirSync(root).sort()) {
   const html = readFileSync(join(site, name, 'index.html'), 'utf8');          // after hashing: the card links the hashed image
   const title = meta(html, 'og:title') || (html.match(/<title>(.*?)<\/title>/) || [])[1] || name;
   const image = meta(html, 'og:image').replace(SITE_URL + name + '/', '');   // the tag is absolute; the card links relative
-  games.push({ name, title, status, description: meta(html, 'og:description'), image: image ? `${name}/${image}` : '' });
+  games.push({ name, title, status, description: meta(html, 'og:description'), image: image ? `${name}/${image}` : '', news: latestNews(dir, name) });
 }
+// the arcade kit (shared/): the selector loads core.js and backup.js for the export / import of every game's progress
+const KIT = ['core.js', 'ui.js', 'backup.js'];
+mkdirSync(join(site, 'shared'));
+for (const f of KIT) cpSync(join(root, 'shared', f), join(site, 'shared', f));
+cpSync(join(root, 'shared', 'arcade.css'), join(site, 'shared', 'arcade.css'));
 if (!games.length) throw new Error('no games found (a game is a folder with scripts/release.sh)');
 const ready = games.filter((g) => g.status === 'ready');
 const beta = games.filter((g) => g.status === 'beta');
@@ -130,6 +151,7 @@ const card = (g, h) => `
         <div class="body">
           <${h}>${esc(g.title)}</${h}>
           ${g.description ? `<p>${esc(g.description)}</p>` : ''}
+          ${g.news ? `<p class="news"><b>New in ${esc(g.news.version)}</b>${g.news.date ? ` <time datetime="${esc(g.news.date)}">${esc(g.news.date)}</time>` : ''}: ${esc(g.news.text)}</p>` : ''}
           <span class="play">${g.status === 'beta' ? 'Play the beta' : 'Play'}</span>
         </div>
       </a>`;
@@ -206,10 +228,23 @@ ${ogImage ? `<meta property="og:image" content="${ogImage}">
   .body { padding: 1rem 1.1rem 1.2rem; display: flex; flex-direction: column; gap: .5rem; flex: 1; }
   .body h2, .body h3 { margin: 0; font-size: 1.25rem; letter-spacing: 0; text-transform: none; color: inherit; }
   .body p { margin: 0; color: #c2c6d6; line-height: 1.45; flex: 1; }
+  .body p.news { flex: 0; font-size: .85rem; color: #a3a8bb; }
+  .body p.news b { color: #c2c6d6; }
+  .body p.news time { color: #6f7489; }
   .play { align-self: flex-start; margin-top: .4rem; padding: .5rem 1.1rem; border-radius: 999px; background: #f2f3f7; color: #14161f; font-weight: 600; }
   .card.beta .play { background: #ffb84d; }
   footer { margin-top: 2.5rem; color: #6f7489; font-size: .85rem; }
+  .backup { width: 100%; max-width: 64rem; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #2a2e40; }
+  .backup h2 { margin: 0 0 .5rem; font-size: 1.1rem; letter-spacing: .12em; text-transform: uppercase; color: #a3a8bb; }
+  .backup p { margin: 0 0 1rem; max-width: 46rem; color: #c2c6d6; line-height: 1.5; }
+  .backup .row { display: flex; flex-wrap: wrap; gap: .75rem; }
+  .backup button { font: inherit; font-weight: 600; padding: .6rem 1.2rem; border-radius: 999px; border: 1px solid #3a3f55; background: #1f2230; color: #f2f3f7; cursor: pointer; }
+  .backup button:hover, .backup button:focus-visible { border-color: #7aa2ff; outline: none; }
+  .backup .status { margin-top: .75rem; color: #a3a8bb; font-size: .9rem; min-height: 1.2em; }
+  /* the kit's own colours on this page (its toast and sheets) */
+  :root { --arcade-bg: #14161f; --arcade-card: #1f2230; --arcade-ink: #f2f3f7; --arcade-accent: #7aa2ff; --arcade-accent-ink: #14161f; --arcade-muted: #2a2e40; }
 </style>
+<link rel="stylesheet" href="shared/arcade.css">
 </head>
 <body>
   <header>
@@ -217,10 +252,37 @@ ${ogImage ? `<meta property="og:image" content="${ogImage}">
     <p>Pick a game. Free, no ads, no account.</p>
   </header>
 ${sections}
+  <section class="backup" aria-labelledby="backup-title">
+    <h2 id="backup-title">Your progress</h2>
+    <p>Every game saves on this device, in this browser. To take everything to a new phone, download a backup here and load it there. Loading a backup replaces the progress on this device for the games it contains.</p>
+    <div class="row">
+      <button type="button" id="backup-export">Download a backup of all games</button>
+      <button type="button" id="backup-import">Load a backup</button>
+    </div>
+    <p class="status" id="backup-status" aria-live="polite"></p>
+  </section>
   <footer>${footer}</footer>
+  <script src="shared/core.js"></script>
+  <script src="shared/ui.js"></script>
+  <script src="shared/backup.js"></script>
+  <script>
+  // the arcade kit's backup (shared/backup.js): the games' names, so a backup can be described before it is loaded
+  (function () {
+    var A = window.Arcade; if (!A) return;
+    A.backup.games = ${JSON.stringify(games.map((g) => ({ id: g.name, title: g.title })))};
+    var status = document.getElementById('backup-status');
+    document.getElementById('backup-export').addEventListener('click', function () {
+      var text = A.backup.download(), d = A.backup.describe(text);
+      status.textContent = d.games.length ? 'Backup contains: ' + d.games.map(function (g) { return g.title; }).join(', ') + '.' : 'Nothing saved on this device yet; the backup is empty.';
+    });
+    document.getElementById('backup-import').addEventListener('click', function () { A.backup.pick(); });
+    A.on('import', function (res) { status.textContent = 'Loaded: ' + res.games.map(function (g) { return g.title; }).join(', ') + '. Open a game to continue there.'; });
+  })();
+  </script>
 </body>
 </html>
 `);
+for (const p of hashAssets(site, SITE_URL)) immutable.push(p);     // the selector's own scripts and stylesheet, hashed like the games'
 
 writeFileSync(`${site}-immutable.txt`, immutable.join('\n') + '\n');
 console.log(`${site} ready: ${games.map((g) => g.name).join(', ')} (${immutable.length} hashed files in ${site}-immutable.txt)`);

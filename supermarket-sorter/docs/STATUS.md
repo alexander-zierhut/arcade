@@ -1,6 +1,25 @@
-# Status and handoff (v0.3.3, 2026-10-18)
+# Status and handoff (v0.3.4, 2026-10-18)
 
 Read this first in a new session. It says what exists, how to run and prove it, what is tuned and what is open.
+
+## What changed in v0.3.4 (the arcade kit)
+
+The game now loads the arcade kit (`shared/`, `window.Arcade`; the contract is `../docs/GAME-SPEC.md`, the API
+`../shared/README.md`) first and takes from it what every game has in common. Nothing in the game's look or rules
+changed; the proof was a DOM snapshot of 34 screens at 360×678 and 390×844 before and after, identical except:
+
+- the title's "Als App" chip is now "Alle Spiele" (`data-arcade="home"`, back to the selector); the install card
+  and `save.seenInstallHint` are gone, the kit shows its own "play as an app" sheet once on phones (install prompt
+  where the browser offers one, else the iOS steps or fullscreen; stored under `arcade.installHint`),
+- the win and serie cards have a "Teilen" button (`Arcade.share`: the OG image with the score line, or the text),
+- the what's-new text moved from `strings.js` to `news.js` (both languages per version; the selector's card shows
+  the newest entry; `scripts/check-versions.mjs` checks the entry for the version exists),
+- the language is the arcade's (`arcade.lang`): a player with progress seeds it from this save once, a new player
+  starts in the browser's language; `save.lang` mirrors it,
+- the performance mode is the arcade's (`arcade.perf`): the kit measures frames while playing and switches by
+  itself (with a toast), the settings switch sets it; `save.lowGfx` mirrors it,
+- `Arcade.screen()` is told every state change (play time statistics, campaign moments; nothing in `?level=` test mode),
+- the kit's loading screen covers the boot; `manifest.webmanifest` has 192 and 512 px icons.
 
 ## What changed in v0.3.3 (one HUD row, the shelf gets the rest)
 
