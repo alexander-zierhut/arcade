@@ -47,7 +47,7 @@
 <script src="shared/menu.js"></script>
 <script src="shared/hooks.js"></script>
 <script src="news.js"></script>
-<script>Arcade.init({ game: 'supermarket-sorter', title: 'Supermarket Sorter', version: '0.3.4' });</script>
+<script>Arcade.init({ game: 'supermarket-sorter', title: 'Supermarket Sorter', version: '0.3.5' });</script>
 <div id="app" class="app">
   <div id="hud" class="hud" hidden>
     <div class="hud-row">
@@ -75,6 +75,9 @@
 
   <div id="overlays" class="overlays">
     <section id="ov-title" class="ov ov-title" hidden inert aria-label="Titel">
+      <button class="title-home" type="button" data-arcade="home" aria-label="Alle Spiele" title="Alle Spiele">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.8 12 4.5l8.5 7.3"/><path d="M6 10.2V19.5h12v-9.3"/><path d="M9.8 19.5v-5.2h4.4v5.2"/></svg>
+      </button>
       <div class="title-col">
         <div class="logo">
           <div class="logo-cart" aria-hidden="true"></div>
@@ -90,8 +93,6 @@
           <button class="chip" type="button" data-act="howto">Anleitung</button>
           <button class="chip" type="button" data-act="scores">Bestenliste</button>
           <button class="chip" type="button" data-act="settings">Einstellungen</button>
-          <button class="chip chip-new" type="button" data-act="whatsnew">Neuigkeiten<span class="new-badge" hidden>NEU</span></button>
-          <button class="chip" type="button" data-arcade="home">Alle Spiele</button>
         </div>
       </div>
     </section>
@@ -187,14 +188,6 @@
         <div class="tabs"><button class="tab on" type="button" data-tab="relaxed">Entspannt</button><button class="tab" type="button" data-tab="timed">Gegen die Zeit</button></div>
         <div class="scores js-scores"></div>
         <div class="btn-col"><button class="btn btn-primary" type="button" data-act="close">Zurück</button></div>
-      </div>
-    </section>
-
-    <section id="ov-whatsnew" class="ov ov-modal" hidden inert aria-label="Neuigkeiten">
-      <div class="card scroll">
-        <div class="ribbon ribbon-green"><h2 class="card-title js-title">Neu in Version 0.3.4</h2></div>
-        <div class="howto js-text"></div>
-        <div class="btn-col"><button class="btn btn-primary" type="button" data-act="close">Alles klar</button></div>
       </div>
     </section>
 

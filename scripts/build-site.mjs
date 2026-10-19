@@ -74,38 +74,43 @@ rmSync(site, { recursive: true, force: true });
 mkdirSync(site);
 
 const STATUSES = ['ready', 'beta'];
-/** statusOf(dir, name) -> 'ready' | 'beta' from the game's release.json; a game without a manifest is ready. */
-function statusOf(dir, name) {
+const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
+/** manifestOf(dir, name) -> { status: 'ready' | 'beta', released: 'YYYY-MM-DD' | '' } from the game's release.json;
+ *  a game without a manifest is ready. `released` is the day the game went live: the selector's "New!" badge for two
+ *  weeks from then. */
+function manifestOf(dir, name) {
   const file = join(dir, 'release.json');
-  if (!existsSync(file)) return 'ready';
+  if (!existsSync(file)) return { status: 'ready', released: '' };
   let manifest;
   try { manifest = JSON.parse(readFileSync(file, 'utf8')); } catch (e) { throw new Error(`${name}/release.json: ${e.message}`); }
   const status = manifest.status === undefined ? 'ready' : manifest.status;
   if (!STATUSES.includes(status)) throw new Error(`${name}/release.json: "status" must be one of ${STATUSES.join(', ')}, not ${JSON.stringify(status)}`);
-  return status;
+  const released = manifest.released === undefined ? '' : manifest.released;
+  if (released !== '' && !ISO_DATE.test(String(released))) throw new Error(`${name}/release.json: "released" must be a date (YYYY-MM-DD), not ${JSON.stringify(released)}`);
+  return { status, released };
 }
 
-/** latestNews(dir, name) -> { version, date, text } of the newest entry of the game's news.js, or null. The text is
- *  the English entry as plain text (the selector is English), cut to one card line. */
-function latestNews(dir, name) {
+/** newsOf(dir, name) -> the game's news.js entries ({ version, date, de, en }), newest first; [] without the file. The
+ *  selector embeds them for its changelog (the kit's news sheet) and labels the newest one. */
+function newsOf(dir, name) {
   const file = join(dir, 'news.js');
-  if (!existsSync(file)) return null;
+  if (!existsSync(file)) return [];
   const m = readFileSync(file, 'utf8').match(/window\.ARCADE_NEWS\s*=\s*(\[[\s\S]*\]);/);
   if (!m) throw new Error(`${name}/news.js: must be \`window.ARCADE_NEWS = [ ... ];\``);
-  const list = JSON.parse(m[1]).filter((e) => e && typeof e.version === 'string');
+  const list = JSON.parse(m[1]).filter((e) => e && typeof e.version === 'string').map((e) => ({ version: e.version, date: e.date || '', de: e.de || '', en: e.en || '' }));
   list.sort((a, b) => { const x = a.version.split('.').map(Number), y = b.version.split('.').map(Number); for (let i = 0; i < 3; i++) { const d = (y[i] || 0) - (x[i] || 0); if (d) return d; } return 0; });
-  const e = list[0];
-  if (!e) return null;
-  const text = String(e.en || e.de || '').replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
-  return { version: e.version, date: e.date || '', text: text.length > 160 ? text.slice(0, 157).replace(/\s+\S*$/, '') + ' …' : text };
+  return list;
 }
+/** plusDays(isoDate, n) -> the ISO date n days later (the day a "new" label stops showing). */
+const plusDays = (iso, n) => new Date(Date.parse(iso) + n * 86400000).toISOString().slice(0, 10);
+const NEW_GAME_DAYS = 14, NEW_CHANGE_DAYS = 7;
 
 const games = [];
 const immutable = [];
 for (const name of readdirSync(root).sort()) {
   const dir = join(root, name);
   if (!existsSync(join(dir, 'scripts', 'release.sh'))) continue;
-  const status = statusOf(dir, name);
+  const { status, released } = manifestOf(dir, name);
   execFileSync('bash', ['scripts/release.sh'], { cwd: dir, stdio: 'inherit' });
   const dist = join(dir, 'dist');
   if (!existsSync(join(dist, 'index.html'))) throw new Error(`${name}: release.sh left no dist/index.html`);
@@ -114,10 +119,10 @@ for (const name of readdirSync(root).sort()) {
   const html = readFileSync(join(site, name, 'index.html'), 'utf8');          // after hashing: the card links the hashed image
   const title = meta(html, 'og:title') || (html.match(/<title>(.*?)<\/title>/) || [])[1] || name;
   const image = meta(html, 'og:image').replace(SITE_URL + name + '/', '');   // the tag is absolute; the card links relative
-  games.push({ name, title, status, description: meta(html, 'og:description'), image: image ? `${name}/${image}` : '', news: latestNews(dir, name) });
+  games.push({ name, title, status, released, description: meta(html, 'og:description'), image: image ? `${name}/${image}` : '', news: newsOf(dir, name) });
 }
-// the arcade kit (shared/): the selector loads core.js and backup.js for the export / import of every game's progress
-const KIT = ['core.js', 'ui.js', 'backup.js'];
+// the arcade kit (shared/): the selector loads core.js, ui.js, news.js (the changelog sheet) and backup.js (the profile's export / import)
+const KIT = ['core.js', 'ui.js', 'news.js', 'backup.js'];
 mkdirSync(join(site, 'shared'));
 for (const f of KIT) cpSync(join(root, 'shared', f), join(site, 'shared', f));
 cpSync(join(root, 'shared', 'arcade.css'), join(site, 'shared', 'arcade.css'));
@@ -143,18 +148,30 @@ for (const [from, to] of Object.entries(REDIRECTS)) {
 `);
 }
 
-// h: the title's heading level, h2 in the plain grid and h3 under a section heading, so the outline never skips a level
-const card = (g, h) => `
-      <a class="card${g.status === 'beta' ? ' beta' : ''}" href="${g.name}/">
-        ${g.image ? `<img src="${esc(g.image)}" alt="" width="1200" height="630" loading="lazy">` : '<div class="noimg"></div>'}
-        ${g.status === 'beta' ? '<span class="badge">Beta</span>' : ''}
-        <div class="body">
-          <${h}>${esc(g.title)}</${h}>
-          ${g.description ? `<p>${esc(g.description)}</p>` : ''}
-          ${g.news ? `<p class="news"><b>New in ${esc(g.news.version)}</b>${g.news.date ? ` <time datetime="${esc(g.news.date)}">${esc(g.news.date)}</time>` : ''}: ${esc(g.news.text)}</p>` : ''}
-          <span class="play">${g.status === 'beta' ? 'Play the beta' : 'Play'}</span>
-        </div>
-      </a>`;
+// h: the title's heading level, h2 in the plain grid and h3 under a section heading, so the outline never skips a level.
+// The card is one block: the link (image, title, text, Play) and under it the "What's new" button that opens the
+// game's changelog (the kit's news sheet, one change per page). The labels "New!" (a game released at most two weeks
+// ago) and "New" (a change at most a week ago) carry the day they expire; the page shows them while that day is ahead,
+// so a card built today is still right in a month.
+const card = (g, h) => {
+  const latest = g.news[0] || null;
+  return `
+      <article class="card${g.status === 'beta' ? ' beta' : ''}">
+        <a class="link" href="${g.name}/">
+          ${g.image ? `<img src="${esc(g.image)}" alt="" width="1200" height="630" loading="lazy">` : '<div class="noimg"></div>'}
+          ${g.status === 'beta' ? '<span class="badge">Beta</span>' : ''}
+          ${g.released ? `<span class="badge new" data-until="${plusDays(g.released, NEW_GAME_DAYS)}" hidden>New!</span>` : ''}
+          <div class="body">
+            <${h}>${esc(g.title)}</${h}>
+            ${g.description ? `<p>${esc(g.description)}</p>` : ''}
+            <span class="play">${g.status === 'beta' ? 'Play the beta' : 'Play'}</span>
+          </div>
+        </a>
+        ${latest ? `<div class="foot">
+          <button type="button" class="news" data-game="${g.name}" title="What changed in ${esc(g.title)}">What's new <span class="ver">v${esc(latest.version)}</span>${latest.date ? ` <time datetime="${esc(latest.date)}">${esc(latest.date)}</time><span class="tag" data-until="${plusDays(latest.date, NEW_CHANGE_DAYS)}" hidden>New</span>` : ''}</button>
+        </div>` : ''}
+      </article>`;
+};
 const BETA_NOTE = 'Still being built. Expect big changes from version to version, and progress saved in a beta game may not carry over to the next version.';
 // one plain grid while every game is ready; headed sections as soon as there is a beta game
 const sections = !beta.length ? `
@@ -207,8 +224,13 @@ ${ogImage ? `<meta property="og:image" content="${ogImage}">
   :root { color-scheme: dark; }
   * { box-sizing: border-box; }
   body { margin: 0; min-height: 100vh; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: #14161f; color: #f2f3f7;
-         display: flex; flex-direction: column; align-items: center; padding: 2.5rem 1rem 3rem; }
+         display: flex; flex-direction: column; align-items: center; padding: 2.5rem 1rem 3rem; position: relative; }
   header { text-align: center; margin-bottom: 2rem; }
+  /* the profile: progress and backups, top right */
+  .profile { position: absolute; top: 1rem; right: 1rem; width: 44px; height: 44px; padding: 0; border-radius: 50%; border: 1px solid #3a3f55; background: #1f2230; color: #f2f3f7;
+             display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 6px 18px rgba(0,0,0,.35); }
+  .profile:hover, .profile:focus-visible { border-color: #7aa2ff; outline: none; }
+  .profile svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
   h1 { margin: 0 0 .4rem; font-size: clamp(2rem, 6vw, 3rem); letter-spacing: .04em; }
   header p { margin: 0; color: #a3a8bb; }
   main { width: 100%; max-width: 64rem; }
@@ -217,30 +239,31 @@ ${ogImage ? `<meta property="og:image" content="${ogImage}">
   .group h2 { margin: 0 0 1rem; font-size: 1.1rem; letter-spacing: .12em; text-transform: uppercase; color: #a3a8bb; }
   .group.beta h2 { color: #ffb84d; }
   .note { margin: -.4rem 0 1.25rem; max-width: 46rem; color: #c2c6d6; line-height: 1.5; }
-  .card { position: relative; display: flex; flex-direction: column; text-decoration: none; color: inherit; background: #1f2230; border-radius: 1.1rem; overflow: hidden;
-          box-shadow: 0 10px 30px rgba(0,0,0,.35); transition: transform .15s, box-shadow .15s; outline: none; }
-  .card:hover, .card:focus-visible { transform: translateY(-.25rem); box-shadow: 0 16px 40px rgba(0,0,0,.45); }
-  .card:focus-visible { box-shadow: 0 0 0 3px #7aa2ff, 0 16px 40px rgba(0,0,0,.45); }
+  .card { position: relative; display: flex; flex-direction: column; background: #1f2230; border-radius: 1.1rem; overflow: hidden;
+          box-shadow: 0 10px 30px rgba(0,0,0,.35); transition: transform .15s, box-shadow .15s; }
+  .card:has(.link:hover), .card:has(.link:focus-visible) { transform: translateY(-.25rem); box-shadow: 0 16px 40px rgba(0,0,0,.45); }
+  .card:has(.link:focus-visible) { box-shadow: 0 0 0 3px #7aa2ff, 0 16px 40px rgba(0,0,0,.45); }
   .card.beta { outline: 1px solid rgba(255,184,77,.4); outline-offset: -1px; }   /* an outline, so the focus ring (a box-shadow) still shows */
+  .link { position: relative; display: flex; flex-direction: column; flex: 1; text-decoration: none; color: inherit; outline: none; }
   .card img, .noimg { display: block; width: 100%; height: auto; aspect-ratio: 1200 / 630; object-fit: cover; background: #2a2e40; }
   .badge { position: absolute; top: .8rem; left: .8rem; padding: .3rem .7rem; border-radius: 999px; background: #ffb84d; color: #14161f;
            font-size: .8rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; box-shadow: 0 2px 8px rgba(0,0,0,.4); }
-  .body { padding: 1rem 1.1rem 1.2rem; display: flex; flex-direction: column; gap: .5rem; flex: 1; }
+  .badge.new { left: auto; right: .8rem; background: #7aa2ff; }
+  .body { padding: 1rem 1.1rem 1rem; display: flex; flex-direction: column; gap: .5rem; flex: 1; }
   .body h2, .body h3 { margin: 0; font-size: 1.25rem; letter-spacing: 0; text-transform: none; color: inherit; }
   .body p { margin: 0; color: #c2c6d6; line-height: 1.45; flex: 1; }
-  .body p.news { flex: 0; font-size: .85rem; color: #a3a8bb; }
-  .body p.news b { color: #c2c6d6; }
-  .body p.news time { color: #6f7489; }
   .play { align-self: flex-start; margin-top: .4rem; padding: .5rem 1.1rem; border-radius: 999px; background: #f2f3f7; color: #14161f; font-weight: 600; }
   .card.beta .play { background: #ffb84d; }
+  /* under the link: the changelog button (the kit's news sheet) with its "New" label while the change is fresh */
+  .foot { display: flex; align-items: center; padding: 0 1.1rem 1rem; }
+  .foot .news { display: inline-flex; align-items: center; gap: .4rem; max-width: 100%; white-space: nowrap; font: inherit; font-size: .85rem; font-weight: 600; color: #a3a8bb; background: none;
+                border: 1px solid #2a2e40; border-radius: 999px; padding: .4rem .9rem; cursor: pointer; }
+  @media (max-width: 24rem) { .foot .news time { display: none; } }   /* the narrowest phones: the modal shows the date anyway */
+  .foot .news:hover, .foot .news:focus-visible { border-color: #7aa2ff; color: #f2f3f7; outline: none; }
+  .foot .news .ver { color: #c2c6d6; }
+  .foot .news time { color: #6f7489; font-weight: 500; }
+  .foot .news .tag { padding: .1rem .5rem; border-radius: 999px; background: #7aa2ff; color: #14161f; font-size: .7rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
   footer { margin-top: 2.5rem; color: #6f7489; font-size: .85rem; }
-  .backup { width: 100%; max-width: 64rem; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #2a2e40; }
-  .backup h2 { margin: 0 0 .5rem; font-size: 1.1rem; letter-spacing: .12em; text-transform: uppercase; color: #a3a8bb; }
-  .backup p { margin: 0 0 1rem; max-width: 46rem; color: #c2c6d6; line-height: 1.5; }
-  .backup .row { display: flex; flex-wrap: wrap; gap: .75rem; }
-  .backup button { font: inherit; font-weight: 600; padding: .6rem 1.2rem; border-radius: 999px; border: 1px solid #3a3f55; background: #1f2230; color: #f2f3f7; cursor: pointer; }
-  .backup button:hover, .backup button:focus-visible { border-color: #7aa2ff; outline: none; }
-  .backup .status { margin-top: .75rem; color: #a3a8bb; font-size: .9rem; min-height: 1.2em; }
   /* the kit's own colours on this page (its toast and sheets) */
   :root { --arcade-bg: #14161f; --arcade-card: #1f2230; --arcade-ink: #f2f3f7; --arcade-accent: #7aa2ff; --arcade-accent-ink: #14161f; --arcade-muted: #2a2e40; }
 </style>
@@ -251,32 +274,52 @@ ${ogImage ? `<meta property="og:image" content="${ogImage}">
     <h1>Arcade</h1>
     <p>Pick a game. Free, no ads, no account.</p>
   </header>
+  <button type="button" id="profile" class="profile" aria-label="Your progress and backups" title="Your progress">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20.5c0-4.2 3.6-6.8 8-6.8s8 2.6 8 6.8"/></svg>
+  </button>
 ${sections}
-  <section class="backup" aria-labelledby="backup-title">
-    <h2 id="backup-title">Your progress</h2>
-    <p>Every game saves on this device, in this browser. To take everything to a new phone, download a backup here and load it there. Loading a backup replaces the progress on this device for the games it contains.</p>
-    <div class="row">
-      <button type="button" id="backup-export">Download a backup of all games</button>
-      <button type="button" id="backup-import">Load a backup</button>
-    </div>
-    <p class="status" id="backup-status" aria-live="polite"></p>
-  </section>
   <footer>${footer}</footer>
   <script src="shared/core.js"></script>
   <script src="shared/ui.js"></script>
+  <script src="shared/news.js"></script>
   <script src="shared/backup.js"></script>
   <script>
-  // the arcade kit's backup (shared/backup.js): the games' names, so a backup can be described before it is loaded
+  // the games with their news (from each game's news.js) for the changelog sheets and the profile
+  window.ARCADE_SITE = ${JSON.stringify({ games: games.map((g) => ({ id: g.name, title: g.title, news: g.news })) }).replace(/</g, '\\u003c')};
   (function () {
-    var A = window.Arcade; if (!A) return;
-    A.backup.games = ${JSON.stringify(games.map((g) => ({ id: g.name, title: g.title })))};
-    var status = document.getElementById('backup-status');
-    document.getElementById('backup-export').addEventListener('click', function () {
-      var text = A.backup.download(), d = A.backup.describe(text);
-      status.textContent = d.games.length ? 'Backup contains: ' + d.games.map(function (g) { return g.title; }).join(', ') + '.' : 'Nothing saved on this device yet; the backup is empty.';
+    var A = window.Arcade, site = window.ARCADE_SITE; if (!A) return;
+    var byId = {}; site.games.forEach(function (g) { byId[g.id] = g; });
+    A.backup.games = site.games.map(function (g) { return { id: g.id, title: g.title }; });
+    // the "New!" / "New" labels show while their day is still ahead (data-until, set by the build)
+    var labels = document.querySelectorAll('[data-until]');
+    for (var i = 0; i < labels.length; i++) labels[i].hidden = !(Date.now() < Date.parse(labels[i].getAttribute('data-until')));
+    // a card's "What's new" opens the game's changelog (one change per page); reading it counts as seen in the game too
+    var buttons = document.querySelectorAll('button.news');
+    for (var j = 0; j < buttons.length; j++) buttons[j].addEventListener('click', function (ev) {
+      var g = byId[ev.currentTarget.getAttribute('data-game')]; if (g) A.news.open({ list: g.news, title: g.title, game: g.id });
     });
-    document.getElementById('backup-import').addEventListener('click', function () { A.backup.pick(); });
-    A.on('import', function (res) { status.textContent = 'Loaded: ' + res.games.map(function (g) { return g.title; }).join(', ') + '. Open a game to continue there.'; });
+    // the profile: what is saved on this device per game, and the backup of all of it
+    function profile() {
+      var node = document.createElement('div'), lang = A.lang.get(), stats = A.shared.get('stats', { games: {} }), saved = {};
+      node.className = 'arcade-profile';
+      try { A.backup.describe(A.backup.exportText()).games.forEach(function (g) { saved[g.id] = true; }); } catch (e) { /* nothing saved */ }
+      var text = document.createElement('div'); text.className = 'arcade-text'; text.innerHTML = A.t('profile_text'); node.appendChild(text);
+      var ul = document.createElement('ul');
+      site.games.forEach(function (g) {
+        var li = document.createElement('li'), b = document.createElement('b'), s = document.createElement('span'), st = stats.games && stats.games[g.id];
+        b.textContent = g.title;
+        s.textContent = st && st.playMs > 0 ? A.t('profile_played', { time: A.pure.durationText(st.playMs, lang) }) : saved[g.id] ? A.t('profile_saved') : A.t('profile_none');
+        li.appendChild(b); li.appendChild(s); ul.appendChild(li);
+      });
+      node.appendChild(ul);
+      A.sheet({ title: A.t('profile_title'), node: node, buttons: [
+        { label: A.t('backup_export'), primary: true, keep: true, onClick: function () { A.backup.download(); } },
+        { label: A.t('backup_import'), keep: true, onClick: function () { A.backup.pick(); } },
+        { label: A.t('close') }
+      ] });
+    }
+    document.getElementById('profile').addEventListener('click', profile);
+    A.on('import', profile);          // the sheet shows the loaded progress
   })();
   </script>
 </body>

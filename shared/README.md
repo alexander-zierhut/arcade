@@ -21,7 +21,7 @@ Every game folder has `shared` as a symlink to this folder; the release copies t
 | `perf.js` | `Arcade.perf` (the performance mode, measured and manual) |
 | `stats.js` | `Arcade.stats` (sessions and play time, this device) |
 | `campaigns.js` | `Arcade.campaigns`, `Arcade.screen`, `Arcade.current` (the screen moments) |
-| `news.js` | `Arcade.news` (the game's `news.js`) |
+| `news.js` | `Arcade.news` (the game's `news.js`: the changelog card, paged, opened by itself once per version) |
 | `share.js` | `Arcade.share` |
 | `backup.js` | `Arcade.backup` |
 | `menu.js` | `Arcade.menu.items`, `Arcade.wire`, `Arcade.refresh`, `Arcade.run`, `Arcade.init` |
@@ -67,7 +67,8 @@ Then, from the game:
 Any element with `data-arcade="<id>"` runs that entry on click and is hidden when the entry cannot work on this
 device. With `data-arcade-auto` the kit sets its label (in the current language); without it the game labels it.
 Ids: `home`, `install` (the browser's prompt, when it offered one), `fullscreen` (when there is no prompt and the
-API exists), `app` (the hint sheet, phones in a tab), `share`, `news` (gets `data-arcade-unseen="1|0"`), `perf`
+API exists), `app` (the hint sheet, phones in a tab), `share`, `news` (gets `data-arcade-unseen="1|0"` and
+`data-arcade-new="1|0"`, the latter for a week after a change), `perf`
 (toggles, `aria-pressed`), `lang` (cycles), `backup-export`, `backup-import`. `Arcade.menu.items()` returns the same
 entries as `{ id, label, run, visible }` for menus a game renders itself; `Arcade.run(id)` runs one.
 
@@ -104,7 +105,10 @@ last, first } } }`; `playMs()`; `session()`.
 each). `Arcade.screen(name)`, `Arcade.current()`.
 
 **News.** `Arcade.news.list()` (newest first), `latest()`, `text(entry, lang?)`, `seen()`, `unseen()`,
-`markSeen()`, `open()`.
+`markSeen()`, `recent(days = 7)` (the newest change is at most that old), `wanted()` (a returning player has not
+seen this version), `auto()` (opens the card when wanted, else records a first visit; the title moment calls it),
+`open({ list, title, game, index })` (the paged changelog card; without options the game's own news; the
+selector passes a game's list, title and id, which marks the version seen for that game).
 
 **Share.** `Arcade.share.set({ line, text })`, `context()`, `text()`, `image(line)` → Promise<File|null>,
 `go()` → Promise<{ method: 'share' | 'share-text' | 'clipboard' | 'none' }>.
@@ -115,7 +119,12 @@ each). `Arcade.screen(name)`, `Arcade.current()`.
 format: 1, date, origin, kit, keys: { key: value } }`, every localStorage key of the origin.
 
 **Pure helpers** (`Arcade.pure`, no DOM): `prefixOf`, `pickLang`, `compareVersions`, `newsSorted`, `newsPlain`,
-`backupEncode`, `backupDecode`, `backupGames`, `campaignDue`, `perfVerdict`, `statsFold`, `shareText`.
+`within(isoDate, days, now?)`, `dateText(isoDate, lang)`, `durationText(ms, lang)`, `backupEncode`, `backupDecode`,
+`backupGames`, `campaignDue`, `perfVerdict`, `statsFold`, `shareText`.
+
+**The selector** loads `core.js`, `ui.js`, `news.js` and `backup.js` only (no `init`): its "What's new" buttons
+call `Arcade.news.open({ list, title, game })`, its profile sheet (progress per game from `arcade.stats`, the
+backup export / import) is built with `Arcade.sheet`, and the kit's strings `profile_*` label it.
 
 ## Changing the kit
 

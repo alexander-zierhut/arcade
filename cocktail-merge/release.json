@@ -1,5 +1,6 @@
 {
   "name": "Cocktail Merge: Beach Bar",
+  "released": "2026-10-03",
   "files": ["index.html", "news.js", "shared", "manifest.webmanifest", "src", "assets/backgrounds", "assets/icons", "assets/tier-*.png"],
   "copy": { "assets/icons/favicon.ico": "favicon.ico" }
 }

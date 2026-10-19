@@ -1,6 +1,20 @@
-# Status and handoff (v0.3.4, 2026-10-18)
+# Status and handoff (v0.3.5, 2026-10-19)
 
 Read this first in a new session. It says what exists, how to run and prove it, what is tuned and what is open.
+
+## What changed in v0.3.5 (the arcade's changelog and profile)
+
+Proven like 0.3.4 (a DOM snapshot of every screen at 360×678 and 390×844 before and after): every screen is
+identical except the three requested changes on the title and the settings:
+
+- the "Alle Spiele" chip became a round **house button** in the title's top-left corner (`.title-home`,
+  `data-arcade="home"`, the kit wires it; `applyLang` sets its spoken label),
+- the **"Neuigkeiten" chip, its NEU badge and the what's-new card are gone**: the arcade kit's changelog card opens
+  by itself on the title once per version for a returning player (`shared/news.js`, one change per page, older /
+  newer), and the selector's "What's new" button shows the same; `save.seenVersion` stays in the save format, unused,
+- the **"Spielstand sichern / laden" buttons left the settings**: the arcade's profile (top right of the selector)
+  backs up every game in one file. The game's export format is still read (`SS.main.importProgressText`,
+  `storage.exportAll/importAll`), and the browser suite still imports every released fixture through it.
 
 ## What changed in v0.3.4 (the arcade kit)
 

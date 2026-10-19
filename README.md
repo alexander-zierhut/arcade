@@ -15,9 +15,10 @@ What is the same in all of them is built once, in `shared/` (the **arcade kit**,
 loads it first: the loading screen, the language preference (one choice for the whole arcade), "play as an app"
 (install prompt, fullscreen, the iOS hint, once on phones), the way back to the selector, the low-performance
 mode (measured while playing, or set by the player, the same in every game), the campaign hooks (`shared/hooks.js`:
-a card every N minutes across all games), local play statistics, the news sheet (a game's `news.js`), the share
-button (a picture of the game's OG image with the score line) and the backup of every game's progress (the
-selector's export / import, so a player switches phones with one file).
+a card every N minutes across all games), local play statistics, the changelog card (a game's `news.js`, paged
+by change, opened by itself once per version when something changed since the last visit), the share button (a
+picture of the game's OG image with the score line) and the backup of every game's progress (the selector's
+profile: export / import, so a player switches phones with one file).
 
 - [`docs/GAME-SPEC.md`](docs/GAME-SPEC.md) is the contract a game follows (folder, storage, `index.html`, manifest,
   languages, title structure, menus, loading, screens, news, share, tests, docs). A new game is built from that
@@ -37,9 +38,11 @@ workflow, the site build and the selector page all discover them from the folder
   `scripts/release.mjs`; the game says what ships in `<game>/release.json`, and `release.sh` is a thin
   wrapper that calls the shared script (and the place for anything the manifest cannot express).
 - `<game>/index.html` carries Open Graph tags. The selector page is built from `og:title`,
-  `og:description` and `og:image`, so a game's card is whatever the game itself says it is; the card also
-  shows the newest entry of the game's `news.js`. Under the cards the selector offers the backup of every
-  game's progress on the device (export / import, `shared/backup.js`).
+  `og:description` and `og:image`, so a game's card is whatever the game itself says it is. The card carries a
+  "New!" badge for two weeks after the day in `release.json` `"released"`, and a "What's new" button (the
+  newest version of the game's `news.js`, a "New" label for a week after a change) that opens the game's
+  changelog, one change per page. The profile button at the top right shows the progress per game and holds
+  the backup of every game's progress on the device (export / import, `shared/backup.js`).
 - A game is ready or beta, as `status` in its `release.json` says (ready when absent). The selector lists
   the ready games first and the beta games in their own section below, with a Beta badge and a note that a
   beta game still changes a lot and that its saved progress may not carry over to the next version. That is
@@ -170,10 +173,12 @@ since localStorage belongs to the origin, not the path.
 `npm ci && npm test` at the root runs every game's `release.sh` and checks the result (a valid `release.json`,
 `dist/index.html`, every relative reference present, the `VERSION.txt` format, the zip), builds the site into a temp dir (not `_site/`) and checks it: every script,
 stylesheet and preview image a page references exists and is content-hashed, `_site-immutable.txt` lists
-exactly the hashed files, the selector has a card per game with its news line and the backup section, the
-redirects and `VERSION.txt` are there; then it serves the build and boots every game in headless Chrome (no
-failed request, no console error, the game's global is up) and exercises the kit in each (loading screen gone,
-home and share wired, news sheet, share fallback, performance switch, campaign card, the app hint on a phone,
-the selector's backup round trip); `tests/kit.test.mjs` runs the kit's helpers in node and `tests/spec.test.mjs`
+exactly the hashed files, the selector has a card per game with its "What's new" button and labels, the
+profile button and every game's news embedded, the redirects and `VERSION.txt` are there; then it serves the
+build and boots every game in headless Chrome (no failed request, no console error, the game's global is up)
+and exercises the kit in each (loading screen gone, home and share wired, the changelog card once per version
+for a returning player and never on a first visit, share fallback, performance switch, campaign card, the app
+hint on a phone, the selector's labels, changelog pages and profile with the backup round trip);
+`tests/kit.test.mjs` runs the kit's helpers in node and `tests/spec.test.mjs`
 checks the game spec. A new game needs one line in `BOOT` in `tests/site.test.mjs`. Each game has its own
 `npm test` and `npm run test:browser`. `bash scripts/deploy.sh --dry-run` prints the upload plan.

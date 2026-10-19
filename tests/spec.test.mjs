@@ -80,9 +80,10 @@ describe('game spec (docs/GAME-SPEC.md)', () => {
         }
       });
 
-      it('ships news.js, shared and the manifest in its release', () => {
-        const files = JSON.parse(read(game, 'release.json')).files;
-        for (const f of ['index.html', 'news.js', 'shared', 'manifest.webmanifest']) assert.ok(files.includes(f), `release.json files has ${f}`);
+      it('ships news.js, shared and the manifest in its release, and says when it went live', () => {
+        const manifest = JSON.parse(read(game, 'release.json'));
+        for (const f of ['index.html', 'news.js', 'shared', 'manifest.webmanifest']) assert.ok(manifest.files.includes(f), `release.json files has ${f}`);
+        assert.match(String(manifest.released), /^\d{4}-\d{2}-\d{2}$/, 'release.json "released": the day the game went live (the selector\'s "New!" badge for two weeks)');
       });
 
       it('has the test scripts CI runs and a browser suite', () => {

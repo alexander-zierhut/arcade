@@ -38,10 +38,15 @@
   font-size: 16px; font-weight: 900; color: var(--ink);
 }
 .chip:active { transform: translateY(2px); box-shadow: 0 2px 0 var(--card-shadow); }
-.chip-new { position: relative; }
-.new-badge { position: absolute; right: -8px; top: -10px; padding: 2px 8px; border-radius: 999px; background: var(--red); color: #fff; font-size: 12px; font-weight: 900; border: 2px solid #FFF8EA; box-shadow: 0 2px 0 #A32E27; animation: badge-pulse 1.2s ease-in-out infinite alternate; }
-@keyframes badge-pulse { from { transform: scale(1); } to { transform: scale(1.12); } }
-body.reduced-motion .new-badge { animation: none; }
+/* the way back to the arcade (the kit's data-arcade="home"): a round house button in the title's top-left corner */
+.title-home {
+  position: absolute; top: calc(var(--safe-top) + 12px); left: 12px; width: 50px; height: 50px; padding: 0;
+  display: -webkit-box; display: flex; align-items: center; justify-content: center;
+  background: var(--card); border: 3px solid var(--card-border); border-radius: 50%;
+  box-shadow: 0 4px 0 var(--card-shadow); color: var(--ink);
+}
+.title-home svg { width: 28px; height: 28px; fill: none; stroke: currentColor; stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
+.title-home:active { transform: translateY(2px); box-shadow: 0 2px 0 var(--card-shadow); }
 
 .ov-modal {
   display: -webkit-box; display: flex; align-items: center; justify-content: center;

@@ -50,6 +50,25 @@ describe('kit: pure helpers', () => {
     assert.deepEqual(s.map((e) => e.version), ['0.3.3', '0.3.2', '0.3.1']);
   });
   it('newsPlain strips tags', () => assert.equal(pure.newsPlain('<p><b>More room:</b> the bar is gone.</p><p>x</p>'), 'More room: the bar is gone. x'));
+  it('within: a date counts as new for so many days, from its day on; junk never', () => {
+    const day = 86400000, t = Date.parse('2026-10-18');
+    assert.equal(pure.within('2026-10-18', 14, t), true);
+    assert.equal(pure.within('2026-10-18', 14, t + 13 * day + 1), true);
+    assert.equal(pure.within('2026-10-18', 14, t + 14 * day), false);
+    assert.equal(pure.within('2026-10-18', 7, t - 1), false, 'not before its day');
+    assert.equal(pure.within('', 7, t), false);
+    assert.equal(pure.within('soon', 7, t), false);
+  });
+  it('dateText and durationText speak to the player in both languages', () => {
+    assert.match(pure.dateText('2026-10-19', 'en'), /19 Oct 2026/);
+    assert.match(pure.dateText('2026-10-19', 'de'), /19\. Okt\. 2026/);
+    assert.equal(pure.dateText('nope', 'en'), 'nope');
+    assert.equal(pure.durationText(20000, 'en'), 'under a minute');
+    assert.equal(pure.durationText(20000, 'de'), 'unter einer Minute');
+    assert.equal(pure.durationText(12 * 60000, 'en'), '12 min');
+    assert.equal(pure.durationText(80 * 60000, 'en'), '1 h 20 min');
+    assert.equal(pure.durationText(120 * 60000, 'de'), '2 h');
+  });
   it('backup: encode / decode round trip, every value a string, keys sorted', () => {
     const text = pure.backupEncode({ 'supermarketSorter.v1': '{"a":1}', 'arcade.lang': '"de"', 'cocktailMerge.v1': '{}' }, { date: '2026-10-18T12:00:00', origin: 'https://arcade.alzlper.com' });
     const o = JSON.parse(text);
@@ -135,7 +154,7 @@ describe('kit: storage, language and backup against a fake localStorage', () => 
     assert.deepEqual(seen, ['de', 'en']);
   });
   it('news: the latest entry, unseen until marked, text per language', () => {
-    globalThis.ARCADE_NEWS = [{ version: '0.3.2', date: '2026-10-17', de: 'alt', en: 'old' }, { version: '0.3.3', date: '2026-10-18', de: 'neu', en: 'new' }];
+    globalThis.ARCADE_NEWS = [{ version: '0.3.2', date: '2026-09-01', de: 'alt', en: 'old' }, { version: '0.3.3', date: '2026-09-02', de: 'neu', en: 'new' }];
     assert.equal(A.news.latest().version, '0.3.3');
     A.storage.remove('seenVersion');
     assert.equal(A.news.unseen(), true);
@@ -143,6 +162,31 @@ describe('kit: storage, language and backup against a fake localStorage', () => 
     assert.equal(A.news.unseen(), false);
     assert.equal(A.news.text(A.news.latest(), 'de'), 'neu');
     assert.equal(A.news.text({ version: '1', de: 'nur de' }, 'en'), 'nur de');
+    assert.equal(A.news.recent(7), false, 'a change from September is not recent');
+    globalThis.ARCADE_NEWS.push({ version: '0.3.4', date: new Date().toISOString().slice(0, 10), de: 'x', en: 'y' });
+    assert.equal(A.news.recent(7), true);
+    globalThis.ARCADE_NEWS.pop();
+  });
+  it('news: the changelog pops up by itself once per version, for a returning player only', () => {
+    // this test's player has keys of the game (seenVersion set above, a stats session): a returning player
+    A.storage.set('seenVersion', '0.3.2');
+    assert.equal(A.news.wanted(), true, 'an older version was seen: the new one is wanted');
+    A.storage.set('seenVersion', '0.3.3');
+    assert.equal(A.news.wanted(), false, 'this version was seen');
+    // a device that never saw the game (no seen version, no key of the game, no recorded session): nothing is wanted,
+    // auto() only records the version
+    A.storage.remove('seenVersion'); A.shared.remove('stats');
+    assert.equal(A.news.wanted(), false);
+    assert.equal(A.news.auto(), false);
+    assert.equal(localStorage.getItem('supermarketSorter.seenVersion'), '"0.3.3"', 'a first visit records the version quietly');
+    // a device with a save of the game but no seen version (a player from before the kit): wanted
+    A.storage.remove('seenVersion'); A.storage.set('v1', {});
+    assert.equal(A.news.wanted(), true);
+    A.storage.remove('v1'); A.storage.set('seenVersion', '0.3.3');
+    // a recorded session counts as a visit too
+    A.storage.remove('seenVersion'); A.shared.set('stats', { v: 1, sessions: [], games: { 'supermarket-sorter': { sessions: 1, playMs: 0, last: 1, first: 1 } } });
+    assert.equal(A.news.wanted(), true);
+    A.shared.remove('stats'); A.storage.set('seenVersion', '0.3.3');
   });
   it('backup: export carries every key on the origin; import inside a game is pending until applyPending', () => {
     localStorage.setItem('cocktailMerge.v1', '{"best":5}');

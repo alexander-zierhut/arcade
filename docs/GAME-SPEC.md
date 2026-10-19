@@ -19,7 +19,8 @@ check the parts of this page a script can check; CI runs them on every push.
 - `shared` inside the game folder is a symlink to the repo's `shared/` (`ln -s ../shared shared`); the release
   copies it in, so the deployed game is self-contained.
 - `release.json` lists what ships: at least `index.html`, `news.js`, `shared`, `manifest.webmanifest`, the sources
-  and the assets. `scripts/release.sh` is the thin wrapper every game has (copy it).
+  and the assets, and says when the game went live (`"released": "YYYY-MM-DD"`: the selector shows a "New!" badge
+  on the card for two weeks from that day). `scripts/release.sh` is the thin wrapper every game has (copy it).
 
 ## 2. index.html
 
@@ -85,13 +86,17 @@ looking alike:
 
 1. the logo (name and sub line) and the game's own art,
 2. the primary **play** button (continue / start), optionally one secondary mode,
-3. a **chip row**: how to play, the game's own sheets (highscores, collection, …), settings, news, and
-   **the way home** (`<button data-arcade="home">Alle Spiele / All games</button>`),
-4. a footer line with the **version** (and the home link where the chip row is full).
+3. a **chip row**: how to play, the game's own sheets (highscores, collection, …), settings,
+4. **the way home**: a round house button in a corner of the title (`<button data-arcade="home"
+   aria-label="Alle Spiele / All games">` with a house icon in the game's style), or a chip in the row, or the
+   link in the footer line,
+5. a footer line with the **version**.
 
-The kit wires every `data-arcade="…"` element (home, install, fullscreen, app, share, news, perf, lang,
-backup-export, backup-import), hides the ones that cannot work on this device, and keeps the state attributes
-(`data-arcade-unseen` on news, `aria-pressed` on perf and fullscreen) current. The game styles them.
+No news chip and no backup buttons: the changelog is the kit's card (section 11), the backup lives in the
+selector's profile. The kit wires every `data-arcade="…"` element (home, install, fullscreen, app, share, news,
+perf, lang, backup-export, backup-import), hides the ones that cannot work on this device, and keeps the state
+attributes (`data-arcade-unseen` and `data-arcade-new` on news, `aria-pressed` on perf and fullscreen) current.
+The game styles them.
 
 ## 6. Pause menu and settings
 
@@ -142,10 +147,16 @@ window.ARCADE_NEWS = [
 ];
 ```
 
-The entry for the current version must exist (`scripts/check-versions.mjs`). The kit's news sheet
-(`data-arcade="news"` or `Arcade.news.open()`) shows every entry; a game with its own news card shows
-`Arcade.news.latest()`. The selector's card shows the newest entry's first line. Write it for the player (what
-changed for them), not for the repo.
+The entry for the current version must exist (`scripts/check-versions.mjs`). One `<p>` per point; the first
+point of a version is the most important one. Write it for the player (what changed for them), not for the repo.
+
+The game builds nothing for it. The kit shows the changelog as one card for every game: one change per page
+(version, date, its points as a list), "older" / "newer" to page through all of them, "Got it" to close. It
+opens **by itself on the title screen** when something changed since the player was last here (the seen version
+is stored under the game's prefix as `seenVersion`), once per version, never on a first visit. A game may also
+offer it from a menu (`data-arcade="news"` or `Arcade.news.open()`). The selector has a "What's new" button on
+every card that opens the same card for that game (with a "New" label for a week after a change); reading it
+there counts as seen in the game.
 
 ## 12. Share
 

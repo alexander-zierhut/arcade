@@ -254,11 +254,12 @@ async function main() {
     await page.tap('#ov-stuck [data-act="undo"]'); await sleep(300);
     if (await page.evaluate(function () { return document.getElementById('ov-stuck').hidden && SS.app.ctx.game.moves === 1 && SS.board.totalFree(SS.app.ctx.game.board) === 1; })) ok('undo from the stuck sheet restores the board'); else fail('undo from stuck');
 
-    // ---- progress export / import round trip (settings buttons exist; export has a version; import restores after a wipe) ----
+    // ---- progress export / import round trip in the game's own format (the settings buttons are gone since 0.3.5: the
+    //      arcade's profile backs up every game; the format stays readable so every released fixture still imports) ----
     await page.reload(); await waitState(page, 'TITLE', 6000);
     await page.tap('[data-act="settings"]'); await sleep(200);
-    var btns = await page.evaluate(function () { return !!document.getElementById('btn-export') && !!document.getElementById('btn-import'); });
-    if (btns) ok('settings show export and import buttons'); else fail('export/import buttons missing');
+    var btns = await page.evaluate(function () { return !document.getElementById('btn-export') && !document.getElementById('btn-import'); });
+    if (btns) ok('settings show no export / import buttons (the arcade\'s profile has the backup)'); else fail('export/import buttons still in the settings');
     var exp = await page.evaluate(function () { var t = SS.ui.storage.exportAll(); var o = JSON.parse(t); return { text: t, app: o.app, format: o.format, version: o.version, saveVersion: o.saveVersion, reached: o.save.records.relaxed.reached }; });
     if (exp.app === 'supermarket-sorter' && exp.format >= 1 && exp.version === (await page.evaluate(function () { return SS.config.VERSION; })) && exp.saveVersion >= 2) ok('export carries app, format, version ' + exp.version + ' and save version ' + exp.saveVersion); else fail('export header: ' + JSON.stringify(exp));
     // a fresh browser context = a new player: import there (a wipe in the same page would be undone by the save-on-hide)
@@ -291,17 +292,28 @@ async function main() {
     var dbgSaved = await page4.evaluate(function () { return { run: SS.ui.storage.loadRun('timed'), reached: SS.app.ctx.save.records.timed.reached }; });
     if (!dbgSaved.run && dbgSaved.reached === 1) ok('test mode stores no board and no progress'); else fail('test mode leaked into the save: ' + JSON.stringify(dbgSaved));
     await ctx4.close();
-    // ---- what's new: a player with progress sees the card once; the NEU badge goes away ----
+    // ---- the changelog (the arcade kit's): a first visit records the version quietly; a returning player sees the
+    //      card once per version, newest change first with older / newer; closed, it stays away; the house button leads home ----
+    var VERSION = await page.evaluate(function () { return SS.config.VERSION; });
     var ctx5 = await browser.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true });
     var page5 = await ctx5.newPage(); watch(page5, errors);
-    await page5.goto(PAGE); await waitState(page5, 'TITLE', 6000);
-    await page5.evaluate(function (t) { SS.main.importProgressText(t); SS.app.ctx.save.seenVersion = ''; SS.app.writeSave(); }, fixture);
-    await page5.reload(); await waitState(page5, 'TITLE', 6000); await sleep(400);
-    var wn = await page5.evaluate(function () { return !document.getElementById('ov-whatsnew').hidden; });
-    if (wn) ok('what\'s-new card opens once for a player with progress'); else fail('what\'s-new card not shown');
-    await page5.tap('#ov-whatsnew [data-act="close"]'); await sleep(300);
-    var wn2 = await page5.evaluate(function () { return { seen: SS.app.ctx.save.seenVersion, badgeHidden: document.querySelector('.new-badge').hidden }; });
-    if (wn2.seen === (await page.evaluate(function () { return SS.config.VERSION; })) && wn2.badgeHidden) ok('closing it records the version and hides the NEU badge'); else fail('what\'s-new close: ' + JSON.stringify(wn2));
+    await page5.goto(PAGE); await waitState(page5, 'TITLE', 6000); await sleep(500);
+    var first = await page5.evaluate(function () { return { sheet: !!document.querySelector('#arcade-ui .arcade-sheet'), seen: Arcade.news.seen() }; });
+    if (!first.sheet && first.seen === VERSION) ok('a first visit shows no changelog and records version ' + VERSION); else fail('first visit: ' + JSON.stringify(first));
+    var house = await page5.evaluate(function () { var b = document.querySelector('#ov-title .title-home[data-arcade="home"]'); var r = b && b.getBoundingClientRect(); return b ? { wired: b.getAttribute('data-arcade-wired'), label: b.getAttribute('aria-label'), hidden: b.hidden, top: r.top, left: r.left, w: r.width } : null; });
+    if (house && house.wired === '1' && house.label && !house.hidden && house.left >= 0 && house.top >= 0 && house.w >= 44) ok('the house button (All games) sits in the title\'s corner, wired by the kit'); else fail('house button: ' + JSON.stringify(house));
+    await page5.evaluate(function (t) { SS.main.importProgressText(t); localStorage.setItem('supermarketSorter.seenVersion', '"0.0.1"'); }, fixture);
+    await page5.reload(); await waitState(page5, 'TITLE', 6000); await sleep(500);
+    var wn = await page5.evaluate(function () { var h = document.querySelector('#arcade-ui .arcade-sheet .arcade-news-head'); return { shown: !!h, head: h ? h.textContent : '', nav: document.querySelectorAll('#arcade-ui .arcade-news-btn').length, count: (document.querySelector('#arcade-ui .arcade-news-count') || {}).textContent }; });
+    if (wn.shown && wn.head.indexOf(VERSION) >= 0 && wn.nav === 2 && /^1 \/ \d+$/.test(wn.count || '')) ok('the changelog opens once for a returning player: version ' + VERSION + ' first, ' + wn.count + ' pages'); else fail('changelog: ' + JSON.stringify(wn));
+    await page5.tap('#arcade-ui .arcade-news-btn:last-child'); await sleep(150);
+    var older = await page5.evaluate(function () { return { count: document.querySelector('#arcade-ui .arcade-news-count').textContent, head: document.querySelector('#arcade-ui .arcade-news-head').textContent }; });
+    if (/^2 \//.test(older.count) && older.head.indexOf(VERSION) < 0) ok('"older" pages to the previous change (' + older.head + ')'); else fail('older page: ' + JSON.stringify(older));
+    await page5.tap('#arcade-ui .arcade-btns .arcade-btn.primary'); await sleep(300);
+    var wn2 = await page5.evaluate(function () { return { seen: Arcade.news.seen(), open: Arcade.sheetOpen() }; });
+    if (wn2.seen === VERSION && !wn2.open) ok('closing it records the version'); else fail('changelog close: ' + JSON.stringify(wn2));
+    await page5.reload(); await waitState(page5, 'TITLE', 6000); await sleep(500);
+    if (!(await page5.evaluate(function () { return !!document.querySelector('#arcade-ui .arcade-sheet'); }))) ok('it does not come back until the next version'); else fail('changelog shown again');
     await ctx5.close();
 
     // ---- language + viewports ----

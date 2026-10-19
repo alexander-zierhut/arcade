@@ -36,7 +36,7 @@
       var it = byId[e.getAttribute('data-arcade')]; if (!it) return;
       e.hidden = !it.visible();                           // an entry that cannot work on this device is not shown
       if (e.hasAttribute('data-arcade-auto')) e.textContent = it.label;
-      if (it.id === 'news') e.setAttribute('data-arcade-unseen', K.news.unseen() ? '1' : '0');
+      if (it.id === 'news') { e.setAttribute('data-arcade-unseen', K.news.unseen() ? '1' : '0'); e.setAttribute('data-arcade-new', K.news.recent() ? '1' : '0'); }
       if (it.id === 'perf') e.setAttribute('aria-pressed', K.perf.low() ? 'true' : 'false');
       if (it.id === 'fullscreen') e.setAttribute('aria-pressed', K.app.isFullscreen() ? 'true' : 'false');
     });

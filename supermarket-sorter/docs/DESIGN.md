@@ -140,7 +140,7 @@ first playtest; they override the sections they touch.
 | Products | 260 products in three tiers (172 tasty food, drinks and pantry, non-food); the skin picks tier 1 first, so levels show food | `scripts/build-catalog.js` (TIER1/TIER3), `levels.pickProducts` |
 | Baked levels | 300 per branch; acceptance windows up to L300 timed and L40 relaxed (`--windows-until=40`); deeper relaxed boards never meet the windows | `scripts/build-levels.js` |
 | Runtime generation | 12 attempts × 30 000 nodes + 64 playouts per level beyond the baked data; remix fallback of a baked level | `config.TAIL_*`, `levels.raw` |
-| Export / import | Settings: "Spielstand sichern" / "Spielstand laden"; JSON with app, format, version, saveVersion, rulesVersion; import merges (progress only grows); fixture per release in `tests/fixtures/` | `save.exportRecord/importRecord`, `storage.exportAll/importAll`, `main.js` |
+| Export / import | Since 0.3.5 the arcade's profile backs up every game (`shared/backup.js`); the game's own format stays readable (JSON with app, format, version, saveVersion, rulesVersion; import merges, progress only grows; fixture per release in `tests/fixtures/`, imported by the tests through `SS.main.importProgressText`); the settings buttons are gone | `save.exportRecord/importRecord`, `storage.exportAll/importAll`, `main.importProgressText` |
 | Save v2 | records per mode with reached level, Serie, top 10, per-level bests; v1 migrates; newer records are read as-is | `save.normalizeSave` |
 | Run record | one per mode (`supermarketSorter.v1.run.<mode>`), dropped on a rules-version mismatch | `storage.loadRun` |
 | Undo in timed | cannot reach back past a take (the undo stack is cleared by a take) | `game.act` |
@@ -159,7 +159,7 @@ v0.3.0 (2026-10-16) deltas, overriding 7.2 and ART-SPEC v1:
 | Forgiving input | a drop lands in the compartment under the finger, else the nearest one to the sprite's foot, else the nearest to the finger (within 0.55 of a row); a tap just beside a compartment counts; the nearest free slot is chosen (unchanged); tap slop 10 px | `board.dropTarget`, `board.compNear` |
 | Products v2 | all 260 redrawn tall (class boxes of ART-SPEC v2), German brand words, familiar supermarket looks with invented names; ids unchanged | `assets/items/`, `docs/ART-SPEC.md` |
 | Debug entry | `?level=N&mode=timed|relaxed` loads a level in test mode; nothing is recorded | `main.boot`, `states.debugLevel` |
-| What's new | `save.seenVersion`; players with progress see the card once per version, new players get the NEU badge on the title until they open "Neuigkeiten" | `main.whatsNewOnBoot`, `overlays` |
+| What's new | Since 0.3.5 the arcade kit's changelog card (`news.js`, one change per page, opened by itself on the title once per version for a returning player; `supermarketSorter.seenVersion`); the game's own card, chip and NEU badge are gone, `save.seenVersion` is kept in the save format but unused | `shared/news.js` |
 
 v0.3.1 (2026-10-16, the "Vorbild look"):
 

@@ -1,5 +1,6 @@
 {
   "name": "Supermarket Sorter",
+  "released": "2026-10-10",
   "before": ["node scripts/build-catalog.js"],
   "files": ["index.html", "news.js", "shared", "manifest.webmanifest", "src", "assets/items/*.svg", "assets/items-2d/*.svg", "assets/icons"],
   "after": ["node scripts/check-dist.js"]

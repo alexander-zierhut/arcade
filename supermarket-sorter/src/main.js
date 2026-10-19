@@ -95,33 +95,13 @@
     A.on('lang', function (code) { guard('lang', applyLang, code); });
     A.on('perf', function () { guard('perf', function () { applyFlags(); SS.app.writeSave(); var cur = SS.ui.overlays.current(); if (cur === 'settings' || cur === 'pause') SS.ui.overlays.show(cur); }); });
   }
-  /** markVersionSeen(): the what's-new card of this version was seen; the NEU badge disappears. */
-  function markVersionSeen() { var s = ctx().save; if (s.seenVersion === C.VERSION) return; s.seenVersion = C.VERSION; SS.app.writeSave(); }
-  /** whatsNewOnBoot(): existing players (any progress) see the what's-new card once per version; new players only get the badge. */
-  function whatsNewOnBoot() {
-    var s = ctx().save, played = s.records.relaxed.reached > 1 || s.records.timed.reached > 1 || s.records.timed.top.length > 0 || s.records.relaxed.top.length > 0;
-    if (s.seenVersion === C.VERSION || !played) return;                                // new players keep the badge until they look
-    if (ctx().state === 'TITLE') SS.ui.overlays.show('whatsnew');
-  }
   // ---- fullscreen / app mode: the arcade kit's (shared/app.js: install prompt, fullscreen, the once-only hint on phones) ----
   function standalone() { var A = kit(); return A ? A.app.isStandalone() : false; }
   function canFullscreen() { var A = kit(); return A ? A.app.canFullscreen() : false; }
   function setFullscreen(on) { var A = kit(); if (A) A.app.setFullscreen(on); root.setTimeout(function () { guard('main', relayout); }, 300); }
   function resetTips() { var s = ctx().save; for (var k in s.seenTips) s.seenTips[k] = false; SS.app.writeSave(); }
-  // ---- progress export / import (settings) ----
-  function exportProgress() {
-    var text, name = 'supermarkt-sortierer-spielstand-' + SS.app.run.today() + '.json';
-    try { SS.app.writeSave(); text = SS.ui.storage.exportAll(); } catch (e) { SS.ui.overlays.toast(SS.t('import_bad')); return; }
-    var done = false;
-    try {
-      var blob = new root.Blob([text], { type: 'application/json' }), url = root.URL.createObjectURL(blob), a = doc.createElement('a');
-      a.href = url; a.download = name; a.style.display = 'none'; doc.body.appendChild(a); a.click();
-      root.setTimeout(function () { doc.body.removeChild(a); root.URL.revokeObjectURL(url); }, 2000);
-      done = true;
-    } catch (e) { done = false; }
-    if (root.navigator && root.navigator.clipboard && root.navigator.clipboard.writeText) root.navigator.clipboard.writeText(text).then(function () { if (!done) SS.ui.overlays.toast(SS.t('export_copied')); }, function () { /* no clipboard */ });
-    if (done) SS.ui.overlays.toast(SS.t('export_done', { file: name }));
-  }
+  // ---- progress import from the game's own export format (the arcade's backup replaced the settings buttons in 0.3.5;
+  //      the format stays readable: the tests import every released fixture, and old files a player kept still load) ----
   function importProgressText(text) {
     var info;
     try { info = SS.ui.storage.importAll(text); } catch (e) { SS.ui.overlays.toast(SS.t('import_bad')); return false; }
@@ -131,12 +111,6 @@
     var cur = SS.ui.overlays.current(); if (cur) SS.ui.overlays.show(cur);
     return true;
   }
-  function importProgress() {
-    var input = doc.getElementById('import-file');
-    if (!input) { input = doc.createElement('input'); input.type = 'file'; input.id = 'import-file'; input.accept = '.json,application/json'; input.style.display = 'none'; doc.body.appendChild(input);
-      input.addEventListener('change', function () { var f = input.files && input.files[0]; if (!f) return; var r = new root.FileReader(); r.onload = function () { importProgressText(String(r.result)); input.value = ''; }; r.readAsText(f); }); }
-    input.click();
-  }
   function handlers() {
     var A = SS.app;
     return {
@@ -145,8 +119,7 @@
       onNext: function () { A.nextLevel(); }, onRetry: function () { A.retryLevel(); }, onExtend: function () { A.extend(); }, onEndSerie: function () { A.endSerie(); },
       onUndo: function () { if (ctx().stuckOpen) { SS.ui.overlays.hide('stuck'); ctx().stuckOpen = false; } A.undo(); if (ctx().state === 'PLAY') A.resumePlay(); },
       onRescue: function () { A.rescue(); if (ctx().state === 'PLAY') A.resumePlay(); },
-      onToggle: toggle, onLang: setLang, onResetTips: resetTips, onExport: exportProgress, onImport: importProgress,
-      onWhatsNewSeen: markVersionSeen, onFullscreen: setFullscreen, canFullscreen: canFullscreen,
+      onToggle: toggle, onLang: setLang, onResetTips: resetTips, onFullscreen: setFullscreen, canFullscreen: canFullscreen,
       onShare: function () { var A = kit(); if (A) A.share.go(); },
       onClick: function () { guard('snd', SS.sounds && SS.sounds.click); }
     };
@@ -199,8 +172,7 @@
     root.setTimeout(function () { guard('main', relayout); }, 50);
     var q = query();
     if (q.level) { if (A) A.config().autoHint = false; root.setTimeout(function () { guard('debug', SS.app.debugLevel, q.mode || 'timed', parseInt(q.level, 10)); }, 80); }   // ?level=34&mode=timed: test mode (see docs/HOW-TO-CHANGE.md)
-    else root.setTimeout(function () { guard('whatsnew', whatsNewOnBoot); }, 120);
-    if (A) {                                                            // the kit's loading screen goes; its app hint (once, phones) waits while a card of ours is open
+    if (A) {                                                            // the kit's loading screen goes; its changelog (once per version) and app hint (once, phones) wait while a card of ours is open
       A.config().quiet = function () { var cur = SS.ui.overlays.current(); return !!cur && cur !== 'title' && cur !== 'pause' && cur !== 'win' && cur !== 'serie'; };
       A.ready();
     }
@@ -209,5 +181,5 @@
   function query() { var out = {}; try { String(root.location.search || '').replace(/^\?/, '').split('&').forEach(function (kv) { var p = kv.split('='); if (p[0]) out[decodeURIComponent(p[0])] = decodeURIComponent(p[1] || ''); }); } catch (e) { /* none */ } return out; }
   function autoBoot() { if (booted || /boot-failed/.test(doc.body.className)) return; boot(); }
   if (doc.readyState === 'loading') doc.addEventListener('DOMContentLoaded', autoBoot); else root.setTimeout(autoBoot, 0);
-  SS.main = { boot: boot, relayout: relayout, handlers: handlers, keyAction: keyAction, setLang: setLang, toggle: toggle, exportProgress: exportProgress, importProgressText: importProgressText, setFullscreen: setFullscreen, standalone: standalone };
+  SS.main = { boot: boot, relayout: relayout, handlers: handlers, keyAction: keyAction, setLang: setLang, toggle: toggle, importProgressText: importProgressText, setFullscreen: setFullscreen, standalone: standalone };
 })(typeof globalThis !== 'undefined' ? globalThis : this);

@@ -1,6 +1,6 @@
 {
   "name": "cocktail-merge-game",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "private": true,
   "description": "A cocktail physics-merge game for the browser. No build step: open index.html.",
   "scripts": {

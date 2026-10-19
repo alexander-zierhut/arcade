@@ -1,5 +1,5 @@
 // src/ui/strings.js: every user-facing text of the game, German and English. SS.t(key, vars) formats {name} placeholders.
-// The what's-new texts live in news.js, the "play as an app" sheet is the arcade kit's (shared/app.js).
+// The changelog texts live in news.js (the arcade kit shows them), the "play as an app" sheet is the kit's too.
 (function (root) {
   'use strict';
   var SS = root.SS = root.SS || {};
@@ -28,7 +28,7 @@
     continue_info: '{mode} · Level {n}', mode_relaxed: 'Entspannt', mode_timed: 'Gegen die Zeit',
     sound: 'Ton', lowgfx: 'Sparmodus (schwache Geräte)', language: 'Sprache', haptics: 'Vibration', reduced_motion: 'Bewegung reduzieren',
     still_belts: 'Seitenregale stehen still, wenn alles sichtbar ist (entspannt)', flat_icons: 'Produkte flach (2D) statt plastisch (3D)', show_depth: 'Tiefe anzeigen', reset_tips: 'Hinweise noch einmal zeigen',
-    export_: 'Spielstand sichern', import_: 'Spielstand laden', export_done: 'Spielstand gesichert ({file})', export_copied: 'Spielstand in die Zwischenablage kopiert', import_done: 'Spielstand geladen: Entspannt Level {relaxed}, Gegen die Zeit Level {timed}', import_bad: 'Das ist keine Spielstand-Datei', import_newer: 'Datei aus einer neueren Version: geladen, was verstanden wurde',
+    import_done: 'Spielstand geladen: Entspannt Level {relaxed}, Gegen die Zeit Level {timed}', import_bad: 'Das ist keine Spielstand-Datei', import_newer: 'Datei aus einer neueren Version: geladen, was verstanden wurde',
     scores_empty: 'Noch keine Einträge. Spiel eine Runde!', scores_best_timed: 'Rekord: {score} Punkte · bis Level {level}',
     scores_best_relaxed: 'Gesamt: {score} Punkte · {stars} Sterne · Level {level} erreicht', scores_entry_timed: '{score} · Level {from}-{to}',
     scores_entry_relaxed: '{score} · Level {level}',
@@ -44,8 +44,7 @@
     version: 'Version {v} · Privates Spiel ohne Werbung',
     debug_mode: 'Testmodus: Level {n}. Nichts wird gespeichert.',
     fullscreen: 'Vollbild', fullscreen_setting: 'Vollbild', all_games: 'Alle Spiele',
-    share: 'Teilen', share_win: 'Level {n} geschafft: {score} Punkte', share_serie: 'Serie: {score} Punkte bis Level {level}',
-    whatsnew: 'Neuigkeiten', new_badge: 'NEU', whatsnew_title: 'Neu in Version {v}'     // the text itself is in news.js (the arcade kit shows it, the selector too)
+    share: 'Teilen', share_win: 'Level {n} geschafft: {score} Punkte', share_serie: 'Serie: {score} Punkte bis Level {level}'
   };
   var en = {
     title: 'Supermarket Sorter', subtitle: 'Stock the shelves, match three',
@@ -71,7 +70,7 @@
     continue_info: '{mode} · level {n}', mode_relaxed: 'Relaxed', mode_timed: 'Timed',
     sound: 'Sound', lowgfx: 'Performance mode', language: 'Language', haptics: 'Vibration', reduced_motion: 'Reduce motion',
     still_belts: 'Side shelves stand still when everything is visible (relaxed)', flat_icons: 'Flat (2D) products instead of 3D', show_depth: 'Show depth', reset_tips: 'Show the tips again',
-    export_: 'Back up progress', import_: 'Load progress', export_done: 'Progress saved ({file})', export_copied: 'Progress copied to the clipboard', import_done: 'Progress loaded: relaxed level {relaxed}, timed level {timed}', import_bad: 'That is not a progress file', import_newer: 'File from a newer version: loaded what was understood',
+    import_done: 'Progress loaded: relaxed level {relaxed}, timed level {timed}', import_bad: 'That is not a progress file', import_newer: 'File from a newer version: loaded what was understood',
     scores_empty: 'No entries yet. Play a round!', scores_best_timed: 'Best: {score} points · up to level {level}',
     scores_best_relaxed: 'Total: {score} points · {stars} stars · level {level} reached', scores_entry_timed: '{score} · levels {from}-{to}',
     scores_entry_relaxed: '{score} · level {level}',
@@ -87,8 +86,7 @@
     version: 'Version {v} · Private game, no ads',
     debug_mode: 'Test mode: level {n}. Nothing is saved.',
     fullscreen: 'Fullscreen', fullscreen_setting: 'Fullscreen', all_games: 'All games',
-    share: 'Share', share_win: 'Level {n} cleared: {score} points', share_serie: 'Streak: {score} points up to level {level}',
-    whatsnew: 'What\'s new', new_badge: 'NEW', whatsnew_title: 'New in version {v}'
+    share: 'Share', share_win: 'Level {n} cleared: {score} points', share_serie: 'Streak: {score} points up to level {level}'
   };
   var LANGS = { de: de, en: en };
   var current = 'en';

@@ -22,7 +22,6 @@ export const RULES = {
   'supermarket-sorter': {
     places: [
       { file: 'src/config.js', re: /(?<![A-Z_])VERSION:\s*'([^']+)'/, label: 'src/config.js' },
-      { file: 'index.html', re: /class="card-title js-title">Neu in Version ([^<]+)</, label: 'index.html title' },
     ],
     fixture: 'tests/fixtures/export-v{v}.json',
   },

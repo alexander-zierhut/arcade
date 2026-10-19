@@ -1,6 +1,10 @@
 # Status
 
-Version 1.0.1, 2026-10-18. **Beta**: listed in the selector's beta section (`"status": "beta"` in `release.json`). Big changes are still planned, and a new version may reset the saved progress instead of migrating it.
+Version 1.0.2, 2026-10-19. **Beta**: listed in the selector's beta section (`"status": "beta"` in `release.json`). Big changes are still planned, and a new version may reset the saved progress instead of migrating it.
+
+## What changed in 1.0.2 (the arcade's changelog and profile)
+
+Nothing in the game's own files but the version and the `news.js` entry: the arcade kit now opens the changelog card by itself on the title once per version for a returning player (one change per page, older / newer), the selector's "What's new" button shows the same, and the selector's profile holds the backup of every game. `release.json` says when the game went live (`"released"`, the selector's "New!" badge for two weeks).
 
 ## What changed in 1.0.1 (the arcade kit)
 

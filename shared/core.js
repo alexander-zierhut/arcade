@@ -11,7 +11,7 @@
   'use strict';
   var K = root.Arcade = root.Arcade || {};
   var doc = root.document || null, nav = root.navigator || null;
-  var KIT_VERSION = '1.0.0';
+  var KIT_VERSION = '1.1.0';
   var SHARED = 'arcade.';                        // the kit's own keys (language, perf, stats, campaigns) on the origin
   var cfg = { game: null, title: '', version: '', langs: ['de', 'en'], share: {}, home: '../', loading: true, autoHint: true, news: null };
   var listeners = {}, mem = {}, broken = false;
@@ -46,8 +46,27 @@
   pure.newsSorted = function (list) {
     return (list || []).filter(function (e) { return e && typeof e.version === 'string'; }).slice().sort(function (a, b) { return pure.compareVersions(b.version, a.version); });
   };
-  /** newsPlain(html) -> a news entry as plain text (the selector's card line). */
+  /** newsPlain(html) -> a news entry as plain text. */
   pure.newsPlain = function (html) { return String(html || '').replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim(); };
+  /** within(isoDate, days, now) -> true while the date is at most `days` days old ("new" labels: a game released
+   *  within two weeks, a change within one week). An unparsable date is never new. */
+  pure.within = function (iso, days, now) {
+    var t = Date.parse(String(iso || '')); if (isNaN(t)) return false;
+    var n = now === undefined ? Date.now() : now;
+    return n >= t && n < t + days * 86400000;
+  };
+  /** dateText(isoDate, lang) -> the date for the player ("19 Oct 2026" / "19. Okt. 2026"), the ISO text when the browser cannot. */
+  pure.dateText = function (iso, lang) {
+    var t = Date.parse(String(iso || '')); if (isNaN(t)) return String(iso || '');
+    try { return new Date(t).toLocaleDateString(lang === 'de' ? 'de-DE' : 'en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' }); } catch (e) { return String(iso); }
+  };
+  /** durationText(ms, lang) -> "1 h 20 min" / "12 min" / "under a minute" (the profile's play time). */
+  pure.durationText = function (ms, lang) {
+    var m = Math.round((ms || 0) / 60000), de = lang === 'de';
+    if (m < 1) return de ? 'unter einer Minute' : 'under a minute';
+    if (m < 60) return m + ' min';
+    return Math.floor(m / 60) + ' h' + (m % 60 ? ' ' + (m % 60) + ' min' : '');
+  };
   /** backupEncode(entries, meta) -> JSON text of every key/value on the origin. */
   pure.backupEncode = function (entries, meta) {
     var keys = Object.keys(entries).sort(), out = { kind: 'arcade-backup', format: 1, date: (meta && meta.date) || new Date().toISOString().slice(0, 19), origin: (meta && meta.origin) || '', kit: KIT_VERSION, keys: {} };
@@ -123,6 +142,9 @@
       app_android: '<p>Ohne Adressleiste ist das Spiel deutlich größer.</p><p>Oben rechts auf <b>⋮</b> tippen, dann <b>„Zum Startbildschirm hinzufügen“</b>. Oder einfach unten auf <b>Vollbild</b>.</p>',
       app_keep: '<p>Dein Spielstand bleibt dabei erhalten, solange du dieselbe Adresse benutzt.</p>',
       share: 'Teilen', share_copied: 'Text kopiert: einfach einfügen', share_failed: 'Teilen ging nicht', news: 'Neuigkeiten', news_title: 'Neu in Version {v}', news_none: 'Noch keine Neuigkeiten.',
+      news_older: '‹ Älter', news_newer: 'Neuer ›', news_new: 'Neu',
+      profile_title: 'Dein Fortschritt', profile_text: '<p>Jedes Spiel speichert auf diesem Gerät, in diesem Browser. Für ein neues Handy: hier eine Sicherung herunterladen und dort laden. Eine geladene Sicherung ersetzt die Spielstände der Spiele, die sie enthält.</p>',
+      profile_played: '{time} gespielt', profile_saved: 'Spielstand auf diesem Gerät', profile_none: 'noch nicht gespielt',
       perf: 'Sparmodus', perf_auto: 'Sparmodus: automatisch', perf_auto_on: 'Sparmodus: automatisch (an)', perf_on: 'Sparmodus: an', perf_off: 'Sparmodus: aus',
       perf_switched: 'Sparmodus an: Dein Gerät kam nicht hinterher. In den Einstellungen änderbar.',
       lang: 'Sprache', backup_export: 'Alle Spielstände sichern', backup_import: 'Spielstände laden', backup_done: 'Spielstände gesichert ({file})', backup_copied: 'Spielstände in die Zwischenablage kopiert',
@@ -133,6 +155,9 @@
       app_android: '<p>Without the address bar the game is much bigger.</p><p>Tap <b>⋮</b> at the top right, then <b>"Add to Home screen"</b>. Or simply tap <b>Fullscreen</b> below.</p>',
       app_keep: '<p>Your progress is kept as long as you use the same address.</p>',
       share: 'Share', share_copied: 'Text copied: just paste it', share_failed: 'Sharing did not work', news: 'What\'s new', news_title: 'New in version {v}', news_none: 'No news yet.',
+      news_older: '‹ Older', news_newer: 'Newer ›', news_new: 'New',
+      profile_title: 'Your progress', profile_text: '<p>Every game saves on this device, in this browser. For a new phone: download a backup here and load it there. A loaded backup replaces the progress of the games it contains.</p>',
+      profile_played: '{time} played', profile_saved: 'progress on this device', profile_none: 'not played yet',
       perf: 'Performance mode', perf_auto: 'Performance mode: automatic', perf_auto_on: 'Performance mode: automatic (on)', perf_on: 'Performance mode: on', perf_off: 'Performance mode: off',
       perf_switched: 'Performance mode on: your device could not keep up. Change it in the settings.',
       lang: 'Language', backup_export: 'Back up all games', backup_import: 'Load a backup', backup_done: 'Backup saved ({file})', backup_copied: 'Backup copied to the clipboard',

@@ -42,11 +42,13 @@
     if (name !== prev) moment(name);
   };
   K.current = function () { return P.screen; };
-  /** moment(name): a screen where a card may show: the once-only app hint on the title, else a due campaign. */
+  /** moment(name): a screen where a card may show: on the title the changelog (once per version, when something
+   *  changed since the last visit), else the once-only app hint, else a due campaign. One card per moment. */
   function moment(name) {
     if (!name || name === 'play' || K.sheetOpen() || K.loading.visible() || !cfg.game || !P.inited) return;
     if (typeof cfg.quiet === 'function' && cfg.quiet()) return;      // the game has a card of its own open: not now
 
+    if (name === 'title' && K.news.auto()) return;
     if (name === 'title' && K.app.hintWanted()) { K.app.hint(); return; }
     var c = campaigns.due(name); if (c) campaigns.show(c);
   }

@@ -41,17 +41,17 @@ src/ui/coach.js            coach marks (one sentence per new mechanic, shown onc
 src/ui/hud.js              the dark HUD band, one row (v0.3.3): level pill with "Noch N" (its colour is the difficulty), clock + Serie
                            score or moves + par with the xN combo badge, the combo line on the band's bottom edge, the action buttons
                            Rückgängig / Tipp / Goldhase (count, arms a spend) / pause; writes the DOM only on change (every frame in timed play)
-src/ui/overlays.js         title (NEU badge, "Alle Spiele" = the kit's home), intro, pause, win (share), timeout, serie (share), stuck sheet,
-                           how-to, what's new (text from news.js via the kit), highscores, settings (incl. 2D/3D products, fullscreen)
+src/ui/overlays.js         title (the house button = the kit's home), intro, pause, win (share), timeout, serie (share), stuck sheet,
+                           how-to, highscores, settings (incl. 2D/3D products, fullscreen); the changelog card is the kit's
 src/audio/engine.js        AudioContext, iOS unlock, master gain, mute
 src/audio/sounds.js        synthesized SFX
 src/app/run.js             level loading by (mode, n), run record per mode, Serie banking, per-level records, coach schedule
 src/app/states.js          state machine TITLE/INTRO/PLAY/PAUSE/WIN/TIMEOUT/LOSE + stuck sheet; actions -> events -> consumers
 src/app/loop.js            frame loop that runs only while a reason wants it (the timed clock)
 src/main.js                boot, viewport measuring, lifecycle, settings handlers (sprite set), v1 migration, ?level= debug entry,
-                           the what's-new card once; wires the arcade kit (language, performance mode, fullscreen, share, ready)
+                           import of the game's own export format (tests); wires the arcade kit (language, performance mode, fullscreen, share, ready)
 shared/ (symlink)          the arcade kit: loading screen, language, app mode, home, performance mode, news, share, backup (see ../shared/README.md)
-news.js                    what changed per version, de + en (the what's-new card and the selector read it)
+news.js                    what changed per version, de + en (the kit's changelog card and the selector's "What's new" read it)
 src/style/base.css         colour tokens (wall, wood, HUD), reset, iOS page rules, boot-guard card
 src/style/board.css        the cabinet (boards, compartments, glow, shadows, back layer), chains, items (compositor-only animations), FX
 src/style/belts.css        side columns and bottom shelf cells, bars

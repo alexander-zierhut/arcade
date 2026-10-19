@@ -118,7 +118,7 @@ describe('built site in headless Chrome', () => {
         // the news sheet, the share fallback, the performance switch, a campaign card
         const s = await page.evaluate(async () => {
           Arcade.news.open();
-          const newsShown = !!document.querySelector('#arcade-ui .arcade-sheet .arcade-news h3');
+          const newsShown = !!document.querySelector('#arcade-ui .arcade-sheet .arcade-news-head');
           const seen = Arcade.news.seen();
           Arcade.closeSheet();
           Arcade.share.set({ line: 'Test line 123' });
@@ -141,6 +141,46 @@ describe('built site in headless Chrome', () => {
         assert.ok(['clipboard', 'none'].includes(s.share.method), `share fell back (${s.share.method})`);
         assert.deepEqual(s.low, { kit: true, body: true }, 'performance mode applies at once');
         assert.deepEqual(s.campaign, { shown: true, stored: true }, 'a due campaign shows on a quiet screen and is recorded');
+        assert.deepEqual(problems, []);
+      } finally { await ctx.close(); }
+    });
+  }
+
+  for (const game of Object.keys(BOOT)) {
+    it(`${game}: the changelog opens by itself once per version for a returning player, never on a first visit`, async () => {
+      const { ctx, page, problems } = await load(`${base}/${game}/`);
+      try {
+        await page.waitForFunction(BOOT[game], null, { timeout: 5000 });
+        await page.waitForTimeout(500);
+        const prefix = game.replace(/-([a-z0-9])/g, (_, c) => c.toUpperCase()) + '.';
+        const first = await page.evaluate(() => ({ sheet: !!document.querySelector('#arcade-ui .arcade-sheet'), seen: Arcade.news.seen(), version: Arcade.config().version }));
+        assert.equal(first.sheet, false, 'a first visit shows no changelog');
+        assert.equal(first.seen, first.version, 'a first visit records the version');
+        await page.evaluate((k) => localStorage.setItem(k, '"0.0.1"'), prefix + 'seenVersion');
+        await page.reload({ waitUntil: 'networkidle' });
+        await page.waitForFunction(BOOT[game], null, { timeout: 5000 });
+        await page.waitForSelector('#arcade-ui .arcade-sheet .arcade-news-head', { timeout: 3000 });
+        const shown = await page.evaluate(() => ({
+          head: document.querySelector('#arcade-ui .arcade-news-head').textContent, points: document.querySelectorAll('#arcade-ui .arcade-news-text p').length,
+          nav: [...document.querySelectorAll('#arcade-ui .arcade-news-btn')].map((b) => ({ text: b.textContent, disabled: b.disabled })), count: (document.querySelector('#arcade-ui .arcade-news-count') || {}).textContent, seen: Arcade.news.seen(),
+        }));
+        assert.ok(shown.head.includes(first.version), `the newest change first: ${shown.head}`);
+        assert.ok(shown.points >= 1, 'the change has its points');
+        assert.equal(shown.seen, first.version, 'opening it records the version');
+        if (shown.nav.length) {
+          assert.deepEqual(shown.nav.map((b) => b.disabled), [true, false], 'newest page: "newer" off, "older" on');
+          assert.match(shown.count, /^1 \/ \d+$/);
+          await page.click('#arcade-ui .arcade-news-btn:last-child');
+          const older = await page.evaluate(() => ({ count: document.querySelector('#arcade-ui .arcade-news-count').textContent, head: document.querySelector('#arcade-ui .arcade-news-head').textContent }));
+          assert.match(older.count, /^2 \//);
+          assert.ok(!older.head.includes(first.version), `an older change: ${older.head}`);
+        }
+        await page.click('#arcade-ui .arcade-btns .arcade-btn.primary');
+        assert.equal(await page.evaluate(() => Arcade.sheetOpen()), false);
+        await page.reload({ waitUntil: 'networkidle' });
+        await page.waitForFunction(BOOT[game], null, { timeout: 5000 });
+        await page.waitForTimeout(500);
+        assert.equal(await page.evaluate(() => !!document.querySelector('#arcade-ui .arcade-sheet')), false, 'seen once: it stays away');
         assert.deepEqual(problems, []);
       } finally { await ctx.close(); }
     });
@@ -169,17 +209,69 @@ describe('built site in headless Chrome', () => {
     } finally { await ctx.close(); }
   });
 
-  it('the selector exports a backup of every game and loads one back', async () => {
+  it('the selector: the "New" labels follow the clock, a card\'s "What\'s new" opens the game\'s changelog with its pages, and reading it counts as seen in the game', async () => {
     const { ctx, page, problems } = await load(`${base}/`);
     try {
-      // saves of two games on this origin, then the selector's export
-      await page.evaluate(() => { localStorage.setItem('supermarketSorter.v1', '{"v":2,"records":{}}'); localStorage.setItem('penguinMarch.v1', '{"v":1,"reached":7}'); localStorage.setItem('arcade.lang', 'de'); });
+      const labels = await page.$$eval('[data-until]', (els) => els.map((e) => ({ until: e.getAttribute('data-until'), hidden: e.hidden, text: e.textContent })));
+      assert.ok(labels.length >= games.length, 'every card has at least the change label');
+      for (const l of labels) assert.equal(l.hidden, !(Date.now() < Date.parse(l.until)), `${l.text} until ${l.until}`);
+      const buttons = await page.$$eval('button.news', (els) => els.map((e) => e.getAttribute('data-game')));
+      assert.deepEqual([...buttons].sort(), [...games].sort(), 'one What\'s new button per game');
+      const game = games.find((g) => g === 'supermarket-sorter') || games[0];
+      await page.click(`button.news[data-game="${game}"]`);
+      const sheet = await page.evaluate(() => ({
+        title: document.querySelector('#arcade-ui .arcade-sheet .arcade-title').textContent, head: document.querySelector('#arcade-ui .arcade-news-head').textContent,
+        points: document.querySelectorAll('#arcade-ui .arcade-news-text p').length, count: (document.querySelector('#arcade-ui .arcade-news-count') || {}).textContent,
+      }));
+      const title = await page.evaluate((g) => window.ARCADE_SITE.games.find((x) => x.id === g).title, game);
+      const newest = await page.evaluate((g) => window.ARCADE_SITE.games.find((x) => x.id === g).news[0], game);
+      assert.equal(sheet.title, title, 'the sheet is titled by the game');
+      assert.ok(sheet.head.includes(newest.version), `the newest change first: ${sheet.head}`);
+      assert.ok(sheet.points >= 1);
+      assert.equal(await page.evaluate((g) => localStorage.getItem(Arcade.pure.prefixOf(g) + 'seenVersion'), game), JSON.stringify(newest.version), 'reading it on the selector counts as seen for the game');
+      if (sheet.count) {
+        assert.match(sheet.count, /^1 \/ \d+$/);
+        await page.click('#arcade-ui .arcade-news-btn:last-child');
+        assert.match(await page.evaluate(() => document.querySelector('#arcade-ui .arcade-news-count').textContent), /^2 \//, '"older" pages');
+      }
+      await page.click('#arcade-ui .arcade-btns .arcade-btn.primary');
+      assert.equal(await page.evaluate(() => Arcade.sheetOpen()), false);
+      // and the game does not ask again
+      await page.goto(`${base}/${game}/`, { waitUntil: 'networkidle' });
+      await page.waitForFunction(BOOT[game], null, { timeout: 5000 });
+      await page.waitForTimeout(500);
+      assert.equal(await page.evaluate(() => !!document.querySelector('#arcade-ui .arcade-sheet .arcade-news-head')), false, 'no changelog in the game after reading it on the selector');
+      assert.deepEqual(problems, []);
+    } finally { await ctx.close(); }
+  });
+
+  it('the selector\'s profile shows the progress per game and exports a backup of every game; a backup loads back', async () => {
+    const { ctx, page, problems } = await load(`${base}/`);
+    try {
+      // saves of two games on this origin and some play time, then the profile and its export
+      await page.evaluate(() => {
+        localStorage.setItem('supermarketSorter.v1', '{"v":2,"records":{}}'); localStorage.setItem('penguinMarch.v1', '{"v":1,"reached":7}'); localStorage.setItem('arcade.lang', 'de');
+        localStorage.setItem('arcade.stats', JSON.stringify({ v: 1, sessions: [], games: { 'penguin-march': { sessions: 3, playMs: 80 * 60000, last: 1, first: 1 } } }));
+      });
+      await page.click('#profile');
+      const prof = await page.evaluate(() => ({
+        title: document.querySelector('#arcade-ui .arcade-sheet .arcade-title').textContent,
+        rows: [...document.querySelectorAll('#arcade-ui .arcade-profile li')].map((li) => li.querySelector('b').textContent + '|' + li.querySelector('span').textContent),
+        buttons: [...document.querySelectorAll('#arcade-ui .arcade-btns .arcade-btn')].map((b) => b.textContent),
+      }));
+      assert.equal(prof.title, 'Dein Fortschritt', 'the sheet follows the arcade language (de was stored)');
+      assert.equal(prof.rows.length, games.length);
+      assert.ok(prof.rows.some((r) => /^Penguin March\|1 h 20 min gespielt$/.test(r)), `play time per game: ${prof.rows}`);
+      assert.ok(prof.rows.some((r) => /^Supermarket Sorter\|Spielstand auf diesem Gerät$/.test(r)), `saved games: ${prof.rows}`);
+      assert.ok(prof.rows.some((r) => /\|noch nicht gespielt$/.test(r)), `untouched games: ${prof.rows}`);
+      assert.deepEqual(prof.buttons, ['Alle Spielstände sichern', 'Spielstände laden', 'Schließen']);
       const out = await page.evaluate(() => {
         const text = Arcade.backup.exportText();
-        return { text, described: Arcade.backup.describe(text), buttons: !!document.getElementById('backup-export') && !!document.getElementById('backup-import') };
+        return { text, described: Arcade.backup.describe(text) };
       });
-      assert.ok(out.buttons, 'export and import buttons on the selector');
-      assert.deepEqual(out.described.games.map((g) => `${g.id}:${g.count}`), ['penguin-march:1', 'supermarket-sorter:1', 'arcade:1']);
+      assert.deepEqual(out.described.games.map((g) => `${g.id}:${g.count}`), ['penguin-march:1', 'supermarket-sorter:1', 'arcade:2']);
+      await page.click('#arcade-ui .arcade-btns .arcade-btn:last-child');
+      assert.equal(await page.evaluate(() => Arcade.sheetOpen()), false);
       // a new device: nothing there, the backup loads at once (no game on this page), the saves are back
       const ctx2 = await browser.newContext({ viewport: { width: 390, height: 844 } });
       const page2 = await ctx2.newPage();

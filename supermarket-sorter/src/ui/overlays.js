@@ -1,6 +1,6 @@
-// src/ui/overlays.js: title, intro, pause, win, timeout, serie, stuck sheet, how-to, highscores (two tabs), settings and
-// the what's-new card (DESIGN 7.1). One section is visible at a time; sheets opened from the title or the pause card
-// return there on close. The "Alle Spiele" chip and the share buttons are the arcade kit's (data-arcade / onShare).
+// src/ui/overlays.js: title, intro, pause, win, timeout, serie, stuck sheet, how-to, highscores (two tabs) and settings
+// (DESIGN 7.1). One section is visible at a time; sheets opened from the title or the pause card return there on
+// close. The house button (home), the share buttons, the changelog card and the backup are the arcade kit's.
 // Buttons carry data-act; data-arm buttons need a second tap within 2.5 s. Browser-only; sets SS.ui.overlays.
 (function (root) {
   'use strict';
@@ -49,15 +49,14 @@
       case 'howto': return show('howto');
       case 'scores': return show('scores');
       case 'settings': return show('settings');
-      case 'whatsnew': return show('whatsnew');
       case 'share': return H.onShare && H.onShare();
-      case 'close': if (current === 'whatsnew' && handlers.onWhatsNewSeen) handlers.onWhatsNewSeen(); return show(returnTo || 'title', lastData[returnTo || 'title']);
+      case 'close': return show(returnTo || 'title', lastData[returnTo || 'title']);
     }
   }
   /** show(name, data): shows one section (null hides all). Sheets remember where to return. */
   function show(name, data) {
     disarm();
-    if (name === 'howto' || name === 'scores' || name === 'settings' || name === 'whatsnew') { if (current && current !== name && ['title', 'pause'].indexOf(current) >= 0) returnTo = current; }
+    if (name === 'howto' || name === 'scores' || name === 'settings') { if (current && current !== name && ['title', 'pause'].indexOf(current) >= 0) returnTo = current; }
     else returnTo = null;
     var all = doc.querySelectorAll('.ov');
     for (var i = 0; i < all.length; i++) { all[i].hidden = true; all[i].inert = true; }
@@ -81,7 +80,6 @@
         var p = doc.createElement('span'); p.className = 'progress'; p.textContent = reached > 1 ? t('reached', { n: reached }) + ' · ' + t('continue_') : ''; if (p.textContent) btn.appendChild(p);
       });
       $('#title-stats', sec).textContent = s ? t('stats_line', { relaxed: s.records.relaxed.reached, timed: s.records.timed.reached }) : '';
-      var badge = $('.new-badge', sec); if (badge) badge.hidden = !(s && s.seenVersion !== SS.config.VERSION);     // "NEU" until the what's-new card was seen
     } else if (name === 'intro') {
       var lv = d.level;
       $('.js-title', sec).textContent = t('intro_title', { n: lv.n });
@@ -128,10 +126,6 @@
       $('[data-act="undo"]', sec).disabled = !d.canUndo;
     } else if (name === 'howto') {
       $('.js-howto', sec).innerHTML = t('howto_text');
-    } else if (name === 'whatsnew') {
-      var A = root.Arcade, entry = A ? A.news.latest() : null;                 // the text is news.js (the selector shows the same)
-      $('.js-title', sec).textContent = t('whatsnew_title', { v: entry ? entry.version : SS.config.VERSION });
-      $('.js-text', sec).innerHTML = entry ? A.news.text(entry, SS.strings.lang()) : '';
     } else if (name === 'scores') {
       renderScores($('.js-scores', sec), s); updateTabs();
     } else if (name === 'settings') {
@@ -189,16 +183,12 @@
     var row2 = doc.createElement('div'); row2.className = 'setting-row';
     var btn = doc.createElement('button'); btn.type = 'button'; btn.className = 'chip'; btn.textContent = t('reset_tips'); btn.addEventListener('click', function () { if (handlers.onResetTips) handlers.onResetTips(); btn.disabled = true; });
     row2.appendChild(btn); box.appendChild(row2);
-    var row3 = doc.createElement('div'); row3.className = 'setting-row';
-    var ex = doc.createElement('button'); ex.type = 'button'; ex.className = 'chip'; ex.id = 'btn-export'; ex.textContent = t('export_'); ex.addEventListener('click', function () { if (handlers.onExport) handlers.onExport(); });
-    var im = doc.createElement('button'); im.type = 'button'; im.className = 'chip'; im.id = 'btn-import'; im.textContent = t('import_'); im.addEventListener('click', function () { if (handlers.onImport) handlers.onImport(); });
-    row3.appendChild(ex); row3.appendChild(im); box.appendChild(row3);
   }
   /** applyLang(): rewrites the static texts of the DOM for the current language. */
   function applyLang() {
     var map = {
       '#logo-title': 'title', '#logo-sub': 'subtitle',
-      '[data-act="howto"]': 'howto', '[data-act="scores"]': 'scores', '[data-act="settings"]': 'settings', '#ov-whatsnew [data-act="close"]': 'ok', '[data-arcade="home"]': 'all_games', '[data-act="share"]': 'share',
+      '[data-act="howto"]': 'howto', '[data-act="scores"]': 'scores', '[data-act="settings"]': 'settings', '[data-act="share"]': 'share',
       '#ov-pause .card-title': 'pause', '[data-act="resume"]': 'resume', '[data-act="restart"]': 'restart', '[data-act="next"]': 'next',
       '[data-act="retry"]': 'resume', '[data-act="extend"]': 'extend', '[data-act="end-serie"]': 'end_serie', '[data-act="undo"]': 'undo',
       '#ov-howto .card-title': 'howto', '#ov-scores .card-title': 'scores', '#ov-settings .card-title': 'settings',
@@ -210,7 +200,7 @@
       var b = $('[data-act="' + e[0] + '"]'); if (!b) return; b.innerHTML = ''; b.appendChild(doc.createTextNode(t(e[1]))); var sm = doc.createElement('small'); sm.textContent = t(e[2]); b.appendChild(sm);
     });
     var nb = doc.querySelectorAll('.js-newbest'); for (var n = 0; n < nb.length; n++) nb[n].textContent = t('new_best');
-    var wn = $('[data-act="whatsnew"]'); if (wn) { wn.innerHTML = ''; wn.appendChild(doc.createTextNode(t('whatsnew'))); var bd = doc.createElement('span'); bd.className = 'new-badge'; bd.textContent = t('new_badge'); bd.hidden = !(save && save.seenVersion !== SS.config.VERSION); wn.appendChild(bd); }
+    var home = $('[data-arcade="home"]'); if (home) { home.setAttribute('aria-label', t('all_games')); home.setAttribute('title', t('all_games')); }   // the house button: an icon, the label is spoken
     var arms = doc.querySelectorAll('[data-arm]');
     for (var a = 0; a < arms.length; a++) { var act = arms[a].getAttribute('data-act'); arms[a].setAttribute('data-arm', t(act === 'restart' ? 'arm_restart' : act === 'end-serie' ? 'arm_end' : 'arm_quit')); }
     doc.documentElement.lang = SS.strings.lang();

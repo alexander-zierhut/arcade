@@ -37,10 +37,20 @@
 .arcade-btn:last-child { margin-bottom: 0; }
 .arcade-btn.primary { background: var(--arcade-accent, #2E6BE6); color: var(--arcade-accent-ink, #FFFFFF); }
 .arcade-btn:active { transform: translateY(1px); }
-.arcade-news h3 { margin: 12px 0 4px; font-size: 15px; font-weight: 800; opacity: 0.8; }
-.arcade-news h3:first-child { margin-top: 0; }
+/* the changelog: one change per page (version and date, its points as a list), older / newer under it */
+.arcade-news-head { margin: 0 0 10px; font-size: 14px; font-weight: 800; opacity: 0.7; }
 .arcade-news-text { font-size: 15px; line-height: 1.4; }
-.arcade-news-text p { margin: 0 0 8px; }
+.arcade-news-text p { position: relative; margin: 0 0 8px; padding-left: 16px; }
+.arcade-news-text p:last-child { margin-bottom: 0; }
+.arcade-news-text p::before { content: ""; position: absolute; left: 2px; top: 0.55em; width: 6px; height: 6px; border-radius: 50%; background: var(--arcade-accent, #2E6BE6); }
+.arcade-news-nav { display: -webkit-box; display: flex; align-items: center; justify-content: space-between; margin-top: 14px; font-size: 14px; font-weight: 800; }
+.arcade-news-count { opacity: 0.6; }
+.arcade-news-btn { -webkit-appearance: none; appearance: none; border: 0; margin: 0; padding: 0 12px; min-height: 36px; border-radius: 10px; font: inherit; font-size: 14px; font-weight: 800; cursor: pointer; background: var(--arcade-muted, rgba(0, 0, 0, 0.08)); color: inherit; }
+.arcade-news-btn:disabled { opacity: 0.35; cursor: default; }
+/* the profile (the selector): one line per game */
+.arcade-profile ul { margin: 14px 0 4px; padding: 0; list-style: none; }
+.arcade-profile li { display: -webkit-box; display: flex; justify-content: space-between; align-items: baseline; margin: 0 0 6px; font-size: 15px; line-height: 1.35; }
+.arcade-profile li span { flex-shrink: 0; white-space: nowrap; opacity: 0.7; text-align: right; margin-left: 12px; }
 
 /* toast: one line at the bottom */
 .arcade-toast { position: absolute; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom)); transform: translateX(-50%); max-width: calc(100% - 32px); padding: 10px 16px; border-radius: 999px; background: rgba(20, 20, 20, 0.92); color: #FFFFFF; font-size: 14px; font-weight: 700; text-align: center; animation: arcade-fade 0.2s ease-out; }

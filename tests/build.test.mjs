@@ -118,7 +118,7 @@ describe('site build', () => {
   it('the selector has one card per game in its section, ready first, each titled by the game\'s og:title', () => {
     const html = read('index.html');
     const ready = games.filter((g) => statusOf(g) === 'ready'), beta = games.filter((g) => statusOf(g) === 'beta');
-    const cardsIn = (part) => [...part.matchAll(/<a class="card( beta)?" href="([^"]+)">([\s\S]*?)<\/a>/g)];
+    const cardsIn = (part) => [...part.matchAll(/<article class="card( beta)?">\s*<a class="link" href="([^"]+)">([\s\S]*?)<\/article>/g)];
     const section = (cls) => (html.match(new RegExp(`<section class="group ${cls}"[\\s\\S]*?</section>`)) || [''])[0];
     const cards = cardsIn(html);
     assert.deepEqual(cards.map((c) => c[2]), [...ready, ...beta].map((g) => `${g}/`));
@@ -136,19 +136,40 @@ describe('site build', () => {
     }
   });
 
+  it('the selector labels new games and new changes with the day the label expires, and embeds every game\'s news for the changelog', () => {
+    const html = read('index.html');
+    const site = JSON.parse(html.match(/window\.ARCADE_SITE = (\{.*\});/)[1].replace(/\\u003c/g, '<'));
+    assert.deepEqual(site.games.map((g) => g.id), games);
+    const day = 86400000, plus = (iso, n) => new Date(Date.parse(iso) + n * day).toISOString().slice(0, 10);
+    for (const g of games) {
+      const manifest = JSON.parse(readFileSync(join(root, g, 'release.json'), 'utf8'));
+      const news = JSON.parse(readFileSync(join(root, g, 'news.js'), 'utf8').match(/window\.ARCADE_NEWS\s*=\s*(\[[\s\S]*\]);/)[1]);
+      const card = html.match(new RegExp(`<article class="card( beta)?">\\s*<a class="link" href="${g}/">[\\s\\S]*?</article>`))[0];
+      // "New!" on the card while the game is at most two weeks old (hidden in the markup: the page decides by the clock)
+      assert.equal(card.includes(`<span class="badge new" data-until="${plus(manifest.released, 14)}" hidden>New!</span>`), !!manifest.released, `${g}: New! badge from release.json "released"`);
+      // the "What's new" button names the newest version and date and carries a "New" label for a week
+      const newest = news.slice().sort((a, b) => b.version.localeCompare(a.version, undefined, { numeric: true }))[0];
+      assert.ok(card.includes(`<button type="button" class="news" data-game="${g}"`), `${g}: a What's new button`);
+      assert.ok(card.includes(`<span class="ver">v${newest.version}</span> <time datetime="${newest.date}">${newest.date}</time><span class="tag" data-until="${plus(newest.date, 7)}" hidden>New</span>`), `${g}: version, date and the New label on the button`);
+      // the embedded news: every entry of news.js, both languages, newest first
+      const embedded = site.games.find((x) => x.id === g).news;
+      assert.deepEqual(embedded.map((e) => e.version), news.map((e) => e.version).sort((a, b) => b.localeCompare(a, undefined, { numeric: true })));
+      for (const e of embedded) { assert.ok(e.de && e.en && e.date, `${g} ${e.version}: de, en, date`); }
+    }
+    assert.ok(/<button type="button" id="profile" class="profile"/.test(html), 'the profile button');
+    assert.ok(!/<section class="backup"/.test(html) && !/id="backup-export"/.test(html), 'the old backup section is gone (the profile has it)');
+    for (const f of ['core', 'ui', 'news', 'backup']) assert.match(html, new RegExp(`<script src="shared/${f}\\.[0-9a-f]{10}\\.js"></script>`), `the selector loads the kit's ${f}.js`);
+  });
+
   it('the selector has the ready and beta sections exactly when there is a beta game, and counts the games the same way everywhere', () => {
     const html = read('index.html');
     const ready = games.filter((g) => statusOf(g) === 'ready'), beta = games.filter((g) => statusOf(g) === 'beta');
     assert.equal(html.includes('<section class="group beta"'), beta.length > 0, 'beta section');
     assert.equal(html.includes('<section class="group ready"'), beta.length > 0 && ready.length > 0, 'ready section');
     assert.equal(/progress saved in a beta game may not carry over/.test(html), beta.length > 0, 'beta note');
-    // the outline never skips a level: h2 per section when there are sections, else h2 per card (the backup section
-    // under the games has its own h2)
+    // the outline never skips a level: h2 per section when there are sections, else h2 per card
     const main = html.match(/<main[\s\S]*?<\/main>/)[0];
     assert.equal((main.match(/<h2\b/g) || []).length, beta.length ? (ready.length ? 2 : 1) : games.length, 'h2 headings');
-    assert.ok(/<section class="backup"[\s\S]*<h2 id="backup-title">/.test(html), 'the backup section');
-    assert.ok(/id="backup-export"/.test(html) && /id="backup-import"/.test(html), 'export and import buttons');
-    assert.ok(/<p class="news"><b>New in \d+\.\d+\.\d+<\/b>/.test(html), 'a news line on the cards');
     const expected = `${count(games.length, 'free browser game')}, no ads, no account: ${[...ready, ...beta].map((g) => titleOf(g) + (statusOf(g) === 'beta' ? ' (beta)' : '')).join(', ')}.`;
     assert.equal(unesc(metaContent(html, 'description')), expected);
     assert.equal(unesc(metaContent(html, 'og:description')), expected);

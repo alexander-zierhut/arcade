@@ -1,7 +1,14 @@
 # Status
 
-Version 1.1.1, 2026-10-18. Ready (listed in the selector's first section). The game's design, architecture and
+Version 1.1.2, 2026-10-19. Ready (listed in the selector's first section). The game's design, architecture and
 the way to change it are in `DESIGN.md`, `ARCHITECTURE.md` and `HOW-TO-CHANGE.md`; `RELEASE.md` is the checklist.
+
+## What changed in 1.1.2 (the arcade's changelog and profile)
+
+Nothing in the game's own files but the version and the `news.js` entry: the arcade kit now opens the changelog
+card by itself on the title once per version for a returning player (one change per page, older / newer), the
+selector's "What's new" button shows the same, and the selector's profile holds the backup of every game.
+`release.json` says when the game went live (`"released"`, the selector's "New!" badge for two weeks).
 
 ## What changed in 1.1.1 (the arcade kit)
 

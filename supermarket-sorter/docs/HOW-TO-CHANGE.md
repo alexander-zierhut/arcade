@@ -86,9 +86,11 @@ Progress lives in the browser's localStorage, per origin. These rules keep it th
    be restored by the new rules. The player then restarts that one level from its intro card; nothing else changes.
    Do not bump it for balance changes (time limits, speeds, scores): they are computed at runtime.
 4. **Products**: a removed product id in an old board shows a placeholder sprite instead of crashing (`sprites.js`).
-5. **Export / import**: Settings → "Spielstand sichern" writes a JSON file with `app`, `format`, `version`, `saveVersion`
-   and `rulesVersion`; "Spielstand laden" merges it in (progress only ever grows; boards in progress are restored when
-   the rules version matches). `tests/fixtures/export-v<version>.json` is the export of each released version and
+5. **Export / import**: the arcade's profile (top right of the selector) backs up every game as one file
+   (`shared/backup.js`, every localStorage key). The game's own format is still read: `storage.exportAll` writes a JSON
+   with `app`, `format`, `version`, `saveVersion` and `rulesVersion`; `SS.main.importProgressText` merges it in (progress
+   only ever grows; boards in progress are restored when the rules version matches). The settings buttons for it are
+   gone since 0.3.5. `tests/fixtures/export-v<version>.json` is the export of each released version and
    `tests/export.test.js` imports every fixture: **add a fixture for every release and never delete one**, so the test
    proves that the current version still reads every older file.
 6. **Deploy with `Cache-Control: no-cache`** (see DEPLOY.md) so a new version loads on the next reload while the saved
