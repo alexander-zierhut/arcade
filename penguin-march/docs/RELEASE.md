@@ -7,14 +7,15 @@ Commands run from `penguin-march/` unless they say otherwise. "Repository root" 
 ## Steps
 
 1. Choose the next version, `x.y.z`.
-2. From the repository root, run `node scripts/bump-version.mjs penguin-march x.y.z`. It sets `package.json`, `package-lock.json`, `src/config.js` and the title line in `index.html`, then runs the version check. It refuses a version that is already set.
-3. Run `npm test` and `npm run test:browser`. The browser run needs Chrome.
-4. If the game looks different now, refresh the screenshot with `UPDATE_PREVIEW=1 npm run test:browser` and re-render the OG image from the repository root with `node scripts/og-images.mjs penguin-march`.
-5. Update `docs/STATUS.md`: the version, the date and what changed.
-6. From the repository root, run `node scripts/check-storage.mjs`, `node scripts/check-versions.mjs` and `npm test`. The root `npm test` builds every game and checks the site, so run `npm ci` at the root first if its dependencies are not installed.
-7. Run `npm run release` and `npm run serve:dist`, then look at the title screen and play a level.
-8. Commit the changed files and push to `main`. Include `docs/preview/game-play.png` and `assets/icons/og-image.png` when they changed.
-9. CI runs the tests and then deploys. When the run is green, open https://arcade.alzlper.com/penguin-march/ and check that the title screen shows the new version.
+2. From the repository root, run `node scripts/bump-version.mjs penguin-march x.y.z`. It sets `package.json`, `package-lock.json`, `src/config.js`, the title line and the `Arcade.init` line in `index.html`, then runs the version check. It refuses a version that is already set.
+3. By hand: add the entry for the new version to `news.js` (version, date, `de` and `en`; one `<p>` per point, the most important point first; the version check requires it). The kit shows it as the changelog card once to every returning player, and the selector's "What's new" button comes from it.
+4. Run `npm test` and `npm run test:browser`. The browser run needs Chrome.
+5. If the game looks different now, refresh the screenshot with `UPDATE_PREVIEW=1 npm run test:browser` and re-render the OG image from the repository root with `node scripts/og-images.mjs penguin-march`.
+6. Update `docs/STATUS.md`: the version, the date and what changed.
+7. From the repository root, run `node scripts/check-storage.mjs`, `node scripts/check-versions.mjs` and `npm test`. The root `npm test` builds every game and checks the site, so run `npm ci` at the root first if its dependencies are not installed.
+8. Run `npm run release` and `npm run serve:dist`, then look at the title screen and play a level.
+9. Commit the changed files and push to `main`. Include `docs/preview/game-play.png` and `assets/icons/og-image.png` when they changed.
+10. CI runs the tests and then deploys. When the run is green, open https://arcade.alzlper.com/penguin-march/ and check that the title screen shows the new version.
 
 ## What the checks catch
 

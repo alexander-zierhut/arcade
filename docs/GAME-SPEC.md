@@ -9,6 +9,13 @@ kit reaches all of them.
 `node scripts/check-storage.mjs`, `node scripts/check-versions.mjs` and the root `npm test` (`tests/spec.test.mjs`)
 check the parts of this page a script can check; CI runs them on every push.
 
+**Never build these in a game; the kit has them** (a game that builds its own copy is a spec violation):
+the loading screen, the language preference and its switch, "play as an app" (install prompt, fullscreen, the
+iOS steps), the way home, the performance mode (measured and manual), the changelog card and its "what's new"
+logic, the share picture and text, the campaign cards, the play statistics, and the backup of the progress (the
+selector's profile). What a game does is tell the kit where it is (`Arcade.screen`), when it is ready
+(`Arcade.ready`), what to share (`Arcade.share.set`), and ship `news.js`, the manifest and `release.json`.
+
 ## 1. Folder, URL, storage
 
 - One folder at the repo root, say `my-game/`. The folder name is the URL (`https://arcade.alzlper.com/my-game/`)
@@ -170,14 +177,17 @@ that works, and copies the text everywhere else.
 
 Nothing to build in the game: `shared/hooks.js` lists the campaigns (a card every N minutes across all games,
 after M minutes of play), the kit shows them on quiet screens; the play statistics (sessions and play time per
-game, this device only) collect from `Arcade.screen`. They travel with the backup.
+game, this device only, nothing sent anywhere) collect from `Arcade.screen`: time counts while the screen is
+`play` and the tab is visible, so report `play` only while the player is actually playing (not on the title, in
+menus, on the pause or end cards). The selector's profile shows the play time per game; the statistics travel
+with the backup.
 
 ## 14. Backup
 
-Nothing to build in the game: the selector page exports and imports every game's progress on the device (every
-localStorage key of the origin), so a player switches phones with one file. A game that offers its own
-export / import keeps it; it may also offer the arcade-wide one with `data-arcade="backup-export"` /
-`"backup-import"`.
+Nothing to build in the game, and no export / import of your own: the selector's profile (top right) exports and
+imports every game's progress on the device (every localStorage key of the origin), so a player switches phones
+with one file. A game may offer the arcade-wide entries in its own settings with `data-arcade="backup-export"` /
+`"backup-import"` (inside a game the import is written on the next load, before the game reads its keys).
 
 ## 15. Tests
 
@@ -195,3 +205,20 @@ A game is beta until its suites and a real phone say otherwise (`"status": "beta
 `README.md` (what it is, how to run and test), `docs/ARCHITECTURE.md` (files and the event flow),
 `docs/HOW-TO-CHANGE.md` (where to change what), `docs/RELEASE.md` (the release checklist), `docs/STATUS.md`
 (version, what changed, known gaps). Written for the next person, in English.
+
+## 17. What the selector shows, and where it comes from
+
+The selector (`scripts/build-site.mjs`, built on every deploy) lists the games from their folders; nothing is
+registered anywhere. Per game it takes:
+
+| on the card | from |
+|---|---|
+| title, text, picture | `og:title`, `og:description`, `og:image` in `index.html` |
+| "Beta" badge and section | `"status": "beta"` in `release.json` (ready when absent) |
+| "New!" badge for two weeks | `"released"` in `release.json` |
+| "What's new vX.Y.Z · date" button, "New" label for a week | the newest entry of `news.js`; the button opens the game's changelog card |
+| the profile's play time line | the kit's statistics (`arcade.stats`), written by `Arcade.screen('play')` |
+
+A release therefore needs the version in `package.json` and `Arcade.init`, the dated `news.js` entry in both
+languages, and `docs/STATUS.md`; `node scripts/bump-version.mjs <game> <x.y.z>` sets the version places and
+reminds of the rest.

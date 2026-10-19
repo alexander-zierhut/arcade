@@ -125,7 +125,8 @@ Build the game from those two pages, not from the other games. The repo side, in
 2. Add `package.json` with at least `test` and `test:browser` scripts (CI runs both; `npm run
    test:browser` may be a no-op if the game has no browser tests) and commit `package-lock.json`, since
    CI installs with `npm ci`.
-3. Add `release.json` (with `news.js`, `shared` and `manifest.webmanifest` in `files`) and
+3. Add `release.json` (with `news.js`, `shared` and `manifest.webmanifest` in `files`, and `"released"`, the day
+   the game goes live, for the selector's "New!" badge) and
    `scripts/release.sh`. The release must be a complete, self-contained `dist/`
    with `dist/index.html` and only relative paths. Copy both files from an existing game as a start:
    `release.sh` is a short wrapper around `node ../scripts/release.mjs .`, and `scripts/release.mjs` does the
