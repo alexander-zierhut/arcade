@@ -1,7 +1,19 @@
 # Status
 
-Version 1.1.2, 2026-10-19. Ready (listed in the selector's first section). The game's design, architecture and
+Version 1.2.0, 2026-11-01. Ready (listed in the selector's first section). The game's design, architecture and
 the way to change it are in `DESIGN.md`, `ARCHITECTURE.md` and `HOW-TO-CHANGE.md`; `RELEASE.md` is the checklist.
+
+## What changed in 1.2.0 (three tables, a best per table, the Pineapple Punch)
+
+Every new game (Play, New Game, Play Again, Restart, the R key) opens a chooser: Easy (the former Relaxed), Normal (the
+former Standard) or Hard (Normal plus tier 10, the Pineapple Punch, between the Margarita and the Sunrise; DESIGN 2.13).
+The chooser shows each table's best; the best is kept per table (`save.bests`), the HUD, the end cards and the share
+line say which table, and the title line lists the tables played. A save from before 1.2.0 keeps its single best as
+the best of the table it was set to; stored runs restore (old mode names map). The "Relaxed table" switch is gone from
+the settings. The strip shows the mode's ladder (10 slots on Hard); the collection shows ten drinks in Hard's order.
+Tier ids never changed: the Punch is id 10, the merge order per mode is a ladder of ids (`rules.LADDER / NEXT / RANK /
+TOP`); size-dependent effects go by rank. New painter `src/art/tier10-pineapple-punch.js` (a round punch goblet with
+ice, one glass straw, a pineapple ring with its crown on the rim), no baked glow.
 
 ## What changed in 1.1.2 (the arcade's changelog and profile)
 

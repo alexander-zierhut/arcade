@@ -335,9 +335,9 @@
         case 'launchBlocked': notReadySound(); break;
         case 'impact': queueImpact(e); break;
         case 'merge':
-          mergeSound(e.tier, e.depth || 1, e.x);
-          if (e.tier >= 5) coinDing(0.5);
-          if (e.tier >= 6) vibrate(12);
+          mergeSound(e.rank || e.tier, e.depth || 1, e.x);     // pitch and length by size (rank on the ladder, 2.13)
+          if ((e.rank || e.tier) >= 5) coinDing(0.5);
+          if ((e.rank || e.tier) >= 6) vibrate(12);
           break;
         case 'discover': discovery(); break;
         case 'dangerTick': dangerTick(e.n || 0); break;

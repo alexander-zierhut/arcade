@@ -127,6 +127,15 @@ async function drop(page, x, touch) {
 // ---------------------------------------------------------------------------------------------------------------------
 // 1. play-through
 // ---------------------------------------------------------------------------------------------------------------------
+// Every start button opens the mode chooser (2.13): pick `mode` there (default easy, the pre-1.2.0 behaviour).
+async function pickMode(page, h, touch, mode) {
+  var ok = await until(page, function () { var e = document.getElementById('ov-mode'); return e && !e.hidden; }, null, 3000);
+  if (!ok) { h.fail('play: the mode chooser did not open'); return false; }
+  await h.sleep(300);                                   // the sheet's click guard
+  await press(page, '#ov-mode [data-mode="' + (mode || 'easy') + '"]', touch);
+  return true;
+}
+
 async function playFlow(browser, h) {
   var label = 'play';
   console.log('Play-through (390x844, touch, seed ' + SEED + '):');
@@ -142,9 +151,19 @@ async function playFlow(browser, h) {
     var cont = await visible(page, '[data-act="continue"]');
     if (!cont) h.ok('play: a fresh profile shows no Continue button'); else h.fail('play: Continue is visible on a fresh profile');
 
-    // Title -> Play with a tap.
+    // Title -> Play with a tap -> the mode chooser -> Easy.
     await press(page, '#ov-title [data-act="play"]', true);
-    if (!(await h.waitState(page, 'PLAY', 5000))) { h.fail('play: tapping Play did not enter PLAY'); return; }
+    var chooser = await page.evaluate(function () {
+      var e = document.getElementById('ov-mode'), bs = e ? e.querySelectorAll('[data-mode]') : [];
+      return { open: !!(e && !e.hidden), modes: Array.prototype.map.call(bs, function (b) { return b.getAttribute('data-mode'); }),
+        primary: Array.prototype.map.call(e ? e.querySelectorAll('[data-primary]') : [], function (b) { return b.getAttribute('data-mode'); }) };
+    });
+    if (chooser.open && chooser.modes.join(',') === 'easy,normal,hard' && chooser.primary.join(',') === 'easy') h.ok('play: Play opens the mode chooser (easy, normal, hard; easy preselected on a fresh profile)');
+    else h.fail('play: mode chooser after Play: ' + JSON.stringify(chooser));
+    if (!(await pickMode(page, h, true, 'easy'))) return;
+    if (!(await h.waitState(page, 'PLAY', 5000))) { h.fail('play: choosing Easy did not enter PLAY'); return; }
+    var mode0 = await page.evaluate(function () { return { mode: window.CM.app.ctx.game.mode, slots: document.querySelectorAll('#strip-slots > *').length }; });
+    if (mode0.mode === 'easy' && mode0.slots === 9) h.ok('play: an Easy game with the 9-slot strip'); else h.fail('play: after choosing Easy: ' + JSON.stringify(mode0));
     var g0 = await game(page);
     if (g0.seed === SEED && g0.score === 0 && g0.launches === 0 && g0.bodies === 0 && g0.merges === 0) h.ok('play: Play started a fresh board with the URL seed (' + SEED + ', score 0, empty table)');
     else h.fail('play: new board is not fresh / not seeded: ' + JSON.stringify(g0));
@@ -225,6 +244,7 @@ async function playFlow(browser, h) {
     var stillPaused = (await game(page)).state === 'PAUSE';
     if (armed.armed && stillPaused) h.ok('play: the first Restart tap only arms it ("' + armed.text + '")'); else h.fail('play: first Restart tap: ' + JSON.stringify(armed) + ', still paused ' + stillPaused);
     await pressNow(page, '#ov-pause [data-act="restart"]', true);
+    if (!(await pickMode(page, h, true, 'easy'))) return;
     await h.waitState(page, 'PLAY', 3000);
     var g1 = await game(page);
     if (g1.state === 'PLAY' && g1.score === 0 && g1.launches === 0 && g1.bodies === 0 && g1.merges === 0 && g1.current === firstPair[0] && g1.next === firstPair[1]) h.ok('play: Restart gave a fresh board (score 0, empty table, same seeded first glasses)');
@@ -264,6 +284,7 @@ async function playFlow(browser, h) {
     // Play Again: a fresh board, best kept.
     await h.sleep(300);
     await press(page, '#ov-over [data-act="again"]', true);
+    if (!(await pickMode(page, h, true, 'easy'))) return;
     await h.waitState(page, 'PLAY', 3000);
     var g2 = await game(page);
     if (g2.state === 'PLAY' && g2.score === 0 && g2.launches === 0 && g2.bodies === 0 && g2.best === wantBest) h.ok('play: Play Again gave a fresh board and kept the best (' + wantBest + ')');
@@ -372,6 +393,7 @@ async function layoutCheck(browser, h, vp) {
     if (!(await h.waitState(page, 'TITLE', 15000))) { h.fail('layout ' + tag + ': did not reach TITLE'); return; }
     await h.sleep(500);
     await press(page, '#ov-title [data-act="play"]', touch);
+    await pickMode(page, h, touch, 'easy');
     if (!(await h.waitState(page, 'PLAY', 5000))) { h.fail('layout ' + tag + ': Play did not enter PLAY'); return; }
     await drop(page, 30, touch);                          // a glass on the table, the next preview and strip in use
     await h.sleep(300);

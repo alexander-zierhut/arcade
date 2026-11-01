@@ -15,7 +15,7 @@ var chrome = require('./chrome.js');
 var ROOT = path.resolve(__dirname, '..', '..');
 var OUT = path.join(ROOT, 'docs', 'preview');
 var HARNESS = path.join(__dirname, 'ui-check.html');
-var STATES = ['title', 'title-run', 'pause', 'win', 'over', 'oops', 'rotate', 'play', 'settings', 'collection', 'howto', 'armed'];
+var STATES = ['title', 'title-run', 'pause', 'win', 'over', 'oops', 'rotate', 'play', 'settings', 'collection', 'howto', 'mode', 'armed'];
 var SIZES = [[390, 844, 2, 1], [1280, 800, 1, 0], [375, 667, 2, 1]];
 
 function generate() {
@@ -24,7 +24,7 @@ function generate() {
   if (a < 0 || b < 0) throw new Error('index.html lacks the ui-shell markers');
   var shell = html.slice(html.indexOf('-->', a) + 3, b);
   var art = ['glass', 'garnish', 'tier1-shot', 'tier2-oldfashioned', 'tier3-cosmo', 'tier4-mojito', 'tier5-margarita',
-    'tier6-sunrise', 'tier7-pinacolada', 'tier8-coconut', 'tier9-sangria-verde', 'coin', 'scenery', 'overrides', 'sprites'];
+    'tier6-sunrise', 'tier7-pinacolada', 'tier8-coconut', 'tier9-sangria-verde', 'tier10-pineapple-punch', 'coin', 'scenery', 'overrides', 'sprites'];
   if (fs.existsSync(path.join(ROOT, 'src/art/backgrounds.js'))) art.push('backgrounds');
   var scripts = ['dedication', 'config', 'projection'].map(function (f) { return 'src/' + f + '.js'; })
     .concat(art.map(function (f) { return 'src/art/' + f + '.js'; }))

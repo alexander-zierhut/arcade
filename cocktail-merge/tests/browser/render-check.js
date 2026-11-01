@@ -15,7 +15,7 @@ var query = process.argv[2] || '';
 var out = process.argv[3] || path.join(ROOT, 'docs', 'preview', 'render-check.png');
 var size = (process.argv[4] || '390x844').split('x').map(Number);
 var dpr = Number(process.argv[5] || 1);
-var OPTIONAL = /assets\/tier-[1-9]\.png/;
+var OPTIONAL = /assets\/tier-(?:[1-9]|10)\.png/;
 
 async function main() {
   var browser;

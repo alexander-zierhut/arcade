@@ -14,7 +14,7 @@
   }
   html, body { margin: 0; padding: 0; }
   body { background: #EBDDBF; font-family: var(--font); color: var(--ink); }
-  #sheet { position: relative; width: 1600px; height: 2100px; overflow: hidden;
+  #sheet { position: relative; width: 1600px; height: 2640px; overflow: hidden;
     background: linear-gradient(#F3E7CD, #E6D3AE); }
   .cell { position: absolute; width: 480px; height: 520px; }
   .card { position: absolute; left: 8px; top: 8px; width: 464px; height: 504px; border-radius: 18px; overflow: hidden;
@@ -40,7 +40,7 @@
   .slot canvas { position: absolute; left: 0; bottom: 0; }
   .underline { position: absolute; height: 6px; border-radius: 3px; background: #FFC93C; }
   .slot-cap { position: absolute; font-size: 13px; font-weight: 800; text-align: center; color: var(--brown); }
-  #foot { position: absolute; left: 1210px; right: 60px; top: 1620px; font-size: 15px; font-weight: 700; color: var(--brown); line-height: 1.5; }
+  #foot { position: absolute; left: 1210px; right: 60px; top: 2140px; font-size: 15px; font-weight: 700; color: var(--brown); line-height: 1.5; }
   #foot b { font-weight: 900; }
   #problems { color: #B3122E; }
   /* readability sheet */
@@ -69,6 +69,7 @@
 <script src="../../src/art/tier7-pinacolada.js"></script>
 <script src="../../src/art/tier8-coconut.js"></script>
 <script src="../../src/art/tier9-sangria-verde.js"></script>
+<script src="../../src/art/tier10-pineapple-punch.js"></script>
 <script src="../../src/art/coin.js"></script>
 <script src="../../src/art/scenery.js"></script>
 <script src="../../src/art/overrides.js"></script>
@@ -97,7 +98,7 @@
   // ---- self-checks: every painter exists, does not throw, restores the ctx, stays inside its 4.2 bounds ----
   function checkPainters() {
     var t, rp = 40;
-    for (t = 1; t <= 9; t++) {
+    for (t = 1; t <= 10; t++) {
       var p = art.tiers && art.tiers[t];
       if (!p || typeof p.paint !== 'function') { fail('tier ' + t + ': CM.art.tiers[' + t + '].paint is missing'); continue; }
       [false, true].forEach(function (icon) {
@@ -129,7 +130,7 @@
   art.paintTable(tex.getContext('2d'), texLay, RULES);
 
   function patchSource(i, w, h) {
-    var rows = [12, 34, 22, 46, 16, 40, 28, 10, 36], offs = [-60, 40, -20, 70, 0, -80, 50, -40, 20];
+    var rows = [12, 34, 22, 46, 16, 40, 28, 10, 36, 24], offs = [-60, 40, -20, 70, 0, -80, 50, -40, 20, -30];
     var top = P.project(texLay, 50, rows[i]).Y, maxTop = P.project(texLay, 50, 124).Y - h;
     top = Math.max(P.project(texLay, 50, 3).Y, Math.min(top, maxTop));
     var hw = 50 * texLay.kX * P.scaleAt(P.unprojectY(texLay, top)) - 6, off = Math.max(-(hw - w / 2), Math.min(hw - w / 2, offs[i]));
@@ -184,7 +185,7 @@
     el('div', 'tri', wrap, { left: bodyW, top: 0, width: aw, height: H, background: '#4C8B2B' });
     el('div', 'tri', wrap, { left: bodyW - 1, top: ib, width: aw - it + 1, height: H - 2 * ib, background: '#FFF4E0' });
     var bw = s.iconBox.w * k, bh = s.iconBox.h * k, sw = s.slotW * k;
-    for (i = 1; i <= 9; i++) {
+    for (i = 1; i <= 10; i++) {
       var sx = s.pad * k + (i - 1) * sw, slot = el('div', 'slot', wrap, { left: sx + (sw - bw) / 2, top: (H - bh) / 2, width: bw, height: bh });
       icon(slot, bw, bh, i, STATES[i]);
       if (STATES[i] === 'best') el('div', 'underline', wrap, { left: sx + sw * 0.2, width: sw * 0.6, top: H - 10 });
@@ -218,11 +219,11 @@
   function buildSheet() {
     var sheet = el('div', null, rootEl); sheet.id = 'sheet';
     var sprites = art.buildSprites({ kX: 1, dpr: 1 }, [0, 96, 96, 96, 96, 96, 96, 96, 96, 96], true), t;
-    for (t = 1; t <= 9; t++) {
+    for (t = 1; t <= 10; t++) {
       var cell = el('div', 'cell', sheet, { left: 80 + ((t - 1) % 3) * 480, top: 20 + Math.floor((t - 1) / 3) * 520 });
       drawCard(t, cell, sprites[t]);
     }
-    var rowY = 1600, coin = canvas(128, 128, sheet);
+    var rowY = 2120, coin = canvas(128, 128, sheet);
     coin.style.position = 'absolute'; coin.style.left = '80px'; coin.style.top = (rowY + 30) + 'px';
     art.paintCoin(coin);
     el('div', 'cap', sheet, { left: 80, top: rowY + 166, width: 128, textAlign: 'center' }).textContent = 'coin 128 px';
@@ -231,9 +232,9 @@
     var stripTop = rowY + 100 - lay390.strip.h;
     drawStrip(sheet, nx + 40, stripTop);
     el('div', 'cap', sheet, { left: nx + 40, top: stripTop - 26 }).textContent = 'tier strip 2× (390×844 layout)';
-    drawSlice(sheet, 200, 1820);   // 6.2: the row ends at 1800, so the slice spans 1820..2080
+    drawSlice(sheet, 200, 2340);   // 6.2: the row ends at 2320, so the slice spans 2340..2600
     var foot = el('div', null, sheet); foot.id = 'foot';
-    var ov = []; for (t = 1; t <= 9; t++) if (art.hasOverride && art.hasOverride(t)) ov.push('tier-' + t + '.png');
+    var ov = []; for (t = 1; t <= 10; t++) if (art.hasOverride && art.hasOverride(t)) ov.push('tier-' + t + '.png');
     foot.innerHTML = '<b>Cocktail Merge: Beach Bar</b>, art contact sheet. Cocktails at R = 96 px (in-world sprite caches), ' +
       'NEXT and strip from the 390×844 layout at 2×, table slice of a 1200×960 layout. PNG overrides: ' +
       (ov.length ? ov.join(', ') : 'none') + '.<div id="problems"></div>';
@@ -243,13 +244,13 @@
   // ---- readability sheet: every sprite 28 px tall, colour and greyscale, real size and 3x zoom ----
   function buildSmall() {
     var box = el('div', null, rootEl); box.id = 'small';
-    el('h1', null, box).textContent = 'Readability sheet: all 9 sprites 28 px tall (colour, greyscale; then 3× zoom of the same pixels)';
-    var cw = 44, ch = 34, n = 9, radii = [0], t, b;
-    for (t = 1; t <= 9; t++) { b = art.spriteBounds(t, false); radii.push(28 / b.h); }
+    el('h1', null, box).textContent = 'Readability sheet: all 10 sprites 28 px tall (colour, greyscale; then 3× zoom of the same pixels)';
+    var cw = 44, ch = 34, n = 10, radii = [0], t, b;
+    for (t = 1; t <= 10; t++) { b = art.spriteBounds(t, false); radii.push(28 / b.h); }
     var sprites = art.buildSprites({ kX: 1, dpr: 1 }, radii, true);
     var src = document.createElement('canvas'); src.width = cw * n; src.height = ch;
     var x = src.getContext('2d'); x.imageSmoothingEnabled = true; x.imageSmoothingQuality = 'high';
-    for (t = 1; t <= 9; t++) {
+    for (t = 1; t <= 10; t++) {
       var sp = sprites[t], sc = radii[t] / sp.rp, bb = art.spriteBounds(t, false);
       var ax = (t - 1) * cw + cw / 2, ay = ch - 3 - (bb.h - bb.ay) * radii[t];
       x.drawImage(sp.canvas, ax - sp.axPx * sc, ay - sp.ayPx * sc, sp.canvas.width * sc, sp.canvas.height * sc);
@@ -263,7 +264,7 @@
     });
     var nums = el('div', 'row', box); el('span', null, nums).textContent = 'tier';
     var lab = el('div', null, nums, { display: 'flex' });
-    for (t = 1; t <= 9; t++) el('div', null, lab, { width: cw * 3, textAlign: 'center', fontWeight: 900 }).textContent = t + ' ' + TIERS[t].name;
+    for (t = 1; t <= 10; t++) el('div', null, lab, { width: cw * 3, textAlign: 'center', fontWeight: 900 }).textContent = t + ' ' + TIERS[t].name;
   }
 
   function run() {

@@ -55,7 +55,8 @@
   function relayout() {
     var c = ctx(), m = measure(), safe = readSafe();
     var dpr = Math.min(root.devicePixelRatio || 1, c.dprCap || 2);
-    var lay = CM.projection.computeLayout(m.vw, m.vh, dpr, safe, { coarse: isCoarse() });
+    var slots = (c.game && c.game.rules && c.game.rules.LADDER) ? c.game.rules.LADDER.length : 0;   // the strip shows this game's ladder (2.13)
+    var lay = CM.projection.computeLayout(m.vw, m.vh, dpr, safe, { coarse: isCoarse(), slots: slots });
     c.lay = lay;
     var de = doc.documentElement.style;
     de.setProperty('--vw', m.vw + 'px');
@@ -174,7 +175,6 @@
   }
   function toggleMusic(b) { setting('music', b); applyMusic(); CM.app.writeSave(); syncUi(); }
   function toggleNumbers(b) { setting('showNumbers', b); CM.app.writeSave(); syncUi(); }
-  function toggleRelaxed(b) { setting('relaxed', b); CM.app.writeSave(); syncUi(); }
   // Performance mode (owner): pins the DPR cap at 1.25 and halves the particles; off restores the adaptive cap.
   // The switch itself is the arcade's (shared/perf.js: the player's choice or the measured verdict, the same in
   // every game); save.lowGfx mirrors it and the kit's 'perf' event applies it here.
@@ -201,15 +201,17 @@
     var on = setting('lowGfx', b); applyLowGfx(on); CM.app.writeSave(); syncUi();
   }
 
-  // The handlers given to CM.ui.init (5.5) plus onPause, onToggleMusic, onPlayAgain and onTitle.
+  // The handlers given to CM.ui.init (5.5) plus onPause, onToggleMusic, onPlayAgain and onTitle. The ones that
+  // start a game take the mode the chooser picked (2.13); without one the mode chosen last is used.
   function handlers() {
     var A = CM.app;
+    function start(mode) { A.newGame(undefined, typeof mode === 'string' ? mode : undefined); }
     return {
-      onPlay: function () { A.newGame(); },
+      onPlay: start,
       onContinue: function () { A.continueRun(); },
-      onNewGame: function () { A.newGame(); },
-      onPlayAgain: function () { A.newGame(); },
-      onRestart: function () { A.newGame(); },
+      onNewGame: start,
+      onPlayAgain: start,
+      onRestart: start,
       onPause: function () { if (ctx().state === 'PLAY') A.setState('PAUSE'); },
       onResume: function () { if (ctx().state === 'PAUSE') A.setState('PLAY'); },
       onQuit: function () { A.quitToTitle(); },
@@ -219,7 +221,6 @@
       onToggleAmbience: toggleAmbience,
       onToggleMusic: toggleMusic,
       onToggleNumbers: toggleNumbers,
-      onToggleRelaxed: toggleRelaxed,
       onToggleLowGfx: toggleLowGfx,
       onBomb: toggleBomb
     };
@@ -339,7 +340,7 @@
     handlers: handlers,
     toggleMute: toggleMute,
     setState: function (n) { return CM.app.setState(n); },
-    newGame: function (seed) { return CM.app.newGame(seed); },
+    newGame: function (seed, mode) { return CM.app.newGame(seed, mode); },
     continueRun: function () { return CM.app.continueRun(); },
     frame: function (t) { return CM.app.frame(t); },
     dispatch: function (ev, src) { return CM.app.dispatch(ev, src); }

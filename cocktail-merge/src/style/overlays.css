@@ -80,6 +80,15 @@
 }
 @keyframes armed-pulse { 0% { transform: scale(1); } 100% { transform: scale(1.03); } }
 
+/* ---------- the mode chooser (2.13): name, one line about the table, that table's best ---------- */
+.btn-mode { text-align: left; padding: 7px 14px 6px; }
+.btn-mode b { display: block; font: 900 18px/1.15 var(--font); }
+.btn-mode small { display: block; font: 700 12px/1.25 var(--font); opacity: 0.95; }
+.btn-mode .mode-best { font-weight: 900; opacity: 1; margin-top: 1px; }
+.btn-mode.btn-primary .mode-best { color: #FFF6D8; }
+.mode-note { margin-top: 10px; font-size: 13px; color: #8A6A40; }
+#ov-mode .chip { margin-top: 10px; }
+
 /* ---------- settings switches ---------- */
 .settings { margin-top: 14px; text-align: left; }
 .switch-row {
@@ -284,6 +293,7 @@
 @keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
 
 .stats {
+  max-width: 100%;                               /* three tables' bests wrap between the tables (2.13) */
   padding: 6px 14px;
   border-radius: 12px;
   background: rgba(255, 246, 228, 0.9);

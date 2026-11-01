@@ -27,7 +27,7 @@
   }
 
   function ctx() { return CM.app.ctx; }
-  function mode() { var s = ctx().save; return (s && s.relaxed === false) ? 'standard' : 'relaxed'; }
+  function mode() { var s = ctx().save; return (s && CM.game.canonicalMode(s.mode)) || CM.config.DEFAULT_MODE || 'easy'; }
 
   // A fresh attract game (silent; also used after win, lose and the time limit).
   function reset() {

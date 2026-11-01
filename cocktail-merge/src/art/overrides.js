@@ -1,6 +1,6 @@
 // src/art/overrides.js: the optional PNG override loader of DESIGN 4.3. Browser file. Sets
 // CM.art.loadOverrides, CM.art.hasOverride and CM.art.overrideImage.
-// If the owner drops assets/tier-1.png ... assets/tier-9.png (any subset) next to index.html, those tiers
+// If the owner drops assets/tier-1.png ... assets/tier-10.png (any subset) next to index.html, those tiers
 // are drawn from the picture instead of their procedural painter. Loads use `new Image()` only (never
 // fetch or XHR), so they work from file://, http and https. Nothing here ever reads pixels back.
 (function (root) {
@@ -8,7 +8,7 @@
   var CM = root.CM = root.CM || {};
   var art = CM.art = CM.art || {};
 
-  var N = 9;
+  var N = 10;
   var WIDTH_R = 2.0;      // drawn width in R-units (the collider diameter)
   var MAX_H_R = 3.6;      // taller pictures are scaled down uniformly to this height
   var BOTTOM_Y = 0.40;    // anchor y of the picture's bottom-centre (front of the base ellipse)

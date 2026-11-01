@@ -20,14 +20,22 @@ result and fails if a painter paints outside its bounds.
 
 ## Difficulty
 
+Three tables (DESIGN 2.13): **Easy** (the former Relaxed), **Normal** (the former Standard) and **Hard** (Normal plus the
+Pineapple Punch, tier 10, between the Margarita and the Sunrise). Every new game asks for the table first (the chooser
+sheet `#ov-mode` in `index.html`, filled by `src/ui/overlays.js`); each table keeps its own best (`save.bests`).
+
 `src/config.js`:
-- `MODES.relaxed` / `MODES.standard`: `DANGER_Y` (line position, bigger = closer to the player = more room),
-  `GRACE_TICKS` (240 per second), `STAGE_SHIFT` (reach the spawn stages earlier).
+- `MODES.easy` / `MODES.normal` / `MODES.hard`: `DANGER_Y` (line position, bigger = closer to the player = more room),
+  `GRACE_TICKS` (240 per second), `STAGE_SHIFT` (reach the spawn stages earlier), `LADDER` (the merge order as tier
+  ids; a mode without one uses `RULES.LADDER`, the nine-tier order). `LADDER` at the top level is the full order the
+  collection and the title row show. To put a drink into a mode, insert its id into that mode's ladder; tier ids never
+  change, so saves and stored runs stay valid.
 - `SPAWN.WEIGHTS` (tiers 1–4 early on) and `SPAWN.STAGES` (`from` = highest tier reached, `weights` for
   tiers 1–5). Heavier late stages = fuller table and a real chance to lose.
 - `PHYS.V0` launch speed, `PULL` the slide toward the far edge, `E_GLASS` / `E_WALL` bounciness,
   `RULES.SHOVE_V` the merge nudge.
-Run `node tests/tune.js --seeds 200` to see bot win rates per mode (about 1.5 min).
+Run `node tests/tune.js --seeds 200` to see bot win rates per mode (about 1.5 min; it still says relaxed / standard,
+which resolve to easy / normal).
 
 ## The bomb
 

@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="../../src/style/overlays.css">
 </head><body>
 
+<canvas id="game-bg" aria-hidden="true"></canvas>
 <canvas id="game" tabindex="-1" aria-label="Cocktail Merge game table"></canvas>
 <div id="strip" class="strip" aria-hidden="true">
   <div class="strip-arrow-o"></div><div class="strip-arrow"></div>
@@ -29,11 +30,18 @@
   </button>
   <div id="hud-next" class="hud-next"><canvas id="hud-next-c"></canvas></div>
   <div id="hud-next-label" class="hud-next-label">NEXT</div>
+  <button id="btn-bomb" class="round-btn hud-bomb" type="button" tabindex="-1" aria-label="Bomb: clear part of the table" hidden>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="14" r="7" class="bomb-body"/><path d="M14.5 8.5l2-2.5M16.5 6l1.5-1.5"/><circle cx="18.6" cy="3.9" r="1.1" class="bomb-spark"/></svg>
+    <span id="bomb-count" class="bomb-count">1</span>
+  </button>
 </div>
 <div id="toasts" class="toasts" aria-live="polite"></div>
 
 <div id="overlays" class="overlays">
   <section id="ov-title" class="ov ov-title" hidden inert aria-label="Title">
+    <button class="round-btn title-home" type="button" data-arcade="home" aria-label="All games" title="All games">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11.5 12 5l8 6.5"/><path d="M6.5 10.5V19h11v-8.5"/><path d="M10 19v-5h4v5"/></svg>
+    </button>
     <button class="round-btn js-mute title-mute" type="button" data-act="mute" aria-label="Sound on">
       <svg class="ic-on" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/></svg>
       <svg class="ic-off" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M15.5 9.5l5 5M20.5 9.5l-5 5"/></svg>
@@ -66,7 +74,6 @@
         <button class="chip" type="button" data-act="collection">Collection</button>
         <button class="chip" type="button" data-act="settings">Settings</button>
       </div>
-      <p class="credit js-credit"></p>
     </div>
   </section>
 
@@ -96,6 +103,7 @@
       <div class="newbest-ribbon js-newbest" hidden>NEW BEST!</div>
       <div class="btn-col">
         <button class="btn btn-primary" type="button" data-act="keep" data-primary>Keep Playing</button>
+        <button class="btn btn-secondary" type="button" data-act="share">Share</button>
         <button class="btn btn-secondary" type="button" data-act="newgame-win">New Game</button>
       </div>
     </div>
@@ -111,6 +119,7 @@
       <div class="highest"><span>Highest drink:</span><canvas id="over-icon-c" class="highest-c"></canvas><b id="over-name"></b></div>
       <div class="btn-col">
         <button class="btn btn-primary" type="button" data-act="again" data-primary>Play Again</button>
+        <button class="btn btn-secondary" type="button" data-act="share">Share</button>
         <button class="btn btn-secondary" type="button" data-act="title">Title</button>
       </div>
     </div>
@@ -146,8 +155,23 @@
     <div class="card scroll">
       <h2 class="card-title">Settings</h2>
       <div class="settings js-settings"></div>
+      <button class="chip chip-small export-perf" type="button" data-act="exportPerf" title="Downloads a .json file with frame timings for troubleshooting">Export debug report</button>
       <p class="credit credit-card js-credit"></p>
       <div class="btn-col"><button class="btn btn-primary" type="button" data-act="close" data-primary>Close</button></div>
+    </div>
+  </section>
+
+  <section id="ov-mode" class="ov ov-modal ov-sheet" hidden inert aria-label="Choose how to play">
+    <div class="card scroll">
+      <h2 class="card-title">New Game</h2>
+      <p class="card-line">How do you want to play?</p>
+      <div class="btn-col js-modes">
+        <button class="btn btn-secondary btn-mode" type="button" data-act="mode" data-mode="easy"><b>Easy</b><small>Wide table, 4 s to recover</small><small class="mode-best js-mode-best"></small></button>
+        <button class="btn btn-secondary btn-mode" type="button" data-act="mode" data-mode="normal"><b>Normal</b><small>Tight line, 2 s to recover, big glasses sooner</small><small class="mode-best js-mode-best"></small></button>
+        <button class="btn btn-secondary btn-mode" type="button" data-act="mode" data-mode="hard"><b>Hard</b><small>Like Normal, plus the Pineapple Punch: one more drink before the jug</small><small class="mode-best js-mode-best"></small></button>
+      </div>
+      <p class="card-line mode-note">Each table keeps its own best score.</p>
+      <button class="chip chip-small" type="button" data-act="close">Not now</button>
     </div>
   </section>
 
@@ -176,6 +200,7 @@
 <script src="../../src/art/tier7-pinacolada.js"></script>
 <script src="../../src/art/tier8-coconut.js"></script>
 <script src="../../src/art/tier9-sangria-verde.js"></script>
+<script src="../../src/art/tier10-pineapple-punch.js"></script>
 <script src="../../src/art/coin.js"></script>
 <script src="../../src/art/scenery.js"></script>
 <script src="../../src/art/overrides.js"></script>

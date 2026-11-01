@@ -95,14 +95,15 @@
   }
 
   // Tier strip (3.2 step 2, 3.4), stage px.
-  function computeStrip(S, H, safeBottom) {
-    var slotW = (STRIP_BODY_FRAC * S - 2 * STRIP_PAD) / SLOTS;
+  function computeStrip(S, H, safeBottom, slots) {
+    var n = (slots > 0) ? slots : SLOTS;                      // 10 on Hard's ladder (2.13), else 9
+    var slotW = (STRIP_BODY_FRAC * S - 2 * STRIP_PAD) / n;
     var h = Math.max(44, Math.min(0.07 * H, 1.25 * slotW + 10));
     var bottom = H - safeBottom - Math.max(0.035 * H, 16);
     var top = bottom - h;
     var x = (1 - STRIP_W_FRAC) / 2 * S;
     return {
-      top: top, bottom: bottom, h: h, slotW: slotW,
+      top: top, bottom: bottom, h: h, slotW: slotW, slots: n,
       iconBox: { w: 0.9 * slotW, h: h - 10 },
       x: x, w: STRIP_W_FRAC * S,
       bodyW: STRIP_BODY_FRAC * S, arrowW: STRIP_ARROW_FRAC * S, pad: STRIP_PAD,
@@ -110,7 +111,7 @@
     };
   }
 
-  // computeLayout(vw, vh, dpr, safe: {top, bottom}, opts: {coarse}) -> Layout (3.1 - 3.4).
+  // computeLayout(vw, vh, dpr, safe: {top, bottom}, opts: {coarse, slots}) -> Layout (3.1 - 3.4); slots = strip slot count (default 9).
   function computeLayout(vw, vh, dpr, safe, opts) {
     vw = Math.max(1, num(vw, 1));
     vh = Math.max(1, num(vh, 1));
@@ -132,7 +133,7 @@
     var hudBottom = hud.bottom;
 
     // 2. Tier strip.
-    var strip = computeStrip(S, H, safeBottom);
+    var strip = computeStrip(S, H, safeBottom, opts.slots | 0);
     var stripTop = strip.top;
 
     // 3. Table.

@@ -53,12 +53,15 @@
   // Fallbacks used only when CM.game is missing (keeps this file testable on its own, e.g. ui-check).
   function fallbackNormalize(raw) {
     var o = parse(raw), s = { v: 1, best: 0, bestTier: 1, muted: false, ambience: false, music: true, showNumbers: false,
-      relaxed: true, lowGfx: false, wins: 0, discovered: 0 };
+      relaxed: true, lowGfx: false, wins: 0, discovered: 0, mode: 'easy', bests: { easy: 0, normal: 0, hard: 0 } };
     if (!o || typeof o !== 'object') return s;
     ['best', 'wins'].forEach(function (k) { if (typeof o[k] === 'number' && o[k] >= 0 && Math.floor(o[k]) === o[k]) s[k] = o[k]; });
-    if (o.bestTier >= 1 && o.bestTier <= 9 && Math.floor(o.bestTier) === o.bestTier) s.bestTier = o.bestTier;
+    if (o.bestTier >= 1 && o.bestTier <= 10 && Math.floor(o.bestTier) === o.bestTier) s.bestTier = o.bestTier;
     ['muted', 'ambience', 'music', 'showNumbers', 'relaxed', 'lowGfx'].forEach(function (k) { if (typeof o[k] === 'boolean') s[k] = o[k]; });
-    if (typeof o.discovered === 'number' && o.discovered >= 0) s.discovered = (o.discovered >>> 0) & 0x1FF;
+    if (typeof o.discovered === 'number' && o.discovered >= 0) s.discovered = (o.discovered >>> 0) & 0x3FF;
+    if (o.mode === 'easy' || o.mode === 'normal' || o.mode === 'hard') s.mode = o.mode; else if (o.relaxed === false) s.mode = 'normal';
+    if (o.bests && typeof o.bests === 'object') ['easy', 'normal', 'hard'].forEach(function (k) { if (typeof o.bests[k] === 'number' && o.bests[k] >= 0) s.bests[k] = o.bests[k]; });
+    if (s.best > Math.max(s.bests.easy, s.bests.normal, s.bests.hard)) s.bests[s.mode] = s.best;
     return s;
   }
   function normalize(raw) {
@@ -77,8 +80,9 @@
     if (!m) {
       var a = normalize(stored), b = normalize(next);
       m = { v: 1, best: Math.max(a.best, b.best), bestTier: Math.max(a.bestTier, b.bestTier), muted: b.muted,
-        ambience: b.ambience, showNumbers: b.showNumbers, relaxed: b.relaxed, wins: Math.max(a.wins, b.wins),
-        discovered: (a.discovered | b.discovered) & 0x1FF };
+        ambience: b.ambience, showNumbers: b.showNumbers, relaxed: b.relaxed, mode: b.mode, wins: Math.max(a.wins, b.wins),
+        discovered: (a.discovered | b.discovered) & 0x3FF, bests: { easy: Math.max(a.bests.easy, b.bests.easy),
+        normal: Math.max(a.bests.normal, b.bests.normal), hard: Math.max(a.bests.hard, b.bests.hard) } };
     }
     // music is a setting: it takes `next` (like muted / ambience), else keeps the stored value.
     m.music = (next && typeof next.music === 'boolean') ? next.music

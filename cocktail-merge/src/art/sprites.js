@@ -10,8 +10,9 @@
   var SILHOUETTE = '#3A2A1A', FLASH = '#FFFFFF', DANGER = '#FF3B3B';
   var GLOW = { 8: 'rgba(255,240,180,0.55)', 9: 'rgba(255,210,63,0.65)' };
   var SIL_PASSES = 3;     // silhouettes stack the sprite 3x first, so the faint glass body reads solid
-  var KEYS = [null, '#F5C542', '#B3561C', '#FF5C8A', '#C6E05A', '#4CC97A', '#FF4F2E', '#2EB5A8', '#9B5DE5', '#0F8A5F'];
-  var RADII = [0, 5.2, 5.92, 7.2, 8.48, 9.92, 11.52, 13.28, 15.2, 17.6];   // fallback only; config TIERS[t].radius wins
+  var KEYS = [null, '#F5C542', '#B3561C', '#FF5C8A', '#C6E05A', '#4CC97A', '#FF4F2E', '#2EB5A8', '#9B5DE5', '#0F8A5F', '#FFA62B'];
+  var RADII = [0, 5.2, 5.92, 7.2, 8.48, 9.92, 11.52, 13.28, 15.2, 17.6, 20.2];   // fallback only; config TIERS[t].radius wins
+  function topTier() { var T = CM.config && CM.config.TIERS; return T ? T.length - 1 : 10; }   // 10: tier 10 exists only in Hard mode, but every sprite is built
 
   function warn(msg, e) { if (root.console && root.console.warn) root.console.warn(msg, e); }
   function keyColor(t) {
@@ -32,7 +33,7 @@
    * rect (4.3). `padded` adds the 0.2 glow padding for T8/T9 (in-world sprites); icons pass false.
    */
   function spriteBounds(t, padded) {
-    var pad = padded && t >= 8 ? art.glass.GLOW_PAD : 0, ov = override(t), top, bot, half;
+    var pad = padded && GLOW[t] ? art.glass.GLOW_PAD : 0, ov = override(t), top, bot, half;
     if (ov) {
       half = ov.rect.w / 2; top = Math.min(ov.rect.y, -0.05); bot = Math.max(ov.rect.y + ov.rect.h, 0.05);
       return { ax: half + pad, ay: -top + pad, w: 2 * half + 2 * pad, h: bot - top + 2 * pad, pad: pad };
@@ -115,7 +116,7 @@
   var cache = null;   // {sig, kd, sprites}
 
   /**
-   * Builds (or returns the cached) in-world sprites: an array indexed by tier 1..9 (index 0 is null) of
+   * Builds (or returns the cached) in-world sprites: an array indexed by tier 1..10 (index 0 is null) of
    * Sprite = {canvas, white, red, ax, ay, rp, w, h, axPx, ayPx, tier}. ax, ay, w, h are R-units (as the
    * 4.2 table and 3.4's icon fit use them); the anchor pixel in the canvas is (axPx, ayPx) = (ax*rp, ay*rp).
    * radii: indexed by tier (rules.RADII); missing entries fall back to the Standard radii.
@@ -123,13 +124,13 @@
    * (3.1); pass force = true to rebuild anyway. Never uses icon mode.
    */
   function buildSprites(lay, radii, force) {
-    var g = art.glass, dpr = lay.dpr || 1, kd = lay.kX * dpr, t, R = [], sig;
-    for (t = 1; t <= 9; t++) R[t] = (radii && radii[t] > 0) ? radii[t] : RADII[t];
+    var g = art.glass, dpr = lay.dpr || 1, kd = lay.kX * dpr, t, R = [], sig, top = topTier();
+    for (t = 1; t <= top; t++) R[t] = (radii && radii[t] > 0) ? radii[t] : RADII[t];
     sig = R.slice(1).join(',') + '|' + (typeof art.overrideMask === 'function' ? art.overrideMask() : 0);
     if (!force && cache && cache.sig === sig && Math.abs(kd / cache.kd - 1) <= 0.02) return cache.sprites;
 
     var out = [null], rp, box, base, white, red, canvas;
-    for (t = 1; t <= 9; t++) {
+    for (t = 1; t <= top; t++) {
       rp = g.cacheRp(R[t], lay.kX, dpr);
       box = spriteBounds(t, true);
       base = renderTier(t, rp, box);

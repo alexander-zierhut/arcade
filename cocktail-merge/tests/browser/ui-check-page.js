@@ -9,7 +9,7 @@
   var safe = q.coarse === '1' ? { top: 47, bottom: 34 } : { top: 0, bottom: 0 };
   var lay = CM.projection.computeLayout(vw, vh, dpr, safe, { coarse: q.coarse === '1' });
   var save = { v: 1, best: 12340, bestTier: 6, muted: false, music: true, ambience: true, showNumbers: false,
-    relaxed: true, wins: 2, discovered: 63 };
+    relaxed: true, wins: 2, discovered: 63, mode: 'normal', bests: { easy: 12340, normal: 8800, hard: 0 } };
   var game = { score: 4210, next: 3, current: 2, runMask: 31, highestTier: 5, wonOnce: false };
   var intents = { aimX: 50, aimDirty: false, launch: null, pause: function () {}, mute: function () {}, restart: function () {} };
   CM.app = { ctx: { state: 'TITLE', lay: lay, save: save, game: game, bestAtRunStart: 3000, newBestShown: false, intents: intents } };
@@ -21,7 +21,7 @@
     onRestart: function () { log.push('restart'); }, onQuit: function () { log.push('quit'); },
     onKeepPlaying: function () { log.push('keep'); }, onPause: function () { log.push('pause'); },
     onToggleMute: flip('muted'), onToggleMusic: flip('music'), onToggleAmbience: flip('ambience'),
-    onToggleNumbers: flip('showNumbers'), onToggleRelaxed: flip('relaxed')
+    onToggleNumbers: flip('showNumbers')
   };
 
   // Scene: the procedural background, table and roof, plus a few glasses.
@@ -58,7 +58,7 @@
   else if (s === 'over') { CM.ui.setHudVisible(true); CM.ui.setHud(game, save); CM.ui.showOverlay('over', { score: 4210 }); }
   else if (s === 'oops') CM.ui.showOverlay('oops');
   else if (s === 'rotate') CM.ui.showOverlay('rotate');
-  else if (s === 'settings' || s === 'collection' || s === 'howto') {
+  else if (s === 'settings' || s === 'collection' || s === 'howto' || s === 'mode') {
     CM.ui.showOverlay('title', { save: save, run: run }); CM.ui.openSheet(s);
   } else if (s === 'armed') {
     CM.ui.showOverlay('pause', { score: 4210 });

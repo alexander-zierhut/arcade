@@ -35,14 +35,14 @@
 (function () {
   var TIERS = CM.config.TIERS.filter(Boolean);
   var FILES = ['tier1-shot', 'tier2-oldfashioned', 'tier3-cosmo', 'tier4-mojito', 'tier5-margarita',
-               'tier6-sunrise', 'tier7-pinacolada', 'tier8-coconut', 'tier9-sangria-verde'];
+               'tier6-sunrise', 'tier7-pinacolada', 'tier8-coconut', 'tier9-sangria-verde', 'tier10-pineapple-punch'];
   var loaded = 0, pending = FILES.length;
   CM.art.tiers = CM.art.tiers || [];
 
   function done() {
     if (--pending > 0) return;
     draw();
-    document.getElementById('status').textContent = loaded + '/9 painters loaded';
+    document.getElementById('status').textContent = loaded + '/10 painters loaded';
   }
   FILES.forEach(function (f) {
     var s = document.createElement('script');

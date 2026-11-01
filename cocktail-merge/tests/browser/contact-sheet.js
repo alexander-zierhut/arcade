@@ -1,8 +1,8 @@
 // tests/browser/contact-sheet.js: the colour contact sheet and the readability sheet (DESIGN 6.2).
 // Run with `npm run preview`. A review tool, not a test; never needed to play.
 // Opens tests/browser/contact-sheet.html via file:// in the system Chrome (playwright-core) and writes
-//   docs/preview/cocktails.png        1600x2100 colour sheet (viewport screenshot, not fullPage)
-//   docs/preview/cocktails-small.png  all 9 sprites at 28 px tall, colour and greyscale
+//   docs/preview/cocktails.png        1600x2640 colour sheet (viewport screenshot, not fullPage)
+//   docs/preview/cocktails-small.png  all 10 sprites at 28 px tall, colour and greyscale
 // Exits 1 on any console error or page error (a failed load of an optional assets/tier-N.png is ignored),
 // or when Chrome cannot be started (it then prints how to set CHROME_PATH).
 'use strict';
@@ -14,7 +14,7 @@ var chrome = require('./chrome.js');
 var ROOT = path.resolve(__dirname, '..', '..');
 var HARNESS = path.join(__dirname, 'contact-sheet.html');
 var OUT_DIR = path.join(ROOT, 'docs', 'preview');
-var OPTIONAL_ASSET = /assets\/tier-[1-9]\.png/;
+var OPTIONAL_ASSET = /assets\/tier-(?:[1-9]|10)\.png/;
 
 function isIgnorable(msg) {
   var loc = (msg.location && msg.location()) || {};
@@ -57,7 +57,7 @@ async function main() {
     fs.mkdirSync(OUT_DIR, { recursive: true });
     var big = path.join(OUT_DIR, 'cocktails.png');
     var small = path.join(OUT_DIR, 'cocktails-small.png');
-    await render(browser, '', { width: 1600, height: 2100 }, function (page, file) {
+    await render(browser, '', { width: 1600, height: 2640 }, function (page, file) {
       return page.screenshot({ path: file, fullPage: false });
     }, big, errors);
     await render(browser, '?sheet=small', { width: 1600, height: 900 }, function (page, file) {

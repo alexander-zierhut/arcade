@@ -12,14 +12,15 @@
   var doc = root.document;
 
   var MAIN = ['title', 'pause', 'win', 'over', 'oops', 'rotate'];
-  var SHEETS = ['howto', 'settings', 'collection'];
+  var SHEETS = ['howto', 'settings', 'collection', 'mode'];   // 'mode': the chooser every new game goes through (2.13)
   var SETTINGS = [   // [save key, label, note, inverted]
     ['muted', 'Sound', '', true], ['music', 'Music', ''], ['ambience', 'Ambience', ''],
-    ['relaxed', 'Relaxed table', 'more room past the line and 4 s to recover (Standard: tighter line, 2 s, bigger glasses sooner); next game'], ['showNumbers', 'Show tier numbers', ''],
+    ['showNumbers', 'Show tier numbers', ''],
     ['lowGfx', 'Performance mode', 'lower resolution, fewer effects']
   ];
   var TOGGLE = { muted: 'onToggleMute', music: 'onToggleMusic', ambience: 'onToggleAmbience',
-    relaxed: 'onToggleRelaxed', showNumbers: 'onToggleNumbers', lowGfx: 'onToggleLowGfx' };
+    showNumbers: 'onToggleNumbers', lowGfx: 'onToggleLowGfx' };
+  var START_ACTS = { play: 1, newgame: 1, 'newgame-win': 1, again: 1, restart: 1 };   // all of them ask for the mode first
   var CRAFTPIX = ['Beach 2D Backgrounds by CraftPix.net', '(craftpix.net), OGA-BY 3.0'];
   var HOWTO_TOUCH = ['Drag left or right below the dashed line, then let go to slide a drink.',
     'Two identical drinks that touch mix into the next one.', "Don't let drinks stay past the dashed line!",
@@ -40,6 +41,10 @@
   function cfg() { return CM.config || {}; }
   function fmt(n) { return ui.fmt ? ui.fmt(n) : String(n | 0); }
   function name(t) { return ui.tierName ? ui.tierName(t) : 'Tier ' + t; }
+  function ladder() { return cfg().LADDER || [1, 2, 3, 4, 5, 6, 7, 8, 9]; }          // every tier, in merge order (the collection's order)
+  function modeName(m) { return (cfg().MODE_NAMES || {})[m] || m || ''; }
+  function modeOf(d) { var g = app().game; return (d && d.mode) || (g && g.mode) || save().mode || cfg().DEFAULT_MODE || 'easy'; }
+  function bestOf(m) { var G = CM.game, s = save(); return (G && G.bestFor) ? G.bestFor(s, m) : (s.best | 0); }
   function dpr() { return (lay && lay.dpr) || Math.min((root.devicePixelRatio || 1), 2); }
   function coarse() { try { return root.matchMedia('(pointer: coarse)').matches; } catch (e) { return false; } }
   function setText(sel, el, text) { qa(sel, el).forEach(function (n) { n.textContent = text; }); }
@@ -84,14 +89,14 @@
   function refreshSettings() {
     var s = save(); qa('.switch-row').forEach(function (b) {
       var key = b.getAttribute('data-key'), inv = key === 'muted', v = s[key];
-      if (typeof v !== 'boolean') v = key === 'music' || key === 'relaxed';
+      if (typeof v !== 'boolean') v = key === 'music';
       b.setAttribute('aria-checked', (inv ? !v : v) ? 'true' : 'false');
     });
     if (ui.setMuteIcons) ui.setMuteIcons(!!s.muted);
   }
   function toggle(key) {
     var s = save(), cur = s[key];
-    if (typeof cur !== 'boolean') cur = key === 'music' || key === 'relaxed';
+    if (typeof cur !== 'boolean') cur = key === 'music';
     call(TOGGLE[key], !cur);
     refreshSettings();
   }
@@ -103,17 +108,19 @@
     return (0.299 * r + 0.587 * g + 0.114 * b) / 255 < 0.45;
   }
   function fillCollection(box) {
-    var g = app().game, ever = everMask(), run = (current === 'title' || !g) ? ever : (g.runMask | 0), t, n = 0;
-    var tiers = (CM.config && CM.config.TIERS) || [];
+    var g = app().game, ever = everMask(), run = (current === 'title' || !g) ? ever : (g.runMask | 0), t, i, n = 0;
+    var tiers = (CM.config && CM.config.TIERS) || [], L = ladder(), hardOnly = cfg().RULES && cfg().RULES.LADDER;
     while (box.firstChild) box.removeChild(box.firstChild);
-    for (t = 1; t <= 9; t++) {
+    for (i = 0; i < L.length; i++) {
+      t = L[i];
       var b = 1 << (t - 1), known = !!(ever & b), tier = tiers[t] || {};
       var card = doc.createElement('div'), head = doc.createElement('div'), num = doc.createElement('span'),
         label = doc.createElement('span'), body = doc.createElement('div'), c = doc.createElement('canvas');
       card.className = 'coll-card' + (known ? '' : ' unknown');
       head.className = 'coll-head'; num.className = 'coll-num'; label.className = 'coll-name'; body.className = 'coll-body';
-      num.textContent = String(t);
-      label.textContent = known ? name(t) : '???';
+      num.textContent = String(i + 1);
+      // an undiscovered drink that only Hard's ladder has says where to find it instead of ???
+      label.textContent = known ? name(t) : (hardOnly && hardOnly.indexOf(t) < 0 ? 'Hard mode' : '???');
       // the key colour is the badge background (owner: saves header space); the jug also shows its yellow accent
       num.style.background = known ? (tier.color || '#999') : '#B9A98C';
       num.style.color = known && dark(tier.color) ? '#FFF8E1' : '#3A2A12';
@@ -122,8 +129,8 @@
       body.appendChild(c); card.appendChild(head); card.appendChild(body); box.appendChild(card);
       icon(c, 96, 96, t, !known ? 'none' : (run & b) ? 'run' : 'earlier');
     }
-    for (t = 0; t < 9; t++) if (ever & (1 << t)) n++;
-    setText('.js-collected', null, n + ' of 9 cocktails discovered');
+    for (i = 0; i < L.length; i++) if (ever & (1 << (L[i] - 1))) n++;
+    setText('.js-collected', null, n + ' of ' + L.length + ' cocktails discovered');
   }
   function fillHowto() {
     var lines = coarse() ? HOWTO_TOUCH : HOWTO_DESK;
@@ -164,11 +171,14 @@
     show(el.querySelector('[data-act="play"]'), !has);
     if ($('continue-score')) $('continue-score').textContent = has ? 'Score ' + fmt(runScore(d)) : '';
     var st = $('title-stats');
-    if (st) {
+    if (st) {                                     // the bests per table (2.13); a table never played is left out
       while (st.firstChild) st.removeChild(st.firstChild);
-      var parts = [['span', 'Best: ' + fmt(s.best) + ' \u00B7 '], ['span', 'Highest: ' + name(s.bestTier || 1)]];
+      var modes = cfg().MODE_LIST || ['easy', 'normal', 'hard'], parts = [['span', 'Best: ']], n = 0;
+      modes.forEach(function (m) { if (bestOf(m) > 0) parts.push(['text', ' '], ['span', (n++ ? '\u00B7 ' : '') + fmt(bestOf(m)) + ' ' + modeName(m)]); });   // a span per table: the line wraps between tables
+      if (n) parts.push(['br', '']); else parts[0][1] = 'Best: 0 \u00B7 ';
+      parts.push(['span', 'Highest: ' + name(s.bestTier || 1)]);
       if ((s.wins | 0) > 0) parts.push(['br', ''], ['b', 'Sangrias mixed: ' + fmt(s.wins)]);
-      parts.forEach(function (p) { var n = doc.createElement(p[0]); n.textContent = p[1]; st.appendChild(n); });
+      parts.forEach(function (p) { var n = p[0] === 'text' ? doc.createTextNode(p[1]) : doc.createElement(p[0]); if (p[0] !== 'text') n.textContent = p[1]; st.appendChild(n); });
     }
     setCredit(null);
     fillIcons();
@@ -176,31 +186,33 @@
   function fillIcons() {
     var row = $('title-icons');
     if (!row) return;
-    var S = lay ? lay.S : (root.innerWidth || 390), w = Math.max(18, Math.min(40, Math.floor((S - 32 - 24) / 9) - 2));
+    var L = ladder(), n = L.length, i, t;
+    var S = lay ? lay.S : (root.innerWidth || 390), w = Math.max(18, Math.min(40, Math.floor((S - 32 - 24) / n) - 2));
     var h = Math.round(Math.min(44, w * 1.3)), ever = everMask();
-    if (row.children.length !== 9) {
+    if (row.children.length !== n) {
       while (row.firstChild) row.removeChild(row.firstChild);
-      for (var i = 0; i < 9; i++) row.appendChild(doc.createElement('canvas'));
+      for (i = 0; i < n; i++) row.appendChild(doc.createElement('canvas'));
     }
-    for (var t = 1; t <= 9; t++) {
-      var c = row.children[t - 1];
-      c.style.animationDelay = (-(9 - t) * 0.12).toFixed(2) + 's';
+    for (i = 0; i < n; i++) {
+      t = L[i];
+      var c = row.children[i];
+      c.style.animationDelay = (-(n - 1 - i) * 0.12).toFixed(2) + 's';
       icon(c, w, h, t, (ever & (1 << (t - 1))) ? 'run' : 'none');
     }
   }
   function fillScores(el, d) {
-    var g = app().game, a = app(), score = playScore(d), best = Math.max((d.best | 0) || (save().best | 0), score);
+    var g = app().game, a = app(), score = playScore(d), m = modeOf(d), best = Math.max(bestOf(m), score);
     var base = a.bestAtRunStart | 0;
     var nb = typeof d.newBest === 'boolean' ? d.newBest : (score > base && base > 0);
     setText('.js-score', el, 'Score ' + fmt(score));
-    setText('.js-best', el, 'Best ' + fmt(best));
+    setText('.js-best', el, 'Best ' + fmt(best) + ' \u00B7 ' + modeName(m));     // the best of this table only (2.13)
     qa('.js-newbest', el).forEach(function (n) { n.hidden = !nb; });
     return g;
   }
   function fillWin(d) {
     var el = sec('win'), c = $('win-jug-c'), art = CM.art;
     fillScores(el, d);
-    if (root.Arcade) root.Arcade.share.set({ line: 'Sangria Verde mixed! Score ' + fmt(playScore(d)) });
+    if (root.Arcade) root.Arcade.share.set({ line: 'Sangria Verde mixed! Score ' + fmt(playScore(d)) + ' on ' + modeName(modeOf(d)) });
     if (!c || !art || !art.paintTier) return;
     var w = 120, h = 150, dd = dpr(), ctx;
     c.style.width = w + 'px'; c.style.height = h + 'px'; c.width = w * dd; c.height = h * dd;
@@ -216,11 +228,11 @@
     var el = sec('over'), g = fillScores(el, d), t = d.highestTier || (g && g.highestTier) || 1;
     if ($('over-icon-c')) icon($('over-icon-c'), 40, 40, t, 'run');
     if ($('over-name')) $('over-name').textContent = name(t);
-    if (root.Arcade) root.Arcade.share.set({ line: 'Score ' + fmt(playScore(d)) + ', highest drink: ' + name(t) });
+    if (root.Arcade) root.Arcade.share.set({ line: 'Score ' + fmt(playScore(d)) + ' on ' + modeName(modeOf(d)) + ', highest drink: ' + name(t) });
   }
   function fillPause(d) {
     var el = sec('pause');
-    setText('.js-score', el, 'Score ' + fmt(playScore(d)));
+    setText('.js-score', el, 'Score ' + fmt(playScore(d)) + ' \u00B7 ' + modeName(modeOf(d)) + ' table');
     fillCollection(el.querySelector('.js-collection'));
     refreshSettings();
   }
@@ -261,15 +273,28 @@
     if (id) focusPrimary(sec(id)); else blurActive();
   }
 
+  // The chooser (2.13): every table's best; the one chosen last is the orange primary (Enter starts it).
+  function fillMode() {
+    var last = save().mode || cfg().DEFAULT_MODE || 'easy';
+    qa('#ov-mode [data-mode]').forEach(function (b) {
+      var m = b.getAttribute('data-mode'), best = bestOf(m), line = b.querySelector('.js-mode-best');
+      if (line) line.textContent = best > 0 ? 'Best ' + fmt(best) : 'No score yet';
+      b.classList.toggle('btn-primary', m === last); b.classList.toggle('btn-secondary', m !== last);
+      if (m === last) b.setAttribute('data-primary', ''); else b.removeAttribute('data-primary');
+    });
+  }
+  /** openSheet(name) -> boolean: name in howto, settings, collection, mode. */
   function openSheet(nm) {
-    if (SHEETS.indexOf(nm) < 0) return;
+    if (SHEETS.indexOf(nm) < 0 || !sec(nm)) return false;
     closeSheet(true);
     var el = sec(nm);
     if (nm === 'collection') fillCollection(el.querySelector('.js-collection'));
     if (nm === 'settings') { setCredit(el); refreshSettings(); }
+    if (nm === 'mode') fillMode();
     if (current && sec(current)) sec(current).setAttribute('inert', '');
     show(el, true); sheet = nm; openedAt = now();
     focusPrimary(el);
+    return true;
   }
   function closeSheet(silent) {
     if (!sheet) return;
@@ -300,10 +325,12 @@
   function act(a, btn) {
     if (btn && btn.hasAttribute('data-arm') && needsArm(a) && armedBtn !== btn) { arm(btn); return; }
     disarm();
+    if (START_ACTS[a] && sec('mode')) { openSheet('mode'); return; }   // every new game asks for the table first (2.13)
     switch (a) {
       case 'play': call('onPlay'); break;
       case 'continue': call('onContinue'); break;
       case 'newgame': case 'newgame-win': call('onNewGame'); break;
+      case 'mode': closeSheet(true); call('onNewGame', btn ? btn.getAttribute('data-mode') : undefined); break;
       case 'resume': call('onResume'); break;
       case 'restart': case 'restart-oops': call('onRestart'); break;
       case 'quit': call('onQuit'); break;
@@ -330,9 +357,16 @@
 
   /** keyAction(code) -> boolean: the overlay keys of 3.6 / 5.7 outside PLAY (called by ui/input.js). */
   function keyAction(code) {
-    var esc = code === 'Escape', enter = code === 'Enter', r = code === 'KeyR', p = code === 'KeyP';
+    var esc = code === 'Escape', enter = code === 'Enter', r = code === 'KeyR', p = code === 'KeyP', b;
+    if (sheet === 'mode') {                                // Enter = the preselected table, 1 / 2 / 3 = easy / normal / hard
+      var digit = /^(Digit|Numpad)([123])$/.exec(code), list = qa('#ov-mode [data-mode]');
+      if (esc) { closeSheet(false); return true; }
+      if (digit && (b = list[+digit[2] - 1])) { act('mode', b); return true; }
+      if (enter && (b = primary(sec('mode')))) { act('mode', b); return true; }
+      return false;
+    }
     if (sheet) { if (esc || enter) { closeSheet(false); return true; } return false; }
-    var el = current && sec(current), b;
+    var el = current && sec(current);
     switch (current) {
       case 'title': if (enter && (b = primary(el))) { act(b.getAttribute('data-act'), b); return true; } return false;
       case 'pause':

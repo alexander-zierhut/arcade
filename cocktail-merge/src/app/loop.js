@@ -65,7 +65,7 @@
     try {
       var st = CM.ui && CM.ui.storage;
       if (st && ctx.save) {
-        if (ctx.game && ctx.game.score > ctx.save.best) ctx.save.best = ctx.game.score;
+        if (ctx.game) CM.game.recordScore(ctx.save, ctx.game.mode, ctx.game.score);
         guard('storage', st.save, ctx.save);
       }
       if (st) guard('storage', st.clearRun);

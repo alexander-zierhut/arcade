@@ -25,7 +25,7 @@ var play = require('./play.js');
 var ROOT = path.resolve(__dirname, '..', '..');
 var PAGE = process.env.SMOKE_PAGE ? path.resolve(process.env.SMOKE_PAGE) : path.join(ROOT, 'index.html');
 var OUT_DIR = process.env.SMOKE_OUT ? path.resolve(process.env.SMOKE_OUT) : path.join(ROOT, 'docs', 'preview');
-var OPTIONAL_ASSET = /assets\/tier-[1-9]\.png/;
+var OPTIONAL_ASSET = /assets\/tier-(?:[1-9]|10)\.png/;
 var LAUNCHES = 30, LAUNCH_GAP_MS = 650;
 var LONG_DEDICATION = 'For Reem, with all my love and a whole summer of sunny afternoons,\n' +
   'salty air, warm sand and the best cocktails on the beach.\nCheers to us, today and always!';
@@ -168,6 +168,10 @@ async function mainFlow(browser) {
     fail('no visible "Play" button on the title');
     await page.evaluate(function () { window.CM.app.newGame(); });
   }
+  // Play opens the mode chooser (2.13): Easy, the pre-1.2.0 default table.
+  var easy = await findButton(page, /^\s*easy\b/i);
+  if (easy) { await sleep(300); await easy.click({ timeout: 5000 }); ok('the mode chooser opened; chose Easy'); }
+  else fail('no visible "Easy" button in the mode chooser');
   if (!(await waitState(page, 'PLAY', 5000))) { fail('Play did not enter PLAY'); reportErrors('main', errors); await context.close(); return; }
   ok('Play entered PLAY');
   await sleep(400);                                     // past the 250 ms input guard

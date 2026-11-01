@@ -71,7 +71,8 @@ The title runs an attract game behind the overlay. A run snapshot is saved every
 ## Persistence (ui/storage.js, game/save.js)
 
 One localStorage key `cocktailMerge.v1` holds `{best, bestTier, wins, discovered (bitmask), muted, music,
-ambience, relaxed, showNumbers, lowGfx}`; the run snapshot has its own key. Everything is per origin, so
+ambience, relaxed, showNumbers, lowGfx, mode, bests: {easy, normal, hard}}` (`best` is the best over all tables, `relaxed`
+mirrors `mode === 'easy'` for a downgrade); the run snapshot has its own key. Everything is per origin, so
 `file://` and the S3 URL keep separate records. All access is in try/catch with an in-memory fallback.
 
 ## Tests

@@ -88,9 +88,10 @@
     // 2. opening
     if (g.spawnCount < OPENING) return record(g, 1);
     // 3. progressive unlock (tiers 1-4 follow highestTier; tier 5 comes only from a reached STAGE)
-    var cap = clamp(g.highestTier, MIN_CAP, UNLOCK_TOP);
+    var hi = (g.rules && g.rules.RANK) ? g.rules.RANK[g.highestTier] : g.highestTier;   // progress = rank on the mode's ladder (2.13)
+    var cap = clamp(hi, MIN_CAP, UNLOCK_TOP);
     var shift = (g.rules && typeof g.rules.STAGE_SHIFT === 'number') ? g.rules.STAGE_SHIFT : 0;
-    var w = stageWeights(g.highestTier + shift);        // Standard reaches each stage one tier earlier (2.13)
+    var w = stageWeights(hi + shift);                   // Normal and Hard reach each stage one rank earlier (2.13)
     for (var k = cap + 1; k <= UNLOCK_TOP; k++) w[k] = 0;
     // 4. draw
     var t = pickWeighted(w, rngNext(g));

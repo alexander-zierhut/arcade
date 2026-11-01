@@ -25,7 +25,7 @@
   var fp = { X: 0, Y: 0, rx: 0, ry: 0 }, pt = { X: 0, Y: 0 }, lk = {}, gs = {};
   var items = [], order = [], nItems = 0;
   var own = { cap: 2, sum: 0, n: 0, t0: 0 };
-  var fonts = [], DIGITS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+  var fonts = [];
 
   function clock() { return (root.performance && root.performance.now) ? root.performance.now() : Date.now(); }
   function newCanvas(w, h) { var c = root.document.createElement('canvas'); c.width = Math.max(1, Math.ceil(w)); c.height = Math.max(1, Math.ceil(h)); return c; }
@@ -76,7 +76,7 @@
   function headroom(radii) {
     head.lay = lay; head.radii = radii;
     var lim = Math.max(lay.hud ? lay.hud.bottom : 0, 0.105 * lay.H + 9 * uK) + 4, top = Infinity, t, R, b;
-    for (t = 1; t <= 9; t++) {
+    for (t = 1; t < ((CM.config && CM.config.TIERS) || []).length; t++) {
       R = radiusOf(radii, t); b = art.spriteBounds ? art.spriteBounds(t, false) : art.glass.spriteBox(t);
       P.footprint(lay, 50, R, R, fp);
       top = Math.min(top, fp.Y - b.ay * R * lay.kX * P.scaleAt(R));
@@ -228,13 +228,13 @@
     ctx.restore();
   }
   function rpxOf(it) { return it.r * lay.kX * P.scaleAt(it.y) * it.pop; }
-  function numberDisc(it) {         // optional tier numbers (4.3): cream disc at anchor offset (0.6, -0.25) * Rpx
+  function numberDisc(it, n) {      // optional tier numbers (4.3): cream disc at anchor offset (0.6, -0.25) * Rpx; n = rank on the ladder
     var R = rpxOf(it), d = Math.max(18, 0.7 * R), x = it.X + it.offPx + 0.6 * R, y = it.Y - 0.25 * R;
     ctx.beginPath(); ctx.arc(x, y, d / 2, 0, TAU); ctx.fillStyle = '#FFF3D6'; ctx.fill();
     ctx.lineWidth = 1.5; ctx.strokeStyle = '#7A4A22'; ctx.stroke();
     var px = Math.round(Math.max(13, 0.5 * d));
     ctx.fillStyle = '#7A4A22'; ctx.font = fonts[px] || (fonts[px] = '800 ' + px + 'px ' + fx.FONT);
-    ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(DIGITS[it.tier], x, y + 0.5);
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(String(n), x, y + 0.5);
   }
   function aura(it, t) {             // jug aura (3.8): yellow-gold radial behind every T9, pulsing 1 +- 0.06 at 1 Hz
     if (!C.aura) {
@@ -271,7 +271,7 @@
     for (i = 0; i < order.length; i++) {
       it = order[i]; sp = spr[it.tier]; if (!sp) continue;
       drawSprite(sp, it.X + it.offPx, it.Y, it.r * lay.kX * P.scaleAt(it.y) * it.pop / sp.rp, it.sq, it.rot, it.alpha, it.flash, it.red);
-      if (show && it.kind !== 1) numberDisc(it);
+      if (show && it.kind !== 1) numberDisc(it, ru.RANK ? ru.RANK[it.tier] : it.tier);
     }
     if (launcher && (sp = spr[launcher.tier])) {                         // 7. line through the launcher, badge, hint
       var sc = launcher.r * lay.kX * P.scaleAt(launcher.y) * launcher.pop / sp.rp;

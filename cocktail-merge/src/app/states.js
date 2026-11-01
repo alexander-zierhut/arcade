@@ -21,6 +21,8 @@
   function now() { return CM.app.now(); }
   function bgApi() { return CM.art && CM.art.backgrounds; }
   function tierName(t) { var T = C.TIERS[t]; return T ? T.name : ''; }
+  function modeName(m) { return (C.MODE_NAMES && C.MODE_NAMES[m]) || m || ''; }
+  function bestFor(s, m) { return (CM.game.bestFor && s) ? CM.game.bestFor(s, m) : ((s && s.best) || 0); }
 
   function coarse() {
     try { return !!(root.matchMedia && root.matchMedia('(pointer: coarse)').matches); } catch (e) { return false; }
@@ -64,9 +66,10 @@
 
   // Everything an overlay might show; the ui picks what it needs.
   function overlayData(name) {
-    var c = ctx(), s = c.save || {}, g = c.game, d = {
+    var c = ctx(), s = c.save || {}, g = c.game, mode = g ? g.mode : (s.mode || C.DEFAULT_MODE), d = {
       state: name, save: s, game: g, lay: c.lay, coarse: coarse(),
-      best: s.best || 0, wins: s.wins || 0, bestTier: s.bestTier || 1, highestName: tierName(s.bestTier || 1),
+      mode: mode, modeName: modeName(mode),                          // the game's mode (2.13); on the title the one chosen last
+      best: bestFor(s, mode), bests: s.bests || {}, wins: s.wins || 0, bestTier: s.bestTier || 1, highestName: tierName(s.bestTier || 1),
       score: g ? g.score : 0, newBest: !!(g && c.bestAtRunStart > 0 && g.score > c.bestAtRunStart)
     };
     if (name === 'TITLE') {
@@ -201,23 +204,28 @@
     guard('fx', CM.render && CM.render.setZoom, 1, null, 0);
   }
 
-  // newGame(seed?) (5.7): mode from save.relaxed, bestAtRunStart, runMask ORed into discovered,
-  // the stored run cleared, fx cleared, a new background scene.
-  function newGame(seed) {
+  // newGame(seed?, mode?) (5.7): the mode from the chooser (else the one chosen last, save.mode; 2.13), which is
+  // remembered, bestAtRunStart (that mode's best), runMask ORed into discovered, the stored run cleared, fx
+  // cleared, a new background scene, and the layout redone when the strip gets more or fewer slots.
+  function newGame(seed, mode) {
     var c = ctx(), s = c.save;
     var sd = (typeof seed === 'number' && isFinite(seed)) ? (seed >>> 0)
       : (urlSeed() !== null ? urlSeed() : ((Date.now() ^ 0x9E3779B9) >>> 0));
-    var g = CM.game.createGame(sd, { mode: (s && s.relaxed === false) ? 'standard' : 'relaxed' });
+    var m = CM.game.canonicalMode(mode) || (s && CM.game.canonicalMode(s.mode)) || C.DEFAULT_MODE || 'easy';
+    var g = CM.game.createGame(sd, { mode: m });
     if (CM.app.scenario) guard('scenario', CM.app.scenario, g);   // ?scenario=jugs|fiesta|bomb|full (app/scenarios.js)
+    var prevSlots = c.game ? c.game.rules.LADDER.length : 0;
     c.game = g;
-    c.bestAtRunStart = s ? s.best : 0;
+    if (s) { s.mode = m; s.relaxed = m === 'easy'; }
+    c.bestAtRunStart = bestFor(s, m);
     c.newBestShown = false;
-    if (s) s.discovered = (s.discovered | g.runMask) & 0x1FF;
+    if (s) s.discovered = (s.discovered | g.runMask) & ((1 << (C.TIERS.length - 1)) - 1);   // 10 tiers
     CM.app.writeSave();
     CM.app.clearRun();
     resetPresentation();
     pickPlayScene();
     c.runSavedAtMs = now();
+    if (prevSlots !== g.rules.LADDER.length) guard('main', CM.main && CM.main.relayout);
     setState('PLAY');
     return g;
   }
@@ -226,11 +234,12 @@
   function continueRun() {
     var c = ctx(), run = savedRun();
     if (!run) { setState('TITLE'); return false; }
-    var meta = run.record.meta || {};
+    var meta = run.record.meta || {}, prevSlots = c.game ? c.game.rules.LADDER.length : 0;
     c.game = run.game;
-    c.bestAtRunStart = typeof meta.bestAtRunStart === 'number' ? meta.bestAtRunStart : (c.save ? c.save.best : 0);
+    c.bestAtRunStart = typeof meta.bestAtRunStart === 'number' ? meta.bestAtRunStart : bestFor(c.save, run.game.mode);
     c.newBestShown = !!meta.newBestShown;
     resetPresentation();
+    if (prevSlots !== run.game.rules.LADDER.length) guard('main', CM.main && CM.main.relayout);
     if (meta.bgKey && typeof meta.bgKey === 'string') c.playBgKey = meta.bgKey;
     else pickPlayScene();
     c.runSavedAtMs = now();
@@ -308,12 +317,17 @@
     else if (s === 'OVER_MENU' && key !== 'p' && key !== 'P') quitToTitle();
   }
 
-  // R: armed in PAUSE when the score > 0; immediate in WIN_MENU and OVER_MENU (3.5, 3.6).
+  // R: armed in PAUSE when the score > 0; immediate in WIN_MENU and OVER_MENU (3.5, 3.6). Like the buttons it
+  // opens the mode chooser (2.13); a ui without one starts the mode chosen last.
+  function chooseMode() {
+    if (CM.ui && typeof CM.ui.openSheet === 'function' && CM.ui.openSheet('mode')) return;
+    newGame();
+  }
   function keyRestart() {
     var c = ctx(), s = c.state, t = now();
-    if (s === 'WIN_MENU' || s === 'OVER_MENU') { newGame(); return; }
+    if (s === 'WIN_MENU' || s === 'OVER_MENU') { chooseMode(); return; }
     if (s !== 'PAUSE') return;
-    if (!c.game || c.game.score <= 0 || t < (c.armedUntilMs || 0)) { newGame(); return; }
+    if (!c.game || c.game.score <= 0 || t < (c.armedUntilMs || 0)) { chooseMode(); return; }
     c.armedUntilMs = t + APP.ARM_MS;
     guard('overlays', CM.ui && CM.ui.armRestart);
   }

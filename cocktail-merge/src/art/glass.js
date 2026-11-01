@@ -14,7 +14,7 @@
     block: 'rgba(230,250,255,0.5)'
   };
   // Sprite bounds (4.2): anchor coordinates x in [-1.45, 1.45], y in [-TOPA[t], +0.6]; T8/T9 add 0.2 glow padding.
-  var TOPA = [0, 1.95, 1.85, 1.95, 2.50, 2.10, 2.90, 3.55, 2.75, 2.75];   // T4 Mojito highball (x0.86), T5 Margarita coupe (x1.08)
+  var TOPA = [0, 1.95, 1.85, 1.95, 2.50, 2.10, 2.90, 3.55, 2.75, 2.75, 2.75];   // T4 Mojito highball (x0.86), T5 Margarita coupe (x1.08); T10 set by its painter's author
   var X_HALF = 1.45, Y_BOTTOM = 0.6, GLOW_PAD = 0.2;
 
   /** Seeded RNG (mulberry32). Returns a function giving floats in [0, 1). */
@@ -61,7 +61,7 @@
   function cacheRp(R, kX, dpr) { return Math.min(220, Math.ceil(R * kX * dpr * 1.15)); }
   /** Sprite rect in R-units for tier t: {ax, ay, w, h, pad}; (ax, ay) is the anchor offset from the top-left. */
   function spriteBox(t) {
-    var pad = t >= 8 ? GLOW_PAD : 0;
+    var pad = (t === 8 || t === 9) ? GLOW_PAD : 0;      // the glow tiers (sprites.js GLOW); the Punch (10) has none
     return { ax: X_HALF + pad, ay: TOPA[t] + pad, w: 2 * X_HALF + 2 * pad, h: TOPA[t] + Y_BOTTOM + 2 * pad, pad: pad };
   }
   /**

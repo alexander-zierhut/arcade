@@ -42,17 +42,17 @@
     if (st) guard('storage', st.clearRun);
   }
 
-  // 2.11: the live best follows the score; while the score is a new best the save is written at most
-  // once per 2 s. The "NEW BEST!" badge and ctx.newBestShown belong to ui/hud.js (setHud).
+  // 2.11: the live best (of the game's mode, 2.13) follows the score; while the score is a new best the save is
+  // written at most once per 2 s. The "NEW BEST!" badge and ctx.newBestShown belong to ui/hud.js (setHud).
   function trackBest(g) {
     var c = ctx(), s = c.save;
     if (!s || !g) return;
-    if (g.score > s.best) {
-      s.best = g.score;
+    if (CM.game.recordScore(s, g.mode, g.score)) {
       var t = CM.app.now();
       if (t - lastBestWriteMs >= BEST_WRITE_GAP_MS) { lastBestWriteMs = t; writeSave(); }
     }
   }
+  function higher(a, b) { return CM.game.rankOf ? (CM.game.rankOf(b) > CM.game.rankOf(a) ? b : a) : Math.max(a, b); }
 
   function routePlay(events) {
     var c = ctx(), g = c.game, s = c.save, i, e;
@@ -73,13 +73,13 @@
         switch (e.type) {
           case 'merge':
             hudDirty = true;
-            if (HIT_STOP_MS[e.tier] > c.hitStopMs) c.hitStopMs = HIT_STOP_MS[e.tier];   // 3.8 hit-stop
+            if (HIT_STOP_MS[e.tier] > c.hitStopMs) c.hitStopMs = HIT_STOP_MS[e.tier];   // 3.8 hit-stop (per drink)
             break;
           case 'discover':
             hudDirty = true;
             if (s) {
-              s.discovered = (s.discovered | (1 << (e.tier - 1))) & 0x1FF;
-              if (e.tier > s.bestTier) s.bestTier = e.tier;
+              s.discovered = (s.discovered | (1 << (e.tier - 1))) & 0x3FF;
+              s.bestTier = higher(s.bestTier, e.tier);
               wroteSave = true;
             }
             break;
@@ -92,15 +92,15 @@
       trackBest(g);
       if (hasWin && s) {                         // saved synchronously on the event (5.7, 2.11)
         s.wins += 1;
-        s.discovered = (s.discovered | (1 << 8)) & 0x1FF;
-        if (s.bestTier < 9) s.bestTier = 9;
-        if (g.score > s.best) s.best = g.score;
+        s.discovered = (s.discovered | (1 << (g.rules.TOP - 1))) & 0x3FF;
+        s.bestTier = higher(s.bestTier, g.rules.TOP);
+        CM.game.recordScore(s, g.mode, g.score);
         writeSave();
         storeRun();
         wroteSave = false;
       }
       if (hasLose && s) {
-        if (g.score > s.best) s.best = g.score;
+        CM.game.recordScore(s, g.mode, g.score);
         writeSave();
         clearRun();
         wroteSave = false;

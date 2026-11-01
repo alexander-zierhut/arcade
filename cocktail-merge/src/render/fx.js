@@ -112,9 +112,9 @@
     return true;
   }
   function ring(x, y, r, col, t0) { var o = take(rings, st.r); o.x = x; o.y = y; o.r = r; o.col = col; o.t0 = t0; }
-  function burst(tier, X, Y, t) {
+  function burst(tier, X, Y, t, rank) {   // the drink's particles (id), as many as its size says (rank, default the id)
     var defs = (CM.art && CM.art.tiers && CM.art.tiers[tier] && CM.art.tiers[tier].particles) || [{ shape: 'circle', color: keyColor(tier) }];
-    var n = Math.min(v('PARTICLES_MAX', 26), v('PARTICLES_BASE', 8) + v('PARTICLES_PER_TIER', 2) * tier), i, p, d, a, sp;
+    var n = Math.min(v('PARTICLES_MAX', 26), v('PARTICLES_BASE', 8) + v('PARTICLES_PER_TIER', 2) * (rank || tier)), i, p, d, a, sp;
     if (reduced()) n = Math.ceil(n / 2);
     if (CM.app && CM.app.ctx && CM.app.ctx.lowFx) n = Math.ceil(n / 2);
     for (i = 0; i < n; i++) {
@@ -200,16 +200,17 @@
     }
   }
   function merge(g, e, t) {
-    var sa = bodies.get(e.a), sb = bodies.get(e.b), rp = R(e.tier - 1), rc = R(e.tier), k = uK, p, top;
-    ghost(e.tier - 1, e.ax, e.ay, e.x, e.y, rp, v('GHOST_MS', 90), v('GHOST_SCALE', 0.7), sa, t);
-    ghost(e.tier - 1, e.bx, e.by, e.x, e.y, rp, v('GHOST_MS', 90), v('GHOST_SCALE', 0.7), sb, t);
+    var sa = bodies.get(e.a), sb = bodies.get(e.b), rk = e.rank || e.tier, prev = (g && g.rules && g.rules.LADDER) ? g.rules.LADDER[rk - 2] : e.tier - 1;
+    var rp = R(prev), rc = R(e.tier), k = uK, p, top;
+    ghost(prev, e.ax, e.ay, e.x, e.y, rp, v('GHOST_MS', 90), v('GHOST_SCALE', 0.7), sa, t);
+    ghost(prev, e.bx, e.by, e.x, e.y, rp, v('GHOST_MS', 90), v('GHOST_SCALE', 0.7), sb, t);
     bodies.delete(e.a); bodies.delete(e.b);
     var s = B(e.id); s.popT0 = t; s.flashT0 = t; s.sq = 0; s.sqv = 0; s.wobA = 0;
     ring(e.x, e.y, rc, keyColor(e.tier), t);
-    if (e.tier >= v('RING2_MIN_TIER', 6)) ring(e.x, e.y, rc, e.tier === 9 ? '#FFD23F' : '#FFFFFF', t + v('RING2_DELAY_MS', 80));
+    if (rk >= v('RING2_MIN_TIER', 6)) ring(e.x, e.y, rc, e.tier === 9 ? '#FFD23F' : '#FFFFFF', t + v('RING2_DELAY_MS', 80));
     p = proj(e.x, e.y); var cy = p.Y - 0.9 * rpx(e.x, e.y, rc);
-    burst(e.tier, p.X, cy, t);
-    if (e.tier >= 7) { var r = take(rays, st.y); r.x = e.x; r.y = e.y; r.r = rc; r.t0 = t; r.ms = v('RAYS_MS', 600); r.win = e.tier === 9; }
+    burst(e.tier, p.X, cy, t, rk);
+    if (rk >= 7) { var r = take(rays, st.y); r.x = e.x; r.y = e.y; r.r = rc; r.t0 = t; r.ms = v('RAYS_MS', 600); r.win = e.tier === 9; }
     top = anchorTop(e.tier, e.x, e.y, rc);
     if (e.points > 0) text(0, '+' + e.points, '', p.X, top, Math.max(v('FLOATER_MIN_PX', 13), v('FLOATER_PX', 16) * k), t);
     if (e.depth >= 2) {
@@ -219,7 +220,7 @@
     }
     var sh = (F.SHAKE_BY_TIER || [])[e.tier] || 0;
     if (sh) shake(Math.min(v('SHAKE_MAX', 9), sh + Math.max(0, e.depth - 2)));
-    if (e.tier >= v('COIN_FLY_MIN_TIER', 5)) coinsFrom(p.X, cy, Math.min(v('COIN_FLY_MAX', 6), 3 + e.tier - 5), t);
+    if (rk >= v('COIN_FLY_MIN_TIER', 5)) coinsFrom(p.X, cy, Math.min(v('COIN_FLY_MAX', 6), 3 + rk - 5), t);
   }
   function coinsFrom(X, Y, n, t) {
     var sx = view.Z * X + view.Tx, sy = view.Z * Y + view.Ty, i, c;     // world -> screen now
@@ -229,7 +230,7 @@
     }
   }
   function jug(g, e, t) {
-    var r9 = R(9), sa = bodies.get(e.a), sb = bodies.get(e.b), p = proj(e.x, e.y), k = uK;
+    var r9 = R(e.tier || 9), sa = bodies.get(e.a), sb = bodies.get(e.b), p = proj(e.x, e.y), k = uK;
     ghost(9, sa && sa.seen ? sa.x : e.x - r9, sa && sa.seen ? sa.y : e.y, e.x, e.y, r9, v('FIESTA_GHOST_MS', 250), 0, sa, t);
     ghost(9, sb && sb.seen ? sb.x : e.x + r9, sb && sb.seen ? sb.y : e.y, e.x, e.y, r9, v('FIESTA_GHOST_MS', 250), 0, sb, t);
     bodies.delete(e.a); bodies.delete(e.b);

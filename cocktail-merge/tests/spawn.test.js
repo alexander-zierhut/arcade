@@ -274,15 +274,16 @@ test('botAim: prefers a same-tier target and stays inside the aim bounds', funct
 // ---------- 45 / 46. Saves ----------
 test('45 normalizeSave: garbage yields defaults; valid values preserved', function () {
   var D = { v: 1, best: 0, bestTier: 1, muted: false, ambience: false, music: true, showNumbers: false,
-            relaxed: true, lowGfx: false, wins: 0, discovered: 0 };
+            relaxed: true, lowGfx: false, wins: 0, discovered: 0, mode: 'easy', bests: { easy: 0, normal: 0, hard: 0 } };
   assert.deepStrictEqual(save.normalizeSave('{'), D);
   assert.deepStrictEqual(save.normalizeSave(null), D);
   assert.deepStrictEqual(save.normalizeSave({ best: -5 }), D);
   assert.deepStrictEqual(save.normalizeSave({ best: 'x' }), D);
-  assert.strictEqual(save.normalizeSave({ discovered: 1e9 }).discovered, (1e9 >>> 0) & 0x1FF);
-  assert.ok(save.normalizeSave({ discovered: 1e9 }).discovered <= 0x1FF);
+  assert.strictEqual(save.normalizeSave({ discovered: 1e9 }).discovered, (1e9 >>> 0) & 0x3FF);
+  assert.ok(save.normalizeSave({ discovered: 1e9 }).discovered <= 0x3FF);
   assert.strictEqual(save.normalizeSave({ bestTier: 12 }).bestTier, 1);
-  assert.strictEqual(save.normalizeSave({ discovered: -1 }).discovered, 0, 'a negative mask is garbage, not 0x1FF');
+  assert.strictEqual(save.normalizeSave({ bestTier: 10 }).bestTier, 10);
+  assert.strictEqual(save.normalizeSave({ discovered: -1 }).discovered, 0, 'a negative mask is garbage, not 0x3FF');
   assert.strictEqual(save.normalizeSave({ discovered: '31' }).discovered, 0);
   assert.strictEqual(save.normalizeSave({ discovered: 2.5 }).discovered, 0);
   var s = save.normalizeSave({ v: 1, best: 1234, muted: true, wins: 2, discovered: 31, relaxed: false });
@@ -291,6 +292,15 @@ test('45 normalizeSave: garbage yields defaults; valid values preserved', functi
   assert.strictEqual(s.wins, 2);
   assert.strictEqual(s.discovered, 31);
   assert.strictEqual(s.relaxed, false);
+  assert.strictEqual(s.mode, 'normal', 'a pre-1.2.0 save with the Relaxed switch off was playing Normal');
+  assert.deepStrictEqual(s.bests, { easy: 0, normal: 1234, hard: 0 }, 'its single best becomes that mode\'s best');
+  var e = save.normalizeSave({ v: 1, best: 777, relaxed: true });
+  assert.deepStrictEqual([e.mode, e.bests.easy, e.best], ['easy', 777, 777], 'relaxed on (the default) was Easy');
+  var n = save.normalizeSave({ v: 1, best: 0, mode: 'hard', bests: { easy: 5, normal: 9, hard: 7 } });
+  assert.deepStrictEqual([n.mode, n.best, n.bests], ['hard', 9, { easy: 5, normal: 9, hard: 7 }], 'best is the max over the modes');
+  assert.strictEqual(save.normalizeSave({ mode: 'relaxed' }).mode, 'easy', 'old mode names map');
+  assert.strictEqual(save.normalizeSave({ mode: 'brutal' }).mode, 'easy', 'an unknown mode is the default');
+  assert.strictEqual(save.normalizeSave({ bests: { hard: -3, easy: '9' } }).bests.hard, 0, 'garbage bests are 0');
   assert.strictEqual(s.ambience, false);   // default off (owner)
   assert.strictEqual(save.normalizeSave(JSON.stringify({ v: 7, best: 50 })).best, 50);
   assert.strictEqual(save.normalizeSave({ v: 7 }).v, 1);
@@ -308,6 +318,14 @@ test('46 mergeSave: records take the max, discovered ORed, settings from next', 
   assert.strictEqual(m.ambience, false);
   assert.strictEqual(m.showNumbers, true);
   assert.strictEqual(m.relaxed, false);
+  assert.strictEqual(m.mode, 'normal');
+  assert.deepStrictEqual(m.bests, { easy: 900, normal: 500, hard: 0 }, 'two pre-1.2.0 saves: each best lands in its own mode');
+  var p = save.mergeSave({ bests: { easy: 10, normal: 20, hard: 30 }, bestTier: 10 }, { bests: { easy: 15, normal: 5, hard: 0 }, bestTier: 9, mode: 'hard' });
+  assert.deepStrictEqual([p.bests, p.best, p.bestTier], [{ easy: 15, normal: 20, hard: 30 }, 30, 9], 'per-mode max; the jug outranks the punch');
+  var s2 = { bests: { easy: 1, normal: 2, hard: 3 }, best: 3 };
+  assert.strictEqual(save.recordScore(s2, 'normal', 7), true); assert.deepStrictEqual([s2.bests.normal, s2.best], [7, 7]);
+  assert.strictEqual(save.recordScore(s2, 'hard', 2), false); assert.strictEqual(save.bestFor(s2, 'hard'), 3);
+  assert.strictEqual(save.bestFor(s2, 'relaxed'), 1);
 });
 
 // ---------- 41 / 42. Replay, hash, snapshot ----------

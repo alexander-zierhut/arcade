@@ -5,6 +5,7 @@
 var assert = require('assert');
 var H = require('./helpers.js');
 var G = require('../src/game/game.js');
+var C = require('../src/config.js');
 
 var newGame = H.newGame, stepN = H.stepN, place = H.place, ofType = H.ofType;
 var eq = assert.strictEqual, deq = assert.deepStrictEqual, ok = assert.ok;
@@ -36,6 +37,33 @@ test('merge bookkeeping: discover after merge, runMask and highestTier', functio
   place(g, 1, 20, 140); place(g, 1, 20 + 2 * R(g, 1), 140);            // a second T2: no discover
   ev = G.tick(g);
   eq(ofType(ev, 'merge').length, 1); eq(ofType(ev, 'discover').length, 0);
+});
+
+test('2.13 Hard ladder: two Margaritas make the Punch, two Punches the Sunrise; the jug is still the win', function () {
+  var g = newGame(3, { mode: 'hard', PULL: 0 }), R = g.rules.RADII;
+  H.place(g, 5, 30, 30, 0, 0, { age: 300 }); H.place(g, 5, 30 + 2 * R[5], 30, 0, 0, { age: 300 });
+  var ev = H.ofType(G.tick(g), 'merge');
+  eq(ev.length, 1); eq(ev[0].tier, 10); eq(ev[0].rank, 6); eq(ev[0].points, C.TIERS[10].points);
+  eq(g.highestTier, 10); eq(g.runMask & 0x200, 0x200);
+  H.stepN(g, 30);
+  H.place(g, 10, 70, 60, 0, 0, { age: 300 }); H.place(g, 10, 70 - 2 * R[10], 60, 0, 0, { age: 300 });
+  ev = H.ofType(G.tick(g), 'merge');
+  eq(ev.length, 1); eq(ev[0].tier, 6); eq(ev[0].rank, 7);
+  eq(g.highestTier, 6, 'the Sunrise outranks the Punch on this ladder');
+  g = newGame(4, { mode: 'hard', PULL: 0 });
+  H.place(g, 8, 30, 30, 0, 0, { age: 300 }); H.place(g, 8, 30 + 2 * R[8], 30, 0, 0, { age: 300 });
+  ev = G.tick(g);
+  eq(H.ofType(ev, 'win').length, 1, 'two Coconuts make the jug, the win');
+  eq(H.ofType(ev, 'merge')[0].tier, 9);
+  var e = newGame(5, { mode: 'easy', PULL: 0 });
+  H.place(e, 5, 30, 30, 0, 0, { age: 300 }); H.place(e, 5, 30 + 2 * e.rules.RADII[5], 30, 0, 0, { age: 300 });
+  eq(H.ofType(G.tick(e), 'merge')[0].tier, 6, 'Easy skips the Punch: two Margaritas make the Sunrise');
+  var n = newGame(6, { mode: 'normal', PULL: 0 });
+  eq(G.restoreGame(G.snapshot(G.createGame(1, { mode: 'hard' }))).mode, 'hard', 'a Hard run round-trips');
+  var snap = G.snapshot(n); snap.mode = 'standard';
+  eq(G.restoreGame(snap).mode, 'normal', 'a pre-1.2.0 record (standard) restores as Normal');
+  snap.mode = 'relaxed'; eq(G.restoreGame(snap).mode, 'easy', 'and relaxed as Easy');
+  eq(G.hash(G.createGame(1, { mode: 'relaxed' })), G.hash(G.createGame(1, { mode: 'easy' })), 'the hash of an old relaxed game is unchanged');
 });
 
 test('22 bonuses use the merge multiplier: depth-2 win and depth-2 jug burst', function () {

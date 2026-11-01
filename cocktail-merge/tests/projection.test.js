@@ -11,7 +11,7 @@ var VIEW = config.VIEW;
 
 function radius(t, mode) {
   if (t === 1) return config.TIERS[1].radius;
-  var scale = mode === 'relaxed' ? config.MODES.relaxed.RADIUS_SCALE : 1;
+  var scale = mode === 'easy' ? config.MODES.easy.RADIUS_SCALE : 1;
   if (typeof scale !== 'number') scale = 1;
   return config.TIERS[t].radius * scale;
 }
@@ -58,7 +58,7 @@ test('48 layout solve: stage, cNear, headroom, strip clearance, T1 size', functi
       near(lay.uiK, lay.kX / 3.4, 1e-12, tag + 'uiK');
       assert.strictEqual(lay.needsPortrait, false, tag + 'needsPortrait');
       if (vw < 500) {
-        var d = 2 * radius(1, 'standard') * lay.kX * P.scaleAt(LAUNCH_Y);
+        var d = 2 * radius(1, 'normal') * lay.kX * P.scaleAt(LAUNCH_Y);
         assert.ok(d >= 30, tag + 'T1 diameter ' + d);   // rev 4: T1 r 5.2 (smaller glasses), >= 30 px on phones
       }
     });
@@ -190,7 +190,7 @@ test('53 footprint and danger agreement', function () {
       near(fp.rx, r * lay.kX * P.scaleAt(yy), 1e-9, 'rx');
       assert.ok(fp.ry < fp.rx, 'never seen from below');
     }
-    ['standard', 'relaxed'].forEach(function (mode) {
+    ['normal', 'easy'].forEach(function (mode) {
       var DY = dangerY(mode), r5 = radius(5, mode);
       var lineY = Y(lay, DY);
       var over = P.footprint(lay, 50, DY + 0.1 - r5, r5);

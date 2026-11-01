@@ -39,6 +39,16 @@
     RUN_KEY: 'cocktailMerge.v1.run',
     RULES_VERSION: 2,
 
+    // Modes (2.13): 'easy' (the former Relaxed), 'normal' (the former Standard) and 'hard' (Normal plus the
+    // Pineapple Punch between the Margarita and the Sunrise). Saves and run records written before 1.2.0 carry the
+    // old names; MODE_ALIASES maps them. LADDER is the merge order of tier ids in Hard (every tier); the other
+    // modes skip tier 10 (RULES.LADDER). The collection and the title row show the full ladder.
+    MODE_LIST: ['easy', 'normal', 'hard'],
+    DEFAULT_MODE: 'easy',
+    MODE_ALIASES: { relaxed: 'easy', standard: 'normal' },
+    MODE_NAMES: { easy: 'Easy', normal: 'Normal', hard: 'Hard' },
+    LADDER: [1, 2, 3, 4, 5, 10, 6, 7, 8, 9],
+
     // 2.1: table units. y = 0 is the far edge (the pull points there), y = 160 the near edge.
     TABLE: { W: 100, L: 160, DANGER_Y: 130, LAUNCH_Y: 144, FRAME: 5 },
 
@@ -56,13 +66,15 @@
       GRACE_TICKS: 600, DECAY: 2, ELIGIBLE_AGE_TICKS: 288, THREAT_DIST: 5, THREAT_HOLD_TICKS: 120,
       DANGER_TICK_EVERY: 120, WIN_SUSPEND_TICKS: 720,
       WIN_BONUS: 1000, JUG_BURST: 1000, MULT_STEP: 0.5, MULT_MAX: 4, RADIUS_SCALE: 1,
-      BOMB_RADIUS: 16.5, BOMB_MAX: 3, BOMB_POINTS_PER_TIER: 5   // owner: a jug burst earns a bomb; blast diameter = a third of the table width
+      BOMB_RADIUS: 16.5, BOMB_MAX: 3, BOMB_POINTS_PER_TIER: 5,  // owner: a jug burst earns a bomb; blast diameter = a third of the table width
+      LADDER: [1, 2, 3, 4, 5, 6, 7, 8, 9]                       // merge order (tier ids) in Easy and Normal; Hard's is in MODES.hard
     },
 
     // 2.13: keys here override TABLE / RULES keys of the same name.
     MODES: {
-      standard: { DANGER_Y: 120, GRACE_TICKS: 480, STAGE_SHIFT: 1 },   // harder: closer line, 2 s grace, bigger spawns earlier
-      relaxed: { DANGER_Y: 133, GRACE_TICKS: 960, RADIUS_SCALE: 1 }   // RADIUS_SCALE set by the tuning gate (DESIGN 8 step 2, Appendix 9; rev 4)
+      easy: { DANGER_Y: 133, GRACE_TICKS: 960, RADIUS_SCALE: 1 },      // the former Relaxed; RADIUS_SCALE set by the tuning gate (DESIGN 8 step 2, Appendix 9; rev 4)
+      normal: { DANGER_Y: 120, GRACE_TICKS: 480, STAGE_SHIFT: 1 },     // the former Standard: closer line, 2 s grace, bigger spawns earlier
+      hard: { DANGER_Y: 120, GRACE_TICKS: 480, STAGE_SHIFT: 1, LADDER: [1, 2, 3, 4, 5, 10, 6, 7, 8, 9] }   // Normal plus the Pineapple Punch (one merge more to the jug)
     },
 
     // 2.7
@@ -90,7 +102,9 @@
       { id: 6, key: 'sunrise', name: 'Tequila Sunrise', radius: 11.52, points: 150, color: '#FF4F2E' },
       { id: 7, key: 'pinacolada', name: 'Piña Colada', radius: 13.28, points: 210, color: '#2EB5A8' },
       { id: 8, key: 'coconut', name: 'Coconut Cocktail', radius: 15.2, points: 280, color: '#9B5DE5' },
-      { id: 9, key: 'sangria', name: 'Sangria Verde', radius: 17.6, points: 360, color: '#0F8A5F', accent: '#FFD23F' }
+      { id: 9, key: 'sangria', name: 'Sangria Verde', radius: 17.6, points: 360, color: '#0F8A5F', accent: '#FFD23F' },
+      // Hard mode only (MODES.hard.LADDER): between the Margarita and the Sunrise. Never spawns or merges in Easy / Normal.
+      { id: 10, key: 'punch', name: 'Pineapple Punch', radius: 10.7, points: 125, color: '#FFA62B', accent: '#2E9E4F' }
     ],
 
     // 3.1 / 3.2 projection and layout.
@@ -128,8 +142,8 @@
       FIESTA_PX: 34, FIESTA_CONFETTI: 80, FIESTA_GHOST_MS: 250,
       COIN_FLY_MIN_TIER: 5, COIN_FLY_MAX: 6, COIN_STAGGER_MS: 60, COIN_FLY_MIN_MS: 450, COIN_FLY_MAX_MS: 650,
       COUNTER_TWEEN_MS: 450, COIN_SPIN_MS: 300, PILL_BUMP: 1.12, PILL_BUMP_MS: 180,
-      SHAKE_BY_TIER: [0, 0, 0, 0, 0, 0, 2, 3.5, 5, 8], SHAKE_MAX: 9, SHAKE_TAU: 0.12,
-      HIT_STOP_MS: [0, 0, 0, 0, 0, 0, 0, 50, 70, 0],
+      SHAKE_BY_TIER: [0, 0, 0, 0, 0, 0, 2, 3.5, 5, 8, 0], SHAKE_MAX: 9, SHAKE_TAU: 0.12,   // by tier id; [10] = the Punch (mid-size)
+      HIT_STOP_MS: [0, 0, 0, 0, 0, 0, 0, 50, 70, 0, 0],   // by tier id
       RAYS: 8, RAYS_COLOR: 'rgba(255,240,180,0.35)', RAYS_SPIN: 0.8, RAYS_MS: 600, RAYS_SCALE0: 0.5, RAYS_SCALE1: 1.4,
       RAYS_WIN_A: 'rgba(255,210,63,0.40)', RAYS_WIN_B: 'rgba(95,208,138,0.30)',
       DISCOVER_POP_MS: 400, DISCOVER_SHINE_MS: 500, DISCOVER_NEW_MS: 1200, DISCOVER_SPARKLES: 6,

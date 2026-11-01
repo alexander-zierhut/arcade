@@ -53,7 +53,9 @@ test('42 restore rejects finite but out-of-range records', function () {
     'growTick 30': function (s) { s.bodies[0].growTick = 30; }, 'tick 1.5': function (s) { s.tick = 1.5; },
     'spawnHistory [9,9,9]': function (s) { s.spawnHistory = [9, 9, 9]; },
     'spawnHistory too long': function (s) { s.spawnHistory = [1, 1, 1, 1, 1, 1, 1, 1, 1]; },
-    'runMask 0x200': function (s) { s.runMask = 0x200; }, 'highestTier 10': function (s) { s.highestTier = 10; },
+    'runMask 0x400': function (s) { s.runMask = 0x400; }, 'highestTier 11': function (s) { s.highestTier = 11; },
+    'tier 10 off the easy ladder': function (s) { s.bodies[0].tier = 10; }, 'highestTier 10 off the easy ladder': function (s) { s.highestTier = 10; },
+    'mode nonsense': function (s) { s.mode = 'brutal'; }, 'runMask has the Punch off the easy ladder': function (s) { s.runMask |= 0x200; },
     'ids out of order': function (s) { s.bodies.reverse(); },
     'duplicate ids': function (s) { s.bodies[1].id = s.bodies[0].id; },
     'r 0': function (s) { s.bodies[0].r = 0; }, 'rTarget -1': function (s) { s.bodies[0].rTarget = -1; },
@@ -97,11 +99,11 @@ test('42 overrides round-trip with the snapshot', function () {
   assert.deepStrictEqual(plain.overrides, {}, 'a default game stores no overrides');
 });
 
-test('42 round trips: Relaxed, a buffered launch, the win suspension', function () {
-  var a = G.createGame(78, { mode: 'relaxed' });
+test('42 round trips: Easy, a buffered launch, the win suspension', function () {
+  var a = G.createGame(78, { mode: 'easy' });
   drive(a, H.mulberry32(5), 2000, []);
-  eq(a.mode, 'relaxed');
-  sameFuture(a, 'relaxed');
+  eq(a.mode, 'easy');
+  sameFuture(a, 'easy');
 
   var b = G.createGame(79);
   drive(b, H.mulberry32(7), 1500, []);
@@ -110,7 +112,7 @@ test('42 round trips: Relaxed, a buffered launch, the win suspension', function 
   eq(G.requestLaunch(b, 'pointer'), 'buffered');
   sameFuture(b, 'launchPending');
 
-  var c = G.createGame(80, { mode: 'relaxed' });
+  var c = G.createGame(80, { mode: 'easy' });
   H.place(c, 8, 30, 30); H.place(c, 8, 30 + 2 * c.rules.RADII[8], 30);
   eq(H.ofType(G.tick(c), 'win').length, 1);
   H.stepN(c, 10);

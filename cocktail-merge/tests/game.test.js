@@ -173,7 +173,7 @@ test('20b shove is clamped: it never raises the outward speed above SHOVE_V', fu
 // of a merge, and no resting glass may race back toward the line.
 test('merge feel: bot play never flings resting glasses (rev 4 regression)', function () {
   function flying(b) { return b.launched && b.age < 300; }
-  ['relaxed', 'standard'].forEach(function (mode) {
+  ['easy', 'normal', 'hard'].forEach(function (mode) {
     [1, 2].forEach(function (seed) {
       var g = newGame(seed, { mode: mode }), watch = [], worst = 0, backs = 0, merges = 0;
       for (var i = 0; i < 200 && g.phase !== 'over' && !g.wonOnce; i++) {
@@ -198,12 +198,14 @@ test('merge feel: bot play never flings resting glasses (rev 4 regression)', fun
 });
 
 test('21 area invariant and radius ratios', function () {
-  ['standard', 'relaxed'].forEach(function (mode) {
-    var R = newGame(1, { mode: mode }).rules.RADII;
-    for (var t = 1; t <= 8; t++) {
-      ok(2 * R[t] * R[t] > R[t + 1] * R[t + 1], mode + ' area t=' + t);
-      ok(R[t + 1] > R[t], mode + ' increasing t=' + t);
-      if (t >= 2) H.inRange(R[t + 1] / R[t], 1.14, 1.25, mode + ' ratio t=' + t);
+  ['normal', 'easy', 'hard'].forEach(function (mode) {
+    var r = newGame(1, { mode: mode }).rules, R = r.RADII, L = r.LADDER;
+    for (var i = 0; i < L.length - 1; i++) {
+      var t = L[i], u = L[i + 1];
+      ok(2 * R[t] * R[t] > R[u] * R[u], mode + ' area t=' + t);
+      ok(R[u] > R[t], mode + ' increasing t=' + t);
+      // the Punch (Hard only) sits between the Margarita and the Sunrise, so those two steps are small (2.13)
+      if (i >= 1) H.inRange(R[u] / R[t], (t === 10 || u === 10) ? 1.07 : 1.14, 1.25, mode + ' ratio t=' + t);
     }
     ok(R[2] / R[1] >= 1.08, mode + ' R2/R1');
   });
@@ -254,14 +256,14 @@ test('23 win beats lose', function () {
 // ---------------------------------------------------------------- danger, launch, aim
 
 function lossRun(mode, edge) {
-  var g = newGame(1, mode === 'standard' ? { mode: mode, PULL: 0, DANGER_Y: 130, GRACE_TICKS: 600 } : { mode: mode, PULL: 0 });
+  var g = newGame(1, mode === 'normal' ? { mode: mode, PULL: 0, DANGER_Y: 130, GRACE_TICKS: 600 } : { mode: mode, PULL: 0 });
   place(g, 5, 50, edge - g.rules.RADII[5]);
   return { g: g, ev: record(g, g.rules.GRACE_TICKS + 5) };
 }
 function beats(ev) { return pluck(ofType(ev, 'dangerTick'), function (e) { return [e.n, e.at]; }); }
 
 test('31 exact loss tick (Standard)', function () {
-  var r = lossRun('standard', 135);
+  var r = lossRun('normal', 135);
   deq(beats(r.ev), [[0, 1], [1, 121], [2, 241], [3, 361], [4, 481]]);
   deq(pluck(ofType(r.ev, 'lose'), function (e) { return e.at; }), [600]);
   eq(r.g.phase, 'over');
@@ -269,7 +271,7 @@ test('31 exact loss tick (Standard)', function () {
 });
 
 test('32 exact loss tick (Relaxed)', function () {
-  var r = lossRun('relaxed', 138);
+  var r = lossRun('easy', 138);
   deq(beats(r.ev), [0, 1, 2, 3, 4, 5, 6, 7].map(function (i) { return [i, 1 + 120 * i]; }));
   deq(pluck(ofType(r.ev, 'lose'), function (e) { return e.at; }), [960]);
 });

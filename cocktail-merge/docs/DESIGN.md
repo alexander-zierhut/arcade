@@ -528,17 +528,24 @@ updateDanger(g, ev) {
 
 **Refused launch.** In `tick` step 3, if the spawn circle at (aimX, 144) with radius `R[current]` overlaps any body (`d < R[current] + r_o`), the launch is refused: no body is created, `launchPending` is cleared, `current`, `next` and the phase are unchanged, and `launchBlocked{blockerId}` is emitted. The UI shows the not-ready feedback and flashes the blocker. This cannot deadlock: any body overlapping the spawn circle has `y + r > LAUNCH_Y − R[4]` (133.4 Standard, 134.4 Relaxed), which is beyond `DANGER_Y` in both modes, so it either moves away or becomes eligible and ends the run through the danger timer; meanwhile the player can re-aim.
 
-### 2.13 Modes: Relaxed (default) and Standard
+### 2.13 Modes: Easy (default), Normal and Hard
 
-| Rule | Standard | **Relaxed (default)** |
-|---|---|---|
-| `DANGER_Y` | 130 | **133** |
-| `GRACE_TICKS` | 600 (2.5 s) | **960 (4.0 s)** |
-| `RADIUS_SCALE` (tiers 2-9) | 1.00 | **0.91** (set by the tuning gate: the starting rung 0.94 missed the smart-bot target; Appendix 9) |
+Until 1.1.2 there were two modes, Relaxed (default) and Standard, switched in the settings; 1.2.0 (2026-11-01) renamed them
+Easy and Normal, added Hard, made every new game ask for the table and keeps a best per table.
 
-- The mode is a persisted setting (`save.relaxed`, default `true`), shown in Pause as "Relaxed table" with the note "applies to the next game". A run keeps the mode it started with (stored in its snapshot).
-- Both modes share one best score, one `wins` counter and one discovery mask.
-- `createGame(seed, overrides)` resolves rules as: config defaults → `CONFIG.MODES[overrides.mode || 'standard']` → the remaining overrides. `rules.RADII[t] = t === 1 ? 6.0 : TIERS[t].radius·RADIUS_SCALE`.
+| Rule | Normal (was Standard) | **Easy (was Relaxed, default)** | Hard |
+|---|---|---|---|
+| `DANGER_Y` | 120 | **133** | 120 |
+| `GRACE_TICKS` | 480 (2.0 s) | **960 (4.0 s)** | 480 |
+| `STAGE_SHIFT` | 1 | 0 | 1 |
+| `RADIUS_SCALE` (tiers 2-9) | 1.00 | **1.00** (rev 4; the gate had 0.91, Appendix 9) | 1.00 |
+| `LADDER` (merge order, tier ids) | 1 2 3 4 5 6 7 8 9 | same | 1 2 3 4 5 **10** 6 7 8 9 |
+
+- **Ladder.** The merge rule walks the mode's ladder: two glasses of tier `t` make `rules.NEXT[t]`; the last entry (`rules.TOP`, the jug, id 9 in every mode) is the win; `rules.RANK[t]` is a tier's 1-based position (0 = not in this mode). Tier ids never change (the Pineapple Punch is id 10 though it sits sixth on Hard's ladder), so the discovery mask, `bestTier` and stored runs of older versions stay valid. Everything that scales with size (spawn progress and stages, the hit-stop, the shake, the rays, the merge sound, the "NEW COCKTAIL" toasts, the optional tier numbers) goes by rank; everything bound to a drink (art, colour, points, the jug's aura and sparkles) goes by id. Merge and discover events carry both (`tier`, `rank`).
+- **Choosing.** Play, New Game, Play Again and Restart (and the R key) open the chooser sheet (`#ov-mode`: Easy / Normal / Hard, one line each, that table's best; the table chosen last is the primary, Enter starts it, 1 / 2 / 3 pick). The choice is remembered (`save.mode`); the old `save.relaxed` switch is gone from the settings and is kept in sync for a downgrade. A run keeps the mode it started with (stored in its snapshot; `relaxed` / `standard` in old snapshots restore as easy / normal; the state hash keeps the old values for them).
+- **Records.** `save.bests = {easy, normal, hard}`; `save.best` is the maximum (older readers, the arcade). A save written before 1.2.0 puts its single `best` into the mode it was set to (`relaxed` true = easy). The HUD BEST, the title line ("Best: 1,200 Easy · 3,400 Normal"), the end cards ("Best 3,400 · Hard") and the share line say which table. `wins` (the jug), `bestTier` and the discovery mask stay global; the collection shows all ten in Hard's order and labels the undiscovered Punch "Hard mode".
+- **Strip.** The in-play strip shows the mode's ladder (9 slots, 10 on Hard; `computeLayout(..., {slots})`).
+- `createGame(seed, overrides)` resolves rules as: config defaults → `CONFIG.MODES[overrides.mode || 'normal']` → the remaining overrides. `rules.RADII[t] = t === 1 ? 6.0 : TIERS[t].radius·RADIUS_SCALE`.
 - **Guards** (test 47): in both modes `DANGER_Y ≤ LAUNCH_Y − R[4] − 0.4` (Standard 133.0, Relaxed 133.95) and `LAUNCH_Y + R[4] ≤ L`.
 - **Acceptance targets** (tuning gate, 8 step 2, 400 seeds, launch every 1.4 s): Relaxed smart bot ≥ 70%, Relaxed sloppy bot ≥ 40% and ≤ 85%. Standard has no target; it is reported only.
 
@@ -1027,9 +1034,9 @@ The table wood is a light honey colour, matching screenshot 1.
 
 **Sprite bounds** (R-units, **anchor coordinates**; x ∈ [−1.45, 1.45], y from `−TOPA[t]` to `+0.6`):
 
-| Tier | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |
-|---|---|---|---|---|---|---|---|---|---|
-| TOPA (= authoring top + 0.45) | 1.95 | 1.85 | 1.95 | 1.90 | 2.85 | 2.90 | 3.55 | 2.75 | 2.75 |
+| Tier | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |
+|---|---|---|---|---|---|---|---|---|---|---|
+| TOPA (= authoring top + 0.45) | 1.95 | 1.85 | 1.95 | 1.90 | 2.85 | 2.90 | 3.55 | 2.75 | 2.75 | 2.75 |
 
 - Tiers 8 and 9 add 0.2 padding on all sides for the baked glow.
 - **Cache resolution:** `rp = min(220, ceil(R·kX·dpr·1.15))` device px per R-unit.
@@ -1166,6 +1173,23 @@ The table wood is a light honey colour, matching screenshot 1.
   - baked glow in yellow-gold (4.2);
   - **live:** the yellow-gold jug aura and 2 sparkles (3.8);
   - particles are green-and-yellow fruit confetti: lemon wedges `#FFE45C`, lime wedges `#A6DB4F`, green grapes `#C9E86B`, mint leaves `#2E9E4F`.
+
+**T10 Pineapple Punch** (key `#FFA62B`, accent `#2E9E4F`): a mid-size single-serving punch between the Margarita and the Sunrise; no baked glow, no live sparkles.
+- **Body:** round-bellied "fishbowl" punch goblet, the one shape no other tier has: the belly is wider than the mouth. Right side, two cubics from the bowl floor (0.10, +0.20): to the belly (0.95, −0.50) with controls (0.55, +0.20) / (0.95, −0.10), then closing to the mouth (0.70, −1.30) with controls (0.95, −0.90) / (0.80, −1.12). Thick short stem 0.20 wide from +0.18 to +0.43; foot ellipse at +0.45, rx 0.62.
+- **Liquid:** stops from the bottom `#E0800C`, 0.5 `#FFA62B`, 1.0 `#FFE38A` (paler at the top), fill −0.98, surface `#FFEBA6`.
+- **Contents:**
+  - 3 ice cubes (0.30-0.34) and 2 cubes floating half out of the surface;
+  - 3 pineapple chunks (0.20-0.24): `#FFD84D` faces, `#FFEE96` top, `#D9A21B` side;
+  - 10 bubbles;
+  - the straw stands in the drink (dimmed α 0.6 and warmed amber below the surface);
+  - cherry `#C3102F` r 0.15 at (0.14, −0.88);
+  - a light amber wash (α 0.1) tints the chunks only, so the ice stays clear.
+- **Garnish:**
+  - ONE glass straw, width 0.13 (0.16 icon), from (−0.10, −0.15) to (−0.50, −2.20): a transparent tube (glass tint, `glass.edge` outline, a bright white highlight along its left side, an open top ellipse), no stripes;
+  - pineapple ring r 0.34 at (0.46, −1.27), sitting low enough that its lower part dips behind the front rim like the T9 lemon wheel, slotted on the right rim (rind `#C98A12`, pith `#FFF2B8`, flesh `#FFEC7A` → `#FFC93C` with a diagonal crosshatch, core `#FFF6D0`; the part inside the glass tinted, front rim redrawn over it, the back rim shows through at α 0.45); the ring has a radial **notch** (a wedge of ±15°, apex at 0.2 r, axis 70° clockwise from +x, i.e. normal to the rim's tangent there) cut from its lower edge, so the glass wall and the rim stroke visibly run through the cut; the two cut faces are a darker flesh `#E3A41C` with a fine `rgba(150,90,0,0.8)` edge;
+  - leaf crown behind the ring: 7 spiky leaves (0.40-0.68 long, mint palette `#2E9E4F`) fanning ±62° from its top.
+- **Highlights:** the standard streaks plus a sparkle dot at (−0.62, −0.90).
+- **Particles:** pineapple wedges `#FFD84D` / `#FFA62B`, juice droplets `#FFEB8A`, leaves `#2E9E4F`.
 
 **Optional tier numbers** (Pause toggle, persisted): a cream disc `#FFF3D6` with a 1.5 px `#7A4A22` outline and a bold `#7A4A22` digit, drawn live (not baked) at anchor offset (0.6, −0.25)·Rpx. Disc diameter `max(18 px, 0.7·Rpx)`, digit `max(13 px, 0.5·disc)`.
 

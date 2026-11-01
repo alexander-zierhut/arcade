@@ -205,7 +205,7 @@
     if (c === 'Enter' || c === 'NumpadEnter' || c === 'Space') {
       if (isButton(ev.target)) return;
       if (c === 'Space') return;
-    } else if (c !== 'Escape' && c !== 'KeyR' && c !== 'KeyP') return;
+    } else if (c !== 'Escape' && c !== 'KeyR' && c !== 'KeyP' && !/^(Digit|Numpad)[123]$/.test(c)) return;   // 1 / 2 / 3: the mode chooser
     var handled = false;
     try { handled = !!(CM.ui.keyAction && CM.ui.keyAction(c === 'NumpadEnter' ? 'Enter' : c)); } catch (e) { handled = false; }
     if (handled) ev.preventDefault();

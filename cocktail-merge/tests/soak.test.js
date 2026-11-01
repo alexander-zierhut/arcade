@@ -17,7 +17,7 @@ function checkBodies(g) {
   var bs = g.bodies;
   H.assertBounds(bs, g.rules.W, g.rules.L, 1e-9);
   for (var i = 0; i < bs.length; i++) {
-    if (!(bs[i].tier >= 1 && bs[i].tier <= 9)) assert.fail('tier ' + bs[i].tier);
+    if (!(g.rules.RANK[bs[i].tier] > 0)) assert.fail('tier ' + bs[i].tier + ' is not on the ' + g.mode + ' ladder');
     if (i > 0 && !(bs[i].id > bs[i - 1].id)) assert.fail('id order ' + bs[i - 1].id + ', ' + bs[i].id);
     if (!(bs[i].id < g.nextId)) assert.fail('id ' + bs[i].id + ' >= nextId');
   }
@@ -25,7 +25,7 @@ function checkBodies(g) {
 
 test('43 soak (continuing after the win)', function () {
   var t0 = Date.now(), contacts = 0, bad = 0, maxOver = 0, wins = 0, postWinTicks = 0;
-  ['standard', 'relaxed'].forEach(function (mode) {
+  ['normal', 'easy', 'hard'].forEach(function (mode) {
     [11, 22, 33, 44, 55].forEach(function (seed) {
       var g = newGame(seed, { mode: mode }), rnd = H.mulberry32(seed * 31 + 7), maxBodies = 0;
       for (var n = 0; n < 400 && g.phase !== 'over'; n++) {
@@ -80,24 +80,28 @@ test('47 config and dedication guards', function () {
   deq([C.TIERS[9].color, C.TIERS[9].accent], ['#0F8A5F', '#FFD23F']);
   var w = C.SPAWN.WEIGHTS;
   eq(w[0], 0); eq(w.reduce(function (s, x) { return s + x; }, 0), 100);
-  ['standard', 'relaxed'].forEach(function (mode) {
+  ['normal', 'easy', 'hard'].forEach(function (mode) {
     var r = newGame(1, { mode: mode }).rules;
     ok(r.DANGER_Y <= r.LAUNCH_Y - r.RADII[4] - 0.4 + 1e-9, mode + ' danger guard');
     ok(r.LAUNCH_Y + r.RADII[4] <= r.L, mode + ' launcher fits');
   });
   eq(C.AUDIO.SCALE.length, 15);
   // 5.2: deep-frozen, so no test (or game code) can leak a mutation into later files.
-  [C, C.TABLE, C.PHYS, C.RULES, C.MODES, C.MODES.relaxed, C.TIERS, C.TIERS[3], C.SPAWN.WEIGHTS]
+  [C, C.TABLE, C.PHYS, C.RULES, C.MODES, C.MODES.easy, C.TIERS, C.TIERS[3], C.SPAWN.WEIGHTS]
     .forEach(function (o, i) { ok(Object.isFrozen(o), 'frozen #' + i); });
   eq(C.LOOP.DT, C.PHYS.DT, 'one fixed step');
 });
 
-test('47 mode rules: Relaxed and Standard resolve as 2.13 says', function () {
-  var s = newGame(1).rules, r = newGame(1, { mode: 'relaxed' }).rules;
-  var T = C.TIERS, k = C.MODES.relaxed.RADIUS_SCALE;     // radii and the rung come from config (gate, Appendix 9)
-  deq([s.mode, s.DANGER_Y, s.GRACE_TICKS, s.RADII[2]], ['standard', 120, 480, T[2].radius]);
-  deq([r.mode, r.DANGER_Y, r.GRACE_TICKS, r.RADII[1]], ['relaxed', 133, 960, T[1].radius]);
-  H.approx(r.RADII[2], T[2].radius * k, 1e-12, 'relaxed R2');
-  H.approx(r.RADII[9], T[9].radius * k, 1e-12, 'relaxed R9');
-  eq(newGame(1, { mode: 'relaxed', DANGER_Y: 131 }).rules.DANGER_Y, 131, 'overrides beat the mode');
+test('47 mode rules: Easy, Normal and Hard resolve as 2.13 says', function () {
+  var s = newGame(1).rules, r = newGame(1, { mode: 'easy' }).rules, h = newGame(1, { mode: 'hard' }).rules;
+  var T = C.TIERS, k = C.MODES.easy.RADIUS_SCALE;        // radii and the rung come from config (gate, Appendix 9)
+  deq([s.mode, s.DANGER_Y, s.GRACE_TICKS, s.RADII[2]], ['normal', 120, 480, T[2].radius]);
+  deq([r.mode, r.DANGER_Y, r.GRACE_TICKS, r.RADII[1]], ['easy', 133, 960, T[1].radius]);
+  deq([h.mode, h.DANGER_Y, h.GRACE_TICKS, h.STAGE_SHIFT], ['hard', 120, 480, 1]);
+  deq(s.LADDER, [1, 2, 3, 4, 5, 6, 7, 8, 9]); deq(r.LADDER, s.LADDER); deq(h.LADDER, [1, 2, 3, 4, 5, 10, 6, 7, 8, 9]);
+  deq([s.TOP, h.TOP, s.NEXT[5], h.NEXT[5], h.NEXT[10], s.RANK[10], h.RANK[10], h.RANK[6], s.NEXT[9]], [9, 9, 6, 10, 6, 0, 6, 7, 0]);
+  deq([newGame(1, { mode: 'relaxed' }).mode, newGame(1, { mode: 'standard' }).mode, newGame(1, { mode: 'x' }).mode], ['easy', 'normal', 'normal'], 'the old names still resolve');
+  H.approx(r.RADII[2], T[2].radius * k, 1e-12, 'easy R2');
+  H.approx(r.RADII[9], T[9].radius * k, 1e-12, 'easy R9');
+  eq(newGame(1, { mode: 'easy', DANGER_Y: 131 }).rules.DANGER_Y, 131, 'overrides beat the mode');
 });

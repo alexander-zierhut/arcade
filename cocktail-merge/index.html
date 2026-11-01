@@ -47,7 +47,7 @@
 <script src="shared/menu.js"></script>
 <script src="shared/hooks.js"></script>
 <script src="news.js"></script>
-<script>Arcade.init({ game: 'cocktail-merge', title: 'Cocktail Merge', version: '1.1.2', langs: ['en'] });</script>
+<script>Arcade.init({ game: 'cocktail-merge', title: 'Cocktail Merge', version: '1.2.0', langs: ['en'] });</script>
 <!-- ui-shell-begin (tests/browser/ui-check.js copies everything up to ui-shell-end) -->
 <canvas id="game-bg" aria-hidden="true"></canvas>
 <canvas id="game" tabindex="-1" aria-label="Cocktail Merge game table"></canvas>
@@ -202,6 +202,20 @@
     </div>
   </section>
 
+  <section id="ov-mode" class="ov ov-modal ov-sheet" hidden inert aria-label="Choose how to play">
+    <div class="card scroll">
+      <h2 class="card-title">New Game</h2>
+      <p class="card-line">How do you want to play?</p>
+      <div class="btn-col js-modes">
+        <button class="btn btn-secondary btn-mode" type="button" data-act="mode" data-mode="easy"><b>Easy</b><small>Wide table, 4 s to recover</small><small class="mode-best js-mode-best"></small></button>
+        <button class="btn btn-secondary btn-mode" type="button" data-act="mode" data-mode="normal"><b>Normal</b><small>Tight line, 2 s to recover, big glasses sooner</small><small class="mode-best js-mode-best"></small></button>
+        <button class="btn btn-secondary btn-mode" type="button" data-act="mode" data-mode="hard"><b>Hard</b><small>Like Normal, plus the Pineapple Punch: one more drink before the jug</small><small class="mode-best js-mode-best"></small></button>
+      </div>
+      <p class="card-line mode-note">Each table keeps its own best score.</p>
+      <button class="chip chip-small" type="button" data-act="close">Not now</button>
+    </div>
+  </section>
+
   <section id="ov-collection" class="ov ov-modal ov-sheet" hidden inert aria-label="Collection">
     <div class="card scroll">
       <h2 class="card-title">Collection</h2>
@@ -238,6 +252,7 @@
 <script src="src/art/tier7-pinacolada.js"></script>
 <script src="src/art/tier8-coconut.js"></script>
 <script src="src/art/tier9-sangria-verde.js"></script>
+<script src="src/art/tier10-pineapple-punch.js"></script>
 <script src="src/art/coin.js"></script>
 <script src="src/art/scenery.js"></script>
 <script src="src/art/overrides.js"></script>
@@ -307,7 +322,7 @@
     ['src/app/states.js',    function () { return f(CM.app.setState); }],
     ['src/main.js',          function () { return f(CM.main.boot); }]
   ];
-  ['shot', 'oldfashioned', 'cosmo', 'mojito', 'margarita', 'sunrise', 'pinacolada', 'coconut', 'sangria-verde']
+  ['shot', 'oldfashioned', 'cosmo', 'mojito', 'margarita', 'sunrise', 'pinacolada', 'coconut', 'sangria-verde', 'pineapple-punch']
     .forEach(function (name, i) {
       CHECKS.push(['src/art/tier' + (i + 1) + '-' + name + '.js', function () { return f(CM.art.tiers[i + 1].paint); }]);
     });

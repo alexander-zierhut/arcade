@@ -19,11 +19,35 @@
   var MAX_ID = C.PHYS.MAX_ID;
   var HISTORY = C.SPAWN.HISTORY;
   var SPAWN_MAX = C.SPAWN.MAX_TIER;
-  var MAX_TIER = 9;
+  var MAX_TIER = C.TIERS.length - 1;                      // tier ids 1..10 (10 exists only on Hard's ladder)
+  var MASK_ALL = (1 << MAX_TIER) - 1;
+  var MODE_LIST = C.MODE_LIST || ['easy', 'normal', 'hard'];
+  var ALIASES = C.MODE_ALIASES || {};
   var UINT32 = 4294967296;
   var PHASES = { ready: 0, cooldown: 1, over: 2 };
   // Override keys that are not plain rule numbers.
   var SPECIAL_KEYS = { mode: true, mergeEnabled: true, spawnScript: true };
+
+  // canonicalMode(name) -> 'easy' | 'normal' | 'hard' | null ('relaxed' and 'standard' are the pre-1.2.0 names).
+  function canonicalMode(name) {
+    if (typeof name !== 'string') return null;
+    if (has(ALIASES, name)) name = ALIASES[name];
+    return MODE_LIST.indexOf(name) >= 0 ? name : null;
+  }
+  // The ladder helpers of a rules object: RANK[id] (1-based position on the ladder, 0 = not in this mode),
+  // NEXT[id] (the tier two of `id` make, 0 at the top) and TOP (the last tier id).
+  function ladderMask(rules) { var m = 0; for (var i = 0; i < rules.LADDER.length; i++) m |= 1 << (rules.LADDER[i] - 1); return m; }
+  function ladderTables(rules, ladder) {
+    var i;
+    rules.LADDER = ladder.slice();
+    rules.RANK = []; rules.NEXT = [];
+    for (i = 0; i <= MAX_TIER; i++) { rules.RANK[i] = 0; rules.NEXT[i] = 0; }
+    for (i = 0; i < ladder.length; i++) {
+      rules.RANK[ladder[i]] = i + 1;
+      rules.NEXT[ladder[i]] = i + 1 < ladder.length ? ladder[i + 1] : 0;
+    }
+    rules.TOP = ladder[ladder.length - 1];
+  }
 
   var GAME_NUMS = ['seed', 'rng', 'tick', 'nextId', 'aimX', 'current', 'next', 'spawnCount', 'cooldown',
     'score', 'highestTier', 'runMask', 'launches', 'merges', 'dangerTicks', 'dangerTickEmitted',
@@ -51,7 +75,7 @@
   // restored game gets the same rules).
   function resolveRules(overrides) {
     var o = overrides || {};
-    var mode = o.mode === 'relaxed' ? 'relaxed' : 'standard';
+    var mode = canonicalMode(o.mode) || 'normal';
     var rules = {}, kept = {}, srcs = [C.TABLE, C.PHYS, C.RULES, C.MODES[mode]];
     var i, k, keys;
     for (i = 0; i < srcs.length; i++) {
@@ -70,6 +94,7 @@
     rules.spawnScript = (o.spawnScript && o.spawnScript.length) ? o.spawnScript.slice() : null;
     if (rules.spawnScript) kept.spawnScript = rules.spawnScript.slice();
     rules.overrides = kept;
+    ladderTables(rules, rules.LADDER || C.RULES.LADDER);
     rules.RADII = [0];
     for (var t = 1; t <= MAX_TIER; t++) {
       rules.RADII[t] = t === 1 ? C.TIERS[1].radius : C.TIERS[t].radius * rules.RADIUS_SCALE;
@@ -134,7 +159,7 @@
     for (i = 0; i < BODY_BOOLS.length; i++) if (typeof b[BODY_BOOLS[i]] !== 'boolean') return false;
     if (!Array.isArray(b.wallSeen) || b.wallSeen.length !== 4) return false;
     for (i = 0; i < 4; i++) if (!fin(b.wallSeen[i])) return false;
-    return int(b.id, 0, nextId - 1) && int(b.tier, 1, MAX_TIER) &&
+    return int(b.id, 0, nextId - 1) && int(b.tier, 1, MAX_TIER) && rules.RANK[b.tier] > 0 &&
       b.x >= 0 && b.x <= rules.W && b.y >= 0 && b.y <= rules.L &&
       b.r > 0 && b.r0 > 0 && b.rTarget > 0 && b.invM > 0 &&
       int(b.growTick, 0, rules.GROW_TICKS) && int(b.age, 0, Infinity) &&
@@ -147,7 +172,8 @@
       int(s.nextId, 1, MAX_ID - 1) && int(s.current, 1, SPAWN_MAX) && int(s.next, 1, SPAWN_MAX) &&
       int(s.spawnCount, 0, big) && int(s.cooldown, 0, rules.COOLDOWN_TICKS) &&
       (s.phase !== 'cooldown' || s.cooldown >= 1) && (s.phase !== 'ready' || s.cooldown === 0) &&
-      int(s.score, 0, big) && int(s.highestTier, 1, MAX_TIER) && int(s.runMask, 0, 0x1FF) &&
+      int(s.score, 0, big) && int(s.highestTier, 1, MAX_TIER) && rules.RANK[s.highestTier] > 0 &&
+      int(s.runMask, 0, MASK_ALL) && (s.runMask & ~ladderMask(rules)) === 0 &&
       int(s.launches, 0, big) && int(s.merges, 0, big) && int(s.dangerTicks, 0, big) &&
       int(s.dangerTickEmitted, -1, big) && int(s.threatTicks, 0, big) && int(s.dangerLevel, 0, 2) &&
       int(s.dangerSuspendUntil, 0, big) &&
@@ -161,10 +187,10 @@
     var i;
     for (i = 0; i < GAME_NUMS.length; i++) if (!fin(s[GAME_NUMS[i]])) return null;
     for (i = 0; i < GAME_BOOLS.length; i++) if (typeof s[GAME_BOOLS[i]] !== 'boolean') return null;
-    if (s.mode !== 'standard' && s.mode !== 'relaxed') return null;
+    if (!canonicalMode(s.mode)) return null;
     if (typeof s.phase !== 'string' || !has(PHASES, s.phase)) return null;
     if (!validOverrides(s.overrides) || !Array.isArray(s.bodies)) return null;
-    var o = { mode: s.mode }, ok = s.overrides || {};
+    var o = { mode: canonicalMode(s.mode) }, ok = s.overrides || {};
     Object.keys(ok).forEach(function (k) { o[k] = ok[k]; });
     var rules = resolveRules(o);
     if (!validCounters(s, rules)) return null;
@@ -188,7 +214,7 @@
   function restoreGame(s) {
     var rules = validate(s);
     if (!rules) return null;
-    var g = { rules: rules, world: physics.createWorld(rules), mode: s.mode, phase: s.phase };
+    var g = { rules: rules, world: physics.createWorld(rules), mode: rules.mode, phase: s.phase };   // a pre-1.2.0 record's 'relaxed' / 'standard' restores as easy / normal
     var i, k;
     for (i = 0; i < GAME_NUMS.length; i++) g[GAME_NUMS[i]] = s[GAME_NUMS[i]];
     for (i = 0; i < GAME_BOOLS.length; i++) g[GAME_BOOLS[i]] = s[GAME_BOOLS[i]];
@@ -222,12 +248,13 @@
   }
 
   function b01(v) { return v ? 1 : 0; }
+  var MODE_HASH = { easy: 1, normal: 0, hard: 2 };     // easy / normal keep the pre-1.2.0 values (relaxed 1, standard 0)
 
   // hash(g) -> 8 hex characters over exactly the field list of DESIGN 5.5. It does not cover
   // growTick, r0/rTarget, px/py, launched, wallSeen, world.seen, dangerLevel, overIds, launches
   // or merges; test 42's event-list comparison is what catches restore bugs in those.
   function hash(g) {
-    var v = [g.tick, g.score, g.rng, g.mode === 'relaxed' ? 1 : 0,
+    var v = [g.tick, g.score, g.rng, MODE_HASH[g.mode] || 0,
       has(PHASES, g.phase) ? PHASES[g.phase] : 3, g.cooldown, b01(g.launchPending),
       g.current, g.next, Math.round(g.aimX * 1e3), g.spawnCount];
     var h = g.spawnHistory || [];
@@ -245,5 +272,5 @@
     return fnv1a(v.join(','));
   }
   /* @pure-end */
-  return { snapshot: snapshot, restoreGame: restoreGame, hash: hash, resolveRules: resolveRules };
+  return { snapshot: snapshot, restoreGame: restoreGame, hash: hash, resolveRules: resolveRules, canonicalMode: canonicalMode };
 });

@@ -22,7 +22,7 @@
   }
   var config = deps.config;
   var physics = deps.physics;
-  var MAX_TIER = 9;
+  // The top of the ladder (the jug) is g.rules.TOP; the tier two glasses make is g.rules.NEXT[tier] (2.13).
 
   // Reused scratch storage: candidates are rare, so this only avoids per-tick garbage.
   var cand = [];      // candidate pair records {a, b, tier, hi, lo}
@@ -51,7 +51,7 @@
     if (a.tier !== b.tier) return false;
     if (!(a.bornTick < 0 || a.age >= immune)) return false;   // merge-born bodies are immune
     if (!(b.bornTick < 0 || b.age >= immune)) return false;   // launched bodies: from age 0
-    if (a.tier < MAX_TIER) return true;
+    if (a.tier !== g.rules.TOP) return true;
     return !!g.wonOnce && a.age >= immune && b.age >= immune && g.tick >= g.dangerSuspendUntil;
   }
 
@@ -159,11 +159,11 @@
     var bit = 1 << (tier - 1);
     if ((g.runMask & bit) === 0) {
       g.runMask |= bit;
-      ev.push({ type: 'discover', tier: tier });
+      ev.push({ type: 'discover', tier: tier, rank: g.rules.RANK[tier] });
     }
   }
 
-  // First tier-9 of a run (2.9): bonus, suspension of the danger rule.
+  // First jug (the ladder's top tier) of a run (2.9): bonus, suspension of the danger rule.
   function win(g, body, depth, ev) {
     var rules = g.rules;
     var points = Math.round(rules.WIN_BONUS * mult(rules, depth));
@@ -183,13 +183,13 @@
     removeBody(g, a);
     removeBody(g, b);
     g.score += points;
-    ev.push({ type: 'jugBurst', a: a.id, b: b.id, x: x, y: y, depth: depth, points: points });
+    ev.push({ type: 'jugBurst', a: a.id, b: b.id, tier: a.tier, x: x, y: y, depth: depth, points: points });
     if (bombPart()) bombPart().earnBomb(g, ev);           // owner: two Sangrias earn a bomb
   }
 
   function mergePair(g, a, b, depth, used, createdIds, ev) {
     var rules = g.rules;
-    var tier = a.tier + 1;
+    var tier = rules.NEXT[a.tier];
     var mx = (a.x + b.x) / 2;
     var my = (a.y + b.y) / 2;
     var r0 = birthRadius(g, a, b, mx, my);
@@ -222,12 +222,12 @@
     var points = Math.round(config.TIERS[tier].points * mult(rules, depth));
     g.score += points;
     ev.push({
-      type: 'merge', a: a.id, b: b.id, id: body.id, tier: tier, x: x, y: y,
+      type: 'merge', a: a.id, b: b.id, id: body.id, tier: tier, rank: rules.RANK[tier], x: x, y: y,
       ax: a.x, ay: a.y, bx: b.x, by: b.y, depth: depth, points: points
     });
     discover(g, tier, ev);
-    if (tier > g.highestTier) g.highestTier = tier;
-    if (tier === MAX_TIER && !g.wonOnce) win(g, body, depth, ev);
+    if (rules.RANK[tier] > rules.RANK[g.highestTier]) g.highestTier = tier;
+    if (tier === rules.TOP && !g.wonOnce) win(g, body, depth, ev);
   }
 
   // ---- the merge pass ------------------------------------------------------
@@ -255,7 +255,7 @@
       var b = accepted[k + 1];
       if (a.id > b.id) { var t = a; a = b; b = t; }
       var depth = 1 + Math.max(parentDepth(g, a), parentDepth(g, b));
-      if (a.tier >= MAX_TIER) jugBurst(g, a, b, depth, ev);
+      if (a.tier === g.rules.TOP) jugBurst(g, a, b, depth, ev);
       else mergePair(g, a, b, depth, used, createdIds, ev);
     }
 

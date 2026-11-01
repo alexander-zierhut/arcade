@@ -21,6 +21,16 @@
   function app() { return (CM.app && CM.app.ctx) || {}; }
   function fmt(n) { n = Math.max(0, Math.round(+n || 0)); try { return n.toLocaleString('en-US'); } catch (e) { return String(n); } }
   function tierName(t) { var T = CM.config && CM.config.TIERS && CM.config.TIERS[t]; return (T && T.name) || ('Tier ' + t); }
+  // The strip shows the current game's ladder (9 slots, 10 on Hard; 2.13); without a game the default one.
+  function ladderOf(game) {
+    var C = CM.config || {};
+    return (game && game.rules && game.rules.LADDER) || (C.RULES && C.RULES.LADDER) || [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  }
+  function rankOf(game, t) { var r = game && game.rules && game.rules.RANK; return r ? r[t] : t; }
+  function bestFor(save, game) {
+    var G = CM.game;
+    return (G && G.bestFor && game) ? G.bestFor(save, game.mode) : ((save && save.best) | 0);
+  }
   function restart(el, cls) { if (!el) return; el.classList.remove(cls); void el.offsetWidth; el.classList.add(cls); }
   function place(el, r, dx) {
     if (!el || !r) return;
@@ -47,16 +57,36 @@
       bomb: $('btn-bomb'), bombCount: $('bomb-count'),
       strip: $('strip'), slots: $('strip-slots'), toasts: $('toasts'), slot: []
     };
-    if (els.slots && !els.slots.children.length) {
-      for (var t = 1; t <= 9; t++) {
-        var s = doc.createElement('div'); s.className = 'slot'; s.setAttribute('data-tier', t);
-        var c = doc.createElement('canvas'); c.className = 'slot-icon';
-        var n = doc.createElement('span'); n.className = 'slot-new'; n.textContent = 'NEW';
-        s.appendChild(c); s.appendChild(n); els.slots.appendChild(s);
-      }
-    }
-    for (var i = 0; els.slots && i < els.slots.children.length; i++) els.slot[i + 1] = els.slots.children[i];
+    ensureSlots(ladderOf(app().game));
     return els;
+  }
+  // One slot per ladder entry, in ladder order; els.slot[tierId] finds a slot. Rebuilt when the ladder changes.
+  function ensureSlots(L) {
+    if (!els || !els.slots) return;
+    var sig = L.join(','), i, t;
+    if (els.ladderSig === sig) return;
+    els.ladderSig = sig;
+    while (els.slots.firstChild) els.slots.removeChild(els.slots.firstChild);
+    els.slot = [];
+    for (i = 0; i < L.length; i++) {
+      t = L[i];
+      var s = doc.createElement('div'); s.className = 'slot'; s.setAttribute('data-tier', t);
+      var c = doc.createElement('canvas'); c.className = 'slot-icon';
+      var n = doc.createElement('span'); n.className = 'slot-new'; n.textContent = 'NEW';
+      s.appendChild(c); s.appendChild(n); els.slots.appendChild(s);
+      els.slot[t] = s;
+    }
+    shown.slots = '';
+    if (lastLay) placeSlots(lastLay);
+  }
+  function placeSlots(lay) {
+    var st = lay.strip, dpr = lay.dpr || 1, i;
+    if (!st || !els.slots) return;
+    for (i = 0; i < els.slots.children.length; i++) {
+      var s = els.slots.children[i];
+      s.style.left = Math.round(st.pad + i * st.slotW) + 'px'; s.style.width = Math.round(st.slotW) + 'px';
+      sizeCanvas(s.firstChild, st.iconBox.w, st.iconBox.h, dpr);
+    }
   }
 
   /** applyLayout(lay): positions the HUD rects, the strip and the toast row; sizes the icon canvases. */
@@ -83,11 +113,7 @@
       els.strip.style.setProperty('--body-w', Math.round(st.bodyW) + 'px');
       els.strip.style.setProperty('--arrow-w', Math.round(st.arrowW) + 'px');
       els.strip.style.setProperty('--pad', st.pad + 'px');
-      for (var t = 1; t <= 9; t++) {
-        var s = els.slot[t]; if (!s) continue;
-        s.style.left = Math.round(st.pad + (t - 1) * st.slotW) + 'px'; s.style.width = Math.round(st.slotW) + 'px';
-        sizeCanvas(s.firstChild, st.iconBox.w, st.iconBox.h, dpr);
-      }
+      placeSlots(lay);
       shown.slots = '';
     }
     lastDpr = dpr;
@@ -123,10 +149,11 @@
   function schedule() { if (!ticking && root.requestAnimationFrame) { ticking = true; root.requestAnimationFrame(tick); } }
 
   function slotStates(game, save) {
-    var ever = (save && save.discovered) | 0, run = (game && game.runMask) | 0, hi = 0, t, out = [];
-    for (t = 9; t >= 1 && !hi; t--) if (run & (1 << (t - 1))) hi = t;
+    var ever = (save && save.discovered) | 0, run = (game && game.runMask) | 0, hi = 0, i, t, L = ladderOf(game), out = [];
+    for (i = L.length - 1; i >= 0 && !hi; i--) if (run & (1 << (L[i] - 1))) hi = L[i];
     if (game && game.highestTier && (run & (1 << (game.highestTier - 1)))) hi = game.highestTier;
-    for (t = 1; t <= 9; t++) {
+    for (i = 0; i < L.length; i++) {
+      t = L[i];
       var b = 1 << (t - 1);
       out[t] = (run & b) ? (t === hi ? 'best' : 'run') : (ever & b) ? 'earlier' : 'none';
     }
@@ -152,16 +179,17 @@
           CM.app.ctx.newBestShown = true; showNewBest();
         }
       }
-      var best = Math.max(save.best | 0, score);
+      var best = Math.max(bestFor(save, game), score);          // this table's best (2.13)
       if (best !== shown.best) { shown.best = best; els.best.textContent = 'BEST ' + fmt(best); }
       if (game.next && game.next !== shown.next && els.nextC) {
         if (shown.next) restart(els.next, 'appear');
         shown.next = game.next; paintIcon(els.nextC, game.next, 'run');
       }
-      var st = slotStates(game, save), sig = st.join(',');
+      ensureSlots(ladderOf(game));
+      var st = slotStates(game, save), L = ladderOf(game), sig = L.map(function (t) { return st[t]; }).join(',');
       if (sig !== shown.slots) {
-        for (var t = 1; t <= 9; t++) {
-          var s = els.slot[t]; if (!s) continue;
+        for (var i = 0; i < L.length; i++) {
+          var t = L[i], s = els.slot[t]; if (!s) continue;
           if (s.getAttribute('data-state') !== st[t] || !shown.slots) { s.setAttribute('data-state', st[t]); paintIcon(s.firstChild, t, st[t]); }
         }
         shown.slots = sig;
@@ -229,12 +257,13 @@
       if (e.type === 'discover') {
         var s = els.slot[e.tier];
         if (s) restart(s, 'pop');
-        if (e.tier >= 5 && e.tier < 9) {
+        var top = (game && game.rules && game.rules.TOP) || 9;
+        if ((e.rank || rankOf(game, e.tier)) >= 5 && e.tier !== top) {
           var ever = ((save.discovered | 0) & (1 << (e.tier - 1))) !== 0;
           toast((ever ? 'NEW: ' : 'NEW COCKTAIL: ') + tierName(e.tier) + '!', e.tier);
         }
-      } else if (e.type === 'merge' && e.tier === 9 && !won && game && game.wonOnce) {
-        toast('Another Sangria!', 9);
+      } else if (e.type === 'merge' && game && e.tier === game.rules.TOP && !won && game.wonOnce) {
+        toast('Another Sangria!', e.tier);
       } else if (e.type === 'bombEarned' && e.gained !== false) {
         toast(e.bombs > 1 ? 'Another bomb! (' + e.bombs + ')' : 'Bomb ready! Tap it, then tap the table.', 9);
       }
@@ -255,7 +284,7 @@
     if (!box || !item) return;
     var el = doc.createElement('div'), sp = doc.createElement('span');
     el.className = 'toast';
-    if (item[1] >= 1 && item[1] <= 9) {
+    if (item[1] >= 1 && item[1] <= 10) {
       var c = doc.createElement('canvas'); el.appendChild(c); sizeCanvas(c, 34, 34, dpr); paintIcon(c, item[1], 'run');
     }
     sp.textContent = item[0]; el.appendChild(sp);

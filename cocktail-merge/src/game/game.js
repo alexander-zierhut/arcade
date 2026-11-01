@@ -122,7 +122,7 @@
     g.bodies.push(body);
     g.launches += 1;
     ev.push({ type: 'launch', id: body.id, tier: body.tier, x: body.x });
-    if (body.tier > g.highestTier) g.highestTier = body.tier;
+    if (rules.RANK[body.tier] > rules.RANK[g.highestTier]) g.highestTier = body.tier;
 
     g.current = g.next;
     g.next = spawn.drawSpawn(g);
@@ -130,7 +130,7 @@
     var bit = 1 << (g.current - 1);
     if ((g.runMask & bit) === 0) {                       // NEXT never discovers; the launcher does
       g.runMask |= bit;
-      ev.push({ type: 'discover', tier: g.current });
+      ev.push({ type: 'discover', tier: g.current, rank: rules.RANK[g.current] });
     }
     ev.push({ type: 'next', current: g.current, next: g.next });
     g.phase = 'cooldown';
@@ -211,6 +211,10 @@
     hash: state.hash,
     normalizeSave: save.normalizeSave,
     mergeSave: save.mergeSave,
+    bestFor: save.bestFor,
+    recordScore: save.recordScore,
+    rankOf: save.rankOf,
+    canonicalMode: state.canonicalMode,
     chimeFreqs: chime.chimeFreqs,
     useBomb: bomb.useBomb,
     bombRadius: bomb.bombRadius,

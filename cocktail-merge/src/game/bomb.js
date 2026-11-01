@@ -48,7 +48,7 @@
     var c = clampCentre(g, x, y), ppt = pointsPerTier(g.rules), removed = [], keep = [], points = 0, i, b;
     for (i = 0; i < g.bodies.length; i++) {
       b = g.bodies[i];
-      if (inBlast(g, c.x, c.y, b)) { removed.push({ id: b.id, tier: b.tier, x: b.x, y: b.y, r: b.r }); points += ppt * b.tier; }
+      if (inBlast(g, c.x, c.y, b)) { removed.push({ id: b.id, tier: b.tier, x: b.x, y: b.y, r: b.r }); points += ppt * ((g.rules.RANK && g.rules.RANK[b.tier]) || b.tier); }
       else keep.push(b);
     }
     g.bodies = keep;
