@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128" stroke-linejoin="round" stroke-linecap="round">
+<rect x="56" y="60" width="16" height="22" fill="#E8B88A" stroke="#2A1A12" stroke-width="4"/>
+<path d="M36 122L40 92Q44 82 56 80L72 80Q84 82 88 92L92 122Z" fill="#FFFFFF" stroke="#2A1A12" stroke-width="4"/>
+<path d="M72 84Q84 86 88 92L92 122L76 122Q80 102 72 84Z" fill="#E6E0D6"/>
+<path d="M56 80L64 102L72 80Z" fill="#E8B88A" stroke="#2A1A12" stroke-width="4"/>
+<path d="M57 81L47 88L60 108L64 102Z" fill="#E6E0D6" stroke="#2A1A12" stroke-width="3"/>
+<path d="M71 81L81 88L68 108L64 102Z" fill="#E6E0D6" stroke="#2A1A12" stroke-width="3"/>
+<circle cx="64" cy="112" r="2" fill="#2A1A12"/>
+<circle cx="64" cy="118" r="2" fill="#2A1A12"/>
+<g>
+<path d="M42 90Q28 98 30 108Q24 102 19 100" fill="none" stroke="#2A1A12" stroke-width="24"/>
+<path d="M42 90Q28 98 30 108Q24 102 19 100" fill="none" stroke="#FFFFFF" stroke-width="16"/>
+<ellipse cx="13" cy="92" rx="7" ry="5.5" transform="rotate(-40 13 92)" fill="#E8B88A" stroke="#2A1A12" stroke-width="4"/>
+<path d="M9 96Q13 93 17 91" fill="none" stroke="#2A1A12" stroke-width="2"/>
+</g>
+<g transform="matrix(-1 0 0 1 128 0)">
+<path d="M42 90Q28 98 30 108Q24 102 19 100" fill="none" stroke="#2A1A12" stroke-width="24"/>
+<path d="M42 90Q28 98 30 108Q24 102 19 100" fill="none" stroke="#FFFFFF" stroke-width="16"/>
+<ellipse cx="13" cy="92" rx="7" ry="5.5" transform="rotate(-40 13 92)" fill="#E8B88A" stroke="#2A1A12" stroke-width="4"/>
+<path d="M9 96Q13 93 17 91" fill="none" stroke="#2A1A12" stroke-width="2"/>
+</g>
+<ellipse cx="43" cy="48" rx="4" ry="6" fill="#E8B88A" stroke="#2A1A12" stroke-width="4"/>
+<ellipse cx="85" cy="48" rx="4" ry="6" fill="#E8B88A" stroke="#2A1A12" stroke-width="4"/>
+<ellipse cx="64" cy="44" rx="21" ry="22" fill="#E8B88A" stroke="#2A1A12" stroke-width="4"/>
+<path d="M42 42Q40 20 64 19Q88 20 86 42L86 38Q64 26 42 38Z" fill="#2A1A12" stroke="#2A1A12" stroke-width="4"/>
+<path d="M41 36Q64 25 87 36L87 44Q64 33 41 44Z" fill="#F4EBDD" stroke="#2A1A12" stroke-width="3"/>
+<circle cx="64" cy="34.5" r="3.5" fill="#D7263D"/>
+<circle cx="50" cy="57" r="3.5" fill="#C9955F"/>
+<circle cx="78" cy="57" r="3.5" fill="#C9955F"/>
+<circle cx="56" cy="50" r="2.5" fill="#2A1A12"/>
+<circle cx="72" cy="50" r="2.5" fill="#2A1A12"/>
+<path d="M58 60Q64 64 70 60" fill="none" stroke="#2A1A12" stroke-width="2.5"/>
+</svg>

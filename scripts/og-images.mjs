@@ -34,6 +34,13 @@ const GAMES = {
     pitch: 'Pick +9 or x2, grow the waddle, shoot the walls, beat the walrus. 50 authored levels, then endless.',
     tags: ['Gate runner', 'Riot levels', 'Endless'],
   },
+  'plate-loop': {
+    shot: 'docs/preview/game-play.png',
+    color: '#22303A', ink: '#F4EBDD', accent: '#3FD47A',
+    title: 'Plate Loop', sub: 'Sushi sorting on a conveyor belt',
+    pitch: 'Tap a box, its sushi rides the belt and lands where it fits. Four of a kind close the box. Fill the belt and the kitchen jams.',
+    tags: ['Sort puzzle', '100 levels', 'Endless'],
+  },
 };
 
 const CHROME = ['/usr/bin/google-chrome', '/usr/bin/google-chrome-stable', '/usr/bin/chromium'].find(existsSync) || process.env.CHROME_PATH;

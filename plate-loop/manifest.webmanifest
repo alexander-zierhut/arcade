@@ -1,0 +1,15 @@
+{
+  "name": "Plate Loop",
+  "short_name": "Plate Loop",
+  "description": "A sushi belt puzzle: sort the pieces into takeaway boxes before the belt jams.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "fullscreen",
+  "orientation": "portrait",
+  "background_color": "#22303A",
+  "theme_color": "#22303A",
+  "icons": [
+    { "src": "assets/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "assets/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ]
+}

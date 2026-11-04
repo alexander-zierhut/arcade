@@ -23,6 +23,7 @@ const BOOT = {
   'supermarket-sorter': () => !!(window.SS && SS.app && SS.app.ctx.state === 'TITLE'),
   'cocktail-merge': () => !!(window.CM && document.querySelector('canvas#game')),
   'penguin-march': () => !!(window.PM && PM.app && PM.app.state === 'TITLE' && PM.app.assets && PM.app.assets.failed.length === 0),
+  'plate-loop': () => !!(window.PlateLoop && PlateLoop.app && PlateLoop.app.state === 'TITLE' && PlateLoop.app.assets && PlateLoop.app.assets.failed.length === 0),
 };
 
 const TYPES = {

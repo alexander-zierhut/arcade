@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Plate Loop render check</title>
+<link rel="icon" href="data:,">
+<style>
+  body { margin: 0; background: #17100c; color: #F4EBDD; font: 13px/1.4 system-ui, sans-serif; }
+  header { padding: 10px 16px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; background: #231710; }
+  header b { margin-right: 8px; }
+  button { background: #3B2A20; color: #F4EBDD; border: 1px solid #5b4333; border-radius: 6px; padding: 5px 9px; font: inherit; cursor: pointer; }
+  button:hover { background: #4b3628; }
+  label { margin-left: 6px; }
+  #boards { display: flex; flex-wrap: wrap; gap: 20px; padding: 16px; align-items: flex-start; }
+  .board figcaption { margin: 0 0 6px; opacity: .8; }
+  .board { margin: 0; }
+  .board canvas { display: block; background: #2B1B14; outline: 1px solid #5b4333; }
+  #status { margin-left: auto; opacity: .7; }
+</style>
+</head>
+<body>
+<header>
+  <b>Plate Loop render check</b>
+  <button data-demo="tap">tap (3)</button><button data-demo="eject">eject</button><button data-demo="land">land</button><button data-demo="close">close</button>
+  <button data-demo="reveal">reveal</button><button data-demo="unlock">unlock</button><button data-demo="unwrap">unwrap</button>
+  <button data-demo="thaw">thaw</button><button data-demo="refuse">refuse</button><button data-demo="won">won</button>
+  <button data-demo="lost">lost</button><button data-demo="reset">reset</button>
+  <label><input type="checkbox" id="lowperf"> low perf</label>
+  <label><input type="checkbox" id="noluck"> no-luck</label>
+  <label><input type="checkbox" id="full"> belt full</label>
+  <label><input type="checkbox" id="move" checked> belt moves</label>
+  <span id="status"></span>
+</header>
+<div id="boards"></div>
+
+<script src="../../src/config.js"></script>
+<script src="../../src/engine/model.js"></script>
+<script src="../../src/levels/layouts.js"></script>
+<script src="../../src/render/layout.js"></script>
+<script src="../../src/render/sprites.js"></script>
+<script src="../../src/render/scene.js"></script>
+<script src="../../src/ui/input.js"></script>
+<script>
+(function () {
+  'use strict';
+  var PL = window.PlateLoop;
+  var errors = [];
+  window.addEventListener('error', function (e) { errors.push(String(e.message)); });
+  window.renderCheckErrors = errors;
+
+  var LEVELS = {
+    'ring-2col': {
+      N: 6, boxes: [
+        { id: 'L1', pieces: [3, 'h:5', 'h:5', 1] },
+        { id: 'L2', pieces: [['p', 2, 7], 0, 4] },
+        { id: 'L3', pieces: [8, 8, 8, 8] },
+        { id: 'L4', pieces: [6], mods: { oneway: true } },
+        { id: 'L5', pieces: [5, 5], mods: { wrap: 4 } },
+        { id: 'L6', pieces: [9, 9, 9], mods: { ice: true } },
+        { id: 'L7', pieces: [] },
+        { id: 'R1', pieces: [1, 1], mods: { lock: 'A' } },
+        { id: 'R2', pieces: [2, 10], mods: { lock: 'A' } },
+        { id: 'R3', pieces: [1, 'k:A:6', 6, 6] },
+        { id: 'R4', pieces: [10, 10, 10, 10] },
+        { id: 'R5', pieces: ['h:11', 4, ['p', 3, 3], 7] },
+        { id: 'R6', pieces: [0, 0, 0], mods: { lock: 'B' } },
+        { id: 'R7', pieces: ['k:B:9', 11, 2] }
+      ],
+      closed: ['L3', 'R4'],
+      belt: [{ k: 0 }, { k: 3 }, null, { k: 9, key: 'A' }, { k: 5 }, null],
+      ejectBox: 'R5', landBox: 'L7', closeBox: 'L2', revealBox: 'L1', unwrapBox: 'L5', thawBox: 'L6', lock: 'A', refuseBox: 'R1'
+    },
+    'counter': {
+      N: 6, boxes: [
+        { id: 'T1', pieces: [3, 'h:5', 1, 1] },
+        { id: 'T2', pieces: [['p', 2, 7], 0, 4] },
+        { id: 'T3', pieces: [8, 8, 8, 8] },
+        { id: 'T4', pieces: [5, 5], mods: { wrap: 4 } },
+        { id: 'T5', pieces: [9, 9, 9], mods: { ice: true } },
+        { id: 'B1', pieces: [1, 1], mods: { lock: 'A' } },
+        { id: 'B2', pieces: [2, 10], mods: { lock: 'A' } },
+        { id: 'B3', pieces: [1, 'k:A:6', 6, 6] },
+        { id: 'B4', pieces: [10, 10, 10, 10] },
+        { id: 'B5', pieces: ['h:11', 4, ['p', 3, 3], 7] },
+        { id: 'I1', pieces: [6], mods: { oneway: true } },
+        { id: 'I2', pieces: [] }
+      ],
+      closed: ['T3', 'B4'],
+      belt: [{ k: 0 }, null, { k: 3 }, { k: 9, key: 'A' }, null, { k: 5 }],
+      ejectBox: 'B5', landBox: 'I2', closeBox: 'T2', revealBox: 'T1', unwrapBox: 'T4', thawBox: 'T5', lock: 'A', refuseBox: 'B1'
+    }
+  };
+
+  function makeSim(name) {
+    var tpl = PL.layouts[name], cfgL = LEVELS[name];
+    var level = { id: 1, tier: 'normal', seed: 1, layout: name, dir: /dir=ccw/.test(location.search) ? 'ccw' : 'cw', N: cfgL.N, kinds: 12, boxes: JSON.parse(JSON.stringify(cfgL.boxes)) };
+    var state = PL.model.parse(level, { layout: tpl });
+    cfgL.closed.forEach(function (id) { state.boxes[state.index[id]].closed = true; });
+    cfgL.belt.forEach(function (b, i) { state.belt[i] = b ? { id: 900 + i, k: b.k, key: b.key || null, from: 0 } : null; });
+    var sim = { state: state, status: 'play', phase: 0, per: tpl.perimeter, tpl: tpl, base: [] };
+    for (var bi = 0; bi < state.N; bi++) sim.base.push(bi * tpl.perimeter / state.N);
+    sim.plates = function () {
+      var out = [], i, sp = sim.per / state.N;
+      for (i = 0; i < state.N; i++) { var t = (sim.phase + sim.base[i]) % sim.per; out.push({ plate: i, s: state.dir === 'ccw' ? (sim.per - t) % sim.per : t, piece: state.belt[i] }); }
+      return out;
+    };
+    sim.freePlates = function () {
+      var n = 0, i;
+      if (document.getElementById('full').checked) return 0;
+      for (i = 0; i < state.N; i++) if (!state.belt[i]) n++;
+      return n;
+    };
+    return sim;
+  }
+
+  var boards = []; window.renderCheckBoards = boards;
+  function addBoard(name, w, h) {
+    var fig = document.createElement('figure'); fig.className = 'board';
+    var cap = document.createElement('figcaption'); cap.textContent = name + ' at ' + w + 'x' + h + ' (dpr ' + (window.devicePixelRatio || 1) + ')';
+    var canvas = document.createElement('canvas');
+    fig.appendChild(cap); fig.appendChild(canvas); document.getElementById('boards').appendChild(fig);
+    var board = { name: name, w: w, h: h, canvas: canvas, cfg: LEVELS[name], pending: [] };
+    board.step = function (t) { board.sim.time = t; while (board.pending.length && board.pending[0].at <= t) board.pending.shift().run(); };
+    board.reset = function () {
+      board.sim = makeSim(name); board.pending = [];
+      board.scene = PL.scene.create(canvas, PL.layouts[name]);
+      board.scene.resize(w, h, window.devicePixelRatio || 1);
+      board.scene.lowPerf(document.getElementById('lowperf').checked);
+      board.scene.noLuck(document.getElementById('noluck').checked);
+      PL.input.attach(canvas, function (i) {
+        var b = board.sim.state.boxes[i], st = board.sim.state;
+        document.getElementById('status').textContent = 'tap: box ' + i + ' (' + b.id + ')';
+        if (b.closed || b.wrap != null || b.ice || b.lock != null || b.oneway) board.scene.flash({ type: 'refuse', box: i, reason: 'covered' });
+      }, board.scene);
+    };
+    board.reset();
+    boards.push(board);
+  }
+
+  PL.sprites.load('../../assets/sprites/', function (st) {
+    document.getElementById('status').textContent = 'sprites: ' + st.loaded + '/' + st.total + (st.failed.length ? ' failed: ' + st.failed.join(',') : '');
+    addBoard('ring-2col', 360, 634);
+    addBoard('counter', 360, 634);
+    addBoard('ring-2col', 390, 800);
+    addBoard('counter', 390, 800);
+    start();
+  });
+
+  // ---- demos: mutate the fake state like the engine would, then flash the event ----------------
+  function box(b, id) { return b.sim.state.boxes[b.sim.state.index[id]]; }
+  function idx(b, id) { return b.sim.state.index[id]; }
+  // the free plate that reaches the box's mouth next (travel units)
+  function freePlate(b, bx) {
+    var s = b.sim.state, per = b.sim.per, sp = per / s.N, m = b.sim.tpl.slots[bx.id].s, i, best = -1, bd = 1e9;
+    if (s.dir === 'ccw') m = per - m;
+    for (i = 0; i < s.N; i++) {
+      if (s.belt[i]) continue;
+      var d = ((m - (b.sim.phase + i * sp)) % per + per) % per;
+      if (d < bd) { bd = d; best = i; }
+    }
+    return best;
+  }
+  var demos = {
+    tap: function (b) {
+      // the engine's scheduled model: the pieces go to box.outbox, each gets a reserved plate (the free one that reaches the mouth
+      // soonest) and a departAt; at departAt the plate is lifted to just behind the mouth, the piece goes on it, `eject` is sent
+      var bx = box(b, b.cfg.ejectBox), mk = function (id, k) { return { id: id, k: k, hidden: false, key: null, pair: null }; };
+      var sim = b.sim, st = sim.state, per = sim.per, ccw = st.dir === 'ccw', i, j, plan = [], taken = {}, t0 = sim.time || 0;
+      bx.pieces = [mk(801, 11), mk(802, 4), mk(803, 8), mk(804, 8), mk(805, 8)];
+      var mm = sim.tpl.slots[bx.id].s; if (ccw) mm = per - mm;
+      var cw = function (t) { return ccw ? (per - t) % per : t; };
+      var moved = bx.pieces.splice(-3).reverse();
+      bx.outbox = moved; bx.pending = moved.length;
+      for (j = 0; j < moved.length; j++) {
+        var best = -1, bd = 1e9;
+        for (i = 0; i < st.N; i++) {
+          if (st.belt[i] || taken[i]) continue;
+          var d = (((mm - (sim.phase + sim.base[i])) % per) + per) % per;      // distance behind the mouth
+          if (d < bd) { bd = d; best = i; }
+        }
+        taken[best] = true;
+        moved[j].plate = best; moved[j].departAt = t0 + 900 + j * 900;
+        plan.push({ piece: moved[j], plate: best, from: cw((sim.phase + sim.base[best]) % per), departAt: moved[j].departAt });
+      }
+      b.scene.flash({ type: 'tapped', box: idx(b, bx.id), k: 3, pieces: moved, plan: plan, time: t0 });
+      plan.forEach(function (pl, j) {
+        b.pending.push({ at: pl.departAt, run: function () {
+          var from = cw((sim.phase + sim.base[pl.plate]) % per);
+          sim.base[pl.plate] = ((mm - 0.5 - sim.phase) % per + per) % per;
+          bx.outbox.shift(); bx.pending = bx.outbox.length;
+          st.belt[pl.plate] = { id: pl.piece.id, k: pl.piece.k, key: null, from: 0 };
+          b.scene.flash({ type: 'eject', box: idx(b, bx.id), plate: pl.plate, piece: pl.piece, from: from, to: cw((sim.phase + sim.base[pl.plate]) % per), teleported: true, departAt: pl.departAt });
+        } });
+      });
+    },
+    eject: function (b) {
+      var bx = box(b, b.cfg.ejectBox), p = freePlate(b, bx); if (p < 0 || !bx.pieces.length) return;
+      // the fake belt is frozen in the shots: bring the chosen plate to the mouth, as the engine's crossing would
+      var mm = b.sim.tpl.slots[bx.id].s; if (b.sim.state.dir === 'ccw') mm = b.sim.per - mm;
+      b.sim.phase = ((mm - p * b.sim.per / b.sim.state.N) % b.sim.per + b.sim.per) % b.sim.per;
+      if (bx.pending > 0) bx.pending--;
+      var pc = bx.outbox && bx.outbox.length ? bx.outbox.shift() : bx.pieces.pop(); b.sim.state.belt[p] = { id: pc.id, k: pc.k, key: pc.key, from: idx(b, bx.id) };
+      b.scene.flash({ type: 'eject', box: idx(b, bx.id), plate: p, piece: pc });
+    },
+    land: function (b) {
+      var bx = box(b, b.cfg.landBox), s = b.sim.state, i;
+      for (i = 0; i < s.N; i++) if (s.belt[i] && bx.pieces.length < 4) {
+        var pc = s.belt[i]; s.belt[i] = null;
+        bx.pieces.push({ id: pc.id, k: pc.k, hidden: false, key: pc.key, pair: null });
+        b.scene.flash({ type: 'land', box: idx(b, bx.id), plate: i, piece: bx.pieces[bx.pieces.length - 1] });
+        return;
+      }
+    },
+    close: function (b) {
+      var bx = box(b, b.cfg.closeBox);
+      bx.pieces = [{ id: 701, k: 2, hidden: false, key: null, pair: null }, { id: 702, k: 2, hidden: false, key: null, pair: null }, { id: 703, k: 2, hidden: false, key: null, pair: null }, { id: 704, k: 2, hidden: false, key: null, pair: null }];
+      bx.closed = true;
+      b.scene.flash({ type: 'land', box: idx(b, bx.id), plate: 0, piece: bx.pieces[3] });
+      b.scene.flash({ type: 'close', box: idx(b, bx.id), kind: 2 });
+    },
+    reveal: function (b) {
+      var bx = box(b, b.cfg.revealBox);
+      bx.pieces.pop(); var f = bx.pieces[bx.pieces.length - 1];
+      if (f) { f.hidden = false; b.scene.flash({ type: 'reveal', box: idx(b, bx.id), piece: f }); }
+    },
+    unlock: function (b) {
+      var s = b.sim.state, id = b.cfg.lock, ids = [];
+      if (!s.locks[id] || s.locks[id].open) return;
+      s.locks[id].open = true;
+      s.locks[id].boxes.forEach(function (bid) { s.boxes[s.index[bid]].lock = null; ids.push(s.index[bid]); });
+      b.scene.flash({ type: 'unlock', lock: id, boxes: ids });
+    },
+    unwrap: function (b) { var bx = box(b, b.cfg.unwrapBox); if (bx.wrap == null) return; bx.wrap = null; b.scene.flash({ type: 'unwrap', box: idx(b, bx.id) }); },
+    thaw: function (b) { var bx = box(b, b.cfg.thawBox); if (!bx.ice) return; bx.ice = false; b.scene.flash({ type: 'thaw', box: idx(b, bx.id) }); },
+    refuse: function (b) { b.scene.flash({ type: 'refuse', box: idx(b, b.cfg.refuseBox), reason: 'covered' }); b.scene.flash({ type: 'refuse', box: idx(b, b.cfg.ejectBox), reason: 'full' }); },
+    won: function (b) { b.sim.status = 'won'; b.scene.flash({ type: 'won' }); },
+    lost: function (b) { b.sim.status = 'lost'; b.scene.flash({ type: 'lost' }); },
+    reset: function (b) { b.reset(); }
+  };
+  Array.prototype.forEach.call(document.querySelectorAll('[data-demo]'), function (btn) {
+    btn.addEventListener('click', function () { boards.forEach(function (b) { demos[btn.getAttribute('data-demo')](b); }); });
+  });
+  document.getElementById('lowperf').addEventListener('change', function (e) { boards.forEach(function (b) { b.scene.lowPerf(e.target.checked); }); });
+  document.getElementById('noluck').addEventListener('change', function (e) { boards.forEach(function (b) { b.scene.noLuck(e.target.checked); }); });
+
+  function start() {
+    if (/freeze=1/.test(location.search)) { window.renderCheckReady = true; return; }   // the test script drives render() itself
+    var last = performance.now(), frames = 0, acc = 0;
+    function loop(t) {
+      var dt = Math.min(64, t - last); last = t;
+      var move = document.getElementById('move').checked;
+      boards.forEach(function (b) {
+        if (move) b.sim.phase = (b.sim.phase + dt * b.sim.per / 8000) % b.sim.per;
+        b.step(t);
+        b.scene.render(b.sim, dt, t);
+      });
+      requestAnimationFrame(loop);
+    }
+    requestAnimationFrame(loop);
+    window.renderCheckReady = true;
+  }
+})();
+</script>
+</body>
+</html>

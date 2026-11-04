@@ -32,6 +32,12 @@ export const RULES = {
       { file: 'index.html', re: /class="version-no">v([^<]+)</, label: 'index.html title' },
     ],
   },
+  'plate-loop': {
+    places: [
+      { file: 'src/config.js', re: /(?<![A-Z_])VERSION:\s*'([^']+)'/, label: 'src/config.js' },
+      { file: 'src/ui/strings.js', re: /PL\.config\.VERSION\) \|\| '([^']+)'/, label: 'src/ui/strings.js fallback' },
+    ],
+  },
 };
 export const KIT_PLACES = [
   { file: 'index.html', re: /Arcade\.init\(\{[^}]*\bversion:\s*'([^']+)'/, label: 'Arcade.init' },

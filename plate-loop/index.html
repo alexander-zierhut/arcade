@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#22303A">
+<meta name="description" content="A sushi conveyor puzzle: pack the plates four of a kind into takeaway boxes before the belt jams.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Plate Loop">
+<meta property="og:description" content="Plates ride a sushi conveyor and you pack them, four of a kind, into takeaway boxes. Tap the right box at the right time, or the belt jams.">
+<meta property="og:url" content="https://arcade.alzlper.com/plate-loop/">
+<meta property="og:image" content="https://arcade.alzlper.com/plate-loop/assets/icons/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<title>Plate Loop</title>
+<link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="stylesheet" href="shared/arcade.css">
+<link rel="stylesheet" href="src/style.css">
+</head>
+<body>
+<script src="shared/core.js"></script>
+<script src="shared/ui.js"></script>
+<script src="shared/app.js"></script>
+<script src="shared/perf.js"></script>
+<script src="shared/stats.js"></script>
+<script src="shared/campaigns.js"></script>
+<script src="shared/news.js"></script>
+<script src="shared/share.js"></script>
+<script src="shared/backup.js"></script>
+<script src="shared/menu.js"></script>
+<script src="shared/hooks.js"></script>
+<script src="news.js"></script>
+<script>Arcade.init({ game: 'plate-loop', title: 'Plate Loop', version: '0.1.0', langs: ['de', 'en'] });</script>
+
+<div id="app">
+
+  <!-- title -->
+  <main id="screen-title" class="screen title" hidden>
+    <button type="button" class="round-btn home-btn" data-arcade="home" aria-label="Alle Spiele / All games">
+      <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" focusable="false">
+        <path d="M5.2 11.2V19.3h13.6V11.2" fill="#F4EBDD" stroke="#2A1A12" stroke-width="1.6" stroke-linejoin="round"/>
+        <path d="M2.6 11.6 12 4.2l9.4 7.4-1.3 1.6L12 6.9l-8.1 6.3z" fill="#3FD47A" stroke="#2A1A12" stroke-width="1.6" stroke-linejoin="round"/>
+        <rect x="10.2" y="13.6" width="3.6" height="5.7" rx="1.2" fill="#2A1A12"/>
+      </svg>
+    </button>
+    <div class="title-glow" aria-hidden="true"></div>
+    <header class="title-head">
+      <img class="logo" id="logo-img" src="assets/sprites/logo.svg" alt="" width="256" height="128" draggable="false">
+      <h1 class="name">Plate <span>Loop</span></h1>
+      <p class="sub" data-i18n="title_sub"></p>
+    </header>
+    <div class="title-belt" aria-hidden="true"><div class="belt-track" id="title-track"></div></div>
+    <nav class="title-actions">
+      <button type="button" id="btn-play" class="btn primary big"><span id="play-label"></span></button>
+      <button type="button" id="btn-endless" class="btn secondary"><span data-i18n="endless"></span></button>
+      <div class="chips">
+        <button type="button" id="chip-howto" class="chip">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M9.3 9.4a2.8 2.8 0 1 1 4.2 2.4c-.9.6-1.5 1.1-1.5 2.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="17.2" r="1.2" fill="currentColor"/></svg>
+          <span data-i18n="howto"></span>
+        </button>
+        <button type="button" id="chip-settings" class="chip">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M4 7h10M18 7h2M4 17h2M10 17h10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="16" cy="7" r="2.4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="8" cy="17" r="2.4" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+          <span data-i18n="settings"></span>
+        </button>
+      </div>
+    </nav>
+    <footer class="title-foot"><span data-i18n="version"></span></footer>
+  </main>
+
+  <!-- play -->
+  <section id="screen-play" class="screen play" hidden>
+    <header class="band">
+      <div id="pill" class="pill" data-tier="easy">
+        <svg id="pill-skull" class="skull" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false" hidden><path d="M8 1.5c-3.3 0-5.5 2.2-5.5 5 0 1.7.8 3 2 3.8V13h7v-2.7c1.2-.8 2-2.1 2-3.8 0-2.8-2.2-5-5.5-5z" fill="currentColor"/><circle cx="5.6" cy="7.2" r="1.5" fill="#2A1A12"/><circle cx="10.4" cy="7.2" r="1.5" fill="#2A1A12"/><path d="M6.7 11v1.8M8 11v1.8M9.3 11v1.8" stroke="#2A1A12" stroke-width="1" stroke-linecap="round"/></svg>
+        <span id="pill-text"></span>
+      </div>
+      <button type="button" id="btn-pause" class="round-btn pause-btn" data-i18n-aria="pause_aria">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><rect x="6" y="5" width="4" height="14" rx="1.200" fill="#F4EBDD"/><rect x="14" y="5" width="4" height="14" rx="1.200" fill="#F4EBDD"/></svg>
+      </button>
+    </header>
+    <div class="board-wrap" id="board-wrap"><canvas id="board" width="360" height="600"></canvas></div>
+  </section>
+
+  <!-- cards -->
+  <div id="cards" class="cards" hidden>
+
+    <section id="card-pause" class="card" role="dialog" aria-modal="true" aria-labelledby="pause-h" hidden>
+      <h2 id="pause-h" data-i18n="pause_title"></h2>
+      <div class="btns">
+        <button type="button" id="pause-resume" class="btn primary" data-i18n="resume"></button>
+        <button type="button" id="pause-restart" class="btn" data-i18n="restart"></button>
+        <button type="button" id="pause-settings" class="btn" data-i18n="settings"></button>
+        <button type="button" id="pause-howto" class="btn" data-i18n="howto"></button>
+        <button type="button" id="pause-quit" class="btn ghost" data-i18n="quit"></button>
+      </div>
+    </section>
+
+    <section id="card-settings" class="card" role="dialog" aria-modal="true" aria-labelledby="settings-h" hidden>
+      <h2 id="settings-h" data-i18n="settings_title"></h2>
+      <div class="rows">
+        <button type="button" id="set-sound" class="row" aria-pressed="true"><span id="set-sound-label"></span></button>
+        <button type="button" class="row" data-arcade="perf" data-arcade-auto></button>
+        <button type="button" class="row" data-arcade="lang" data-arcade-auto></button>
+        <button type="button" class="row" data-arcade="fullscreen" data-arcade-auto></button>
+        <button type="button" class="row" data-arcade="app" data-arcade-auto></button>
+        <button type="button" class="row" data-arcade="news" data-arcade-auto></button>
+      </div>
+      <div class="btns"><button type="button" id="settings-done" class="btn primary" data-i18n="done"></button></div>
+    </section>
+
+    <section id="card-modes" class="card" role="dialog" aria-modal="true" aria-labelledby="modes-h" hidden>
+      <h2 id="modes-h" data-i18n="modes_title"></h2>
+      <p class="lead" data-i18n="modes_sub"></p>
+      <div class="tiers" role="radiogroup" aria-labelledby="modes-h" id="modes-tiers">
+        <button type="button" class="tier" role="radio" aria-checked="false" data-tier="easy"><i class="dot"></i><span><b data-i18n="tier_easy"></b><small></small></span></button>
+        <button type="button" class="tier" role="radio" aria-checked="false" data-tier="normal"><i class="dot"></i><span><b data-i18n="tier_normal"></b><small></small></span></button>
+        <button type="button" class="tier" role="radio" aria-checked="false" data-tier="hard"><i class="dot"></i><span><b data-i18n="tier_hard"></b><small></small></span></button>
+        <button type="button" class="tier" role="radio" aria-checked="false" data-tier="extreme"><i class="dot"></i><span><b data-i18n="tier_extreme"></b><small></small></span></button>
+      </div>
+      <button type="button" id="modes-noluck" class="row two" aria-pressed="false"><span><b data-i18n="noluck"></b><small data-i18n="noluck_hint"></small></span></button>
+      <div class="btns">
+        <button type="button" id="modes-start" class="btn primary" data-i18n="start"></button>
+        <button type="button" id="modes-back" class="btn ghost" data-i18n="back"></button>
+      </div>
+    </section>
+
+    <section id="card-howto" class="card howto" role="dialog" aria-modal="true" aria-labelledby="howto-h" hidden>
+      <div class="ill" id="howto-ill" aria-hidden="true"></div>
+      <h2 id="howto-h"></h2>
+      <p id="howto-text" class="lead"></p>
+      <div class="dots" id="howto-dots" aria-hidden="true"></div>
+      <div class="btns two">
+        <button type="button" id="howto-prev" class="btn" data-i18n="prev"></button>
+        <button type="button" id="howto-next" class="btn primary"></button>
+      </div>
+    </section>
+
+    <section id="card-win" class="card end" role="dialog" aria-modal="true" aria-labelledby="win-h" hidden>
+      <img class="end-img" src="assets/sprites/bell.svg" alt="" width="96" height="96" draggable="false">
+      <h2 id="win-h" data-i18n="win_title"></h2>
+      <p id="win-text" class="lead"></p>
+      <div class="btns">
+        <button type="button" id="win-next" class="btn primary"></button>
+        <div class="trio">
+          <button type="button" class="btn small" data-arcade="share" data-arcade-auto></button>
+          <button type="button" id="win-replay" class="btn small" data-i18n="replay"></button>
+          <button type="button" id="win-title" class="btn small" data-i18n="to_title"></button>
+        </div>
+      </div>
+    </section>
+
+    <section id="card-lose" class="card end" role="dialog" aria-modal="true" aria-labelledby="lose-h" hidden>
+      <img class="end-img" src="assets/sprites/chef.svg" alt="" width="96" height="96" draggable="false">
+      <h2 id="lose-h" data-i18n="lose_title"></h2>
+      <p id="lose-text" class="lead"></p>
+      <p id="lose-best" class="badge" hidden></p>
+      <div class="btns">
+        <button type="button" id="lose-retry" class="btn primary"></button>
+        <div class="trio">
+          <button type="button" id="lose-share" class="btn small" data-arcade="share" data-arcade-auto></button>
+          <button type="button" id="lose-modes" class="btn small" data-i18n="modes" hidden></button>
+          <button type="button" id="lose-title" class="btn small" data-i18n="to_title"></button>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<script src="src/config.js"></script>
+<script src="src/engine/model.js"></script>
+<script src="src/engine/rules.js"></script>
+<script src="src/engine/belt.js"></script>
+<script src="src/engine/sim.js"></script>
+<script src="src/gen/rng.js"></script>
+<script src="src/gen/solver.js"></script>
+<script src="src/gen/bot.js"></script>
+<script src="src/gen/generator.js"></script>
+<script src="src/levels/layouts.js"></script>
+<script src="src/levels/levels-001-100.js"></script>
+<script src="src/levels/levels-101-500.js"></script>
+<script src="src/render/layout.js"></script>
+<script src="src/render/sprites.js"></script>
+<script src="src/render/scene.js"></script>
+<script src="src/ui/strings.js"></script>
+<script src="src/ui/save.js"></script>
+<script src="src/ui/input.js"></script>
+<script src="src/ui/screens.js"></script>
+<script src="src/audio/audio.js"></script>
+<script src="src/main.js"></script>
+</body>
+</html>

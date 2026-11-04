@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+<ellipse cx="32" cy="56" rx="21" ry="3" fill="#2A1A12" opacity="0.2"/>
+<path id="inari-shade" d="M12 32 Q10 24 20 24 L44 24 Q54 24 52 32 Q54 42 48 48 Q40 52 32 50 Q24 52 16 48 Q10 42 12 32 Z" transform="translate(0 4)" fill="#AB7631" stroke="#2A1A12" stroke-width="2" stroke-linejoin="round"/>
+<path d="M12 32 Q10 24 20 24 L44 24 Q54 24 52 32 Q54 42 48 48 Q40 52 32 50 Q24 52 16 48 Q10 42 12 32 Z" fill="#C98B3A" stroke="#2A1A12" stroke-width="2" stroke-linejoin="round"/>
+<path d="M13 32 Q32 38 51 32" fill="none" stroke="#2A1A12" stroke-width="2" stroke-linecap="round"/>
+<ellipse cx="21" cy="41" rx="4" ry="2" fill="#FFFFFF" opacity="0.35"/>
+<ellipse cx="32" cy="25" rx="13" ry="5" fill="#FFFFFF" stroke="#2A1A12" stroke-width="2"/>
+<path d="M24 24 L25 26 M32 23 L33 25 M40 24 L41 26" stroke="#E6E0D6" stroke-width="2" stroke-linecap="round"/>
+</svg>
