@@ -27,7 +27,7 @@
       if (!PL.generator) { post({ id: msg.id, ok: false, error: 'engine not loaded' }); return; }
       if (msg.cmd === 'search') {
         res = gen.generate({
-          tier: msg.tier, seed: msg.seed, allow: msg.allow, hardness: msg.hardness, hardest: !!msg.hardest, candidates: msg.candidates || 80,
+          tier: msg.tier, seed: msg.seed, allow: msg.allow, hardness: msg.hardness, look: msg.look || 0, hardest: !!msg.hardest, candidates: msg.candidates || 80,
           budgetMs: msg.budgetMs || 12000, now: now,
           onCandidate: function (n, h) { post({ id: msg.id, progress: n, hard: h }); }
         });

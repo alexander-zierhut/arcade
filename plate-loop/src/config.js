@@ -5,17 +5,18 @@
 
   // Tier bands of plan 5.4. Ranges are [min, max], inclusive. extraBoxes = boxes minus kinds,
   // emptyBoxes = boxes without a piece at the start, hidden = share of pieces that start hidden,
-  // mods = number of modifier kinds a level uses.
+  // mods = number of modifier kinds a level uses, maxRun = the longest run a box may start with at its front (what one tap
+  // takes; a box that starts with three of a kind at the front is a free move; Alex 2026-11-06).
   var TIERS = {
-    easy:    { N: [8, 10], kinds: [4, 7],  extraBoxes: [2, 3], emptyBoxes: [2, 3], hidden: [0, 0.2],   mods: [0, 1] },
-    normal:  { N: [6, 8],  kinds: [7, 10], extraBoxes: [1, 2], emptyBoxes: [1, 2], hidden: [0.2, 0.4], mods: [1, 2] },
-    hard:    { N: [5, 6],  kinds: [9, 12], extraBoxes: [1, 1], emptyBoxes: [1, 1], hidden: [0.3, 0.5], mods: [2, 3] },
-    extreme: { N: [4, 4],  kinds: [10, 12], extraBoxes: [1, 1], emptyBoxes: [0, 1], hidden: [0.3, 0.5], mods: [2, 3] }
+    easy:    { N: [8, 10], kinds: [4, 7],  extraBoxes: [2, 3], emptyBoxes: [2, 3], hidden: [0, 0.2],   mods: [0, 1], maxRun: 4 },
+    normal:  { N: [6, 8],  kinds: [7, 10], extraBoxes: [1, 2], emptyBoxes: [1, 2], hidden: [0.2, 0.4], mods: [1, 2], maxRun: 3 },   // maxRun: the run at the front
+    hard:    { N: [5, 6],  kinds: [9, 12], extraBoxes: [1, 1], emptyBoxes: [1, 1], hidden: [0.3, 0.5], mods: [2, 3], maxRun: 2 },
+    extreme: { N: [4, 4],  kinds: [10, 12], extraBoxes: [1, 1], emptyBoxes: [0, 1], hidden: [0.3, 0.5], mods: [2, 3], maxRun: 2 }
   };
 
   PL.config = {
     STORAGE_KEY: 'plateLoop.',
-    VERSION: '0.2.0',
+    VERSION: '0.2.1',
     LAP_MS: 8000,
     SLIDE_MS: 250,
     DEPART_FIRST_MS: 900,         // tap -> the first unit gets onto its plate (the piece slides out)

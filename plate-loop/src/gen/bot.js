@@ -169,7 +169,68 @@
     return r.pick(legal);
   }
 
-  // play(level, { layout, skill: 'perfect' | 'greedy' | 'sloppy', seed, maxNodes }) -> { won, taps, ticks }
+  // ---------------------------------------------------------------- the juggler: a human-like real-time player
+  //
+  // Thinks a lap ahead in the real sim: at every decision it clones the sim, tries each possible tap (and doing nothing),
+  // runs the clone for `lookMs`, scores the result (closed boxes, matched runs, pieces riding without a home, hopeless
+  // positions) and takes the best tap when it beats waiting. Unlike the solver it uses the belt as a buffer and taps
+  // while pieces are still riding, which is what a human does with four plates.
+  function score(st) {
+    var i, j, b, n, sc = 0, closed = 0, riders = 0, homeless = 0, p, k, matched = 0, groups = 0, prev;
+    if (rules.isHopeless(st)) return -1e6;
+    for (i = 0; i < st.boxes.length; i++) {
+      b = st.boxes[i];
+      if (b.closed) { closed++; continue; }
+      n = b.pieces.length;
+      prev = -1;
+      for (j = 0; j < n; j++) { k = b.pieces[j].k; if (k !== prev) { groups++; prev = k; } }
+      if (n > 1 && groups === 1) matched += n;          // a pure box: its pieces are home
+    }
+    for (i = 0; i < st.belt.length; i++) {
+      p = st.belt[i];
+      if (!p) continue;
+      riders++;
+      for (j = 0; j < st.boxes.length; j++) if (rules.accepts(st, j, p.k)) break;
+      if (j === st.boxes.length) homeless++;
+    }
+    sc = closed * 100 + matched * 6 - groups * 4 - riders * 2 - homeless * 15;
+    if (rules.isStuck(st)) sc -= 1e5;
+    return sc;
+  }
+  function cloneSim(s) {
+    var c = { state: model.clone(s.state), belt: { N: s.belt.N, perimeter: s.belt.perimeter, spacing: s.belt.spacing, dir: s.belt.dir, mouths: s.belt.mouths, pos: s.belt.pos.slice(), up: s.belt.up.slice(), travel: s.belt.travel, phase: s.belt.phase },
+      speed: s.speed, time: s.time, status: s.status, log: [], lapMs: s.lapMs, plateWidth: s.plateWidth, skip: s.skip.slice() };
+    return c;
+  }
+  function tryOut(s, tapBox, lookMs) {
+    var c = cloneSim(s), t = 0, r;
+    if (tapBox >= 0) { r = sim.tap(c, tapBox); if (!r.ok) return -Infinity; }
+    while (t < lookMs && c.status === 'play') { sim.tick(c, TICK * 2); t += TICK * 2; }
+    if (c.status === 'won') return 1e7;
+    if (c.status === 'lost') return -1e7;
+    return score(c.state) + (tapBox >= 0 ? 0 : -1);    // waiting costs a little: a tie goes to acting
+  }
+  function juggle(level, o) {
+    var layout = layoutOf(level, o), s = create(level, layout), r = rng.create(o.seed === undefined ? 1 : o.seed), taps = 0, ticks = 0,
+      limit = 20 * 60 * 1000 / TICK, lookMs = o.lookMs || Math.round(s.lapMs * 1.25), every = o.everyMs || 400, since = every, b, best, bestB, v, cands, nb = s.state.boxes.length, ce, j;
+    while (s.status === 'play' && ticks < limit && taps < 600) {
+      if (since >= every) {
+        since = 0;
+        cands = [];
+        for (b = 0; b < nb; b++) { ce = rules.canEject(s.state, b); if (ce.ok) cands.push(b); }
+        if (cands.length) {
+          best = tryOut(s, -1, lookMs); bestB = -1;
+          r.shuffle(cands);
+          for (j = 0; j < cands.length; j++) { v = tryOut(s, cands[j], lookMs); if (v > best) { best = v; bestB = cands[j]; } }
+          if (bestB >= 0) { sim.tap(s, bestB); taps++; }
+        }
+      }
+      sim.tick(s, TICK); ticks++; since += TICK;
+    }
+    return { won: s.status === 'won', taps: taps, ticks: ticks };
+  }
+
+  // play(level, { layout, skill: 'perfect' | 'greedy' | 'sloppy' | 'juggler', seed, maxNodes }) -> { won, taps, ticks }
   function play(level, opts) {
     deps();
     var o = opts || {}, layout = layoutOf(level, o), skill = o.skill || 'greedy', seed = o.seed === undefined ? 1 : o.seed,
@@ -180,6 +241,7 @@
       res = certify(level, res.moves, { layout: layout });
       return { won: res.won, taps: res.taps, ticks: res.ticks, reason: res.reason };
     }
+    if (skill === 'juggler') return juggle(level, o);
     sloppy = skill === 'sloppy';
     r = rng.create(seed);
     s = create(level, layout);
@@ -208,6 +270,6 @@
     return { won: s.status === 'won', taps: taps, ticks: ticks };
   }
 
-  PL.bot = { certify: certify, play: play, beltEmpty: beltEmpty };
+  PL.bot = { certify: certify, play: play, beltEmpty: beltEmpty, juggle: juggle };
   if (typeof module !== 'undefined' && module.exports) module.exports = PL.bot;
 })(typeof window !== 'undefined' ? window : globalThis);

@@ -1,8 +1,11 @@
 # Plate Loop: status
 
-**Version 0.2.0, beta.** 0.1.0 went live on 2026-11-04; the first players found two bugs within a day and the game
-was far too easy. 0.2.0 (2026-11-06) fixes the bugs, rebuilds all 500 levels much harder on a measured difficulty
-curve, gives Endless ten difficulties with shareable level codes, and adds two looks (plain graphics, stream belt).
+**Version 0.2.1, beta.** 0.1.0 went live on 2026-11-04; the first players found two bugs within a day and the game
+was far too easy. 0.2.0 (2026-11-06) fixed the bugs, rebuilt all 500 levels on a measured difficulty curve, gave
+Endless ten difficulties with shareable level codes, and added two looks (plain graphics, stream belt), favourites
+and replays. 0.2.1 (the same evening, after Alex beat a "4.7" first try) changed the measure to lookahead players
+(plan R29: H_k for k = 0 to 16), rebuilt the levels again around deep traps, added the hunt's lookahead setting and
+three deal rules (no front run of three on Hard/Extreme, no pair of one kind, hidden pieces of a different kind).
 `release.json` keeps `"status": "beta"` and `"released": "2026-11-04"`.
 
 ## What is in it

@@ -22,8 +22,9 @@ Status: **0.2.0, beta** (see [docs/STATUS.md](docs/STATUS.md)). Released as 0.1.
   key under it.
 - Twists, introduced one by one: hidden pieces (cloche), bound pairs, wrapped boxes (cloth), frozen boxes (ice),
   locked boxes with a key on a piece (shutter), one-way boxes.
-- Modes: 500 fixed levels (progress = highest cleared; a gentle start, a steep middle, a spike every 25 levels, nothing
-  hidden at the top), and Endless (difficulty 1 to 10, optional "no luck" = nothing hidden, forced from 9 on; the
+- Modes: 500 fixed levels (progress = highest cleared; a gentle start, a steep middle, a spike every 25 levels built
+  of deep traps, nothing hidden at the top), and Endless (difficulty 1 to 10, optional "no luck" = nothing hidden,
+  forced from 9 on; hardness is measured on players who look 0 to 16 moves ahead, the hunt lets you pick; the
   score is the streak of cleared generated levels). The generator searches up to 20 s for a level of the wanted
   hardness (a Web Worker); every generated level has a code (`L7-ABCDE`, flags for mechanics switched off, e.g.
   `L9nk-…`) that loads the same level for anyone, also as `?code=` in the address. "Advanced" in the chooser switches

@@ -40,7 +40,7 @@
     { id: 32, tier: 'normal', seed: 2184, allow: ['hidden', 'pair', 'wrap', 'oneway'], layout: 'ring-2col' },
     { id: 33, tier: 'normal', seed: 2221, allow: ['hidden', 'pair', 'wrap', 'oneway'], layout: 'counter' },
     { id: 34, tier: 'normal', seed: 2258, allow: ['hidden', 'pair', 'wrap', 'oneway'], layout: 'ring-2col' },
-    { id: 35, tier: 'normal', seed: 2310, allow: ['hidden', 'ice'], layout: 'counter' },
+    { id: 35, tier: 'normal', seed: 2313, allow: ['hidden', 'ice'], layout: 'counter' },
     { id: 36, tier: 'normal', seed: 2332, allow: ['hidden', 'pair', 'wrap', 'oneway', 'ice'], layout: 'ring-2col' },
     { id: 37, tier: 'normal', seed: 2369, allow: ['hidden', 'pair', 'wrap', 'oneway', 'ice'], layout: 'counter' },
     { id: 38, tier: 'normal', seed: 2406, allow: ['hidden', 'pair', 'wrap', 'oneway', 'ice'], layout: 'counter' },

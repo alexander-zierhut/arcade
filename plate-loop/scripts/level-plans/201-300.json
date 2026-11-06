@@ -88,7 +88,7 @@
   {"id":287,"tier":"hard","allow":["hidden","pair","wrap","oneway","ice","lock"],"layout":"counter","seed":23282,"note":"all in 9/10: hard, every twist allowed"},
   {"id":288,"tier":"extreme","allow":["hidden","pair","wrap","oneway","ice","lock"],"layout":"ring-2col","seed":23319,"note":"all in 9/10: extreme: four plates, no slack"},
   {"id":289,"tier":"hard","allow":["lock"],"layout":"counter","seed":23356,"note":"locked kitchen: breather, one lock"},
-  {"id":290,"tier":"hard","allow":["lock","hidden"],"layout":"ring-2col","seed":23393,"note":"locked kitchen: key under a cloche"},
+  {"id":290,"tier":"hard","allow":["lock","hidden"],"layout":"ring-2col","seed":23394,"note":"locked kitchen: key under a cloche"},
   {"id":291,"tier":"extreme","allow":["lock","oneway"],"layout":"ring-2col","seed":23430,"note":"locked kitchen: a barrier behind the shutter"},
   {"id":292,"tier":"hard","allow":[],"layout":"counter","seed":23467,"note":"locked kitchen: plain breather"},
   {"id":293,"tier":"hard","allow":["lock","hidden","pair"],"layout":"ring-2col","seed":23504,"note":"locked kitchen: lock with covered pair"},

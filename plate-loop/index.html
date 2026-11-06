@@ -32,7 +32,7 @@
 <script src="shared/menu.js"></script>
 <script src="shared/hooks.js"></script>
 <script src="news.js"></script>
-<script>Arcade.init({ game: 'plate-loop', title: 'Plate Loop', version: '0.2.0', langs: ['de', 'en'] });</script>
+<script>Arcade.init({ game: 'plate-loop', title: 'Plate Loop', version: '0.2.1', langs: ['de', 'en'] });</script>
 
 <div id="app">
 
@@ -149,6 +149,18 @@
           <button type="button" class="mech" aria-pressed="true" data-mech="lock" data-i18n="mech_lock"></button>
           <button type="button" class="mech" aria-pressed="true" data-mech="oneway" data-i18n="mech_oneway"></button>
         </div>
+        <p class="adv-label" data-i18n="look_label"></p>
+        <div class="looks" id="modes-looks" role="radiogroup">
+          <button type="button" class="look" role="radio" aria-checked="true" data-look="auto" data-i18n="look_auto"></button>
+          <button type="button" class="look" role="radio" aria-checked="false" data-look="0">0</button>
+          <button type="button" class="look" role="radio" aria-checked="false" data-look="2">2</button>
+          <button type="button" class="look" role="radio" aria-checked="false" data-look="4">4</button>
+          <button type="button" class="look" role="radio" aria-checked="false" data-look="6">6</button>
+          <button type="button" class="look" role="radio" aria-checked="false" data-look="8">8</button>
+          <button type="button" class="look" role="radio" aria-checked="false" data-look="12">12</button>
+          <button type="button" class="look" role="radio" aria-checked="false" data-look="16">16</button>
+        </div>
+        <p class="adv-hint" data-i18n="look_hint"></p>
         <button type="button" id="modes-hunt" class="row two"><span><b data-i18n="hunt"></b><small data-i18n="hunt_hint"></small></span></button>
         <div id="hunt" class="hunt" hidden>
           <p id="hunt-text" class="hunt-text" aria-live="polite"></p>

@@ -88,7 +88,7 @@
   {"id":387,"tier":"extreme","allow":["hidden","oneway","lock"],"layout":"ring-2col","seed":33282,"note":"lockdown B: keys under cloches"},
   {"id":388,"tier":"extreme","allow":["oneway","lock"],"layout":"counter","seed":33319,"note":"lockdown B: barrier fills fast, five plates"},
   {"id":389,"tier":"extreme","allow":["hidden","oneway","lock"],"layout":"ring-2col","seed":33356,"note":"lockdown B: normal, one key"},
-  {"id":390,"tier":"extreme","allow":["oneway","lock"],"layout":"counter","seed":33393,"note":"lockdown B: peak: lockdown on four plates"},
+  {"id":390,"tier":"extreme","allow":["oneway","lock"],"layout":"counter","seed":33394,"note":"lockdown B: peak: lockdown on four plates"},
   {"id":391,"tier":"extreme","allow":["hidden","pair"],"layout":"counter","seed":33430,"note":"pair pressure C: pairs after the lockdown"},
   {"id":392,"tier":"extreme","allow":["pair","wrap"],"layout":"ring-2col","seed":33468,"note":"pair pressure C: pairs behind cloths"},
   {"id":393,"tier":"extreme","allow":["pair","wrap"],"layout":"counter","seed":33504,"note":"pair pressure C: normal pair and cloth"},

@@ -13,7 +13,7 @@ import { createRequire } from 'node:module';
 import { writeFileSync, readFileSync, readdirSync } from 'node:fs';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { dirname, join } from 'node:path';
-import { target, INTRO, LESSONS } from './level-curve.mjs';
+import { target, INTRO, LESSONS, LOOK_INDEX } from './level-curve.mjs';
 
 const require = createRequire(import.meta.url);
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
@@ -74,8 +74,8 @@ function buildTiny(e) {
     const metrics = gen.metrics(level, sol.moves, layout);
     if (!gen.inBand(Object.assign({}, metrics, { kinds: 4 }), 'easy', e.allow)) continue;   // 3 kinds: one under the easy band, on purpose
     const h = gen.hardness(level, layout);
-    level.hard = h.H;
-    return { level, solution: sol.moves, metrics, attempts: j + 1, hard: h.H };
+    level.hard = h.H; level.h = h.h;
+    return { level, solution: sol.moves, metrics, attempts: j + 1, hard: h.H, h: h.h };
   }
   return null;
 }
@@ -86,7 +86,7 @@ function build(e) {
   const t = target(e.id);
   let g;
   try {
-    g = gen.generate({ tier: t.tier, seed: e.seed, allow: allowOf(e), layout: e.layout, id: e.id, hardness: t.hard, candidates: t.candidates, hardest: t.hardest });
+    g = gen.generate({ tier: t.tier, seed: e.seed, allow: allowOf(e), layout: e.layout, id: e.id, hardness: t.hard, look: t.look, candidates: t.candidates, hardest: t.hardest });
   } catch (err) { return null; }   // e.g. 13 boxes on a 12-slot layout
   return g || null;
 }
@@ -101,9 +101,10 @@ function problem(e, g) {
   const errs = model.validate(level, { layout });
   if (errs.length) return 'invalid ' + errs[0];
   if (level.N < 4 || (level.N === 4 && e.id < 60)) return 'N=' + level.N + ' before 60';
-  if (typeof level.hard !== 'number' || level.hard < 0) return 'no hardness';
-  if (level.hard < t.hard[0] - BELOW) return 'too easy: H ' + level.hard + ' for ' + t.hard.join('-');
-  if (!t.hardest && level.hard > t.hard[1] + BELOW) return 'too hard: H ' + level.hard + ' for ' + t.hard.join('-');
+  if (typeof level.hard !== 'number' || level.hard < 0 || !Array.isArray(level.h)) return 'no hardness';
+  const hv = level.h[LOOK_INDEX[t.look] || 0];
+  if (hv < t.hard[0] - BELOW) return 'too easy: H' + t.look + ' ' + hv + ' for ' + t.hard.join('-');
+  if (!t.hardest && hv > t.hard[1] + BELOW) return 'too hard: H' + t.look + ' ' + hv + ' for ' + t.hard.join('-');
   const mechs = mechsOf(level);
   for (const k of mechs) if (allowOf(e).indexOf(k) < 0 || INTRO[k] > e.id) return k + ' not introduced yet';
   if (t.noHidden && mechs.indexOf('hidden') >= 0) return 'hidden piece at the top';
@@ -205,7 +206,7 @@ function main() {
         if (p) {
           why = p;
           // a search that ended below its window is the best fallback when no later seed does better
-          if (/^too easy/.test(p) && (!best || cand.hard > best.cand.hard)) { best = { cand, trial, tried }; bestWhy = p; }
+          if (/^too easy/.test(p) && (!best || cand.hard > best.cand.hard)) { best = { cand, trial, tried }; bestWhy = p; }   // cand.hard is the H of the target's lookahead
           continue;
         }
         g = cand; break;
@@ -215,13 +216,13 @@ function main() {
       if (tried > 1) { bumped.push(e.id); console.log('seed of level ' + e.id + ' bumped ' + e.seed + ' -> ' + (e.seed + tried - 1)); e.seed += tried - 1; }
       e.tier = g.level.tier;
       levels.push(g.level);
-      rows.push([e.id, g.level.tier, g.level.layout, g.level.N, g.level.kinds, g.level.boxes.length, g.metrics.moves, g.level.hard.toFixed(2), t.hard.join('-') + (t.hardest ? '*' : ''),
+      rows.push([e.id, g.level.tier, g.level.layout, g.level.N, g.level.kinds, g.level.boxes.length, g.metrics.moves, g.level.h.map((x) => x.toFixed(1)).join('/'), 'k' + t.look + ' ' + t.hard.join('-') + (t.hardest ? '*' : ''),
         mechsOf(g.level).join('+') || '-', (g.candidates || g.attempts || 1) + (tried > 1 ? '+' + (tried - 1) : ''), Date.now() - tl]);
-      console.log('level ' + e.id + ' ' + g.level.tier + ' H ' + g.level.hard.toFixed(2) + ' (' + t.hard.join('-') + ') ' + (Date.now() - tl) + ' ms');
+      console.log('level ' + e.id + ' ' + g.level.tier + ' H' + t.look + ' ' + g.level.h[LOOK_INDEX[t.look] || 0].toFixed(2) + ' (' + t.hard.join('-') + ') h ' + g.level.h.join('/') + ' ' + (Date.now() - tl) + ' ms');
     }
   }
 
-  const head = ['id', 'tier', 'layout', 'N', 'kinds', 'boxes', 'moves', 'H', 'window', 'mods', 'cands', 'ms'];
+  const head = ['id', 'tier', 'layout', 'N', 'kinds', 'boxes', 'moves', 'H0/2/4/6/8', 'window', 'mods', 'cands', 'ms'];
   const widths = head.map((h, i) => Math.max(h.length, ...rows.map((r) => String(r[i]).length)));
   const fmt = (r) => r.map((c, i) => String(c).padEnd(widths[i])).join('  ');
   console.log(fmt(head));
@@ -229,7 +230,7 @@ function main() {
   const tiers = {};
   rows.forEach((r) => {
     const t = tiers[r[1]] = tiers[r[1]] || { n: 0, N: [9, 0], moves: 0, H: 0 };
-    t.n++; t.N = [Math.min(t.N[0], r[3]), Math.max(t.N[1], r[3])]; t.moves += r[6]; t.H += Number(r[7]);
+    t.n++; t.N = [Math.min(t.N[0], r[3]), Math.max(t.N[1], r[3])]; t.moves += r[6]; t.H += Number(String(r[7]).split('/')[0]);
   });
   for (const k of Object.keys(tiers)) {
     const t = tiers[k];

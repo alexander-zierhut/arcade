@@ -1,7 +1,8 @@
 // scripts/level-curve.mjs: the difficulty curve of the 500 fixed levels (2026-11-06, "random tapping must not win").
-// target(id) -> { tier, hard: [lo, hi], candidates, hardest, noHidden, spike, lesson }
+// target(id) -> { tier, look, hard: [lo, hi], candidates, hardest, noHidden, fullAllow, spike, lesson }
 //   tier       the structure band of the generator (config.TIERS: plates, kinds, boxes, hidden share)
-//   hard       the hardness window H = -log10(chance that a player tapping at random wins), see generator.hardness
+//   look       the lookahead of the measuring player (0 random, 2, 4, 6, 8, 12, 16 moves), see generator.hardness
+//   hard       the hardness window H = -log10(chance that that player wins)
 //   candidates how many certified candidates the search may analyse; hardest: keep the hardest of them (spikes)
 //   noHidden   nothing hidden: at the top, luck must never decide ("no luck" is forced)
 //   fullAllow  every mechanic may appear (the themed allow lists of the plan files cap the hardness; the top needs all)
@@ -15,32 +16,36 @@ const lerp = (id, a, b, lo, hi) => lo + (hi - lo) * Math.max(0, Math.min(1, (id 
 const round = (x) => Math.round(x * 100) / 100;
 
 export function target(id) {
-  let tier, lo, hi, candidates = 80, hardest = false, noHidden = false, fullAllow = false;
+  let tier, lo, hi, look = 0, candidates = 80, hardest = false, noHidden = false, fullAllow = false;
   const spike = id % 25 === 0 || id >= 497, bump = !spike && id % 10 === 0, lesson = LESSONS.indexOf(id) >= 0;
+  // look = the lookahead of the measuring player (plan R29): random tapping up to level 50, two moves ahead to 200,
+  // four to 400, six beyond, eight on the top spikes. The windows are on the H of that player (its distribution
+  // shifts down with every step of lookahead, so the numbers are not comparable across ranges).
   if (id <= 5) { tier = 'easy'; lo = 0; hi = 0.4; }
   else if (id <= 15) { tier = 'easy'; lo = 0.1; hi = 0.7; }
   else if (id <= 24) { tier = 'normal'; lo = lerp(id, 16, 24, 0.5, 0.9); hi = lo + 0.5; }
-  else if (id <= 49) { tier = id >= 44 && id % 2 === 0 ? 'hard' : 'normal'; lo = lerp(id, 26, 49, 0.9, 1.3); hi = lo + 0.6; }
-  else if (id <= 99) { tier = 'hard'; lo = lerp(id, 51, 99, 1.4, 2.0); hi = lo + 0.6; }
-  else if (id <= 200) { tier = 'hard'; lo = lerp(id, 101, 200, 2.0, 2.4); hi = lo + 0.6; }
-  else if (id <= 300) { tier = id >= 250 && id % 3 === 0 ? 'extreme' : 'hard'; lo = lerp(id, 201, 300, 2.4, 2.9); hi = lo + 0.6; }
-  else if (id <= 400) { tier = 'extreme'; lo = lerp(id, 301, 400, 2.9, 3.4); hi = lo + 0.6; }
-  else { tier = 'extreme'; lo = lerp(id, 401, 496, 3.4, 3.9); hi = lo + 0.7; noHidden = true; fullAllow = true; candidates = 120; }
+  else if (id <= 49) { tier = id >= 44 && id % 2 === 0 ? 'hard' : 'normal'; lo = lerp(id, 26, 49, 0.9, 1.4); hi = lo + 0.6; }
+  else if (id <= 99) { tier = 'hard'; look = 2; lo = lerp(id, 51, 99, 0.5, 0.9); hi = lo + 0.5; }
+  else if (id <= 200) { tier = 'hard'; look = 2; lo = lerp(id, 101, 200, 0.9, 1.3); hi = lo + 0.5; candidates = 100; }
+  else if (id <= 300) { tier = id >= 250 && id % 3 === 0 ? 'extreme' : 'hard'; look = 4; lo = lerp(id, 201, 300, 0.6, 1.0); hi = lo + 0.5; candidates = 120; }
+  else if (id <= 400) { tier = 'extreme'; look = 4; lo = lerp(id, 301, 400, 1.0, 1.3); hi = lo + 0.5; candidates = 150; }
+  else { tier = 'extreme'; look = 6; lo = lerp(id, 401, 496, 0.8, 1.3); hi = lo + 0.6; noHidden = true; fullAllow = true; candidates = 200; }
   if (lesson) { lo = Math.max(0.1, lo - 0.4); hi = lo + 0.7; }
-  if (bump && id > 50) { lo += 0.4; hi += 0.4; }
+  if (bump && id > 50) { lo += 0.3; hi += 0.3; }
   if (spike) {
-    hardest = true; candidates = 200; hi = 9;
+    hardest = true; candidates = 1500; hi = 9;
     if (id === 25) { tier = 'normal'; lo = 1.0; hardest = false; hi = 1.6; candidates = 80; }
-    else if (id === 50) { tier = 'hard'; lo = 1.8; hardest = false; hi = 2.4; candidates = 80; }
-    else if (id === 75) { tier = 'hard'; lo = 2.2; hardest = false; hi = 2.8; candidates = 80; }
-    else if (id === 100) { tier = 'extreme'; lo = 2.8; }
-    else if (id <= 200) { tier = 'extreme'; lo = lerp(id, 125, 200, 3.0, 3.4); noHidden = true; fullAllow = true; }
-    else if (id <= 300) { tier = 'extreme'; lo = lerp(id, 225, 300, 3.5, 3.8); noHidden = true; fullAllow = true; }
-    else if (id <= 400) { tier = 'extreme'; lo = lerp(id, 325, 400, 3.9, 4.2); noHidden = true; fullAllow = true; }
-    else { tier = 'extreme'; lo = lerp(id, 425, 500, 4.0, 4.4); noHidden = true; candidates = 240; }
+    else if (id === 50) { tier = 'hard'; look = 2; lo = 1.0; hardest = false; hi = 1.5; candidates = 100; }
+    else if (id === 75) { tier = 'hard'; look = 2; lo = 1.3; hardest = false; hi = 1.9; candidates = 120; }
+    else if (id === 100) { tier = 'extreme'; look = 4; lo = 1.0; }
+    else if (id <= 200) { tier = 'extreme'; look = 4; lo = 1.2; noHidden = true; fullAllow = true; }
+    else if (id <= 300) { tier = 'extreme'; look = 6; lo = 1.2; noHidden = true; fullAllow = true; }
+    else { tier = 'extreme'; look = 8; lo = 1.2; noHidden = true; fullAllow = true; candidates = id >= 497 ? 2500 : 1500; }
   }
-  return { tier, hard: [round(lo), round(hi)], candidates, hardest, noHidden, fullAllow, spike, lesson };
+  return { tier, look, hard: [round(lo), round(hi)], candidates, hardest, noHidden, fullAllow, spike, lesson };
 }
+
+export const LOOK_INDEX = { 0: 0, 2: 1, 4: 2, 6: 3, 8: 4, 12: 5, 16: 6 };
 
 // the tier a player sees: by hardness, so the pill colour means "how hard", whatever the structure band
 export function tierOfHardness(H) { return H < 0.7 ? 'easy' : H < 1.6 ? 'normal' : H < 2.8 ? 'hard' : 'extreme'; }

@@ -24,6 +24,7 @@
     code_line: 'Code {code}', code_copy: 'Kopieren', code_copied: 'Code kopiert', code_aria: 'Level-Code {code} kopieren',
     searching: 'Suche Level … {n}', searching_best: 'Suche Level … {n} (beste {h})',
     advanced: 'Erweitert', mechs_label: 'Mechaniken', mech_hidden: 'Verdeckt', mech_pair: 'Paare', mech_wrap: 'Tücher', mech_ice: 'Eis', mech_lock: 'Schlösser', mech_oneway: 'Einbahn',
+    look_label: 'Vorausschau der Suche', look_auto: 'Auto', look_hint: 'Wie viele Züge der gemessene Spieler vorausdenkt. Mehr Züge: nur Fallen zählen, die erst spät aufgehen.',
     hunt: 'Jagd: das Schwerste suchen', hunt_hint: 'Sucht ohne Ende auf dieser Stufe und behält das schwerste Level. Je länger, desto härter.',
     hunt_status: 'Kandidaten {n} · beste Härte {h} · neuer Bestwert vor {s} s', hunt_none: 'Suche läuft … {n} Kandidaten', hunt_play: 'Beste spielen', hunt_stop: 'Abbrechen',
     watch: 'Replay ansehen', replay_pill: 'Replay {x}×', replay_aria: 'Replay mit {x}-facher Geschwindigkeit, Pause beendet es',
@@ -70,6 +71,7 @@
     code_line: 'Code {code}', code_copy: 'Copy', code_copied: 'Code copied', code_aria: 'Copy level code {code}',
     searching: 'Searching for a level … {n}', searching_best: 'Searching for a level … {n} (best {h})',
     advanced: 'Advanced', mechs_label: 'Mechanics', mech_hidden: 'Hidden', mech_pair: 'Pairs', mech_wrap: 'Cloths', mech_ice: 'Ice', mech_lock: 'Locks', mech_oneway: 'One-way',
+    look_label: 'Lookahead of the search', look_auto: 'Auto', look_hint: 'How many moves the measuring player thinks ahead. More moves: only traps that spring late count.',
     hunt: 'Hunt the hardest', hunt_hint: 'Searches without end at this difficulty and keeps the hardest level. The longer, the harder.',
     hunt_status: 'Candidates {n} · best hardness {h} · new best {s} s ago', hunt_none: 'Searching … {n} candidates', hunt_play: 'Play the best', hunt_stop: 'Stop',
     watch: 'Watch replay', replay_pill: 'Replay {x}×', replay_aria: 'Replay at {x} times the speed, pause ends it',
@@ -114,7 +116,7 @@
     var doc = root.document;
     if (!doc) return;
     var scope = rootEl || doc;
-    var v = (PL.config && PL.config.VERSION) || '0.2.0';
+    var v = (PL.config && PL.config.VERSION) || '0.2.1';
     var nodes = scope.querySelectorAll('[data-i18n],[data-i18n-aria],[data-i18n-title]');
     for (var i = 0; i < nodes.length; i++) {
       var n = nodes[i], k = n.getAttribute('data-i18n');

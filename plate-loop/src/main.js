@@ -304,7 +304,7 @@
     seed = (runSeed + h.chunk * 7919) >>> 0;
     h.chunk++;
     h.running = true;
-    search({ cmd: 'search', tier: spec.tier, seed: seed, allow: PL.generator.allowOf(h.disabled), hardness: [0, 9], hardest: true,
+    search({ cmd: 'search', tier: spec.tier, seed: seed, allow: PL.generator.allowOf(h.disabled), hardness: [0, 9], look: h.look, hardest: true,
       candidates: 100000, budgetMs: HUNT_CHUNK_MS }, function (n, hh) {
       if (h.stopped || h.token !== searchToken) return;
       h.candidates++;
@@ -334,11 +334,12 @@
     app.code = PL.generator.encodeCode(app.difficulty, app.disabled, lv.seed);
     startRound(lv);
   }
-  function startHunt(difficulty, disabled) {
+  function startHunt(difficulty, disabled, look) {
     if (!ready()) return false;
     huntStop();
     setRun(difficulty, disabled);
-    hunt = { token: ++searchToken, difficulty: app.difficulty, disabled: app.disabled, chunk: 0, candidates: 0, bestH: -1, bestAt: 0, best: null, start: Date.now(), stopped: false, wantPlay: false, running: false };
+    hunt = { token: ++searchToken, difficulty: app.difficulty, disabled: app.disabled, look: (look === null || look === undefined) ? (diffSpec(app.difficulty).look || 0) : look,
+      chunk: 0, candidates: 0, bestH: -1, bestAt: 0, best: null, start: Date.now(), stopped: false, wantPlay: false, running: false };
     huntReport();
     huntChunk();
     return true;
@@ -377,7 +378,7 @@
     var btn = doc.getElementById(fromChooser ? 'modes-start' : 'win-next'), d = app.difficulty, spec = diffSpec(d), token = ++searchToken;
     var base = (runSeed + app.streak * 7919) >>> 0, best = -1;
     if (btn) { btn.disabled = true; btn.textContent = t('searching', { n: 0 }); }
-    search({ cmd: 'search', tier: spec.tier, seed: base, allow: PL.generator.allowOf(app.disabled), hardness: spec.H, hardest: !!spec.hardest,
+    search({ cmd: 'search', tier: spec.tier, seed: base, allow: PL.generator.allowOf(app.disabled), hardness: spec.H, look: spec.look || 0, hardest: !!spec.hardest,
       candidates: 150, budgetMs: low() ? Math.round(spec.budgetMs * 0.6) : spec.budgetMs }, function (n, h) {
       if (token !== searchToken || !btn) return;
       if (h > best) best = h;

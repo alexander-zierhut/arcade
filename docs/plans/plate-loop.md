@@ -119,18 +119,24 @@ needs a tap of its own; Alex, first playtest).
   one box. (Keeps the generator and the art manageable; revisit later.)
 
 ### 2.5b Difficulty (2026-11-06)
-- R29. **Hardness** H of a level is minus the decimal logarithm of the chance that a player who taps a uniformly
-  random tappable box (and lets the run land where the belt takes it) wins, computed exactly on the abstract
-  position graph by `solver.analyze` (`generator.hardness`; Monte-Carlo when the graph exceeds 30,000 positions).
-  H 0 = random tapping always wins, 1 = one game in ten, 2 = one in a hundred, 3 = one in a thousand. Every level is
-  still solved by the solver and replayed by the bot before it is accepted; H says how much thinking it takes, not
-  whether it can be done.
-- R30. The 500 fixed levels follow the curve in `scripts/level-curve.mjs`: a gentle start (levels 1-15 under H 1.1),
-  a steep middle (from level 100 on the mean H is above 2), every 25th level a spike (the hardest of 200 candidates,
-  H 3 to 4.7) and nothing hidden from level 401 on or on a spike, so luck never decides at the top. Endless has ten
-  difficulties (`generator.DIFFICULTY`: structure tier plus an H window, a search budget of 2.5 to 20 s), 9 and 10
-  with "no luck" forced. A generated level is identified by its code `L<difficulty>[n]-<seed>`; the same code gives
-  everyone the same level.
+- R29. **Hardness** H_k of a level is minus the decimal logarithm of the chance that a player who looks k moves ahead
+  wins: the player never makes a move that is provably lost within k moves (no move left, or every move leads to
+  such a position) and picks uniformly among the rest, letting runs land where the belt takes them; computed exactly
+  on the abstract position graph by `solver.analyze` for k = 0, 2, 4, 6, 8, 12, 16 (`generator.hardness` returns
+  `h`; Monte-Carlo when the graph exceeds 30,000 positions, then all k share the random tapper's number). H_0 is the
+  random tapper. A level with a high H_0 and a low H_4 is easy for anyone who plans (Alex won such a "4.7" first
+  try); what costs days is a high H at a deep k: traps that look fine for many moves. 0 = always wins, 1 = one game
+  in ten, 3 = one in a thousand. Every level is still solved by the solver and replayed by the bot before it is
+  accepted; H says how much thinking it takes, not whether it can be done. Deal rules that keep H honest: on Hard
+  and Extreme no box starts with a front run longer than two, bound pairs are never two of a kind, hidden pieces
+  prefer a kind that differs from the piece in front.
+- R30. The 500 fixed levels follow the curve in `scripts/level-curve.mjs`: a gentle start (levels 1-15 under H_0
+  1.1), windows on H_0 to level 50, on H_2 to 200, H_4 to 400, H_6 beyond, every 25th level a spike (the hardest of
+  1,500 candidates at H_4 / H_6 / H_8) and nothing hidden from level 401 on or on a spike, so luck never decides at
+  the top. Endless has ten difficulties (`generator.DIFFICULTY`: structure tier, lookahead and an H window, a search
+  budget of 2.5 to 20 s), 9 and 10 with "no luck" forced, 10 keeping the hardest at H_8; the hunt searches without
+  end at a lookahead the player may set (0 to 16). A generated level is identified by its code
+  `L<difficulty><flags>-<seed>` (flags = mechanics switched off); the same code gives everyone the same level.
 
 ### 2.6 Determinism and restarts
 - R22. A level is a fixed structure: layout, N, every box's piece sequence, modifiers. It never changes.

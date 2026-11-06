@@ -555,7 +555,7 @@
     var o = opts || {}, layout = o.layout || (layoutsMod() && layoutsMod()[level.layout]), maxStates = o.maxStates || 20000,
       comp = compile(level, layout), ctx = comp.ctx, nb = ctx.nb, s0 = comp.s0, states = [], index = new Map(), queue = [], out = [], nat = [],
       i, s, ch, j, k, key, edges = 0, capped = false, win, changed, it, v, nv, delta, acc, cnt0, acc2, seenBox, pr, pn, dist, d, best,
-      solved, depth, safeSum = 0, safeN = 0, path, cur, nxt, traps = 0;
+      solved, depth, safeSum = 0, safeN = 0, path, cur, nxt, traps = 0, look, dead, nd, ks, kmax, filtered;
     function id(st) {
       var kk = keyOf(ctx, st), ix = index.get(kk);
       if (ix !== undefined) return ix;
@@ -650,9 +650,40 @@
     if (capped) return estimate(level, layout, o, ctx, s0, states.length, edges);
     pr = solved ? iterate(out) : 0;
     pn = solved ? iterate(nat) : 0;
+    // the lookahead players: a player who never makes a move that is provably lost within k plies (no move left, or
+    // every move leads to such a position) and picks uniformly among the rest of the natural moves. look[k] is the win
+    // chance; look[0] is pNatural. A level that stays hard at k = 6 has deep traps: moves that look fine for many
+    // turns and then doom the level. That is what makes a level hard for a human.
+    look = {};
+    if (solved) {
+      dead = [];
+      for (i = 0; i < states.length; i++) dead.push(!win[i] && states[i][2 * nb] < ctx.kinds && nat[i].length === 0);
+      ks = o.lookahead || [0, 2, 4, 6, 8, 12, 16];
+      kmax = ks[ks.length - 1];
+      for (k = 0; k <= kmax; k++) {
+        if (k > 0) {
+          nd = [];
+          for (i = 0; i < states.length; i++) {
+            if (states[i][2 * nb] >= ctx.kinds) { nd.push(false); continue; }
+            if (!nat[i].length) { nd.push(true); continue; }
+            for (j = 0; j < nat[i].length && dead[nat[i][j]]; j++) { /* count the dead children */ }
+            nd.push(j === nat[i].length);
+          }
+          dead = nd;
+        }
+        if (ks.indexOf(k) < 0) continue;
+        filtered = [];
+        for (i = 0; i < states.length; i++) {
+          cur = [];
+          for (j = 0; j < nat[i].length; j++) if (!dead[nat[i][j]]) cur.push(nat[i][j]);
+          filtered.push(cur.length ? cur : nat[i]);
+        }
+        look[k] = iterate(filtered);
+      }
+    }
     return {
       solvable: solved, depth: depth, states: states.length, edges: edges, capped: false, estimated: false,
-      pRandom: pr, pNatural: pn, safe: safeN ? safeSum / safeN : (solved ? 1 : 0), traps: states.length ? traps / states.length : 0
+      pRandom: pr, pNatural: pn, look: look, safe: safeN ? safeSum / safeN : (solved ? 1 : 0), traps: states.length ? traps / states.length : 0
     };
   }
 
@@ -661,7 +692,7 @@
   function estimate(level, layout, o, ctx, s0, nStates, nEdges) {
     var nb = ctx.nb, sol = solve(level, { layout: layout, maxNodes: o.maxNodes || 60000, improve: 0 }), playouts = o.playouts || 300,
       cap, seed = 0x9E3779B1, wins, p, s, moves, ch, j, firstOf, nl, k, won, prA, prN, cnt;
-    if (!sol.solvable) return { solvable: false, depth: -1, states: nStates, edges: nEdges, capped: true, estimated: true, pRandom: 0, pNatural: 0, safe: 0, traps: 1 };
+    if (!sol.solvable) return { solvable: false, depth: -1, states: nStates, edges: nEdges, capped: true, estimated: true, pRandom: 0, pNatural: 0, look: { 0: 0, 2: 0, 4: 0, 6: 0, 8: 0, 12: 0, 16: 0 }, safe: 0, traps: 1 };
     cap = 3 * sol.moves.length + 12;
     function rnd() { seed = (seed + 0x6D2B79F5) | 0; var t = Math.imul(seed ^ (seed >>> 15), 1 | seed); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }
     function play(natural) {
@@ -686,7 +717,7 @@
     }
     prA = play(false);
     prN = play(true);
-    return { solvable: true, depth: sol.moves.length, states: nStates, edges: nEdges, capped: true, estimated: true, pRandom: prA, pNatural: prN, safe: -1, traps: -1 };
+    return { solvable: true, depth: sol.moves.length, states: nStates, edges: nEdges, capped: true, estimated: true, pRandom: prA, pNatural: prN, look: { 0: prN, 2: prN, 4: prN, 6: prN, 8: prN, 12: prN, 16: prN }, safe: -1, traps: -1 };
   }
 
   PL.solver = {

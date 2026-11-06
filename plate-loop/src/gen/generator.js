@@ -49,20 +49,27 @@
 
   // the dealt position is acceptable: empties in the band, nothing starts with four of a kind, enough boxes mixed,
   // one-way boxes holding at most one piece
-  function dealt(piles, oneway, lo, hi) {
+  function longestRun(pile) {
+    var best = 0, run = 0, i;
+    for (i = 0; i < pile.length; i++) { run = i > 0 && pile[i] === pile[i - 1] ? run + 1 : 1; if (run > best) best = run; }
+    return best;
+  }
+  var RUN_RULE = 'front';     // 'front': the run a tap takes (the pieces at the front) is limited; 'any': every run inside a box
+  function dealt(piles, oneway, lo, hi, maxRun) {
     var e = emptiesOf(piles), i, nonEmpty = 0, mix = 0;
     if (e < lo || e > hi) return false;
     for (i = 0; i < piles.length; i++) {
       if (!piles[i].length) continue;
       nonEmpty++;
       if (piles[i].length === 4 && !mixed(piles[i])) return false;
+      if (maxRun && (RUN_RULE === 'any' ? longestRun(piles[i]) : topRun(piles[i])) > maxRun) return false;
       if (oneway[i] && piles[i].length > 1) return false;
       if (mixed(piles[i])) mix++;
     }
     return mix * 10 >= nonEmpty * 6;
   }
 
-  // deal({ kinds, boxes, empties: [lo, hi], oneway: n, rng, minSteps, maxSteps })
+  // deal({ kinds, boxes, empties: [lo, hi], oneway: n, rng, minSteps, maxSteps, maxRun })
   //   -> { piles: [[kind, ...] back to front], oneway: [box index, ...] } or null
   // Starts from the solved position (every kind alone in a box of four, the other boxes empty) and plays the forward
   // move backwards: take m pieces of the front run of a box D and put them on the front of another box S that has
@@ -81,7 +88,7 @@
   }
 
   function deal1(o) {
-    var K = o.kinds, nb = o.boxes, r = o.rng, lo = o.empties[0], hi = o.empties[1], piles = [], oneway = [], idx = [], i, j, steps = 0,
+    var K = o.kinds, nb = o.boxes, r = o.rng, lo = o.empties[0], hi = o.empties[1], piles = [], oneway = [], idx = [], i, j, steps = 0, maxRun = o.maxRun || 0,
       minSteps = o.minSteps === undefined ? 2 * K : o.minSteps, cap = o.maxSteps === undefined ? 60 * K + 200 : o.maxSteps,
       cands, c, D, S, m, run, w, total, pick, e, list = [], eT, e0, sp0, e1, sp1, u0, u1, lenD, lenS;
     for (i = 0; i < nb; i++) { piles.push(i < K ? [i, i, i, i] : []); oneway.push(false); idx.push(i); }
@@ -89,7 +96,7 @@
     for (i = 0; i < (o.oneway || 0) && i < nb; i++) { oneway[idx[i]] = true; list.push(idx[i]); }
     eT = lo + r.int(hi - lo + 1);                     // the number of empty boxes the walk steers to
     while (steps < cap) {
-      if (steps >= minSteps && dealt(piles, oneway, lo, hi)) return { piles: piles, oneway: list.slice().sort(function (a, b) { return a - b; }) };
+      if (steps >= minSteps && dealt(piles, oneway, lo, hi, maxRun)) return { piles: piles, oneway: list.slice().sort(function (a, b) { return a - b; }) };
       e0 = emptiesOf(piles);
       sp0 = spreadOf(piles);
       u0 = 4 * Math.abs(e0 - eT) + sp0;
@@ -118,7 +125,7 @@
           }
         }
       }
-      if (!cands.length) return steps >= minSteps && dealt(piles, oneway, lo, hi) ? { piles: piles, oneway: list.slice().sort(function (a, b) { return a - b; }) } : null;
+      if (!cands.length) return steps >= minSteps && dealt(piles, oneway, lo, hi, maxRun) ? { piles: piles, oneway: list.slice().sort(function (a, b) { return a - b; }) } : null;
       pick = r.next() * total;
       for (j = 0; j < cands.length - 1; j++) {
         pick -= cands[j].w;
@@ -305,7 +312,8 @@
       boxes[g.i].pcs[g.j].key = locks[t].id;
       placed.lock++;
     }
-    // bound pairs: two neighbouring pieces of one box
+    // bound pairs: two neighbouring pieces of one box, always of two different kinds (a pair of one kind leaves as a
+    // run anyway and adds nothing; Alex 2026-11-06)
     if (contains(mods, 'pair')) {
       cnt = rint(r, 1, tier === 'easy' ? 2 : 3);
       for (t = 0; t < cnt; t++) {
@@ -314,6 +322,7 @@
           for (j = 0; j + 1 < boxes[i].pcs.length; j++) {
             if (boxes[i].pcs[j].pair || (j > 0 && boxes[i].pcs[j - 1].pair)) continue;
             if (boxes[i].pcs[j + 1].pair || boxes[i].pcs[j].key || boxes[i].pcs[j + 1].key) continue;
+            if (boxes[i].pcs[j].k === boxes[i].pcs[j + 1].k) continue;
             cand.push({ i: i, j: j });
           }
         }
@@ -323,15 +332,20 @@
         placed.pair++;
       }
     }
-    // hidden pieces: never the front piece (nor the mate of a bound pair at the front)
+    // hidden pieces: never the front piece (nor the mate of a bound pair at the front), and first the pieces whose kind
+    // differs from the piece in front of them (a hidden piece that turns out to continue the run is no surprise and
+    // only costs a tap; Alex 2026-11-06); same-kind slots only when those run out
     if (o.hidden) {
       cand = [];
+      g = [];
       for (i = 0; i < n; i++) {
         var len = boxes[i].pcs.length, top = len - 1;
         if (top >= 1 && boxes[i].pcs[top - 1].pair) top--;
-        for (j = 0; j < top; j++) cand.push({ i: i, j: j });
+        for (j = 0; j < top; j++) (boxes[i].pcs[j].k !== boxes[i].pcs[j + 1].k ? cand : g).push({ i: i, j: j });
       }
       r.shuffle(cand);
+      r.shuffle(g);
+      cand = cand.concat(g);
       cnt = Math.min(cand.length, o.hidden);
       for (t = 0; t < cnt; t++) { boxes[cand[t].i].pcs[cand[t].j].hidden = true; placed.hidden++; }
     }
@@ -465,7 +479,7 @@
       hiddenCnt = rint(r, lo, Math.max(lo, hi));
     }
     // deal
-    dl = deal({ kinds: K, boxes: nb, empties: [band.emptyBoxes[0], band.emptyBoxes[1]], oneway: nOne, rng: r, minSteps: opts.scramble ? Math.round(2 * K * opts.scramble) : undefined });
+    dl = deal({ kinds: K, boxes: nb, empties: [band.emptyBoxes[0], band.emptyBoxes[1]], oneway: nOne, rng: r, minSteps: opts.scramble ? Math.round(2 * K * opts.scramble) : undefined, maxRun: band.maxRun || 0 });
     if (!dl) return { fail: 'deal' };
     perm = [];
     for (i = 0; i < nb; i++) perm.push(i);
@@ -488,35 +502,44 @@
 
   // ---------------------------------------------------------------- hardness
   //
-  // hardness(level, layout) -> H = -log10(pNatural) of solver.analyze: 0 = a player tapping at random wins every time,
-  // 1 = wins one game in ten, 2 = one in a hundred, 3 = one in a thousand. Capped at 6. generate attaches it to the
-  // level as `level.hard` (2 decimals) when it was computed.
+  // hardness(level, layout) -> { H, h: [H0, H2, H4, H6, H8, H12, H16], analysis }. H_k = -log10 of the win chance of a player who
+  // looks k moves ahead (solver.analyze look[k]): H0 is the random tapper, H6 a player who avoids every trap that shows
+  // within six moves. 0 = wins every time, 1 = one game in ten, 3 = one in a thousand, capped at 6. A human who plans
+  // finds a level with a high H0 but a low H6 easy (Alex, 2026-11-06); the deep number is the one that costs days.
+  // H (compat) is H0. generate attaches `hard` (H0) and `h` to the level. `estimated` marks a graph too big to
+  // enumerate: its numbers are Monte-Carlo and cannot see ahead, so a hardest-search ignores such candidates.
   function hardness(level, layout) {
     deps();
-    var a = solver.analyze(level, { layout: layout || layoutsMod()[level.layout], maxStates: 30000 });
-    if (!a.solvable) return { H: -1, analysis: a };
-    var H = Math.min(6, Math.round(100 * -Math.log10(Math.max(1e-6, a.pNatural))) / 100);
-    return { H: H === 0 ? 0 : H, analysis: a };      // never -0 (JSON writes 0, strict equality would not)
+    var a = solver.analyze(level, { layout: layout || layoutsMod()[level.layout], maxStates: 30000 }), h = [], ks = LOOKS, i, v;
+    if (!a.solvable) return { H: -1, h: [-1, -1, -1, -1, -1, -1, -1], analysis: a };
+    for (i = 0; i < ks.length; i++) {
+      v = Math.min(6, Math.round(100 * -Math.log10(Math.max(1e-6, a.look && a.look[ks[i]] !== undefined ? a.look[ks[i]] : a.pNatural))) / 100);
+      h.push(v === 0 ? 0 : v);                 // never -0 (JSON writes 0, strict equality would not)
+    }
+    return { H: h[0], h: h, estimated: !!a.estimated, analysis: a };
   }
+  var LOOKS = [0, 2, 4, 6, 8, 12, 16], LOOK_INDEX = { 0: 0, 2: 1, 4: 2, 6: 3, 8: 4, 12: 5, 16: 6 };
 
   // The ten difficulty levels of the endless chooser (and of the level codes): the structure band, the hardness window and
   // the time the live search may spend. 9 and 10 play with nothing hidden (luck must not decide); 10 has no upper
   // bound: the search keeps the hardest candidate it finds within its budget.
+  // look = how many moves ahead the measuring player thinks (the window is on that H): 0 for the low difficulties
+  // (random tapping must fail), 2 and 4 in the middle, 6 at the top (deep traps that cost days, plan R29).
   var DIFFICULTY = [
     null,
-    { tier: 'easy',    H: [0, 0.3],    budgetMs: 2500 },
-    { tier: 'normal',  H: [0.5, 1.0],  budgetMs: 4000 },
-    { tier: 'normal',  H: [1.0, 1.5],  budgetMs: 5000 },
-    { tier: 'hard',    H: [1.3, 1.8],  budgetMs: 5000 },
-    { tier: 'hard',    H: [1.8, 2.3],  budgetMs: 6000 },
-    { tier: 'hard',    H: [2.2, 2.8],  budgetMs: 8000 },
-    { tier: 'extreme', H: [2.5, 3.1],  budgetMs: 10000 },
-    { tier: 'extreme', H: [3.0, 3.6],  budgetMs: 12000 },
-    { tier: 'extreme', H: [3.5, 4.2],  budgetMs: 15000, noLuck: true },
-    { tier: 'extreme', H: [4.0, 9],    budgetMs: 20000, noLuck: true, hardest: true }
+    { tier: 'easy',    look: 0, H: [0, 0.3],    budgetMs: 2500 },
+    { tier: 'normal',  look: 0, H: [0.5, 1.0],  budgetMs: 4000 },
+    { tier: 'normal',  look: 0, H: [1.0, 1.5],  budgetMs: 5000 },
+    { tier: 'hard',    look: 2, H: [0.6, 1.0],  budgetMs: 5000 },
+    { tier: 'hard',    look: 2, H: [1.0, 1.5],  budgetMs: 6000 },
+    { tier: 'hard',    look: 4, H: [0.8, 1.3],  budgetMs: 8000 },
+    { tier: 'extreme', look: 4, H: [1.2, 2.0],  budgetMs: 10000 },
+    { tier: 'extreme', look: 6, H: [1.0, 1.6],  budgetMs: 12000, noLuck: true },
+    { tier: 'extreme', look: 6, H: [1.5, 2.5],  budgetMs: 15000, noLuck: true },
+    { tier: 'extreme', look: 8, H: [1.5, 9],    budgetMs: 20000, noLuck: true, hardest: true }
   ];
 
-  // generate({ tier, seed, layout?, allow?, layoutSlots?, id?, maxNodes?, scramble?, hardness?, hardest?, candidates?, budgetMs?, now?, onCandidate? })
+  // generate({ tier, seed, layout?, allow?, layoutSlots?, id?, maxNodes?, scramble?, hardness?, look?, hardest?, candidates?, budgetMs?, now?, onCandidate? })
   //   -> { level, solution, metrics, attempts, hard, analysis, candidates } or null
   // Without `hardness`: deterministic for (tier, seed, allow, layout, layoutSlots): up to 40 seeds derived from `seed`,
   // the first that yields a solvable, in-band, certified level wins.
@@ -529,7 +552,7 @@
   function generate(opts) {
     deps();
     var tier = opts.tier, band = config.TIERS[tier], r, j, seed, layoutObj, res, name, fails = {}, win = opts.hardness || null,
-      limit, best = null, bestScore = Infinity, h, score, t0, now = opts.now || null, made = 0;
+      limit, best = null, bestScore = Infinity, h, hv, score, t0, now = opts.now || null, made = 0;
     if (!band) throw new Error('generator: unknown tier ' + tier);
     if (opts.layout) {
       layoutObj = typeof opts.layout === 'string' ? layoutsMod()[opts.layout] : opts.layout;
@@ -546,10 +569,11 @@
       if (!win) { res.attempts = j + 1; return res; }
       h = hardness(res.level, layoutsMod()[res.level.layout]);
       made++;
-      res.hard = h.H; res.analysis = h.analysis; res.level.hard = h.H;
-      if (opts.onCandidate) opts.onCandidate(made, h.H);
-      if (!opts.hardest && h.H >= win[0] && h.H <= win[1]) { res.attempts = j + 1; res.candidates = made; return res; }
-      score = opts.hardest ? -h.H : (h.H > win[1] ? (h.H - win[1]) : (win[0] - h.H) * 4);     // below the window costs four times as much as above it; `hardest` keeps the maximum
+      hv = h.h[LOOK_INDEX[opts.look || 0] || 0];   // the H the window refers to (the measuring player's lookahead)
+      res.hard = hv; res.h = h.h; res.analysis = h.analysis; res.level.hard = h.H; res.level.h = h.h;
+      if (opts.onCandidate) opts.onCandidate(made, hv);
+      if (!opts.hardest && hv >= win[0] && hv <= win[1]) { res.attempts = j + 1; res.candidates = made; return res; }
+      score = opts.hardest ? (h.estimated ? Infinity : -hv) : (hv > win[1] ? (hv - win[1]) : (win[0] - hv) * 4);     // below the window costs four times as much as above it; `hardest` keeps the maximum (never an estimate)
       if (score < bestScore) { bestScore = score; best = res; best.attempts = j + 1; }
       if (made >= (opts.candidates || 60)) break;
       if (now && now() - t0 > (opts.budgetMs || 1e12)) break;
@@ -611,7 +635,7 @@
   }
   function replay(code) {
     deps();
-    var d = typeof code === 'string' ? decodeCode(code) : code, diff, band, res, disabled;
+    var d = typeof code === 'string' ? decodeCode(code) : code, diff, band, res, disabled, h;
     if (!d || !DIFFICULTY[d.difficulty]) return null;
     diff = DIFFICULTY[d.difficulty];
     band = config.TIERS[diff.tier];
@@ -619,7 +643,8 @@
     if (diff.noLuck && !contains(disabled, 'hidden')) disabled.push('hidden');
     res = attempt(diff.tier, d.seed, { allow: allowOf(disabled) }, band, null, null);
     if (!res.level) return null;
-    res.level.hard = hardness(res.level).H;
+    h = hardness(res.level);
+    res.level.hard = h.H; res.level.h = h.h; res.hard = h.h[LOOK_INDEX[diff.look || 0] || 0];
     res.disabled = disabled;
     res.code = encodeCode(d.difficulty, disabled, d.seed);
     return res;
@@ -627,7 +652,7 @@
 
   PL.generator = {
     generate: generate, metrics: metrics, inBand: inBand, deal: deal, place: place, pickSlots: pickSlots, attempt: attempt,
-    hardness: hardness, DIFFICULTY: DIFFICULTY, encodeCode: encodeCode, decodeCode: decodeCode, replay: replay, allowOf: allowOf, disabledOf: disabledOf,
+    hardness: hardness, DIFFICULTY: DIFFICULTY, LOOKS: LOOKS, LOOK_INDEX: LOOK_INDEX, _runRule: function (v) { if (v) RUN_RULE = v; return RUN_RULE; }, encodeCode: encodeCode, decodeCode: decodeCode, replay: replay, allowOf: allowOf, disabledOf: disabledOf,
     CODE_VERSION: CODE_VERSION, MECHANICS: ALL.slice(),
     ATTEMPTS: ATTEMPTS
   };

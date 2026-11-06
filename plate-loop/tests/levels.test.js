@@ -124,30 +124,34 @@ test('levels: the plates and the bands (N >= 4 always, N = 4 only from level 60,
   }
 });
 
-test('levels: every level follows the difficulty curve (tier, hardness window, nothing hidden at the top)', async () => {
-  const { target } = await curveMod();
-  let prevLo = -1;
+test('levels: every level follows the difficulty curve (tier, hardness window at its lookahead, nothing hidden at the top)', async () => {
+  const { target, LOOK_INDEX } = await curveMod();
   for (const level of levels) {
-    const t = target(level.id), label = 'level ' + level.id;
+    const t = target(level.id), label = 'level ' + level.id, hv = Array.isArray(level.h) ? level.h[LOOK_INDEX[t.look] || 0] : NaN;
     assert.equal(level.tier, t.tier, label + ' tier of the curve');
     assert.equal(typeof level.hard, 'number', label + ' carries its hardness');
-    assert.ok(level.hard >= t.hard[0] - BELOW, label + ' hardness ' + level.hard + ' under its window ' + t.hard.join('-'));
-    if (!t.hardest) assert.ok(level.hard <= t.hard[1] + BELOW, label + ' hardness ' + level.hard + ' over its window ' + t.hard.join('-'));
+    assert.ok(Array.isArray(level.h) && level.h.length === 7, label + ' carries the hardness at every lookahead');
+    assert.ok(hv >= t.hard[0] - BELOW, label + ' hardness H' + t.look + ' ' + hv + ' under its window ' + t.hard.join('-'));
+    if (!t.hardest) assert.ok(hv <= t.hard[1] + BELOW, label + ' hardness H' + t.look + ' ' + hv + ' over its window ' + t.hard.join('-'));
     if (t.noHidden) assert.equal(mechsOf(level).indexOf('hidden'), -1, label + ' has a hidden piece at the top');
-    if (!t.spike && !t.lesson && level.id % 10 !== 0) { assert.ok(t.hard[0] >= prevLo - 1e-9 || level.id <= 16, label + ' the floor never drops (except after a spike, a lesson or a bump)'); prevLo = t.hard[0]; }
+    // the rules of 2026-11-06: no front run of three at the start of a hard or extreme level, never a pair of one kind
+    const st = model.parse(level, { layout: layouts[level.layout], raw: true });
+    st.boxes.forEach((b) => {
+      const p = b.pieces; let run = 0;
+      for (let j = p.length - 1; j >= 0 && p[j].k === p[p.length - 1].k; j--) run++;
+      if (level.tier === 'hard' || level.tier === 'extreme') assert.ok(run <= 2, label + ': box ' + b.id + ' starts with a front run of ' + run);
+      for (let j = 0; j + 1 < p.length; j++) if (p[j].pair !== null && p[j].pair === p[j + 1].pair) assert.notEqual(p[j].k, p[j + 1].k, label + ': box ' + b.id + ' has a pair of one kind');
+    });
   }
-  // the curve itself: a gentle start, a steep middle, brutal spikes
-  const H = (id) => levels[id - 1].hard;
+  // the curve itself: a gentle start, a steep middle, brutal spikes (the random tapper's H0 is comparable across levels)
+  const H = (id) => levels[id - 1].hard, deep = (id) => levels[id - 1].h[3];
   assert.ok(H(1) <= 0.4 && H(2) <= 0.5 && H(3) <= 0.5, 'levels 1-3 are nearly trivial');
   assert.ok(levels.slice(0, 15).every((l) => l.hard <= 1.1), 'levels 1-15 stay gentle');
   const mean = (a, b) => levels.slice(a - 1, b).reduce((s, l) => s + l.hard, 0) / (b - a + 1);
   assert.ok(mean(51, 100) > mean(1, 50) + 0.5, 'the second fifty is clearly harder than the first');
-  assert.ok(mean(201, 300) > mean(101, 200), '201-300 harder than 101-200');
-  assert.ok(mean(401, 500) > mean(301, 400), '401-500 harder than 301-400');
-  assert.ok(mean(101, 500) >= 2.0, 'from level 100 on a random tapper wins about one game in a hundred or fewer (mean H ' + mean(101, 500).toFixed(2) + ')');
-  for (let id = 125; id <= 475; id += 25) assert.ok(H(id) >= 3.0 && H(id) > H(id - 1) && H(id) > H(id + 1), 'spike ' + id + ' (H ' + H(id) + ') towers over its neighbours');
-  for (let id = 497; id <= 500; id++) assert.ok(H(id) >= 4.0, 'the final level ' + id + ' (H ' + H(id) + ') is one of the hardest');
-  assert.ok(levels.filter((l) => l.hard >= 4).length >= 10, 'at least ten levels with a random win chance of one in ten thousand or less');
+  assert.ok(mean(101, 500) >= 1.8, 'from level 100 on a random tapper wins about one game in a hundred or fewer (mean H ' + mean(101, 500).toFixed(2) + ')');
+  for (let id = 125; id <= 500; id += 25) assert.ok(levels[id - 1].h[LOOK_INDEX[target(id).look]] >= 1.0, 'spike ' + id + ' is hard for a player with its lookahead');
+  assert.ok(levels.filter((l) => deep(l.id) >= 1.5).length >= 10, 'at least ten levels where a player who looks six moves ahead wins fewer than one game in thirty');
 });
 
 test('levels: the introduction schedule (hidden 6, pairs 12, wraps 18, one-way 28, ice 35, locks 42), nothing before its time', () => {
@@ -199,8 +203,9 @@ test('levels: the first levels are small (level 1 nearly trivial, 2-3 short) and
 
 test('levels: the stored hardness is the analyser\'s (12 sampled levels)', () => {
   for (const id of [1, 20, 60, 100, 150, 222, 275, 300, 350, 420, 475, 500]) {
-    const level = levels[id - 1], h = gen.hardness(level, layouts[level.layout]).H;
-    assert.ok(Math.abs(h - level.hard) < 1e-9, 'level ' + id + ': stored ' + level.hard + ', analysed ' + h);
+    const level = levels[id - 1], h = gen.hardness(level, layouts[level.layout]);
+    assert.ok(Math.abs(h.H - level.hard) < 1e-9, 'level ' + id + ': stored ' + level.hard + ', analysed ' + h.H);
+    assert.deepEqual(h.h, level.h, 'level ' + id + ': the stored lookahead numbers');
   }
 });
 

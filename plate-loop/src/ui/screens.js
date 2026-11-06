@@ -18,7 +18,7 @@
   var shown = null;                 // the card on screen (name) or null
   var base = null;                  // 'title' | 'play'
   var data = {};                    // data of the card on screen
-  var modes = { difficulty: 1, disabled: [] };     // disabled: the mechanics switched off in the chooser
+  var modes = { difficulty: 1, disabled: [], look: null };     // disabled: the mechanics switched off in the chooser; look: the hunt's lookahead (null = auto)
   var MECHANICS = ['hidden', 'pair', 'wrap', 'ice', 'lock', 'oneway'];
   var huntTimer = null, huntState = null;
   var hw = { pages: MECHS.slice(), index: 0, back: 'title', onDone: null };
@@ -203,6 +203,11 @@
     els.noluck.setAttribute('aria-pressed', noLuck ? 'true' : 'false');
     els.noluck.setAttribute('aria-disabled', forced ? 'true' : 'false');
     els.noluckHint.textContent = t(forced ? 'noluck_forced' : 'noluck_hint');
+    var looks = els.looks ? els.looks.querySelectorAll('.look') : [], lv;
+    for (i = 0; i < looks.length; i++) {
+      lv = looks[i].getAttribute('data-look');
+      looks[i].setAttribute('aria-checked', (modes.look === null ? lv === 'auto' : Number(lv) === modes.look) ? 'true' : 'false');
+    }
     var chips = els.mechs ? els.mechs.querySelectorAll('.mech') : [];
     for (i = 0; i < chips.length; i++) {
       var m = chips[i].getAttribute('data-mech');
@@ -361,7 +366,7 @@
       arcade(d.back === 'pause' ? 'pause' : 'menu');
     } else if (name === 'modes') {
       var s = save ? save.get() : null;
-      if (s && !d.keep) { modes.difficulty = s.endless.difficulty || 1; modes.disabled = (s.endless.disabled || []).slice(); }
+      if (s && !d.keep) { modes.difficulty = s.endless.difficulty || 1; modes.disabled = (s.endless.disabled || []).slice(); modes.look = s.endless.look === undefined ? null : s.endless.look; }
       if (els.code) els.code.value = '';
       huntStatus(null);
       renderModes(); openCard('modes', d); arcade('menu');
@@ -408,7 +413,7 @@
       setSound: 'set-sound', setSoundLabel: 'set-sound-label', setPlain: 'set-plain', setPlainLabel: 'set-plain-label', setBelt: 'set-belt', setBeltLabel: 'set-belt-label',
       slots: 'slots', slotsText: 'slots-text',
       diffs: 'modes-diffs', diffText: 'modes-diff-text', noluck: 'modes-noluck', noluckHint: 'modes-noluck-hint', code: 'modes-code', codeGo: 'modes-code-go',
-      adv: 'modes-adv', advanced: 'modes-advanced', mechs: 'modes-mechs', huntBtn: 'modes-hunt', hunt: 'hunt', huntText: 'hunt-text', huntPlay: 'hunt-play', huntStop: 'hunt-stop',
+      adv: 'modes-adv', advanced: 'modes-advanced', mechs: 'modes-mechs', looks: 'modes-looks', huntBtn: 'modes-hunt', hunt: 'hunt', huntText: 'hunt-text', huntPlay: 'hunt-play', huntStop: 'hunt-stop',
       winCode: 'win-code', loseCode: 'lose-code', loseH: 'lose-h',
       pauseFav: 'pause-fav', winFav: 'win-fav', loseFav: 'lose-fav', favsList: 'favs-list', favsEmpty: 'favs-empty', winWatch: 'win-watch', loseWatch: 'lose-watch',
       howtoIll: 'howto-ill', howtoH: 'howto-h', howtoText: 'howto-text', howtoDots: 'howto-dots', howtoPrev: 'howto-prev', howtoNext: 'howto-next',
@@ -472,7 +477,13 @@
       modes.difficulty = Number(b.getAttribute('data-diff')) || 1; renderModes();
     });
     on('modes-noluck', function () { if (diffSpec(modes.difficulty).noLuck) return; setMech('hidden', modes.disabled.indexOf('hidden') >= 0); renderModes(); });
-    function remember() { if (save) save.patch({ endless: { difficulty: modes.difficulty, noLuck: disabledNow().indexOf('hidden') >= 0, disabled: modes.disabled.slice() } }); }
+    function remember() { if (save) save.patch({ endless: { difficulty: modes.difficulty, noLuck: disabledNow().indexOf('hidden') >= 0, disabled: modes.disabled.slice(), look: modes.look } }); }
+    els.looks.addEventListener('click', function (ev) {
+      var b = ev.target && ev.target.closest ? ev.target.closest('.look') : null;
+      if (!b) return;
+      modes.look = b.getAttribute('data-look') === 'auto' ? null : Number(b.getAttribute('data-look'));
+      renderModes();
+    });
     on('modes-start', function () {
       remember();
       var a = app(); if (typeof a.startEndless === 'function') a.startEndless(modes.difficulty, disabledNow());
@@ -491,7 +502,7 @@
     });
     on('modes-hunt', function () {
       remember();
-      var a = app(); if (typeof a.startHunt === 'function') a.startHunt(modes.difficulty, disabledNow());
+      var a = app(); if (typeof a.startHunt === 'function') a.startHunt(modes.difficulty, disabledNow(), modes.look);
     });
     on('hunt-play', function () { var a = app(); if (typeof a.huntPlay === 'function') a.huntPlay(); });
     on('hunt-stop', function () { var a = app(); if (typeof a.huntStop === 'function') a.huntStop(); });
@@ -521,7 +532,7 @@
     doc.addEventListener('pointerdown', function () { kbd = false; }, true);
     buildBelt();
     var s = save ? save.get() : null;
-    if (s) { modes.difficulty = s.endless.difficulty || 1; modes.disabled = (s.endless.disabled || []).slice(); }
+    if (s) { modes.difficulty = s.endless.difficulty || 1; modes.disabled = (s.endless.disabled || []).slice(); modes.look = s.endless.look === undefined ? null : s.endless.look; }
     relabel();
     if (root.Arcade && root.Arcade.on) root.Arcade.on('lang', relabel);
     if (root.Arcade && root.Arcade.wire) root.Arcade.wire(doc);

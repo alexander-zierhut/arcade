@@ -91,11 +91,14 @@ Never edit `src/levels/levels-001-100.js` or `levels-101-500.js` by hand; both a
 ## A tier band (what Easy, Normal, Hard, Extreme mean) and a difficulty
 
 `config.TIERS`: N, number of kinds, extra boxes, empty boxes at the start, share of hidden pieces, number of
-modifier kinds, each a `[min, max]`: the *structure* of a level. `generator.inBand` enforces them. How hard a level is
-to win is a separate number, its hardness H (plan R29, `generator.hardness`); the ten Endless difficulties are
-`generator.DIFFICULTY` (structure tier + H window + search budget in ms, `noLuck` forced on 9 and 10, `hardest` on
-10), calibrated on 2026-11-06 so that each window is reached in a few seconds on a desktop (the yield of candidates
-above H 3 is about one in ten for the extreme structure, above H 4 about one in thirty). The fixed levels follow
+modifier kinds, each a `[min, max]`, and `maxRun` (the longest run a box may start with at its front): the
+*structure* of a level. `generator.inBand` enforces them. How hard a level is to win is a separate measure, its
+hardness H_k for a player who looks k moves ahead (plan R29, `generator.hardness` returns `h` for k = 0, 2, 4, 6,
+8, 12, 16); the ten Endless difficulties are `generator.DIFFICULTY` (structure tier + `look` + H window + search
+budget in ms, `noLuck` forced on 9 and 10, `hardest` on 10). The deeper the lookahead, the lower the numbers: the
+windows of one k are not comparable with another's. Yields (extreme structure, 2026-11-06): H_6 above 1 about one
+candidate in ten, above 2 about one in a hundred, above 3 one in several hundred, so the top is a matter of search
+volume (the hunt). The fixed levels follow
 `scripts/level-curve.mjs`. The fixed levels are not regenerated at play time, so a new band or difficulty table only
 changes Endless and future levels; after changing either run the generator tests. The pill colour of a tier is CSS
 (`--tier-*`), its name a string (`tier_easy` ...); the chooser colours the difficulties by their structure tier.

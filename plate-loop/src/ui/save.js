@@ -16,7 +16,7 @@
   function defaults() {
     var best = {}, i;
     for (i = 1; i <= 10; i++) best[i] = 0;
-    return { level: 1, attempts: {}, endless: { best: best, difficulty: 1, noLuck: false, disabled: [] }, favs: [], sound: true, plain: false, belt: 'plates', seen: { howto: [] }, levelsVersion: LEVELS_VERSION };
+    return { level: 1, attempts: {}, endless: { best: best, difficulty: 1, noLuck: false, disabled: [], look: null }, favs: [], sound: true, plain: false, belt: 'plates', seen: { howto: [] }, levelsVersion: LEVELS_VERSION };
   }
   function isObj(v) { return v && typeof v === 'object' && !Array.isArray(v); }
   function num(v, d) { v = Number(v); return isFinite(v) && v >= 0 ? Math.floor(v) : d; }
@@ -40,6 +40,7 @@
       if (Array.isArray(s.endless.disabled)) d.endless.disabled = s.endless.disabled.filter(function (x) { return MECHS.indexOf(x) >= 0; });
       if (d.endless.noLuck && d.endless.disabled.indexOf('hidden') < 0) d.endless.disabled.push('hidden');
       d.endless.noLuck = d.endless.disabled.indexOf('hidden') >= 0;
+      if ([0, 2, 4, 6, 8, 12, 16].indexOf(s.endless.look) >= 0) d.endless.look = s.endless.look;
     }
     d.sound = s.sound !== false;
     if (Array.isArray(s.favs)) {                                           // favourites: { level } (a fixed level) or { code } (a generated one), newest first

@@ -726,12 +726,17 @@
             if (!sb || !bx) break;
             var lp = (e.piece && typeof e.piece === 'object' && e.piece.id != null) ? e.piece : sb.pieces[sb.pieces.length - 1];
             if (!lp) break;
-            var start = platePos[e.plate] || mouthPos(bx);
-            if (streamOn && lp.id != null && bx.s != null) { drains.push({ pieceId: lp.id, kind: lp.k, s: bx.s, t0: T, list: streamOf(lp.id) }); delete poured[lp.id]; }
+            var start = platePos[e.plate] || mouthPos(bx), drainMs = 0;
+            if (streamOn && lp.id != null && bx.s != null) {
+              drains.push({ pieceId: lp.id, kind: lp.k, s: bx.s, t0: T, list: streamOf(lp.id) });
+              delete poured[lp.id];
+              drainMs = segLen() / plateSpeed();        // the bits keep flowing in for this long: the block completes only then
+            }
             var lastj = -1, jj;
             for (jj = 0; jj < sb.pieces.length; jj++) if (sb.pieces[jj].id === lp.id) lastj = jj;
             if (lastj < 0) lastj = sb.pieces.length - 1;
-            flights.push({ type: 'land', box: bi, pieceId: lp.id, side: slotSide(bx), from: { x: start.x, y: start.y }, to: slotPos(bx, lastj), kind: lp.k, key: lp.key, t0: T, dur: landMs });
+            flights.push({ type: 'land', box: bi, pieceId: lp.id, side: slotSide(bx), from: { x: start.x, y: start.y }, to: slotPos(bx, lastj), kind: lp.k, key: lp.key,
+              t0: T + Math.max(0, drainMs - landMs), dur: landMs, fill: streamOn ? { t0: T, dur: Math.max(1, drainMs) } : null });
             break;
           case 'close':
             if (!bx) break;
@@ -836,7 +841,7 @@
     function plateSpeed() { return (sim && sim.speed) || sm.perimeter / (cfg().LAP_MS || 8000); }
 
     // ---- the stream style: a piece on the belt is a trail of particles behind its plate's position ----------------
-    var STREAM_N = 34, GROW_FACTOR = 0.85;
+    var STREAM_N = 64, GROW_FACTOR = 0.9;     // a block becomes many small bits, so a few blocks visibly fill the loop
     function segLen() { return (sim && sim.belt ? sim.belt.spacing : sm.perimeter / (st ? st.N : 6)) * GROW_FACTOR; }
     function streamOf(pieceId) {
       var list = streams[pieceId], seed, i, L = segLen(), band = plateD + 4;
@@ -845,7 +850,7 @@
       function rnd() { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 4294967296; }
       list = [];
       for (i = 0; i < STREAM_N; i++) {
-        list.push({ u: (i + rnd() * 0.9) / STREAM_N * L, v: (rnd() - 0.5) * (band - 10), size: 8 + rnd() * 5, rot: rnd() * 6.28, hi: rnd() < 0.5 });
+        list.push({ u: (i + rnd() * 0.9) / STREAM_N * L, v: (rnd() - 0.5) * (band - 8), size: 6 + rnd() * 4.5, rot: rnd() * 6.28, hi: rnd() < 0.4 });
       }
       streams[pieceId] = list;
       return list;
@@ -977,9 +982,16 @@
         drawPiece(c, tz.kind, zx, zy, BOX_PIECE_W + (PIECE_W - BOX_PIECE_W) * ez, 1);
         if (tz.key != null && st.locks && st.locks[tz.key] && !st.locks[tz.key].open) drawKeyTag(c, tz.key, zx, zy, PIECE_W);
       }
-      // flights
+      // flights (a stream landing first fills its slot tile while the bits flow in, the block itself comes with the flight)
       for (i = 0; i < flights.length; i++) {
         var f = flights[i], pr = (T - f.t0) / f.dur;
+        if (f.fill && pr < 0 && f.box != null && boxes[f.box] && !boxes[f.box].missing) {
+          var fp = clamp01((T - f.fill.t0) / f.fill.dur);
+          clipBox(c, boxes[f.box], 3, 3, 3);
+          drawTile(c, f.to.x, f.to.y, f.side || 25, kindColour(f.kind), 0.15 + 0.6 * fp);
+          c.restore();
+          continue;
+        }
         if (pr < 0) continue;
         var e = (f.staged || f.type === 'land') ? ease(pr) : easeOut(pr), fx, fy, to;
         if (f.type === 'eject') to = drawnPos[f.plate] || platePos[f.plate] || f.from; else to = f.to;
