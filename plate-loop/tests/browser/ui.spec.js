@@ -130,6 +130,9 @@ function injectLevels(page) {
   return page.evaluate(function (fx) { window.PlateLoop.levels = fx; }, FIXTURES);
 }
 function state(page) { return page.evaluate(function () { return window.PlateLoop.app.state; }); }
+// a click through the DOM: for checks of the chooser's logic, where the layout is still settling (the advanced
+// panel opens with a transition and CI runners are slow: "element is not stable")
+async function dom(page, sel) { await page.evaluate(function (q) { var e = document.querySelector(q); if (!e) throw new Error('no ' + q); e.click(); }, sel); }
 async function waitState(page, want, ms) {
   try {
     await page.waitForFunction(function (w) { return window.PlateLoop.app.state === w; }, want, { timeout: ms || 4000 });
@@ -687,18 +690,18 @@ async function scenarioMain(browser, base) {
     return s && s.endless && s.endless.difficulty === 5 && s.endless.noLuck === true ? true : 'save.endless = ' + JSON.stringify(s && s.endless);
   });
   await ck('endless: difficulty 10 is built without luck but lets hidden pieces be added (switch usable, chip and switch agree)', async function () {
-    await cl(page, '#modes-adv');
-    await cl(page, '#modes-diffs [data-diff="10"]');
+    await dom(page, '#modes-adv');
+    await dom(page, '#modes-diffs [data-diff="10"]');
     if ((await page.getAttribute('#modes-noluck', 'aria-pressed')) !== 'true') return 'no luck not on by default at 10';
     if ((await page.getAttribute('#modes-noluck', 'aria-disabled')) !== 'false') return 'no luck disabled at 10';
-    await cl(page, '#modes-noluck');
+    await dom(page, '#modes-noluck');
     if ((await page.getAttribute('#modes-noluck', 'aria-pressed')) !== 'false') return 'the switch did not turn luck on';
     if ((await page.getAttribute('#modes-mechs [data-mech="hidden"]', 'aria-pressed')) !== 'true') return 'the hidden chip does not follow the switch';
-    await cl(page, '#modes-mechs [data-mech="hidden"]');
+    await dom(page, '#modes-mechs [data-mech="hidden"]');
     if ((await page.getAttribute('#modes-noluck', 'aria-pressed')) !== 'true') return 'the switch does not follow the chip';
-    await cl(page, '#modes-diffs [data-diff="9"]');
+    await dom(page, '#modes-diffs [data-diff="9"]');
     if ((await page.getAttribute('#modes-noluck', 'aria-disabled')) !== 'true') return 'no luck not forced at 9 after 10';
-    await page.evaluate(function () { document.querySelector('#modes-diffs [data-diff="1"]').click(); document.getElementById('modes-adv').click(); });   // back to the defaults, panel closed (DOM clicks: the open panel pushes the chips off the viewport)
+    await dom(page, '#modes-diffs [data-diff="1"]'); await dom(page, '#modes-adv');   // back to the defaults, panel closed
     return true;
   });
   await ck('endless: Go searches a level (worker or inline) and starts a round with a level code', async function () {
