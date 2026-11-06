@@ -367,7 +367,7 @@
     setRun(d.difficulty, d.disabled);
     var token = ++searchToken, btn = doc.getElementById('modes-code-go');
     if (btn) { btn.disabled = true; btn.textContent = t('preparing'); }
-    search({ cmd: 'replay', code: PL.generator.encodeCode(d.difficulty, app.disabled, d.seed) }).then(function (r) {
+    search({ cmd: 'replay', code: PL.generator.encodeCode(d.difficulty, app.disabled, d.seed, d.tight) }).then(function (r) {
       if (btn) { btn.disabled = false; btn.textContent = t('code_go'); }
       if (token !== searchToken) return;
       if (!r.ok || !r.level) { toast(t('code_bad')); return; }

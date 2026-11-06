@@ -57,7 +57,7 @@ async function ck(name, fn, page) {
     var r = await fn();
     if (r === false) detail = 'returned false';
     else if (typeof r === 'string') detail = r;
-  } catch (e) { detail = 'threw: ' + String(e && e.message || e).replace(/\x1b\[[0-9;]*m/g, '').split('\n').slice(0, 4).join(' / '); }
+  } catch (e) { detail = 'threw: ' + String(e && e.message || e).replace(/\x1b\[[0-9;]*m/g, '').split('\n').slice(0, 12).join(' / '); }
   var ok = detail === null;
   results.push({ name: name, ok: ok, detail: detail });
   if (okSink) okSink(ok, name + (ok ? '' : ': ' + detail));
@@ -715,6 +715,29 @@ async function scenarioMain(browser, base) {
       return rp && JSON.stringify(rp.level.boxes) === JSON.stringify(a.level.boxes) && rp.level.N === a.level.N ? true : 'replay differs or failed';
     });
     return r;
+  });
+  await ck('endless: the code field takes the longest code (difficulty 10, every flag, a seven-symbol seed: 18 characters)', async function () {
+    var longest = 'L10npwikot-ZZZZZZZ';
+    await page.evaluate(function () { window.PlateLoop.screens.show('modes'); var f = document.getElementById('modes-code'); f.value = ''; f.focus(); });
+    await page.keyboard.type(longest);                      // typed, so the field's maxlength applies as it does for a player
+    var v = await page.inputValue('#modes-code');
+    return v === longest ? true : 'the field cut the code to ' + JSON.stringify(v) + ' (maxlength ' + (await page.getAttribute('#modes-code', 'maxlength')) + ')';
+  });
+  await ck('endless: a tight code (flag t) replays as a tight level through playCode', async function () {
+    var r = await page.evaluate(function () {
+      var app = window.PlateLoop.app;
+      if (!app.playCode('L10nt-198F7XE')) return 'playCode refused the code';
+      return new Promise(function (resolve) {
+        var n = 0, iv = setInterval(function () {
+          if (app.level && app.level.tight && app.code === 'L10nt-198F7XE') { clearInterval(iv); resolve(true); }
+          else if (++n > 300) { clearInterval(iv); resolve('no tight level after 30 s: code ' + app.code + ', level ' + JSON.stringify(app.level && { tight: app.level.tight, seed: app.level.seed })); }
+        }, 100);
+      });
+    });
+    if (r !== true) return r;
+    await page.evaluate(function () { window.PlateLoop.app.toTitle(); });   // leave the round the proper way (the pause card's quit)
+    await waitState(page, 'TITLE');
+    return true;
   });
   var s2 = await state(page);
   if (s2 === 'HOWTO') { for (i = 0; i < 8 && (await state(page)) === 'HOWTO'; i++) await cl(page, '#howto-next'); s2 = await state(page); }

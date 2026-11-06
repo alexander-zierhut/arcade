@@ -784,6 +784,7 @@
     if (!res.level) return null;
     h = hardness(res.level);
     res.level.hard = h.H; res.level.h = h.h; res.hard = h.h[LOOK_INDEX[diff.look || 0] || 0];
+    if (res.level.buffer) { res.grip = grip(res.level, layoutsMod()[res.level.layout], res.plan); res.level.grip = Math.round(res.grip.score * 10) / 10; }
     res.disabled = disabled;
     res.code = encodeCode(d.difficulty, disabled, d.seed, !!d.tight);
     return res;
