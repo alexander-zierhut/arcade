@@ -62,7 +62,10 @@
       ev = [{ type: 'won' }];
     } else if (rules.isStuck(s.state)) {
       s.status = 'lost';
-      ev = [{ type: 'lost' }];
+      ev = [{ type: 'lost', reason: 'jam' }];
+    } else if (rules.isHopeless(s.state)) {        // R13b: a kind can never be completed (its last pieces are shut away for good)
+      s.status = 'lost';
+      ev = [{ type: 'lost', reason: 'hopeless', kinds: rules.deadKinds(s.state) }];
     } else return;
     stamp(s, ev, t, out);
   }

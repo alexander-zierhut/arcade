@@ -242,11 +242,29 @@
         locks.push({ id: id, boxes: g });
       }
     }
-    // ice: a box that has a neighbour in the level
+    // the neighbours (box indices) of box q that are plain right now: uncovered, not one-way, in the level
+    function plainNeighbours(q) {
+      return neighboursIn(layout, slots, slots[q]).map(function (x) { return slots.indexOf(x); })
+        .filter(function (x) { return !cover[x] && !boxes[x].mods.oneway; });
+    }
+    // the boxes that are the only plain neighbour of a frozen box: no later cover may take them
+    function keep() {
+      var out = {}, q, pn;
+      for (q = 0; q < n; q++) {
+        if (!boxes[q].mods.ice) continue;
+        pn = plainNeighbours(q);
+        if (pn.length === 1) out[pn[0]] = true;
+      }
+      return out;
+    }
+    // ice: a box that keeps at least one plain neighbour (the one that can close and thaw it); two neighbours preferred
     if (contains(mods, 'ice')) {
       cnt = rint(r, 1, 2);
       for (t = 0; t < cnt; t++) {
-        cand = plainBoxes().filter(function (q) { return neighboursIn(layout, slots, slots[q]).length > 0; });
+        kinds = keep();
+        cand = plainBoxes().filter(function (q) { return !kinds[q] && plainNeighbours(q).length > 0; });
+        g = cand.filter(function (q) { return plainNeighbours(q).length > 1; });
+        if (g.length && r.next() < 0.7) cand = g;
         if (!cand.length) break;
         i = cand[r.int(cand.length)];
         boxes[i].mods.ice = true;
@@ -258,7 +276,8 @@
     if (contains(mods, 'wrap')) {
       cnt = rint(r, 1, 2);
       for (t = 0; t < cnt; t++) {
-        cand = plainBoxes();
+        g = keep();
+        cand = plainBoxes().filter(function (q) { return !g[q]; });
         if (!cand.length) break;
         i = cand[r.int(cand.length)];
         kinds = [];
@@ -446,7 +465,7 @@
       hiddenCnt = rint(r, lo, Math.max(lo, hi));
     }
     // deal
-    dl = deal({ kinds: K, boxes: nb, empties: [band.emptyBoxes[0], band.emptyBoxes[1]], oneway: nOne, rng: r });
+    dl = deal({ kinds: K, boxes: nb, empties: [band.emptyBoxes[0], band.emptyBoxes[1]], oneway: nOne, rng: r, minSteps: opts.scramble ? Math.round(2 * K * opts.scramble) : undefined });
     if (!dl) return { fail: 'deal' };
     perm = [];
     for (i = 0; i < nb; i++) perm.push(i);
@@ -467,12 +486,50 @@
     return { level: level, solution: sol.moves, metrics: m };
   }
 
-  // generate({ tier, seed, layout?, allow?, layoutSlots?, id?, maxNodes? }) -> { level, solution, metrics, attempts } or null
-  // Deterministic for (tier, seed, allow, layout, layoutSlots): up to 40 seeds derived from `seed`, the first that
-  // yields a solvable, in-band, certified level wins.
+  // ---------------------------------------------------------------- hardness
+  //
+  // hardness(level, layout) -> H = -log10(pNatural) of solver.analyze: 0 = a player tapping at random wins every time,
+  // 1 = wins one game in ten, 2 = one in a hundred, 3 = one in a thousand. Capped at 6. generate attaches it to the
+  // level as `level.hard` (2 decimals) when it was computed.
+  function hardness(level, layout) {
+    deps();
+    var a = solver.analyze(level, { layout: layout || layoutsMod()[level.layout], maxStates: 30000 });
+    if (!a.solvable) return { H: -1, analysis: a };
+    var H = Math.min(6, Math.round(100 * -Math.log10(Math.max(1e-6, a.pNatural))) / 100);
+    return { H: H === 0 ? 0 : H, analysis: a };      // never -0 (JSON writes 0, strict equality would not)
+  }
+
+  // The ten difficulty levels of the endless chooser (and of the level codes): the structure band, the hardness window and
+  // the time the live search may spend. 9 and 10 play with nothing hidden (luck must not decide); 10 has no upper
+  // bound: the search keeps the hardest candidate it finds within its budget.
+  var DIFFICULTY = [
+    null,
+    { tier: 'easy',    H: [0, 0.3],    budgetMs: 2500 },
+    { tier: 'normal',  H: [0.5, 1.0],  budgetMs: 4000 },
+    { tier: 'normal',  H: [1.0, 1.5],  budgetMs: 5000 },
+    { tier: 'hard',    H: [1.3, 1.8],  budgetMs: 5000 },
+    { tier: 'hard',    H: [1.8, 2.3],  budgetMs: 6000 },
+    { tier: 'hard',    H: [2.2, 2.8],  budgetMs: 8000 },
+    { tier: 'extreme', H: [2.5, 3.1],  budgetMs: 10000 },
+    { tier: 'extreme', H: [3.0, 3.6],  budgetMs: 12000 },
+    { tier: 'extreme', H: [3.5, 4.2],  budgetMs: 15000, noLuck: true },
+    { tier: 'extreme', H: [4.0, 9],    budgetMs: 20000, noLuck: true, hardest: true }
+  ];
+
+  // generate({ tier, seed, layout?, allow?, layoutSlots?, id?, maxNodes?, scramble?, hardness?, hardest?, candidates?, budgetMs?, now?, onCandidate? })
+  //   -> { level, solution, metrics, attempts, hard, analysis, candidates } or null
+  // Without `hardness`: deterministic for (tier, seed, allow, layout, layoutSlots): up to 40 seeds derived from `seed`,
+  // the first that yields a solvable, in-band, certified level wins.
+  // With `hardness: [lo, hi]` (H, see hardness()): every certified candidate is analysed; the first one inside the
+  // window is returned at once. When the budget runs out (`candidates` analysed candidates, default 60, or `budgetMs`
+  // of wall time measured with `now()`), the candidate closest to the window is returned (above the window is
+  // preferred over below it, so a search for very hard levels keeps the hardest it found). Returns null only when no
+  // candidate could be made at all. With `hardest: true` the search never stops early and returns the hardest candidate
+  // of the budget. `onCandidate(n, H)` is called per analysed candidate (for a progress line).
   function generate(opts) {
     deps();
-    var tier = opts.tier, band = config.TIERS[tier], r, j, seed, layoutObj, res, name, fails = {};
+    var tier = opts.tier, band = config.TIERS[tier], r, j, seed, layoutObj, res, name, fails = {}, win = opts.hardness || null,
+      limit, best = null, bestScore = Infinity, h, score, t0, now = opts.now || null, made = 0;
     if (!band) throw new Error('generator: unknown tier ' + tier);
     if (opts.layout) {
       layoutObj = typeof opts.layout === 'string' ? layoutsMod()[opts.layout] : opts.layout;
@@ -480,18 +537,98 @@
       name = layoutObj.name;
     }
     r = rng.create(opts.seed);
-    for (j = 0; j < ATTEMPTS; j++) {
+    limit = win ? 4 * (opts.candidates || 60) + ATTEMPTS : ATTEMPTS;
+    t0 = now ? now() : 0;
+    for (j = 0; j < limit; j++) {
       seed = r.int(2147483647);
       res = attempt(tier, seed, opts, band, layoutObj, name);
-      if (res.level) { res.attempts = j + 1; return res; }
-      fails[res.fail] = (fails[res.fail] || 0) + 1;
+      if (!res.level) { fails[res.fail] = (fails[res.fail] || 0) + 1; continue; }
+      if (!win) { res.attempts = j + 1; return res; }
+      h = hardness(res.level, layoutsMod()[res.level.layout]);
+      made++;
+      res.hard = h.H; res.analysis = h.analysis; res.level.hard = h.H;
+      if (opts.onCandidate) opts.onCandidate(made, h.H);
+      if (!opts.hardest && h.H >= win[0] && h.H <= win[1]) { res.attempts = j + 1; res.candidates = made; return res; }
+      score = opts.hardest ? -h.H : (h.H > win[1] ? (h.H - win[1]) : (win[0] - h.H) * 4);     // below the window costs four times as much as above it; `hardest` keeps the maximum
+      if (score < bestScore) { bestScore = score; best = res; best.attempts = j + 1; }
+      if (made >= (opts.candidates || 60)) break;
+      if (now && now() - t0 > (opts.budgetMs || 1e12)) break;
     }
     generate.lastFails = fails;
-    return null;
+    if (best) { best.candidates = made; best.outside = !(best.hard >= win[0] && best.hard <= win[1]); }
+    return best;
+  }
+
+  // ---------------------------------------------------------------- level codes
+  //
+  // A generated level is identified by its structure tier, the derived seed of the attempt that made it and the allowed
+  // mechanics; replaying it is one deterministic attempt. The code the player sees is
+  //     L<difficulty><flags>-<seed>        e.g. L8-1Z4K7Q, L10n-M7YRGY, L7npk-3ZZ2
+  // L = code format 1 (CODE_VERSION; a later incompatible generator gets a new letter and keeps decoding old ones or
+  // refuses them knowingly), difficulty 1-10, flags = the mechanics switched OFF (n hidden, p pair, w wrap, i ice,
+  // k lock, o one-way; none = everything on), seed in a 32-symbol alphabet without I, L, O, U. tests/codes.test.js
+  // freezes a set of codes to their level fingerprints: a change that alters a shared level fails there on purpose.
+  var CODE_VERSION = 1, CODE_LETTER = 'L';
+  var ALPHABET = '0123456789ABCDEFGHJKMNPQRSTVWXYZ';     // 32 symbols, no I, L, O, U (typing from a photo)
+  var FLAG_OF = { hidden: 'n', pair: 'p', wrap: 'w', ice: 'i', lock: 'k', oneway: 'o' };
+  var MECH_OF = { n: 'hidden', p: 'pair', w: 'wrap', i: 'ice', k: 'lock', o: 'oneway' };
+  // disabled(x) -> the list of mechanics switched off, from a list, a "no luck" boolean or nothing
+  function disabledOf(x) {
+    var out = [], i;
+    if (x === true) return ['hidden'];
+    if (!Array.isArray(x)) return out;
+    for (i = 0; i < ALL.length; i++) if (contains(x, ALL[i])) out.push(ALL[i]);
+    return out;
+  }
+  function encodeCode(difficulty, disabled, seed) {
+    var v = seed >>> 0, out = '', list = disabledOf(disabled), flags = '', i;
+    for (i = 0; i < ALL.length; i++) if (contains(list, ALL[i])) flags += FLAG_OF[ALL[i]];
+    do { out = ALPHABET.charAt(v % 32) + out; v = Math.floor(v / 32); } while (v > 0);
+    return CODE_LETTER + difficulty + flags + '-' + out;
+  }
+  function decodeCode(code) {
+    var str = String(code || '').toUpperCase().replace(/\s+/g, ''), m, i, v = 0, d, seedPart, flags, disabled = [];
+    m = /^L(10|[1-9])([NPWIKO]*)-([0-9A-Z]{1,7})$/.exec(str) || /^L(10|[1-9])()([0-9A-Z]{1,7})$/.exec(str);
+    if (!m) return null;
+    flags = m[2];
+    for (i = 0; i < flags.length; i++) {
+      d = MECH_OF[flags.charAt(i).toLowerCase()];
+      if (!contains(disabled, d)) disabled.push(d);
+    }
+    seedPart = m[3].replace(/O/g, '0').replace(/[IL]/g, '1').replace(/U/g, 'V');     // read from a photo: O is 0, I and L are 1, U is V
+    for (i = 0; i < seedPart.length; i++) {
+      d = ALPHABET.indexOf(seedPart.charAt(i));
+      if (d < 0) return null;
+      v = v * 32 + d;
+    }
+    if (v > 4294967295) return null;
+    return { version: CODE_VERSION, difficulty: Number(m[1]), disabled: disabledOf(disabled), noLuck: contains(disabled, 'hidden'), seed: v >>> 0 };
+  }
+  // allowOf(disabled | noLuck) -> the mechanics a level may use
+  function allowOf(x) {
+    var list = disabledOf(x);
+    return ALL.filter(function (m) { return !contains(list, m); });
+  }
+  function replay(code) {
+    deps();
+    var d = typeof code === 'string' ? decodeCode(code) : code, diff, band, res, disabled;
+    if (!d || !DIFFICULTY[d.difficulty]) return null;
+    diff = DIFFICULTY[d.difficulty];
+    band = config.TIERS[diff.tier];
+    disabled = disabledOf(d.disabled || (d.noLuck ? ['hidden'] : []));
+    if (diff.noLuck && !contains(disabled, 'hidden')) disabled.push('hidden');
+    res = attempt(diff.tier, d.seed, { allow: allowOf(disabled) }, band, null, null);
+    if (!res.level) return null;
+    res.level.hard = hardness(res.level).H;
+    res.disabled = disabled;
+    res.code = encodeCode(d.difficulty, disabled, d.seed);
+    return res;
   }
 
   PL.generator = {
     generate: generate, metrics: metrics, inBand: inBand, deal: deal, place: place, pickSlots: pickSlots, attempt: attempt,
+    hardness: hardness, DIFFICULTY: DIFFICULTY, encodeCode: encodeCode, decodeCode: decodeCode, replay: replay, allowOf: allowOf, disabledOf: disabledOf,
+    CODE_VERSION: CODE_VERSION, MECHANICS: ALL.slice(),
     ATTEMPTS: ATTEMPTS
   };
   if (typeof module !== 'undefined' && module.exports) module.exports = PL.generator;

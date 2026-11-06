@@ -50,10 +50,34 @@
 
   function isCovered(box) { return box.wrap !== null || box.ice || box.lock !== null; }
 
+  // expose(state, boxIndex, piece, events): the piece is in plain sight now: a hidden piece turns face up (R15), a key on
+  // it is released and its shutter opens (R19). Returns true when something changed. `index` is the piece's slot in
+  // its box (back = 0), so the scene can animate the right slot.
+  function expose(state, boxIndex, pc, events) {
+    var changed = false, lock, ids, m, box = state.boxes[boxIndex], index = box.pieces.indexOf(pc);
+    if (pc.hidden) {
+      pc.hidden = false;
+      events.push({ type: 'reveal', box: boxIndex, index: index, piece: pub(pc) });
+      changed = true;
+    }
+    lock = pc.key !== null && has(state.locks, pc.key) ? state.locks[pc.key] : null;
+    if (lock && !lock.open) {
+      lock.open = true;
+      ids = [];
+      for (m = 0; m < lock.boxes.length; m++) {
+        state.boxes[state.index[lock.boxes[m]]].lock = null;
+        ids.push(state.index[lock.boxes[m]]);
+      }
+      events.push({ type: 'unlock', lock: pc.key, boxes: ids, box: boxIndex, index: index, piece: pub(pc) });
+      changed = true;
+    }
+    return changed;
+  }
+
   // Reveals (R15) and key releases (R19) for every uncovered box whose front unit is exposed, until nothing
   // changes any more (an unlock can uncover a box whose front piece carries the next key). Pushes events.
   function settle(state, events) {
-    var changed = true, guard = 0, i, j, box, u, pc, lock, ids, m;
+    var changed = true, guard = 0, i, j, box, u;
     while (changed && guard++ < 1000) {
       changed = false;
       for (i = 0; i < state.boxes.length; i++) {
@@ -62,23 +86,7 @@
         u = frontUnit(box);
         if (!u) continue;
         for (j = 0; j < u.pieces.length; j++) {
-          pc = u.pieces[j];
-          if (pc.hidden) {
-            pc.hidden = false;
-            events.push({ type: 'reveal', box: i, piece: pub(pc) });
-            changed = true;
-          }
-          lock = pc.key !== null && has(state.locks, pc.key) ? state.locks[pc.key] : null;
-          if (lock && !lock.open) {
-            lock.open = true;
-            ids = [];
-            for (m = 0; m < lock.boxes.length; m++) {
-              state.boxes[state.index[lock.boxes[m]]].lock = null;
-              ids.push(state.index[lock.boxes[m]]);
-            }
-            events.push({ type: 'unlock', lock: pc.key, boxes: ids, box: i, piece: pub(pc) });
-            changed = true;
-          }
+          if (expose(state, i, u.pieces[j], events)) changed = true;
         }
       }
     }
@@ -236,6 +244,15 @@
         if (box.pieces[j].key === box.lock) errs.push('R19: key ' + box.lock + ' lies behind its own shutter in box ' + box.id);
       }
     }
+    // R13b: no kind may be shut away for good from the start (keys behind each other's shutters, a frozen box whose
+    // neighbours can never close, a cloth whose kind lies inside ...). rules.deadKinds is the judge; it is loaded later
+    // than this file, so it is looked up at call time.
+    if (!errs.length && (opts && (opts.layout || opts.neighbours)) && PL.rules && typeof PL.rules.deadKinds === 'function') {
+      try {
+        j = PL.rules.deadKinds(st);
+        if (j.length) errs.push('R13b: kind' + (j.length > 1 ? 's ' : ' ') + j.join(', ') + ' can never be completed from the start');
+      } catch (e) { /* a level the rules cannot judge is reported by the rules elsewhere */ }
+    }
     return errs;
   }
 
@@ -352,7 +369,7 @@
 
   PL.model = {
     parse: parse, validate: validate, clone: clone, hash: hash, permutation: permutation, pieceId: pieceId,
-    settle: settle, frontUnit: frontUnit, isCovered: isCovered, pub: pub
+    settle: settle, expose: expose, frontUnit: frontUnit, isCovered: isCovered, pub: pub
   };
   if (typeof module !== 'undefined' && module.exports) module.exports = PL.model;
 })(typeof window !== 'undefined' ? window : globalThis);

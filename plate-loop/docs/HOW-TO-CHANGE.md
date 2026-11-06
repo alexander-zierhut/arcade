@@ -25,8 +25,15 @@ The takeaway box is the pair of sprites `assets/sprites/box-open.svg` and `box-c
 box rectangle, mouth on the right; ART.md has the geometry: the four slot wells are 29 units apart and the renderer
 lines pieces up with them). The scene mirrors or rotates them per slot. Plates are not sprites: the rounded squares
 are drawn by `squarePlate` / `colourPlate` in `src/render/scene.js` (`plate.svg` is only used on the title belt and
-the how-to cards). The departure animation (the piece sliding out, the reserved plate sliding up to the mouth) is in the
-`tapped` / `eject` branches of `processQueue` and in `drawPlatesAndFlights` in the same file.
+the how-to cards). The departure animation (the piece sliding out of its box; the reserved plate sinking through a
+trapdoor where it is while a plate rises at the mouth, `HATCH_MS`) is in the `tapped` / `eject` branches of `processQueue`
+and in `drawPlatesAndFlights` in the same file. Two switches change the picture without touching the engine:
+`scene.plain(true)` (flat colour cubes, simple boxes, "?" tiles, glyph keys and padlocks; every `plainOn` branch) and
+`scene.beltStyle('stream')` (no plates drawn: a piece on the belt is a trail of particles behind its plate's position,
+`drawStream` / `drawDrains`; the band shows the free-slot counter `#slots`). Both are settings rows and saved
+(`plain`, `belt`); plain graphics always use the stream (Alex: plates make no sense with plain cubes), so the belt
+row is forced to "stream" and disabled while plain is on (`scene.plain` sets `streamOn`, `main.beltStyle()` reports
+'stream').
 
 ## A colour
 
@@ -55,40 +62,73 @@ changes the downstream order and can break certified levels: regenerate and re-c
 
 Never edit `src/levels/levels-001-100.js` or `levels-101-500.js` by hand; both are generated and carry a header saying so.
 
-- Levels 1-100: the seed table `src/levels/seeds.js` (`id, tier, seed, allow, layout`). Change a row, then
-  `node scripts/gen-levels.mjs --legacy` (rewrites `seeds.js` if a seed had to be bumped, and `levels-001-100.js`).
-- Levels 101-500: one row per level in `scripts/level-plans/101-200.json` ... `401-500.json` (`id, tier, allow, layout,
-  seed, note`; the note says what the level is for, e.g. "Lock week" or "Breather"). Change a row, then
-  `node scripts/gen-levels.mjs` (all four files, writes `levels-101-500.js`) or `--only 301-400` to try one file
-  without writing the data.
-- The script builds each level with the generator, certifies it with the tick-accurate bot, checks the introduction
-  schedule, and exits 1 if a level fails. A seed that yields nothing is bumped (seed + 1, ...) and the working seed is
-  written back into the table, so the table always reproduces the data. Review the diff of data and table together
-  and commit them together.
-- `tests/levels.test.js` validates all 500 levels, re-certifies a subset (1-100, every 7th of 101-500, every extreme),
-  checks the introduction schedule (hidden 6, pairs 12, wrap 18, one-way 28, ice 35, locks 42; extremes at 25, 50, 75,
-  100 and every multiple of 25 after) and regenerates a sample of 10 from the tables, so a hand edit fails it.
+- The difficulty of every level comes from `scripts/level-curve.mjs` (`target(id)`: structure tier, hardness window,
+  candidates, `hardest` for the spikes, `noHidden` and `fullAllow` at the top). Change the curve there; the tables only
+  hold the seed, the allowed mechanics, the layout and (written back) the tier.
+- Levels 1-100: the seed table `src/levels/seeds.js` (`id, tier, seed, allow, layout`). Levels 101-500: one row per
+  level in `scripts/level-plans/101-200.json` ... `401-500.json` (`id, tier, allow, layout, seed, note`; the note says
+  what the level is for, e.g. "Lock week" or "Breather"). Change a row or the curve, then `node scripts/gen-levels.mjs`
+  (all 500, about 25 minutes: every level is a candidate search; writes both level files and both tables),
+  `--range 401-500` to regenerate and write one range (the rest is kept), or `--only 301-400` to try a range without
+  writing anything.
+- The script builds each level with `generator.generate({ hardness })` (up to 80 certified candidates, 200 for a
+  spike, the first inside the window or the closest), checks the introduction schedule, and exits 1 if a level fails.
+  A seed whose search misses is bumped (seed + 1, ..., six tries) and the working seed is written back into the table,
+  so the table always reproduces the data; a level may end up to 0.3 under its window when nothing better was found
+  (the log says "kept the hardest search result"). Review the diff of data and table together and commit them
+  together. `node scripts/analyze-levels.mjs [lo-hi]` prints the hardness of the committed levels.
+- `tests/levels.test.js` validates all 500 levels (also: nothing hopeless at the start, every frozen box has a plain
+  neighbour), re-certifies a subset (1-100, every 7th of 101-500, every 25th), checks the introduction schedule
+  (hidden 6, pairs 12, wrap 18, one-way 28, ice 35, locks 42), the curve (tier, window, spikes towering over their
+  neighbours, nothing hidden at the top, the stored `hard` equals the analyser's) and regenerates a sample of 8 from
+  the tables, so a hand edit fails it.
 - Level numbers are the player's progress (`plateLoop.save.level` is a level number): change levels in place, add new
   ones at the end, never insert in the middle.
 - Tuning: `node scripts/tune-levels.mjs` plays every level with the greedy and sloppy bots and rewrites
   `docs/levels-tuning.md` (tier means and flagged levels: an easy level the greedy bot often loses, an extreme one it
   often wins). It only reports. To act on a flag change the row's tier or seed in the table and regenerate.
 
-## A tier band (what Easy, Normal, Hard, Extreme mean)
+## A tier band (what Easy, Normal, Hard, Extreme mean) and a difficulty
 
 `config.TIERS`: N, number of kinds, extra boxes, empty boxes at the start, share of hidden pieces, number of
-modifier kinds, each a `[min, max]`. `generator.inBand` enforces them; Endless uses them directly (`generate({ tier })`).
-The fixed levels were generated against the bands of their time and are not regenerated at play time, so a new band
-only changes Endless and future levels. After changing a band run the generator tests (every produced level must
-stay solvable, certified and in the band). The pill colour of a tier is CSS (`--tier-*`), its name a string
-(`tier_easy` ...).
+modifier kinds, each a `[min, max]`: the *structure* of a level. `generator.inBand` enforces them. How hard a level is
+to win is a separate number, its hardness H (plan R29, `generator.hardness`); the ten Endless difficulties are
+`generator.DIFFICULTY` (structure tier + H window + search budget in ms, `noLuck` forced on 9 and 10, `hardest` on
+10), calibrated on 2026-11-06 so that each window is reached in a few seconds on a desktop (the yield of candidates
+above H 3 is about one in ten for the extreme structure, above H 4 about one in thirty). The fixed levels follow
+`scripts/level-curve.mjs`. The fixed levels are not regenerated at play time, so a new band or difficulty table only
+changes Endless and future levels; after changing either run the generator tests. The pill colour of a tier is CSS
+(`--tier-*`), its name a string (`tier_easy` ...); the chooser colours the difficulties by their structure tier.
+
+## A level code (and keeping old codes alive)
+
+A code `L<difficulty><flags>-<seed>` (`generator.encodeCode` / `decodeCode` / `replay`) names a generated level: the
+letter is the code format (`generator.CODE_VERSION`, 1 = L), the flags are the mechanics switched off (n p w i k o),
+the seed replays one deterministic `attempt`. A code is only as stable as everything the attempt depends on: the
+generator, the solver (the search picks the first certified candidate), the rules, the layouts, `config.TIERS` and
+`generator.DIFFICULTY`. `tests/codes.test.js` freezes a golden table of codes to level fingerprints and fails on
+purpose when any of that changes a shared level. Then either make the change compatible, or bump `CODE_VERSION` with
+a new letter, decide what old codes do (a legacy path or a clear refusal with `code_bad`) and re-freeze the table.
+The share link is `?code=<code>` on the game address; the chooser's "Advanced" section switches mechanics and runs
+the hunt (`app.startHunt`: chunks of 2.5 s in the worker without end, the hardest kept; `huntPlay` starts it).
+
+## The replay and the favourites
+
+The replay depends on the engine being deterministic for the same sequence of tick lengths and taps (R24): anything
+that reads a clock, `Math.random` or the DOM inside `engine/` breaks it silently (the replay then shows a different
+round). `tests/browser/ui.spec.js` plays level 1, watches the replay and asserts the same win. The recording is not
+saved; persisting it (a few thousand numbers) into the save would make favourites replayable later. Favourite
+entries are `{ level }` or `{ code, hard }` (`save.clean` keeps at most 200, newest first); the star buttons live on
+the pause, win and lose cards (`renderStars`).
 
 ## A string
 
 All UI text is in `src/ui/strings.js`, two tables `de` and `en`; add every key to both (a missing German key falls
 back to English, a missing key shows the key). Static markup in `index.html` uses `data-i18n="key"`,
 `data-i18n-aria` and `data-i18n-title`; dynamic text uses `PL.strings.t('key', { n: 3 })`. How-to card texts are
-`h_<mechanic>_t` and `h_<mechanic>`. Share lines are `share_level`, `share_streak`, `share_lose`. The changelog is
+`h_<mechanic>_t` and `h_<mechanic>`. Share lines are `share_level`, `share_streak`, `share_lose`, `share_code` and
+`share_code_lose` (Endless, with the level code); the lose card has two texts (`lose_text` for a jam, `lose_text_hopeless`
+for R13b). The changelog is
 `news.js` (de and en per entry, see RELEASE.md). The `og:title`/`og:description` and the manifest text are English
 only by design (the selector card).
 
@@ -124,24 +164,30 @@ All timing constants are in `src/config.js`:
 
 The engine reads `DEPART_*` in `sim.tap` (they set each piece's `departAt`), so changing them changes play: every level
 must be re-certified (`node scripts/gen-levels.mjs`, `--legacy` for 1-100) because the bot taps and waits in sim time.
-The scene reads the same values: the 800 ms in which the reserved plate slides up to the mouth (`slideStart` in the
-`tapped` branch of `processQueue`) and `LAND_MS` are hard-coded or defaulted in `src/render/scene.js`; keep them below
-`DEPART_FIRST_MS` and in step when you change the pacing. Rule text: plan R26, R27.
+The scene reads the same values: the trapdoor time `HATCH_MS` (380 ms before each departure the reserved plate sinks
+and a plate rises at the mouth) and `LAND_MS` are hard-coded or defaulted in `src/render/scene.js`; keep `HATCH_MS`
+below `DEPART_FIRST_MS` and in step when you change the pacing. Rule text: plan R26, R27.
 
 ## A rule
 
 Rules live in `src/engine/rules.js` (taps and the outbox, `wouldLand` for where a piece lands, closing, modifiers) and `model.js` (reveal and key release in
 `settle`, validation); the reservation and scheduling of departures in `sim.js` (`tap`, `depart`) and `belt.js`; timing constants in `config.js` (see the pacing section). Change the
 test that names the rule number first (`tests/engine.test.js`, `tests/rules-adversarial.test.js`), then the code,
-then re-certify the fixed levels (`node scripts/gen-levels.mjs`; the rules in the plan, section 2, are the reference text). `isStuck` decides when the lose card shows; a bug there is either a hang or a
-wrong loss.
+then re-certify the fixed levels (`node scripts/gen-levels.mjs`; the rules in the plan, section 2, are the reference
+text). `isStuck` (a jam) and `isHopeless` / `deadKinds` (R13b, a kind that can never close) decide when the lose card
+shows; a bug there is either a hang or a wrong loss. `deadKinds` must stay optimistic: `tests/fixes.test.js` has the
+cases, and the level suite checks that no committed level is hopeless at the start. The solver has its own copy of
+the rules in a compact encoding (`src/gen/solver.js`, `land` for R12/R12b/R17/R18, `settleBox` for R15/R19): change
+both, `tests/gen.test.js` compares them on random walks.
 
 ## The version
 
 Single source: `package.json`. `node scripts/bump-version.mjs plate-loop x.y.z` (repo root) sets `package.json`, the
 lockfile, the `Arcade.init` line in `index.html`, `VERSION` in `src/config.js` (shown on the title as "Version x.y.z")
 and the fallback literal in `src/ui/strings.js` (`apply`); `scripts/check-versions.mjs` has a `plate-loop` entry for
-those two files. Then the `news.js` entry and `docs/STATUS.md` (see [RELEASE.md](RELEASE.md)).
+those two files. Then the `news.js` entry and `docs/STATUS.md` (see [RELEASE.md](RELEASE.md)). When the level data
+changes in a way players notice, bump `LEVELS_VERSION` in `src/ui/save.js` (the save keeps the level number; the
+news entry tells the player).
 
 ## Icons and the OG image
 

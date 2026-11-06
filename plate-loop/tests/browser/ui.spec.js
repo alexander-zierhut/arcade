@@ -183,10 +183,10 @@ function settleBox(page, i) {
   }, i);
 }
 // advances the simulation by ms in 16 ms ticks (stops when the level is decided); returns the status
-function ffwd(page, ms) {
+function ffwd(page, ms) {                           // steps the real game frame (app.step: tick, events, render, no scheduling), so the replay recording sees every frame
   return page.evaluate(function (total) {
     var a = window.PlateLoop.app, done = 0;
-    while (a.sim && done < total && a.sim.status === 'play') { window.PlateLoop.sim.tick(a.sim, 16); done += 16; }
+    while (a.sim && done < total && a.sim.status === 'play') { a.step(16); done += 16; }
     return a.sim ? a.sim.status : null;
   }, ms);
 }
@@ -409,6 +409,27 @@ async function scenarioMain(browser, base) {
     if (r.line !== 'Level 1 cleared') return 'share line ' + JSON.stringify(r.line);
     return has(r.text, 'Level 1 cleared', 'share text');
   });
+  await ck('win: "Watch replay" replays the recorded round (state REPLAY, replay pill) and reproduces the win, then the card comes back', async function () {
+    if (!(await isShown(page, '#win-watch'))) return 'the watch button is hidden';
+    await cl(page, '#win-watch');
+    var r = await waitState(page, 'REPLAY', 3000); if (r !== true) return r;
+    var pill = await text(page, '#pill');
+    if (!/Replay/.test(pill)) return 'pill during the replay: ' + pill;
+    if (await isShown(page, '#card-win')) return 'the win card is still shown during the replay';
+    // the replay runs at real speed (a short round): wait for it to end on its own
+    try { await page.waitForFunction(function () { return window.PlateLoop.app.state === 'WIN'; }, null, { timeout: 45000 }); } catch (e) { return 'the replay did not end, state ' + await state(page); }
+    var after = await page.evaluate(function () { var a = window.PlateLoop.app; return [a.sim.status, document.getElementById('pill').textContent.trim()]; });
+    if (after[0] !== 'won') return 'the replay did not reproduce the win: sim ' + after[0];
+    if (!/Level 1/.test(after[1])) return 'pill after the replay: ' + after[1];
+    return (await isShown(page, '#card-win')) ? true : 'the win card did not come back';
+  });
+  await ck('win: the star marks level 1 as a favourite (save.favs)', async function () {
+    if (!(await isShown(page, '#win-fav'))) return 'the star is hidden';
+    await cl(page, '#win-fav');
+    if ((await page.getAttribute('#win-fav', 'aria-pressed')) !== 'true') return 'the star did not light up';
+    var s = await saveOf(page);
+    return s && s.favs && s.favs.length === 1 && s.favs[0].level === 1 ? true : 'save.favs = ' + JSON.stringify(s && s.favs);
+  });
   await ck('win: pressing share does not throw (clipboard / share fallbacks)', async function () {
     var before = P.pageErrors.length;
     await cl(page, '#card-win [data-arcade="share"]');
@@ -541,10 +562,26 @@ async function scenarioMain(browser, base) {
   });
   await cl(page, '#btn-pause'); await cl(page, '#pause-quit'); await waitState(page, 'TITLE');
 
+  // ---- favourites (level 1 was starred on its win card)
+  await ck('favourites: the title chip lists the starred level with Play and Remove; Remove empties the list', async function () {
+    await cl(page, '#chip-favs');
+    var r = await waitShown(page, '#card-favs', 3000); if (r !== true) return r;
+    var n = await page.evaluate(function () { return document.querySelectorAll('#favs-list li').length; });
+    if (n !== 1) return n + ' entries listed';
+    if (!/Level 1/.test(await text(page, '#favs-list .fav-name'))) return 'entry text ' + await text(page, '#favs-list .fav-name');
+    await cl(page, '#favs-list [data-act="remove"]');
+    var s = await saveOf(page);
+    if (!(s && s.favs && s.favs.length === 0)) return 'remove did not work: ' + JSON.stringify(s && s.favs);
+    if (!(await isShown(page, '#favs-empty'))) return 'the empty text is missing';
+    await cl(page, '#favs-back');
+    return waitState(page, 'TITLE', 3000);
+  });
+
   // ---- settings
   await cl(page, '#chip-settings');
-  await ck('settings: the card opens from the title (reported "menu"), has sound, performance and language rows', async function () {
+  await ck('settings: the card opens from the title (reported "menu"), has sound, graphics, belt, performance and language rows', async function () {
     var r = await waitShown(page, '#card-settings'); if (r !== true) return r;
+    if (!(await isShown(page, '#set-plain')) || !(await isShown(page, '#set-belt'))) return 'the graphics or belt row is missing';
     if ((await arcadeCurrent(page)) !== 'menu') return 'Arcade.current() = ' + await arcadeCurrent(page);
     return (await isShown(page, '#set-sound')) && (await isShown(page, '#card-settings [data-arcade="perf"]')) && (await isShown(page, '#card-settings [data-arcade="lang"]')) ? true : 'a settings row is missing';
   });
@@ -561,6 +598,24 @@ async function scenarioMain(browser, base) {
     return eq(r, 'false', 'sound after reload');
   });
   await ck('settings: sound back on persists', async function () { var s = await saveOf(page); return eq(s && s.sound, true); });
+  await ck('settings: plain graphics force the belt to the stream (row on and disabled); off again frees it; the belt switch flips and persists', async function () {
+    await cl(page, '#set-plain');
+    if ((await page.getAttribute('#set-plain', 'aria-pressed')) !== 'true') return 'plain not pressed';
+    if ((await text(page, '#set-plain-label')) !== await str(page, 'en', 'graphics_plain')) return 'label ' + await text(page, '#set-plain-label');
+    if ((await page.getAttribute('#set-belt', 'aria-pressed')) !== 'true' || (await page.getAttribute('#set-belt', 'aria-disabled')) !== 'true') return 'the belt row is not forced to the stream while plain is on';
+    if ((await text(page, '#set-belt-label')) !== await str(page, 'en', 'belt_stream')) return 'belt label ' + await text(page, '#set-belt-label');
+    var s = await saveOf(page);
+    if (!(s && s.plain === true && s.belt === 'plates')) return 'save ' + JSON.stringify({ plain: s && s.plain, belt: s && s.belt });
+    await cl(page, '#set-plain');
+    if ((await page.getAttribute('#set-belt', 'aria-disabled')) !== 'false' || (await page.getAttribute('#set-belt', 'aria-pressed')) !== 'false') return 'the belt row is not free again';
+    await cl(page, '#set-belt');
+    if ((await text(page, '#set-belt-label')) !== await str(page, 'en', 'belt_stream')) return 'belt label after the flip ' + await text(page, '#set-belt-label');
+    s = await saveOf(page);
+    if (!(s && s.plain === false && s.belt === 'stream')) return 'save after the flip ' + JSON.stringify({ plain: s && s.plain, belt: s && s.belt });
+    await cl(page, '#set-belt');
+    s = await saveOf(page);
+    return s && s.belt === 'plates' ? true : 'did not switch back';
+  });
   await ck('settings: language switch -> German texts on the title, and back', async function () {
     var deSub = await str(page, 'de', 'title_sub'), enSub = await str(page, 'en', 'title_sub');
     await cl(page, '#card-settings [data-arcade="lang"]');
@@ -610,37 +665,93 @@ async function scenarioMain(browser, base) {
 
   // ---- endless chooser
   await cl(page, '#btn-endless');
-  await ck('endless: the chooser opens (app.state MODES, reported "menu") with 4 tiers, easy selected', async function () {
+  await ck('endless: the chooser opens (app.state MODES, reported "menu") with 10 difficulties, 1 selected, a code field', async function () {
     var r = await waitShown(page, '#card-modes'); if (r !== true) return r;
     if (await state(page) !== 'MODES') return 'state ' + await state(page);
-    var t = await page.evaluate(function () { return Array.prototype.map.call(document.querySelectorAll('#modes-tiers .tier'), function (b) { return b.getAttribute('data-tier') + ':' + b.getAttribute('aria-checked'); }).join(','); });
-    return eq(t, 'easy:true,normal:false,hard:false,extreme:false');
+    var t = await page.evaluate(function () { return Array.prototype.map.call(document.querySelectorAll('#modes-diffs .diff'), function (b) { return b.getAttribute('data-diff') + ':' + b.getAttribute('aria-checked'); }).join(','); });
+    if (t !== '1:true,2:false,3:false,4:false,5:false,6:false,7:false,8:false,9:false,10:false') return 'diffs ' + t;
+    return (await isShown(page, '#modes-code')) && (await isShown(page, '#modes-code-go')) ? true : 'the code field is missing';
   });
-  await ck('endless: choosing Hard and No luck then Go stores both in the save', async function () {
-    await cl(page, '#modes-tiers [data-tier="hard"]');
-    if ((await page.getAttribute('#modes-tiers [data-tier="hard"]', 'aria-checked')) !== 'true') return 'hard not selected';
-    if ((await page.getAttribute('#modes-tiers [data-tier="easy"]', 'aria-checked')) !== 'false') return 'easy still selected';
+  await ck('endless: difficulty 9 forces No luck (switch on and disabled), 5 lets it be chosen; Go stores both in the save', async function () {
+    await cl(page, '#modes-diffs [data-diff="9"]');
+    if ((await page.getAttribute('#modes-noluck', 'aria-pressed')) !== 'true') return 'no luck not forced on at 9';
+    if ((await page.getAttribute('#modes-noluck', 'aria-disabled')) !== 'true') return 'no luck not disabled at 9';
+    await cl(page, '#modes-diffs [data-diff="5"]');
+    if ((await page.getAttribute('#modes-diffs [data-diff="5"]', 'aria-checked')) !== 'true') return '5 not selected';
+    if ((await page.getAttribute('#modes-diffs [data-diff="1"]', 'aria-checked')) !== 'false') return '1 still selected';
+    if ((await page.getAttribute('#modes-noluck', 'aria-pressed')) !== 'false') return 'no luck stayed on at 5';
     await cl(page, '#modes-noluck');
     if ((await page.getAttribute('#modes-noluck', 'aria-pressed')) !== 'true') return 'no luck not pressed';
     await cl(page, '#modes-start');
     var s = await saveOf(page);
-    return s && s.endless && s.endless.tier === 'hard' && s.endless.noLuck === true ? true : 'save.endless = ' + JSON.stringify(s && s.endless);
+    return s && s.endless && s.endless.difficulty === 5 && s.endless.noLuck === true ? true : 'save.endless = ' + JSON.stringify(s && s.endless);
   });
-  await ck('endless: Go starts a round when the generator exists (else noted)', async function () {
+  await ck('endless: Go searches a level (worker or inline) and starts a round with a level code', async function () {
     var has_gen = await page.evaluate(function () { return !!window.PlateLoop.generator; });
     if (!has_gen) { note('PlateLoop.generator is not in the tree: the endless round itself is not tested'); return true; }
-    try { await page.waitForFunction(function () { var s = window.PlateLoop.app.state; return s === 'PLAY' || s === 'HOWTO'; }, null, { timeout: 8000 }); } catch (e) { return 'no round started, state ' + await state(page); }
-    var r = await page.evaluate(function () { return [window.PlateLoop.app.mode, window.PlateLoop.app.tier, window.PlateLoop.app.noLuck]; });
-    return eq(r.join(','), 'endless,hard,true');
+    try { await page.waitForFunction(function () { var s = window.PlateLoop.app.state; return s === 'PLAY' || s === 'HOWTO'; }, null, { timeout: 40000 }); } catch (e) { return 'no round started, state ' + await state(page); }
+    var r = await page.evaluate(function () { var a = window.PlateLoop.app; return [a.mode, a.difficulty, a.noLuck, a.code, typeof a.level.hard]; });
+    if (!/^L5n-[0-9A-Z]+$/.test(String(r[3]))) return 'code ' + r[3];
+    return eq(r.slice(0, 3).concat([r[4]]).join(','), 'endless,5,true,number');
+  });
+  await ck('endless: the level code replays the very same level', async function () {
+    var r = await page.evaluate(function () {
+      var a = window.PlateLoop.app, g = window.PlateLoop.generator, rp = g.replay(a.code);
+      return rp && JSON.stringify(rp.level.boxes) === JSON.stringify(a.level.boxes) && rp.level.N === a.level.N ? true : 'replay differs or failed';
+    });
+    return r;
   });
   var s2 = await state(page);
   if (s2 === 'HOWTO') { for (i = 0; i < 8 && (await state(page)) === 'HOWTO'; i++) await cl(page, '#howto-next'); s2 = await state(page); }
   if (s2 === 'PLAY') { await cl(page, '#btn-pause'); await cl(page, '#pause-quit'); await waitState(page, 'TITLE'); }
   await loadGame(P, true);
   await cl(page, '#btn-endless');
-  await ck('endless: after a reload the chooser shows the stored tier (Hard) and No luck', async function () {
-    var r = await page.evaluate(function () { return [document.querySelector('#modes-tiers [data-tier="hard"]').getAttribute('aria-checked'), document.getElementById('modes-noluck').getAttribute('aria-pressed')]; });
+  await ck('endless: after a reload the chooser shows the stored difficulty (5) and No luck', async function () {
+    var r = await page.evaluate(function () { return [document.querySelector('#modes-diffs [data-diff="5"]').getAttribute('aria-checked'), document.getElementById('modes-noluck').getAttribute('aria-pressed')]; });
     return eq(r.join(','), 'true,true');
+  });
+  await ck('endless: Advanced opens the mechanic chips; switching Ice off persists as endless.disabled and shows in the code', async function () {
+    await cl(page, '#modes-adv');
+    if (!(await isShown(page, '#modes-mechs'))) return 'the mechanics are not shown';
+    await cl(page, '#modes-mechs [data-mech="ice"]');
+    if ((await page.getAttribute('#modes-mechs [data-mech="ice"]', 'aria-pressed')) !== 'false') return 'ice still on';
+    await cl(page, '#modes-diffs [data-diff="9"]');
+    if ((await page.getAttribute('#modes-mechs [data-mech="hidden"]', 'aria-pressed')) !== 'false' || (await page.getAttribute('#modes-mechs [data-mech="hidden"]', 'aria-disabled')) !== 'true') return 'hidden not forced off at 9';
+    await cl(page, '#modes-diffs [data-diff="4"]');
+    await cl(page, '#modes-start');
+    var s = await saveOf(page);
+    if (!(s && s.endless && JSON.stringify(s.endless.disabled) === '["hidden","ice"]')) return 'save.endless.disabled = ' + JSON.stringify(s && s.endless && s.endless.disabled);
+    try { await page.waitForFunction(function () { var st = window.PlateLoop.app.state; return st === 'PLAY' || st === 'HOWTO'; }, null, { timeout: 40000 }); } catch (e) { return 'no round started, state ' + await state(page); }
+    var r = await page.evaluate(function () { var a = window.PlateLoop.app; return [a.code, JSON.stringify(a.disabled), JSON.stringify(a.level).indexOf('"ice":true') < 0]; });
+    if (!/^L4ni-[0-9A-Z]+$/.test(String(r[0]))) return 'code ' + r[0];
+    return r[1] === '["hidden","ice"]' && r[2] ? true : 'disabled ' + r[1] + ', ice-free ' + r[2];
+  });
+  var s3 = await state(page);
+  if (s3 === 'HOWTO') { for (i = 0; i < 8 && (await state(page)) === 'HOWTO'; i++) await cl(page, '#howto-next'); s3 = await state(page); }
+  if (s3 === 'PLAY') { await cl(page, '#btn-pause'); await cl(page, '#pause-quit'); await waitState(page, 'TITLE'); }
+  await cl(page, '#btn-endless');
+  await ck('endless: the hunt searches without end, reports candidates and the best hardness, and "Play the best" starts that level', async function () {
+    await cl(page, '#modes-mechs [data-mech="ice"]');                   // ice back on
+    await cl(page, '#modes-diffs [data-diff="7"]');
+    await cl(page, '#modes-hunt');
+    if (!(await isShown(page, '#hunt'))) return 'the hunt panel is hidden';
+    try { await page.waitForFunction(function () { var b = document.getElementById('hunt-play'); return b && !b.disabled; }, null, { timeout: 30000 }); } catch (e) { return 'no candidate within 30 s: ' + await text(page, '#hunt-text'); }
+    var txt = await text(page, '#hunt-text');
+    if (!/\d/.test(txt)) return 'status text ' + txt;
+    await cl(page, '#hunt-play');
+    try { await page.waitForFunction(function () { var st = window.PlateLoop.app.state; return st === 'PLAY' || st === 'HOWTO'; }, null, { timeout: 20000 }); } catch (e) { return 'the best level did not start, state ' + await state(page); }
+    var r = await page.evaluate(function () { var a = window.PlateLoop.app; return [a.difficulty, a.code, a.level.hard]; });
+    return r[0] === 7 && /^L7n-[0-9A-Z]+$/.test(String(r[1])) && typeof r[2] === 'number' ? true : JSON.stringify(r);
+  });
+  s3 = await state(page);
+  if (s3 === 'HOWTO') { for (i = 0; i < 8 && (await state(page)) === 'HOWTO'; i++) await cl(page, '#howto-next'); s3 = await state(page); }
+  if (s3 === 'PLAY') { await cl(page, '#btn-pause'); await cl(page, '#pause-quit'); await waitState(page, 'TITLE'); }
+  await cl(page, '#btn-endless');
+  await ck('endless: a wrong level code is refused with a toast, nothing starts', async function () {
+    await page.fill('#modes-code', 'L7-ZZZZZZZZ');
+    await cl(page, '#modes-code-go');
+    await page.waitForTimeout(300);
+    return (await state(page)) === 'MODES' ? true : 'state ' + await state(page);
   });
   await ck('endless: Escape on the chooser returns to the title', async function () {
     await page.keyboard.press('Escape');

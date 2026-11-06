@@ -265,7 +265,7 @@ ${ogImage ? `<meta property="og:image" content="${ogImage}">
   .foot .news .tag { padding: .1rem .5rem; border-radius: 999px; background: #7aa2ff; color: #14161f; font-size: .7rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
   footer { margin-top: 2.5rem; color: #6f7489; font-size: .85rem; }
   /* the kit's own colours on this page (its toast and sheets) */
-  :root { --arcade-bg: #14161f; --arcade-card: #1f2230; --arcade-ink: #f2f3f7; --arcade-accent: #7aa2ff; --arcade-accent-ink: #14161f; --arcade-muted: #2a2e40; }
+  :root { --arcade-bg: #14161f; --arcade-card: #1f2230; --arcade-ink: #f2f3f7; --arcade-accent: #7aa2ff; --arcade-accent-ink: #14161f; --arcade-muted: #2a2e40; --arcade-line: #2a2e40; }
 </style>
 <link rel="stylesheet" href="shared/arcade.css">
 </head>
@@ -308,7 +308,8 @@ ${sections}
       site.games.forEach(function (g) {
         var li = document.createElement('li'), b = document.createElement('b'), s = document.createElement('span'), st = stats.games && stats.games[g.id];
         b.textContent = g.title;
-        s.textContent = st && st.playMs > 0 ? A.t('profile_played', { time: A.pure.durationText(st.playMs, lang) }) : saved[g.id] ? A.t('profile_saved') : A.t('profile_none');
+        if (st && st.playMs > 0) { s.className = 'played'; s.textContent = A.t('profile_played', { time: A.pure.durationText(st.playMs, lang) }); }
+        else s.textContent = saved[g.id] ? A.t('profile_saved') : A.t('profile_none');
         li.appendChild(b); li.appendChild(s); ul.appendChild(li);
       });
       node.appendChild(ul);

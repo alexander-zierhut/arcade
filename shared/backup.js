@@ -9,7 +9,7 @@
   var K = root.Arcade, P = K._, doc = root.document || null, nav = root.navigator || null, cfg = P.cfg;
   var backup = {
     games: [],                                   // the selector sets [{ id, title }] so a backup can be described
-    exportText: function () { return K.pure.backupEncode(P.rawKeys(), { origin: root.location ? root.location.origin : '' }); },
+    exportText: function () { if (K.stats) K.stats.summary(); return K.pure.backupEncode(P.rawKeys(), { origin: root.location ? root.location.origin : '' }); },   // summary() stores the running session first: the file carries the minutes played right now
     /** describe(text) -> { date, count, games: [{ id, title, count }] }; throws when the text is not a backup. */
     describe: function (text) { var d = K.pure.backupDecode(text); return { date: d.date, count: Object.keys(d.keys).length, games: K.pure.backupGames(d.keys, backup.games) }; },
     /** importText(text, confirm?) -> { count, games, pending } or null when confirm(summary) returned false; throws on a bad file. */

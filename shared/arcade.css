@@ -9,6 +9,7 @@
      --arcade-muted       secondary buttons                          (default rgba(0,0,0,0.08))
      --arcade-font        the font                                   (default system-ui)
      --arcade-radius      the card's corner radius                   (default 20px)
+     --arcade-line        hairlines between rows (the profile)       (default rgba(128,128,128,0.3))
    Everything lives under #arcade-ui, above the game (z-index 2147483000); the root itself lets touches through. */
 #arcade-ui { position: fixed; left: 0; top: 0; width: 100%; height: 100%; z-index: 2147483000; pointer-events: none; font-family: var(--arcade-font, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif); -webkit-text-size-adjust: 100%; }
 #arcade-ui * { box-sizing: border-box; }
@@ -47,12 +48,24 @@
 .arcade-news-count { opacity: 0.6; }
 .arcade-news-btn { -webkit-appearance: none; appearance: none; border: 0; margin: 0; padding: 0 12px; min-height: 36px; border-radius: 10px; font: inherit; font-size: 14px; font-weight: 800; cursor: pointer; background: var(--arcade-muted, rgba(0, 0, 0, 0.08)); color: inherit; }
 .arcade-news-btn:disabled { opacity: 0.35; cursor: default; }
-/* the profile (the selector): one line per game */
-.arcade-profile ul { margin: 14px 0 4px; padding: 0; list-style: none; }
-.arcade-profile li { display: -webkit-box; display: flex; justify-content: space-between; align-items: baseline; margin: 0 0 6px; font-size: 15px; line-height: 1.35; }
-.arcade-profile li span { flex-shrink: 0; white-space: nowrap; opacity: 0.7; text-align: right; margin-left: 12px; }
+/* the profile (the selector): a stacked row per game, the title on its own line and the state under it, so a long
+   title and the state line ("progress saved, play time not recorded yet") never share one line on a 360 px phone (two columns ran into each other and
+   the state was cut off at the card's edge). The rows are separated by hairlines in the card's ink. */
+.arcade-profile .arcade-text { font-size: 14px; line-height: 1.4; opacity: 0.85; }
+.arcade-profile ul { margin: 14px 0 0; padding: 0; list-style: none; border-top: 1px solid var(--arcade-line, rgba(128, 128, 128, 0.3)); }
+.arcade-profile li { display: block; padding: 9px 0 10px; border-bottom: 1px solid var(--arcade-line, rgba(128, 128, 128, 0.3)); font-size: 15px; line-height: 1.3; }
+.arcade-profile li b { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.arcade-profile li span { display: block; margin-top: 2px; opacity: 0.7; font-size: 14px; }
+.arcade-profile li span.played { opacity: 1; color: var(--arcade-accent, #2E6BE6); font-weight: 700; }
+/* on a phone the profile is a bottom sheet: full width, rounded on top, the buttons by the thumb; the card still
+   scrolls when it is taller than the screen. Browsers without :has() keep the centred card. */
+@media (max-width: 480px) {
+  .arcade-sheet:has(.arcade-profile) { align-items: flex-end; padding: 12px 0 0; }
+  .arcade-sheet:has(.arcade-profile) .arcade-card { max-width: none; max-height: calc(100% - 12px); border-radius: var(--arcade-radius, 20px) var(--arcade-radius, 20px) 0 0; padding: 18px 20px calc(16px + env(safe-area-inset-bottom)); animation: arcade-rise 0.22s ease-out; }
+  @keyframes arcade-rise { from { transform: translateY(24px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+}
 
 /* toast: one line at the bottom */
 .arcade-toast { position: absolute; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom)); transform: translateX(-50%); max-width: calc(100% - 32px); padding: 10px 16px; border-radius: 999px; background: rgba(20, 20, 20, 0.92); color: #FFFFFF; font-size: 14px; font-weight: 700; text-align: center; animation: arcade-fade 0.2s ease-out; }
 
-@media (prefers-reduced-motion: reduce) { .arcade-loading-fill, .arcade-sheet, .arcade-card, .arcade-toast { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .arcade-loading-fill, .arcade-sheet, .arcade-card, .arcade-toast { animation: none !important; } }

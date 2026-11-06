@@ -1,8 +1,9 @@
 // tests/browser/scene.spec.js: the picture must match the engine. On BOTH belt directions: every plate is drawn
 // where the engine says it is (the arc position of sim.plates()[i].s through the layout's pointAt, in pixels), a
-// tap plans one departure per piece (+DEPART_FIRST_MS, then every DEPART_GAP_MS) on reserved plates, the scene
-// starts the first piece's slide at once, the pieces are on plates after the last departure, no two plates ever
-// overlap, and a riding piece moves in the belt's travel direction. Written after a playtest in which a counter-clockwise level drew every plate
+// tap plans one departure per piece (+DEPART_FIRST_MS, then every DEPART_GAP_MS) on reserved plates (trapdoors: the
+// reserved plate sinks where it is and rises at the mouth), the scene starts the first piece's slide out of the box at
+// once, the pieces are on plates after the last departure, no two plates ever overlap, and a riding piece moves in the
+// belt's travel direction. Written after a playtest in which a counter-clockwise level drew every plate
 // mirrored and flights crossed the screen. Exports run({ browser, url, ok }) for tests/browser/run.js; runs alone
 // with `node tests/browser/scene.spec.js`.
 'use strict';

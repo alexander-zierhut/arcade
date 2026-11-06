@@ -9,7 +9,8 @@ this page is the API.
 Every game folder has `shared` as a symlink to this folder; the release copies the files in. The kit's UI
 (loading screen, sheets, toast) lives under `#arcade-ui` and takes the game's colours from CSS variables on
 `:root` (see `arcade.css`: `--arcade-bg`, `--arcade-card`, `--arcade-ink`, `--arcade-accent`,
-`--arcade-accent-ink`, `--arcade-muted`, `--arcade-font`, `--arcade-radius`).
+`--arcade-accent-ink`, `--arcade-muted`, `--arcade-font`, `--arcade-radius`, `--arcade-line` for the hairlines of the
+selector's profile rows).
 
 ## Files, in load order
 
@@ -98,7 +99,12 @@ the kit's own `arcade.*` keys (language, perf, stats, campaigns, session, instal
 measured verdict holds 14 days. The body gets `arcade-low-perf`.
 
 **Stats.** `Arcade.stats.summary()` → `{ v, sessions: [{ id, g, s, e, p }], games: { id: { sessions, playMs,
-last, first } } }`; `playMs()`; `session()`.
+last, first } }, carry }`; `playMs()`; `session()`. The last 300 sessions are kept; what falls off is folded into
+`carry`, so `games` holds every minute ever played on the device. Written on every screen change, every 10 s
+while the screen is `play`, and on `visibilitychange` (hidden), `freeze`, `pagehide` and `beforeunload`; the backup
+export flushes first. Counted since kit 1.1.0 (2026-10-18): play before that is not in anyone's profile. On iOS a
+game added to the home screen has its own storage, apart from Safari's, so its minutes show in the profile opened
+from inside that app, not in Safari.
 
 **Campaigns.** `Arcade.campaigns.define(list)` (hooks.js), `list()`, `due(screen)`, `show(campaign)`. A campaign:
 `{ id, every, after, screens, from, until, max, title, text, button, dismiss, url, onceClicked }` (hooks.js explains

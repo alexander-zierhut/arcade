@@ -11,7 +11,7 @@
   'use strict';
   var K = root.Arcade = root.Arcade || {};
   var doc = root.document || null, nav = root.navigator || null;
-  var KIT_VERSION = '1.1.0';
+  var KIT_VERSION = '1.1.1';
   var SHARED = 'arcade.';                        // the kit's own keys (language, perf, stats, campaigns) on the origin
   var cfg = { game: null, title: '', version: '', langs: ['de', 'en'], share: {}, home: '../', loading: true, autoHint: true, news: null };
   var listeners = {}, mem = {}, broken = false;
@@ -117,16 +117,22 @@
     if (p90 < 26) return 'ok';
     return null;
   };
-  /** statsFold(stats, session) -> stats with the session recorded (sessions capped at 300, per-game totals rebuilt). */
+  /** statsFold(stats, session) -> stats with the session recorded (sessions capped at 300, per-game totals rebuilt).
+   *  A session that falls off the list is folded into `carry` first, so the totals keep every minute ever played:
+   *  before, they were rebuilt from the 300 kept sessions alone, and a player who opens a game often (an idle game,
+   *  a few seconds each time) saw hours of old play disappear from the profile. */
   pure.statsFold = function (stats, s) {
     var st = stats && stats.v === 1 ? stats : { v: 1, sessions: [], games: {} };
-    st.sessions = st.sessions || []; st.games = st.games || {};
+    st.sessions = st.sessions || []; st.games = st.games || {}; st.carry = st.carry || {};
     var idx = -1;
     for (var i = st.sessions.length - 1; i >= 0; i--) if (st.sessions[i].id === s.id) { idx = i; break; }
     var rec = { id: s.id, g: s.game, s: s.start, e: s.end, p: Math.max(0, Math.round(s.playMs)) };
     if (idx >= 0) st.sessions[idx] = rec; else st.sessions.push(rec);
-    if (st.sessions.length > 300) st.sessions = st.sessions.slice(-300);
-    var g = {}; st.sessions.forEach(function (r) { var e = g[r.g] = g[r.g] || { sessions: 0, playMs: 0, last: 0, first: 0 }; e.sessions++; e.playMs += r.p; e.last = Math.max(e.last, r.e); e.first = e.first ? Math.min(e.first, r.s) : r.s; });
+    var fold = function (into, r) { var e = into[r.g] = into[r.g] || { sessions: 0, playMs: 0, last: 0, first: 0 }; e.sessions++; e.playMs += r.p; e.last = Math.max(e.last, r.e); e.first = e.first ? Math.min(e.first, r.s) : r.s; };
+    if (st.sessions.length > 300) { st.sessions.splice(0, st.sessions.length - 300).forEach(function (r) { fold(st.carry, r); }); }
+    var g = {};
+    for (var c in st.carry) g[c] = { sessions: st.carry[c].sessions, playMs: st.carry[c].playMs, last: st.carry[c].last, first: st.carry[c].first };
+    st.sessions.forEach(function (r) { fold(g, r); });
     st.games = g;
     return st;
   };
@@ -144,7 +150,7 @@
       share: 'Teilen', share_copied: 'Text kopiert: einfach einfügen', share_failed: 'Teilen ging nicht', news: 'Neuigkeiten', news_title: 'Neu in Version {v}', news_none: 'Noch keine Neuigkeiten.',
       news_older: '‹ Älter', news_newer: 'Neuer ›', news_new: 'Neu',
       profile_title: 'Dein Fortschritt', profile_text: '<p>Jedes Spiel speichert auf diesem Gerät, in diesem Browser. Für ein neues Handy: hier eine Sicherung herunterladen und dort laden. Eine geladene Sicherung ersetzt die Spielstände der Spiele, die sie enthält.</p>',
-      profile_played: '{time} gespielt', profile_saved: 'Spielstand auf diesem Gerät', profile_none: 'noch nicht gespielt',
+      profile_played: '{time} gespielt', profile_saved: 'Spielstand da, Spielzeit noch nicht erfasst', profile_none: 'noch nicht gespielt',
       perf: 'Sparmodus', perf_auto: 'Sparmodus: automatisch', perf_auto_on: 'Sparmodus: automatisch (an)', perf_on: 'Sparmodus: an', perf_off: 'Sparmodus: aus',
       perf_switched: 'Sparmodus an: Dein Gerät kam nicht hinterher. In den Einstellungen änderbar.',
       lang: 'Sprache', backup_export: 'Alle Spielstände sichern', backup_import: 'Spielstände laden', backup_done: 'Spielstände gesichert ({file})', backup_copied: 'Spielstände in die Zwischenablage kopiert',
@@ -157,7 +163,7 @@
       share: 'Share', share_copied: 'Text copied: just paste it', share_failed: 'Sharing did not work', news: 'What\'s new', news_title: 'New in version {v}', news_none: 'No news yet.',
       news_older: '‹ Older', news_newer: 'Newer ›', news_new: 'New',
       profile_title: 'Your progress', profile_text: '<p>Every game saves on this device, in this browser. For a new phone: download a backup here and load it there. A loaded backup replaces the progress of the games it contains.</p>',
-      profile_played: '{time} played', profile_saved: 'progress on this device', profile_none: 'not played yet',
+      profile_played: '{time} played', profile_saved: 'progress saved, play time not recorded yet', profile_none: 'not played yet',
       perf: 'Performance mode', perf_auto: 'Performance mode: automatic', perf_auto_on: 'Performance mode: automatic (on)', perf_on: 'Performance mode: on', perf_off: 'Performance mode: off',
       perf_switched: 'Performance mode on: your device could not keep up. Change it in the settings.',
       lang: 'Language', backup_export: 'Back up all games', backup_import: 'Load a backup', backup_done: 'Backup saved ({file})', backup_copied: 'Backup copied to the clipboard',

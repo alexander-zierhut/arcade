@@ -19,7 +19,8 @@
   // where the visual centre sits inside each sprite (fraction of its height), so pieces sit on plates and in slots
   var ANCHOR = { plate: 29 / 64, cloche: 31 / 64, piece: 34 / 64 };
 
-  var LID_MS = 170, SHAKE_MS = 400;
+  var LID_MS = 170, SHAKE_MS = 400, HATCH_MS = 380;   // HATCH_MS: a plate sinks through its trapdoor / rises at the mouth
+  var PLAIN = { body: '#56637A', bodyDark: '#3E4A5C', tray: '#2C3644', slot: '#36414F', lid: '#6B7A93', hidden: '#5F6672', hiddenInk: '#C9D1DC', ice: '#9ED8F2', steel: '#A9B2BE', steelDark: '#6F7885' };
   var PIECE_W = 38, BOX_PIECE_W = 28;
   var TILE_ALONG = 2.5, TILE_ACROSS = 13;
 
@@ -56,7 +57,8 @@
     var dpr = 1, W = 0, H = 0, L = null, k = 1;
     var bodyCv = root.document.createElement('canvas'), bodyCtx = bodyCv.getContext('2d');
     var coverCv = root.document.createElement('canvas'), coverCtx = coverCv.getContext('2d');
-    var lowPerfOn = false, noLuckOn = false, map = null, mapKey = '';
+    var lowPerfOn = false, noLuckOn = false, plainOn = false, streamOn = false, streamPref = false, map = null, mapKey = '';   // plain graphics always use the stream (no plates)
+    var streams = {}, poured = {}, drains = [];   // stream style: particles per piece id, the eject time per piece id, streams being sucked into a box
     var sim = null, st = null, boxes = [], idIndex = {}, locks = {};
     var sm = PL.layout.sampler(tpl);
     var beltPts = PL.layout.samplePath(tpl, 5);
@@ -109,6 +111,7 @@
       for (i = 0; i < n; i++) { p = beltPts[i]; acc += (-Math.sin(p.angle)) * (p.x - cx) + Math.cos(p.angle) * (p.y - cy); }
       beltNormalSign = acc >= 0 ? 1 : -1;
       queue = []; anims = []; flights = []; shake = {}; lidAt = {}; prev = []; teles = []; teleOf = {};
+      streams = {}; poured = {}; drains = [];
       sig = ''; dirty = true;
     }
 
@@ -160,10 +163,47 @@
       else { c.fillStyle = hex; rr(c, x - w * 0.3, y - w * 0.3, w * 0.45, w * 0.35, 3); c.fill(); c.lineWidth = 1.5; c.strokeStyle = C.ink; c.stroke(); }
     }
     function drawPiece(c, kind, x, y, w, alpha) {
+      if (plainOn) return;                                   // the colour tile under it is the cube
       sprite(c, kindName(kind), x, y, w, alpha, 0, kindColour(kind));
     }
+    // a simple key glyph (plain mode): ring and bit in the lock's colour, ink outline
+    function plainKey(c, hex, x, y, w) {
+      var r = w * 0.17;
+      c.save(); c.translate(x, y); c.rotate(-0.7);
+      c.fillStyle = hex; c.strokeStyle = C.ink; c.lineWidth = 1.4; c.lineJoin = 'round';
+      c.beginPath(); c.rect(-r * 0.35, -r * 0.3, w * 0.62, r * 0.6); c.fill(); c.stroke();
+      c.beginPath(); c.rect(w * 0.35, -r * 0.3, r * 0.55, r * 1.1); c.fill(); c.stroke();
+      c.beginPath(); c.arc(0, 0, r, 0, 6.2832); c.fill(); c.stroke();
+      c.beginPath(); c.arc(0, 0, r * 0.4, 0, 6.2832); c.fillStyle = C.ink; c.fill();
+      c.restore();
+    }
     function drawKeyTag(c, lockId, x, y, w) {
+      if (plainOn) { plainKey(c, lockColour(lockId), x + w * 0.22, y - w * 0.3, w * 0.7); return; }
       tintedSprite(c, 'keytag', lockColour(lockId), x + w * 0.5, y - w * 0.42, w * 0.78, 1);
+    }
+    // the covered piece: a cloche on a steel tile, or (plain) a dark tile with a question mark
+    function drawHidden(c, b, x, y, alpha) {
+      var side = slotSide(b);
+      if (plainOn) {
+        colourPlate(c, x, y, side, PLAIN.hidden, alpha, false);
+        c.save(); if (alpha != null && alpha < 1) c.globalAlpha = alpha;
+        c.fillStyle = PLAIN.hiddenInk; c.font = '900 ' + Math.round(side * 0.72) + 'px ' + 'system-ui, sans-serif'; c.textAlign = 'center'; c.textBaseline = 'middle';
+        c.fillText('?', x, y + side * 0.03);
+        c.restore();
+        return;
+      }
+      slotTile(c, b, x, y, C.hiddenTile, alpha);
+      sprite(c, 'cloche', x, y, BOX_PIECE_W + 3, alpha);
+    }
+    function drawClip(c, x, y, w, alpha, rot) {
+      if (plainOn) {
+        c.save(); c.translate(x, y); c.rotate(rot || 0); if (alpha != null && alpha < 1) c.globalAlpha = alpha;
+        rr(c, -w * 0.28, -3, w * 0.56, 6, 3); c.fillStyle = '#E9D8B0'; c.fill(); c.lineWidth = 1.4; c.strokeStyle = C.ink; c.stroke();
+        c.fillStyle = C.ink; c.beginPath(); c.arc(-w * 0.2, 0, 1.8, 0, 6.2832); c.arc(w * 0.2, 0, 1.8, 0, 6.2832); c.fill();
+        c.restore(); c.globalAlpha = 1;
+        return;
+      }
+      sprite(c, 'clip', x, y, w, alpha, rot);
     }
     // a solid plate in the kind's colour: lighter rim ring, ink outline, darker lower edge. d = diameter in units.
     function lighter(hex, f) {
@@ -204,6 +244,7 @@
     function drawCounter(c, w, h) {
       c.setTransform(1, 0, 0, 1, 0, 0);
       c.fillStyle = C.counter; c.fillRect(0, 0, w, h);
+      if (plainOn) return;
       // faint wood grain: long wavy lines, a few of them broken by knots
       c.lineWidth = Math.max(1, dpr * 0.9);
       var step = 13 * dpr, y, seed = 7, x;
@@ -274,14 +315,36 @@
       c.drawImage(cv, -b.L / 2, -b.Wd / 2, b.L, b.Wd);
       c.restore();
     }
+    function drawPlainBody(c, b, closed, kindOfClosed) {
+      var Lb = b.L, Wd = b.Wd, hx = Lb / 2, hy = Wd / 2, j, pitch = pitchOf(b), x0 = -hx + (Lb - 4 * pitch), tp = hy - 5;
+      c.save(); c.translate(b.cx, b.cy); c.rotate(b.rot);
+      rr(c, -hx, -hy + 3, Lb, Wd, 7); c.fillStyle = PLAIN.bodyDark; c.fill();
+      rr(c, -hx, -hy, Lb, Wd, 7); c.fillStyle = closed ? (kindOfClosed != null ? kindColour(kindOfClosed) : PLAIN.lid) : PLAIN.body; c.fill();
+      c.lineWidth = 2; c.strokeStyle = C.ink; c.stroke();
+      if (closed) {
+        // a big check mark on the lid
+        c.lineWidth = Math.max(4, Wd * 0.14); c.strokeStyle = 'rgba(20,24,30,0.78)'; c.lineCap = 'round'; c.lineJoin = 'round';
+        c.beginPath(); c.moveTo(-Wd * 0.3, 0); c.lineTo(-Wd * 0.05, hy * 0.45); c.lineTo(Wd * 0.42, -hy * 0.45); c.stroke();
+        c.restore();
+        return;
+      }
+      // the tray, open at the mouth
+      c.beginPath();
+      c.moveTo(hx + 1.3, -tp); c.lineTo(-hx + 9, -tp); c.quadraticCurveTo(-hx + 5, -tp, -hx + 5, -tp + 4);
+      c.lineTo(-hx + 5, tp - 4); c.quadraticCurveTo(-hx + 5, tp, -hx + 9, tp); c.lineTo(hx + 1.3, tp);
+      c.fillStyle = PLAIN.tray; c.fill(); c.lineWidth = 1.4; c.strokeStyle = 'rgba(0,0,0,0.35)'; c.stroke();
+      for (j = 0; j < 4; j++) { rr(c, x0 + j * pitch + 1.5, -tp + 2.5, pitch - 3, 2 * tp - 5, 4); c.fillStyle = PLAIN.slot; c.fill(); }
+      c.restore();
+    }
     function drawBoxBody(c, b, closed, kindOfClosed) {
       var Lb = b.L, Wd = b.Wd, hx = Lb / 2, hy = Wd / 2, j;
-      var bsp = boxSprite(closed);
-      if (!lowPerfOn) {
+      var bsp = plainOn ? null : boxSprite(closed);
+      if (!lowPerfOn && !plainOn) {
         c.save(); c.translate(b.cx + 1.5, b.cy + 6); c.rotate(b.rot);
         rr(c, -hx - 1, -hy - 1, Lb + 2, Wd + 2, 8); c.fillStyle = 'rgba(0,0,0,0.32)'; c.fill();
         c.restore();
       }
+      if (plainOn) { drawPlainBody(c, b, closed, kindOfClosed); return; }
       if (bsp) {
         if (closed) drawLidTop(c, b, kindOfClosed); else drawBoxSprite(c, b, bsp);
         return;
@@ -315,9 +378,18 @@
     }
 
     function drawOneWayFlap(c, b) {
-      // a drop flap hanging across the whole mouth, swinging inwards
-      var hx = b.L / 2, hy = b.Wd / 2 - 5;
+      // a drop flap hanging across the whole mouth, swinging inwards; plain: a striped post at the mouth
+      var hx = b.L / 2, hy = b.Wd / 2 - 5, i;
       c.save(); c.translate(b.cx, b.cy); c.rotate(b.rot);
+      if (plainOn) {
+        rr(c, hx - 1, -hy, 6, 2 * hy, 2); c.fillStyle = '#F4EBDD'; c.fill();
+        c.save(); rr(c, hx - 1, -hy, 6, 2 * hy, 2); c.clip(); c.fillStyle = '#D7263D';
+        for (i = -hy; i < hy; i += 8) { c.beginPath(); c.moveTo(hx - 1, i); c.lineTo(hx + 5, i + 4); c.lineTo(hx + 5, i + 8); c.lineTo(hx - 1, i + 4); c.closePath(); c.fill(); }
+        c.restore();
+        rr(c, hx - 1, -hy, 6, 2 * hy, 2); c.lineWidth = 1.4; c.strokeStyle = C.ink; c.stroke();
+        c.restore();
+        return;
+      }
       c.beginPath();
       c.moveTo(hx + 6, -hy); c.lineTo(hx + 6, hy); c.lineTo(hx - 3, hy - 3); c.lineTo(hx - 3, -hy + 3); c.closePath();
       c.fillStyle = 'rgba(184,134,74,0.82)'; c.fill(); c.lineWidth = 1.6; c.strokeStyle = C.ink; c.stroke();
@@ -331,6 +403,7 @@
       c.save();
       if (alpha != null && alpha < 1) c.globalAlpha = alpha;
       if (scaleP && scaleP !== 1) { c.translate(b.cx, b.cy); c.scale(scaleP, scaleP); c.translate(-b.cx, -b.cy); }
+      if (plainOn) { drawPlainBody(c, b, true, kind); c.restore(); return; }
       var csp = boxSprite(true);
       if (csp) {
         drawBoxSprite(c, b, csp);
@@ -366,6 +439,13 @@
     function drawCloth(c, b, kind, alpha) {
       var hx = b.L / 2 + 1.5, hy = b.Wd / 2 + 1.5, col = kindColour(kind), dk = spr() ? spr().darker(col, 0.18) : col;
       if (alpha != null && alpha < 1) c.globalAlpha = alpha;
+      if (plainOn) {   // a solid sheet in the kind's colour with a small cube outline in the middle
+        c.save(); c.translate(b.cx, b.cy); c.rotate(b.rot);
+        rr(c, -hx, -hy, 2 * hx, 2 * hy, 8); c.fillStyle = col; c.fill(); c.lineWidth = 2; c.strokeStyle = C.ink; c.stroke();
+        c.lineWidth = 2; c.strokeStyle = 'rgba(255,255,255,0.75)'; rr(c, -9, -9, 18, 18, 4); c.stroke();
+        c.restore(); c.globalAlpha = 1;
+        return;
+      }
       c.save(); c.translate(b.cx, b.cy); c.rotate(b.rot);
       rr(c, -hx, -hy, 2 * hx, 2 * hy, 8); c.fillStyle = col; c.fill();
       // folds
@@ -398,6 +478,15 @@
       function rnd() { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; }
       c.save();
       if (sy != null && sy !== 1) { c.translate(0, y + h); c.scale(1, sy); c.translate(0, -(y + h)); }
+      if (plainOn) {
+        c.globalAlpha = 0.82 * alpha;
+        rr(c, x, y, w, h, 9); c.fillStyle = PLAIN.ice; c.fill();
+        c.globalAlpha = alpha; c.lineWidth = 2; c.strokeStyle = '#E9F8FF'; c.stroke();
+        c.strokeStyle = 'rgba(255,255,255,0.8)'; c.lineWidth = 1.5;
+        c.beginPath(); c.moveTo(x + w * 0.25, y + 6); c.lineTo(x + w * 0.4, y + h * 0.5); c.lineTo(x + w * 0.3, y + h - 6); c.stroke();
+        c.restore();
+        return;
+      }
       c.globalAlpha = 0.7 * alpha;
       rr(c, x, y, w, h, 9); c.fillStyle = C.ice; c.fill();
       c.globalAlpha = alpha;
@@ -438,28 +527,39 @@
       return { x: x0 - 2.5, y: y0 - 2.5, w: x1 - x0 + 5, h: y1 - y0 + 5 };
     }
     // raise: 0 closed .. 1 fully rolled up
+    function plainPadlock(c, hex, x, y, s, alpha) {
+      c.save(); if (alpha != null && alpha < 1) c.globalAlpha = alpha;
+      c.lineWidth = Math.max(2.5, s * 0.1); c.strokeStyle = C.ink; c.lineCap = 'round';
+      c.beginPath(); c.arc(x, y - s * 0.12, s * 0.22, Math.PI, 0); c.stroke();
+      rr(c, x - s * 0.32, y - s * 0.12, s * 0.64, s * 0.5, s * 0.1); c.fillStyle = hex; c.fill(); c.lineWidth = 2; c.stroke();
+      c.fillStyle = C.ink; c.beginPath(); c.arc(x, y + s * 0.1, s * 0.07, 0, 6.2832); c.fill();
+      c.restore();
+    }
     function drawShutter(c, r, lockId, raise, padAlpha, padScale) {
-      var hh = 7, bar = 6, visH = Math.max(0, (r.h - hh) * (1 - raise)), i;
+      var hh = 7, bar = 6, visH = Math.max(0, (r.h - hh) * (1 - raise)), i, steel = plainOn ? PLAIN.steel : C.steel, steelDark = plainOn ? PLAIN.steelDark : C.steelDark;
       if (visH > 1) {
         c.save();
         rr(c, r.x, r.y, r.w, hh + visH, 6); c.clip();
-        c.fillStyle = C.steel; c.fillRect(r.x, r.y + hh, r.w, visH);
-        c.fillStyle = C.steelDark;
+        c.fillStyle = steel; c.fillRect(r.x, r.y + hh, r.w, visH);
+        c.fillStyle = steelDark;
         for (i = 0; i * 6.5 < visH; i++) c.fillRect(r.x, r.y + hh + i * 6.5 + 4, r.w, 2.6);
-        c.fillStyle = 'rgba(255,255,255,0.28)';
-        for (i = 0; i * 6.5 < visH; i++) c.fillRect(r.x, r.y + hh + i * 6.5, r.w, 1.4);
+        if (!plainOn) {
+          c.fillStyle = 'rgba(255,255,255,0.28)';
+          for (i = 0; i * 6.5 < visH; i++) c.fillRect(r.x, r.y + hh + i * 6.5, r.w, 1.4);
+        }
         c.restore();
         // outline and bottom handle bar
         c.lineWidth = 2; c.strokeStyle = C.ink;
-        c.fillStyle = C.steelDark; rr(c, r.x, r.y + hh + visH - bar, r.w, bar, 2.5); c.fill(); c.stroke();
+        c.fillStyle = steelDark; rr(c, r.x, r.y + hh + visH - bar, r.w, bar, 2.5); c.fill(); c.stroke();
         c.strokeRect(r.x, r.y + hh, r.w, Math.max(0, visH - bar));
       }
       // roller housing
-      rr(c, r.x - 1, r.y, r.w + 2, hh, 3.5); c.fillStyle = C.steelDark; c.fill(); c.lineWidth = 2; c.strokeStyle = C.ink; c.stroke();
-      c.fillStyle = 'rgba(255,255,255,0.3)'; c.fillRect(r.x + 4, r.y + 1.6, r.w - 8, 1.5);
+      rr(c, r.x - 1, r.y, r.w + 2, hh, 3.5); c.fillStyle = steelDark; c.fill(); c.lineWidth = 2; c.strokeStyle = C.ink; c.stroke();
+      if (!plainOn) { c.fillStyle = 'rgba(255,255,255,0.3)'; c.fillRect(r.x + 4, r.y + 1.6, r.w - 8, 1.5); }
       if (padAlpha > 0.01) {
         var s = (padScale || 1) * 34;
-        tintedSprite(c, 'padlock', lockColour(lockId), r.x + r.w / 2, r.y + r.h / 2 + 2 - raise * 8, s, padAlpha);
+        if (plainOn) plainPadlock(c, lockColour(lockId), r.x + r.w / 2, r.y + r.h / 2 + 2 - raise * 8, s, padAlpha);
+        else tintedSprite(c, 'padlock', lockColour(lockId), r.x + r.w / 2, r.y + r.h / 2 + 2 - raise * 8, s, padAlpha);
       }
     }
 
@@ -490,7 +590,7 @@
     }
 
     function computeSig() {
-      var s = W + 'x' + H + '@' + dpr + (lowPerfOn ? 'L' : '') + ':' + mapKey + ':' + (fullNow ? 'F' : '') + ':' + (st.dir === 'ccw' ? 'w' : 'c') + ':' + (spr() ? spr().version : 0) + ':', i, sb;
+      var s = W + 'x' + H + '@' + dpr + (lowPerfOn ? 'L' : '') + (plainOn ? 'P' : '') + ':' + mapKey + ':' + (fullNow ? 'F' : '') + ':' + (st.dir === 'ccw' ? 'w' : 'c') + ':' + (spr() ? spr().version : 0) + ':', i, sb;
       for (i = 0; i < st.boxes.length; i++) {
         sb = st.boxes[i];
         s += (closedEff(i) ? 'c' : 'o') + (sb.wrap == null ? '-' : sb.wrap) + (sb.ice ? 'i' : '') + (sb.lock == null ? '' : sb.lock) + (sb.oneway ? '1' : '') + (shaking(i) ? 's' : '') + ';';
@@ -597,8 +697,9 @@
               for (i2 = 0; i2 < kk; i2++) if (dly[i2] < dly[tt] && dly[i2] > prevD) prevD = dly[i2];
               for (i2 = 0; i2 < tt; i2++) if (dly[i2] < dly[tt]) { var pd = 0, i3; for (i3 = 0; i3 < kk; i3++) if (dly[i3] < dly[i2] && dly[i3] > pd) pd = dly[i3]; shifts.push(T + pd); }
               var base = plen + (kk - 1 - tt), front = base + shifts.length;
+              // the reserved plate sinks through a trapdoor where it is and rises at the mouth during the last HATCH_MS
               teles.push({ box: bi, plate: tplate != null && tplate >= 0 ? tplate : null, pieceId: tpc.id, kind: tpc.k, key: tpc.key, base: base, shifts: shifts,
-                slot: slotPos(bx, front), side: slotSide(bx), t0: T + prevD, tEnd: T + dly[tt], slideStart: Math.max(T, T + dly[tt] - 800) });
+                slot: slotPos(bx, front), side: slotSide(bx), t0: T + prevD, tEnd: T + dly[tt], hatchStart: Math.max(T, T + dly[tt] - HATCH_MS) });
               if (tt + 1 < kk && tpc.pair != null && tp[tt + 1] && tp[tt + 1].pair === tpc.pair) {
                 var sp1 = slotPos(bx, base), sp2 = slotPos(bx, base - 1);
                 anims.push({ type: 'snap', x: (sp1.x + sp2.x) / 2, y: (sp1.y + sp2.y) / 2, vert: bx.vert, t0: T + prevD + 250, dur: 340 });
@@ -608,6 +709,7 @@
           case 'eject':
             if (!bx) break;
             var ep = st.belt[e.plate] || (e.piece && typeof e.piece === 'object' ? e.piece : null), ti, matched = false;
+            if (ep && ep.id != null) poured[ep.id] = T;
             for (ti = 0; ti < teles.length && !matched; ti++) if (teles[ti].box === bi && e.piece && e.piece.id != null && teles[ti].pieceId === e.piece.id) { teles.splice(ti, 1); matched = true; }
             for (ti = 0; ti < teles.length && !matched; ti++) if (teles[ti].box === bi && teles[ti].plate === e.plate) { teles.splice(ti, 1); matched = true; }
             for (ti = 0; ti < teles.length && !matched; ti++) if (teles[ti].box === bi) { teles.splice(ti, 1); matched = true; }
@@ -625,6 +727,7 @@
             var lp = (e.piece && typeof e.piece === 'object' && e.piece.id != null) ? e.piece : sb.pieces[sb.pieces.length - 1];
             if (!lp) break;
             var start = platePos[e.plate] || mouthPos(bx);
+            if (streamOn && lp.id != null && bx.s != null) { drains.push({ pieceId: lp.id, kind: lp.k, s: bx.s, t0: T, list: streamOf(lp.id) }); delete poured[lp.id]; }
             var lastj = -1, jj;
             for (jj = 0; jj < sb.pieces.length; jj++) if (sb.pieces[jj].id === lp.id) lastj = jj;
             if (lastj < 0) lastj = sb.pieces.length - 1;
@@ -637,7 +740,7 @@
             break;
           case 'reveal':
             if (!sb || !bx) break;
-            anims.push({ type: 'reveal', box: bi, j: sb.pieces.length - 1, t0: T, dur: 480 });
+            anims.push({ type: 'reveal', box: bi, j: (typeof e.index === 'number' && e.index >= 0) ? e.index : sb.pieces.length - 1, t0: T, dur: 480 });
             break;
           case 'unwrap':
             if (!bx) break;
@@ -703,13 +806,12 @@
         if (landing[p.id]) continue;
         pos = slotPos(b, j);
         if (p.hidden && !noLuckOn) {
-          slotTile(c, b, pos.x, pos.y, C.hiddenTile, 1);
-          sprite(c, 'cloche', pos.x, pos.y, BOX_PIECE_W + 3, 1);
+          drawHidden(c, b, pos.x, pos.y, 1);
         } else {
           if (p.hidden) { slotTile(c, b, pos.x, pos.y, C.hiddenTile, 1); slotTile(c, b, pos.x, pos.y, kindColour(p.k), 0.45); }
           else slotTile(c, b, pos.x, pos.y, kindColour(p.k), 1);
           drawPiece(c, p.k, pos.x, pos.y, BOX_PIECE_W, 1);
-          if (p.hidden) sprite(c, 'cloche', pos.x, pos.y, BOX_PIECE_W + 3, 0.45);
+          if (p.hidden) drawHidden(c, b, pos.x, pos.y, 0.45);
           if (p.key != null && keyActive(p)) drawKeyTag(c, p.key, pos.x, pos.y, BOX_PIECE_W);
         }
       }
@@ -717,13 +819,14 @@
       for (j = 0; j + 1 < pcs.length; j++) {
         if (pcs[j].pair != null && pcs[j].pair === pcs[j + 1].pair && !landing[pcs[j].id] && !landing[pcs[j + 1].id]) {
           var a = slotPos(b, j), d = slotPos(b, j + 1);
-          sprite(c, 'clip', (a.x + d.x) / 2, (a.y + d.y) / 2 + 1, pitch * 1.75, 1, b.vert ? Math.PI / 2 : 0);
+          drawClip(c, (a.x + d.x) / 2, (a.y + d.y) / 2 + 1, pitch * 1.75, 1, b.vert ? Math.PI / 2 : 0);
         }
       }
       c.restore();
     }
 
     function drawOneWaySign(c, b) {
+      if (plainOn) return;                                   // the striped post of the flap says it
       var m = mouthPos(b), v = { x: -b.uy * b.flap, y: b.ux * b.flap };
       // sits on the lip at the upstream corner (opposite the flap)
       var x = m.x - b.ux * 6 - v.x * (b.Wd / 2 - 6), y = m.y - b.uy * 6 - v.y * (b.Wd / 2 - 6);
@@ -731,15 +834,79 @@
     }
 
     function plateSpeed() { return (sim && sim.speed) || sm.perimeter / (cfg().LAP_MS || 8000); }
-    function normArc(v) { var P = sm.perimeter; return ((v % P) + P) % P; }
-    // arc (clockwise units) of a reserved plate on its way to the mouth: its true arc now, moved the shorter way towards the
-    // mouth by the eased progress (at progress 1 it is exactly under the mouth)
-    function slideArc(tl, trueS, prog) {
-      var per = sm.perimeter, b = boxes[tl.box].s, d = (((b - trueS) % per) + per * 1.5) % per - per / 2;
-      return trueS + d * ease(prog);
+
+    // ---- the stream style: a piece on the belt is a trail of particles behind its plate's position ----------------
+    var STREAM_N = 34, GROW_FACTOR = 0.85;
+    function segLen() { return (sim && sim.belt ? sim.belt.spacing : sm.perimeter / (st ? st.N : 6)) * GROW_FACTOR; }
+    function streamOf(pieceId) {
+      var list = streams[pieceId], seed, i, L = segLen(), band = plateD + 4;
+      if (list) return list;
+      seed = (pieceId * 2654435761 + 12345) >>> 0;
+      function rnd() { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 4294967296; }
+      list = [];
+      for (i = 0; i < STREAM_N; i++) {
+        list.push({ u: (i + rnd() * 0.9) / STREAM_N * L, v: (rnd() - 0.5) * (band - 10), size: 8 + rnd() * 5, rot: rnd() * 6.28, hi: rnd() < 0.5 });
+      }
+      streams[pieceId] = list;
+      return list;
     }
+    // the arc a particle sits at: u units behind the arc position s (against the travel direction)
+    function behind(sArc, u) { return normArc(st && st.dir === 'ccw' ? sArc + u : sArc - u); }
+    function drawParticle(c, q, hex, pt, alpha, scale) {
+      var sz = q.size * (scale || 1), x = pt.x - Math.sin(pt.angle) * q.v, y = pt.y + Math.cos(pt.angle) * q.v;
+      c.save(); c.translate(x, y); c.rotate(q.rot + pt.angle);
+      if (alpha != null && alpha < 1) c.globalAlpha = alpha;
+      rr(c, -sz / 2, -sz / 2, sz, sz, sz * 0.28); c.fillStyle = hex; c.fill(); c.lineWidth = 1; c.strokeStyle = C.ink; c.stroke();
+      if (q.hi && !plainOn && !lowPerfOn) { c.fillStyle = 'rgba(255,255,255,0.45)'; c.beginPath(); c.ellipse(-sz * 0.15, -sz * 0.18, sz * 0.22, sz * 0.14, -0.6, 0, 6.2832); c.fill(); }
+      c.restore();
+    }
+    // the trail of the piece on plate p: particles poured so far (the belt carries them away at its own speed)
+    function drawStream(c, piece, sArc) {
+      var list = streamOf(piece.id), t0 = poured[piece.id], len = t0 === undefined ? segLen() : Math.min(segLen(), (T - t0) * plateSpeed()), i, q, hex = kindColour(piece.k);
+      for (i = 0; i < list.length; i++) {
+        q = list[i];
+        if (q.u > len) continue;
+        drawParticle(c, q, hex, plateXY(behind(sArc, q.u)), 1, 1);
+      }
+      if (piece.key != null && keyActive(piece)) { var kp = plateXY(sArc); drawKeyTag(c, piece.key, kp.x, kp.y - 1, PIECE_W); }
+    }
+    // a stream being sucked into a box: its head is at the mouth, the particles still behind it keep coming and vanish there
+    function drawDrains(c) {
+      var i, d, tau, moved, j, q, u, hex, pt;
+      for (i = drains.length - 1; i >= 0; i--) {
+        d = drains[i];
+        tau = T - d.t0;
+        moved = tau * plateSpeed();
+        if (moved > segLen() + 2) { drains.splice(i, 1); continue; }
+        hex = kindColour(d.kind);
+        for (j = 0; j < d.list.length; j++) {
+          q = d.list[j];
+          u = q.u - moved;
+          if (u <= 0) continue;
+          pt = plateXY(behind(d.s, u));
+          drawParticle(c, q, hex, pt, u < 12 ? u / 12 : 1, u < 12 ? 0.6 + 0.4 * u / 12 : 1);
+        }
+      }
+    }
+    function normArc(v) { var P = sm.perimeter; return ((v % P) + P) % P; }
     function ease(p) { return lowPerfOn ? linear(p) : easeInOut(p); }
-    function paintPlate(c, p, x, y, tl) {
+    // the trapdoor: a dark opening in the belt under a plate, open at prog 0.5, shut at 0 and 1
+    function drawHatch(c, x, y, prog) {
+      var o = Math.sin(clamp01(prog) * Math.PI), d = plateD * 1.12;
+      if (o <= 0.01) return;
+      c.save(); c.globalAlpha = 0.85 * o;
+      rr(c, x - d / 2, y - d / 2, d, d, plateD * 0.25); c.fillStyle = C.beltDark; c.fill();
+      c.lineWidth = 1.5; c.strokeStyle = 'rgba(0,0,0,0.5)'; c.stroke();
+      c.restore();
+    }
+    // a plate drawn scaled about its centre (sinking or rising through a hatch)
+    function scaledPlate(c, x, y, scale, alpha, fn) {
+      c.save(); c.translate(x, y); c.scale(scale, scale); c.translate(-x, -y);
+      if (alpha < 1) c.globalAlpha = alpha;
+      fn();
+      c.restore(); c.globalAlpha = 1;
+    }
+    function paintPlate(c, p, x, y) {
       emptyPlate(c, x, y, plateD);
       if (p.piece && ejecting[p.plate]) {
         var ef = ejecting[p.plate];
@@ -748,42 +915,39 @@
         plateDisc(c, x, y, kindColour(p.piece.k), 1);
         drawPiece(c, p.piece.k, x, y - 1, PIECE_W, 1);
         if (p.piece.key != null && keyActive(p.piece)) drawKeyTag(c, p.piece.key, x, y - 1, PIECE_W);
-      } else if (tl) {
-        var ca = clamp01((T - (tl.tEnd - 300)) / 300);     // the plate takes the colour of the piece that is about to land on it
-        if (ca > 0) colourPlate(c, x, y, plateD, kindColour(tl.kind), ca, false);
       }
     }
 
     function drawPlatesAndFlights(c) {
-      var plates = platesOf(sim), i, p, pt, n = plates.length, jig = fullNow && !lowPerfOn && status === 'play';
-      var sliders = [];
+      var plates = platesOf(sim), i, p, pt, n = plates.length, jig = fullNow && !lowPerfOn && status === 'play' && !streamOn;
       platePos.length = 0; drawnPos.length = 0;
       for (i = 0; i < n; i++) {
         p = plates[i];
         pt = plateXY(p.s);
         var x = pt.x, y = pt.y;
         if (jig) { x += Math.sin(T * 0.045 + p.plate * 1.7) * 1.1; y += Math.cos(T * 0.052 + p.plate * 2.3) * 0.9; }
-        else if (status === 'lost' && !lowPerfOn) { x += Math.sin(T * 0.03 + p.plate * 1.9) * 0.8; }
+        else if (status === 'lost' && !lowPerfOn && !streamOn) { x += Math.sin(T * 0.03 + p.plate * 1.9) * 0.8; }
         platePos[p.plate] = { x: x, y: y };      // the engine's position of the plate
+        drawnPos[p.plate] = { x: x, y: y };
+        if (streamOn) { if (p.piece) drawStream(c, p.piece, p.s); continue; }     // no plates at all in the stream style
         var tl = teleOf[p.plate];
-        if (tl && T >= tl.slideStart && boxes[tl.box] && boxes[tl.box].s != null) {
-          sliders.push({ p: p, tl: tl, prog: clamp01((T - tl.slideStart) / Math.max(1, tl.tEnd - tl.slideStart)) });
+        if (tl && T >= tl.hatchStart) {
+          // the reserved plate sinks through a trapdoor where it is (the engine moves it to the mouth at tEnd)
+          var sp = clamp01((T - tl.hatchStart) / Math.max(1, tl.tEnd - tl.hatchStart)), pe = easeIn(sp);
+          drawHatch(c, x, y, sp * 0.5 + 0.1);
+          (function (pp, xx, yy) { scaledPlate(c, xx, yy, 1 - 0.5 * pe, 1 - pe, function () { emptyPlate(c, xx, yy, plateD); }); })(p, x, y);
           continue;
         }
-        drawnPos[p.plate] = { x: x, y: y };
-        paintPlate(c, p, x, y, tl);
+        paintPlate(c, p, x, y);
       }
-      // reserved plates sliding to the mouth: above the others, with a faint streak (none in low-perf mode)
-      for (i = 0; i < sliders.length; i++) {
-        var sd = sliders[i], q = plateXY(normArc(slideArc(sd.tl, sd.p.s, sd.prog))), g;
-        if (!lowPerfOn) {
-          for (g = 3; g >= 1; g--) {
-            var gq = plateXY(normArc(slideArc(sd.tl, sd.p.s, Math.max(0, sd.prog - g * 0.06))));
-            squarePlate(c, gq.x, gq.y, plateD, '#D9CBB5', '#F4EBDD', '#C9B89F', 0.05 + (3 - g) * 0.04, false);
-          }
-        }
-        drawnPos[sd.p.plate] = { x: q.x, y: q.y };
-        paintPlate(c, sd.p, q.x, q.y, sd.tl);
+      if (streamOn) drawDrains(c);
+      // plates rising at the mouths, under the pieces that are about to leave (the mouth's trapdoor)
+      for (i = 0; !streamOn && i < teles.length; i++) {
+        var tr = teles[i], br = boxes[tr.box];
+        if (!br || br.missing || br.s == null || T < tr.hatchStart) continue;
+        var rp = clamp01((T - tr.hatchStart) / Math.max(1, tr.tEnd - tr.hatchStart)), re = easeOut(rp), mq = plateXY(br.s);
+        drawHatch(c, mq.x, mq.y, 0.5 + rp * 0.5);
+        (function (xx, yy, kind) { scaledPlate(c, xx, yy, 0.5 + 0.5 * re, 0.15 + 0.85 * re, function () { emptyPlate(c, xx, yy, plateD); colourPlate(c, xx, yy, plateD, kindColour(kind), re, false); }); })(mq.x, mq.y, tr.kind);
       }
       // pieces sliding out of their boxes towards the mouth (slowly, meeting their plate exactly at departAt)
       for (i = 0; i < teles.length; i++) {
@@ -799,8 +963,17 @@
         }
         var mp = bz.s != null ? sm.pointAt(bz.s) : mouthPos(bz), ez = ease(pg);
         var zx = tz.slot.x + (mp.x - tz.slot.x) * ez, zy = tz.slot.y + (mp.y - tz.slot.y) * ez - Math.sin(pg * Math.PI) * 3;
-        var ta = clamp01((T - (tz.tEnd - 300)) / 300), sdz = tz.side + (plateD - tz.side) * ez;
-        if (ta < 1) drawTile(c, zx, zy + 1, sdz, kindColour(tz.kind), 1 - ta);
+        var ta = clamp01((T - tz.hatchStart) / Math.max(1, tz.tEnd - tz.hatchStart)), sdz = tz.side + (plateD - tz.side) * ez;
+        if (streamOn) {   // the piece keeps its tile to the mouth and is chopped there: it shrinks away in the last 160 ms
+          var chop = clamp01((T - (tz.tEnd - 160)) / 160), csz = 1 - 0.7 * chop;
+          c.save(); c.translate(zx, zy); c.scale(csz, csz); c.translate(-zx, -zy); if (chop > 0) c.globalAlpha = 1 - chop * 0.6;
+          drawTile(c, zx, zy + 1, sdz, kindColour(tz.kind), 1);
+          drawPiece(c, tz.kind, zx, zy, BOX_PIECE_W + (PIECE_W - BOX_PIECE_W) * ez, 1);
+          c.restore(); c.globalAlpha = 1;
+          if (tz.key != null && st.locks && st.locks[tz.key] && !st.locks[tz.key].open) drawKeyTag(c, tz.key, zx, zy, PIECE_W);
+          continue;
+        }
+        if (ta < 1) drawTile(c, zx, zy + 1, sdz, kindColour(tz.kind), 1 - ta);     // its own tile fades as the rising plate takes over
         drawPiece(c, tz.kind, zx, zy, BOX_PIECE_W + (PIECE_W - BOX_PIECE_W) * ez, 1);
         if (tz.key != null && st.locks && st.locks[tz.key] && !st.locks[tz.key].open) drawKeyTag(c, tz.key, zx, zy, PIECE_W);
       }
@@ -833,7 +1006,8 @@
           case 'reveal':
             b = boxes[a.box]; var pos = slotPos(b, a.j), e = easeOut(p);
             c.save();
-            sprite(c, 'cloche', pos.x, pos.y - e * 20, BOX_PIECE_W + 3, 1 - easeIn(p));
+            if (plainOn) drawHidden(c, b, pos.x, pos.y - e * 10, 1 - easeIn(p));
+            else sprite(c, 'cloche', pos.x, pos.y - e * 20, BOX_PIECE_W + 3, 1 - easeIn(p));
             if (!lowPerfOn) {
               var gs = Math.sin(Math.min(1, p * 1.6) * Math.PI) * 9, gx = pos.x + 6, gy = pos.y - 9 - e * 8;
               c.fillStyle = '#FFFFFF'; c.globalAlpha = 0.9 * (1 - p);
@@ -875,14 +1049,14 @@
             if (a.key && tms < a.flyMs) {
               var fe = easeInOut(tms / a.flyMs), tx = r.x + r.w / 2, ty = r.y + r.h / 2;
               var kx = a.key.x + (tx - a.key.x) * fe, ky = a.key.y + (ty - a.key.y) * fe - Math.sin(fe * Math.PI) * 14;
-              tintedSprite(c, 'keytag', lockColour(a.lock), kx, ky, 24 - fe * 8, 1);
+              if (plainOn) plainKey(c, lockColour(a.lock), kx, ky, 24 - fe * 8); else tintedSprite(c, 'keytag', lockColour(a.lock), kx, ky, 24 - fe * 8, 1);
             }
             break;
           case 'snap':
             var sp = easeOut(p), ang = a.vert ? Math.PI / 2 : 0, ox2 = a.vert ? 0 : 1, oy2 = a.vert ? 1 : 0;
             c.save(); c.globalAlpha = 1 - p;
-            sprite(c, 'clip', a.x - ox2 * sp * 9, a.y - oy2 * sp * 9 - sp * 4, 32, 1, ang - sp * 0.6);
-            sprite(c, 'clip', a.x + ox2 * sp * 9, a.y + oy2 * sp * 9 - sp * 4, 32, 1, ang + sp * 0.6);
+            drawClip(c, a.x - ox2 * sp * 9, a.y - oy2 * sp * 9 - sp * 4, 32, 1, ang - sp * 0.6);
+            drawClip(c, a.x + ox2 * sp * 9, a.y + oy2 * sp * 9 - sp * 4, 32, 1, ang + sp * 0.6);
             c.restore(); c.globalAlpha = 1;
             break;
           case 'steam':
@@ -1051,6 +1225,9 @@
       resize: resize, render: render, hit: hit, flash: flash,
       lowPerf: function (v) { lowPerfOn = !!v; dirty = true; },
       noLuck: function (v) { noLuckOn = !!v; dirty = true; },
+      plain: function (v) { plainOn = !!v; streamOn = plainOn || streamPref; dirty = true; },
+      beltStyle: function (v) { streamPref = v === 'stream'; streamOn = plainOn || streamPref; dirty = true; },
+      stream: function () { return streamOn; },
       kindMap: function (arr) { map = arr && arr.length ? arr.slice() : null; mapKey = map ? map.join(',') : ''; dirty = true; },
       invalidate: function () { dirty = true; },
       layout: function () { return L; },

@@ -235,6 +235,9 @@
       state.closedKinds.push(kind);
       delete state.pouring[kind];
       events.push({ type: 'close', box: boxIndex, kind: kind });
+      // R12b: the lid closes over everything inside: a hidden piece turns face up and a key on any piece in the box is
+      // released now (a key can never be buried: four of a kind that cover a key piece would lock its shutter for good)
+      for (i = 0; i < 4; i++) model.expose(state, boxIndex, box.pieces[i], events);
       for (i = 0; i < state.boxes.length; i++) {      // R17
         if (state.boxes[i].wrap === kind) {
           state.boxes[i].wrap = null;
@@ -280,11 +283,67 @@
     return true;
   }
 
+  // R13b: the position is hopeless when some kind can never be completed any more: one of its pieces sits in a box
+  // whose cover can never come off. Optimistic fixed point (it assumes everything else can be arranged), so it only
+  // ever says "hopeless" for positions that are really unwinnable:
+  //   a kind is closable while none of its pieces lies in a box that is still covered;
+  //   a cloth comes off when its kind is closable; a shutter opens when its key piece is not in a covered box;
+  //   ice thaws when a neighbour could still close: open, uncovered, and some kind is closable at all (for a one-way
+  //   box that already holds pieces: its kind).
+  // Returns the kinds that can never close, [] when there is hope.
+  function deadKinds(state) {
+    var cov = [], i, b, j, k, changed = true, guard = 0, nb, n, closable, any, closed = {}, dead = [];
+    for (i = 0; i < state.closedKinds.length; i++) closed[state.closedKinds[i]] = true;
+    for (i = 0; i < state.boxes.length; i++) cov.push(model.isCovered(state.boxes[i]));
+    function keyFree(id) {         // the key piece of lock `id` is not shut in a covered box
+      var bi, q, o;
+      for (bi = 0; bi < state.boxes.length; bi++) {
+        b = state.boxes[bi];
+        for (q = 0; q < b.pieces.length; q++) if (b.pieces[q].key === id) return !cov[bi];
+        o = b.outbox;
+        for (q = 0; q < o.length; q++) if (o[q].key === id) return true;
+      }
+      for (bi = 0; bi < state.belt.length; bi++) if (state.belt[bi] && state.belt[bi].key === id) return true;
+      return false;                // no key at all: the shutter stays
+    }
+    while (changed && guard++ < 100) {
+      changed = false;
+      closable = [];
+      for (k = 0; k < state.kinds; k++) closable.push(!closed[k]);
+      for (i = 0; i < state.boxes.length; i++) {
+        if (!cov[i]) continue;
+        b = state.boxes[i];
+        for (j = 0; j < b.pieces.length; j++) closable[b.pieces[j].k] = false;
+      }
+      any = false;
+      for (k = 0; k < state.kinds; k++) if (closable[k]) any = true;
+      for (i = 0; i < state.boxes.length; i++) {
+        if (!cov[i]) continue;
+        b = state.boxes[i];
+        if (b.wrap !== null && closable[b.wrap]) { cov[i] = false; changed = true; continue; }
+        if (b.lock !== null && keyFree(b.lock)) { cov[i] = false; changed = true; continue; }
+        if (b.ice) {
+          nb = state.neighbours[i] || [];
+          for (j = 0; j < nb.length; j++) {
+            n = state.boxes[nb[j]];
+            if (n.closed || cov[nb[j]]) continue;
+            if (n.oneway && n.pieces.length ? !closable[n.pieces[0].k] : !any) continue;   // something closable must be able to fill it
+            cov[i] = false; changed = true; break;
+          }
+        }
+      }
+    }
+    for (k = 0; k < state.kinds; k++) if (!closed[k] && !closable[k]) dead.push(k);
+    return dead;
+  }
+
+  function isHopeless(state) { return deadKinds(state).length > 0; }
+
   function endPouring(state, kind) { delete state.pouring[kind]; }
 
   PL.rules = {
     front: front, unit: unit, pendingUnit: pendingUnit, tap: tap, syncPending: syncPending, runLength: runLength, freePlates: freePlates, canEject: canEject,
-    ejectUnit: ejectUnit, accepts: accepts, tryLand: tryLand, wouldLand: wouldLand, isWon: isWon, isStuck: isStuck,
+    ejectUnit: ejectUnit, accepts: accepts, tryLand: tryLand, wouldLand: wouldLand, isWon: isWon, isStuck: isStuck, isHopeless: isHopeless, deadKinds: deadKinds,
     endPouring: endPouring, endPouringOf: endPouringOf
   };
   if (typeof module !== 'undefined' && module.exports) module.exports = PL.rules;

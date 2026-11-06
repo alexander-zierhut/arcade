@@ -112,15 +112,22 @@ describe('kit: pure helpers', () => {
     assert.equal(pure.perfVerdict(mixed), null);
     assert.equal(pure.perfVerdict(smooth.slice(0, 50)), null);
   });
-  it('statsFold records a session once (updates in place), caps at 300 and rebuilds the per-game totals', () => {
+  it('statsFold records a session once (updates in place), caps at 300 and keeps the totals of what fell off', () => {
     let st = pure.statsFold(null, { id: 'a', game: 'cocktail-merge', start: 1000, end: 5000, playMs: 3000 });
     st = pure.statsFold(st, { id: 'a', game: 'cocktail-merge', start: 1000, end: 9000, playMs: 6000 });
     st = pure.statsFold(st, { id: 'b', game: 'penguin-march', start: 20000, end: 30000, playMs: 2500.4 });
     assert.equal(st.sessions.length, 2);
     assert.deepEqual(st.games['cocktail-merge'], { sessions: 1, playMs: 6000, last: 9000, first: 1000 });
     assert.deepEqual(st.games['penguin-march'], { sessions: 1, playMs: 2500, last: 30000, first: 20000 });
-    for (let i = 0; i < 320; i++) st = pure.statsFold(st, { id: 'c' + i, game: 'x', start: i, end: i + 1, playMs: 1 });
+    for (let i = 0; i < 320; i++) st = pure.statsFold(st, { id: 'c' + i, game: 'x', start: i + 1, end: i + 2, playMs: 1 });
     assert.equal(st.sessions.length, 300);
+    // what fell off the list stays counted: the totals never shrink (the old code rebuilt them from the kept 300 only)
+    assert.deepEqual(st.games.x, { sessions: 320, playMs: 320, last: 321, first: 1 });
+    assert.deepEqual(st.games['cocktail-merge'], { sessions: 1, playMs: 6000, last: 9000, first: 1000 }, 'the dropped cocktail session is carried');
+    assert.deepEqual(st.carry['cocktail-merge'], { sessions: 1, playMs: 6000, last: 9000, first: 1000 });
+    assert.equal(st.carry.x.sessions, 20);
+    st = pure.statsFold(st, { id: 'c0', game: 'x', start: 1, end: 2, playMs: 5 });   // an id that fell off comes back as a new record, nothing is counted twice
+    assert.equal(st.games.x.sessions, 321);
   });
   it('shareText puts the line, the title and the address together', () => {
     assert.equal(pure.shareText({ title: 'Supermarket Sorter', line: 'Level 12, 4.520 Punkte', url: 'https://arcade.alzlper.com/supermarket-sorter/' }), 'Level 12, 4.520 Punkte · Supermarket Sorter\nhttps://arcade.alzlper.com/supermarket-sorter/');

@@ -228,10 +228,22 @@ bot.certify(level, moves, opts)   // replays an abstract solution in PL.sim (pla
                                   // is clear; → { won: bool, ticks, taps, reason }
 bot.play(level, opts)             // a skill bot for tuning: opts.skill 'perfect' (solve + certify) | 'greedy' | 'sloppy'; → { won, taps, ticks }
 
-generator.generate(opts)          // opts: { tier, seed, layout?, allow?: ['hidden','pair','wrap','ice','lock','oneway'], layoutSlots? }
-                                  // → { level, solution, metrics } or null (no acceptable level within the retry budget)
+generator.generate(opts)          // opts: { tier, seed, layout?, allow?: ['hidden','pair','wrap','ice','lock','oneway'], layoutSlots?,
+                                  //   hardness?: [lo, hi], hardest?, candidates? (60), budgetMs?, now?, onCandidate? }
+                                  // → { level, solution, metrics, hard?, candidates?, outside? } or null; with `hardness` every certified
+                                  //   candidate is analysed and the first inside the window (or the closest when the budget ends) is returned
 generator.metrics(level, solution) // → { moves, tightness, forced, emptyBoxes, hiddenShare, mods }
 generator.inBand(metrics, tier)   // → bool
+generator.hardness(level, layout) // → { H, analysis }  H = -log10(pNatural) of solver.analyze, 0..6 (plan R29)
+generator.DIFFICULTY[1..10]       // { tier, H: [lo, hi], budgetMs, noLuck?, hardest? }  the Endless difficulties
+generator.encodeCode(d, disabled, seed) / decodeCode(code) / replay(code) / allowOf(disabled) / disabledOf(x)
+                                  // level codes  L<d><flags>-<seed>: flags = mechanics switched off (n p w i k o); CODE_VERSION = 1 (the L)
+solver.analyze(level, { layout, maxStates = 20000, playouts = 300 })
+                                  // → { solvable, depth, states, edges, capped, estimated, pRandom, pNatural, safe, traps }: the whole
+                                  //   position graph; pRandom = win chance of a uniformly random mover (box + destination), pNatural = of a
+                                  //   random tapper with natural landings; Monte-Carlo (estimated: true) when the graph is capped
+PL.search.run(msg, post)          // src/gen/worker.js: 'init' { scripts }, 'search' { tier, seed, allow, hardness, hardest, candidates,
+                                  //   budgetMs }, 'replay' { code }; the same file is the Web Worker that main.js starts
 ```
 
 Reverse play (plan 5.4 step 2), modifier placement (step 3) and the acceptance bands (`config.TIERS`) live in
@@ -262,7 +274,8 @@ PL.strings.de / .en, PL.strings.t(key, vars)   // every UI string; Arcade.lang.g
 PL.screens                              // title, modes, howto(mechanic), pause, settings, win, lose; each calls Arcade.screen(...)
 PL.input.attach(canvas, onTap)          // pointer → scene.hit → onTap(boxIndex)
 PL.audio                                // play('eject'|'land'|'close'|'jam'|'unlock'|'thaw'|'win'|'lose'), muted flag stored under STORAGE_KEY
-PL.save                                 // { level (highest cleared + 1), attempts: {id: n}, endless: { best: {tier: n} }, sound } via Arcade.storage
+PL.save                                 // { level (highest cleared + 1), attempts: {id: n}, endless: { best: {1..10: n}, difficulty, noLuck }, sound,
+                                        //   plain, belt: 'plates'|'stream', seen: { howto }, levelsVersion } via Arcade.storage
 PL.app                                  // main.js: state 'LOADING'|'TITLE'|'MODES'|'PLAY'|'PAUSE'|'WIN'|'LOSE', current sim, loop; window.PlateLoop.app
 ```
 

@@ -15,7 +15,7 @@
 
   PL.config = {
     STORAGE_KEY: 'plateLoop.',
-    VERSION: '0.1.0',
+    VERSION: '0.2.0',
     LAP_MS: 8000,
     SLIDE_MS: 250,
     DEPART_FIRST_MS: 900,         // tap -> the first unit gets onto its plate (the piece slides out)

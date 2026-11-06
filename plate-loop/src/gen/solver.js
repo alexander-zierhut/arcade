@@ -231,6 +231,12 @@
         t[2 * X + 1] = 1;
         t[2 * ctx.nb]++;
         list = [];
+        if (ctx.hasKeys) {                         // R12b: a key inside the closing box is released with the lid
+          for (j = 0; j < 4; j++) {
+            l = (pcAt(content, j) >>> 5) & 3;
+            if (l && ((t[2 * ctx.lockBoxes[l - 1][0] + 1] >>> 6) & 3) === l) openLock(ctx, t, l);
+          }
+        }
         if (ctx.hasWrap) {
           for (Y = 0; Y < ctx.nb; Y++) {
             if (((t[2 * Y + 1] >>> 2) & 15) === code) { t[2 * Y + 1] &= ~(15 << 2); list.push(Y); }
@@ -534,8 +540,157 @@
     return { state: st, events: events, k: k };
   }
 
+  // ---------------------------------------------------------------- analyze: how hard is a level?
+  //
+  // Enumerates the whole position graph (the abstract moves of expand, capped at maxStates) and computes, exactly:
+  //   pRandom   the probability that a player who picks a uniformly random legal move (box and destination) wins;
+  //   pNatural  the same for a player who taps a uniformly random tappable box and lets the run land where the belt
+  //             takes it (the first destination in belt order, no kicks): the "naive player";
+  //   safe      over the states of the shortest solution: the mean share of moves that keep the level winnable;
+  //   traps     states from which the level can no longer be won / all reachable states;
+  //   states, edges, solutions (0 = none, else the depth of the shortest), capped (the graph was cut at maxStates).
+  // Cycles exist (a run moved into an empty box and back), so winning states come from a backward fixed point and the
+  // probabilities from value iteration. Costs O(states * edges); a hard level has a few thousand states.
+  function analyze(level, opts) {
+    var o = opts || {}, layout = o.layout || (layoutsMod() && layoutsMod()[level.layout]), maxStates = o.maxStates || 20000,
+      comp = compile(level, layout), ctx = comp.ctx, nb = ctx.nb, s0 = comp.s0, states = [], index = new Map(), queue = [], out = [], nat = [],
+      i, s, ch, j, k, key, edges = 0, capped = false, win, changed, it, v, nv, delta, acc, cnt0, acc2, seenBox, pr, pn, dist, d, best,
+      solved, depth, safeSum = 0, safeN = 0, path, cur, nxt, traps = 0;
+    function id(st) {
+      var kk = keyOf(ctx, st), ix = index.get(kk);
+      if (ix !== undefined) return ix;
+      if (states.length >= maxStates) { capped = true; return -1; }
+      ix = states.length; index.set(kk, ix); states.push(st); queue.push(ix);
+      return ix;
+    }
+    id(s0);
+    for (i = 0; i < queue.length; i++) {
+      s = states[queue[i]];
+      if (s[2 * nb] >= ctx.kinds) { out.push([]); nat.push([]); continue; }
+      ch = expand(ctx, s);
+      var list = [], nl = [], firstOf = {};
+      for (j = 0; j < ch.length; j++) {
+        k = id(ch[j].s);
+        if (k < 0) continue;
+        list.push(k);
+        // natural landing: the first destination (in expand's belt order) for this source box (and for a mixed pair,
+        // the first dest2 of the first dest)
+        if (firstOf[ch[j].box] === undefined) { firstOf[ch[j].box] = k; nl.push(k); }
+      }
+      edges += list.length;
+      out.push(list); nat.push(nl);
+    }
+    // winning states: backward fixed point
+    win = [];
+    for (i = 0; i < states.length; i++) win.push(states[i][2 * nb] >= ctx.kinds);
+    changed = true;
+    while (changed) {
+      changed = false;
+      for (i = 0; i < states.length; i++) {
+        if (win[i]) continue;
+        for (j = 0; j < out[i].length; j++) if (win[out[i][j]]) { win[i] = true; changed = true; break; }
+      }
+    }
+    solved = win[0];
+    // shortest solution depth (BFS on winning edges)
+    depth = -1;
+    if (solved) {
+      dist = []; for (i = 0; i < states.length; i++) dist.push(-1);
+      dist[0] = 0; queue = [0];
+      for (i = 0; i < queue.length && depth < 0; i++) {
+        cur = queue[i];
+        if (states[cur][2 * nb] >= ctx.kinds) { depth = dist[cur]; break; }
+        for (j = 0; j < out[cur].length; j++) { nxt = out[cur][j]; if (dist[nxt] < 0) { dist[nxt] = dist[cur] + 1; queue.push(nxt); } }
+      }
+      // safe-move share along one shortest path: greedy walk along decreasing distance-to-goal
+      // (recompute distance to the goal backwards: states at distance d from a win)
+      d = []; for (i = 0; i < states.length; i++) d.push(states[i][2 * nb] >= ctx.kinds ? 0 : -1);
+      changed = true;
+      while (changed) {
+        changed = false;
+        for (i = 0; i < states.length; i++) {
+          if (d[i] === 0) continue;
+          best = -1;
+          for (j = 0; j < out[i].length; j++) { k = out[i][j]; if (d[k] >= 0 && (best < 0 || d[k] + 1 < best)) best = d[k] + 1; }
+          if (best >= 0 && (d[i] < 0 || best < d[i])) { d[i] = best; changed = true; }
+        }
+      }
+      cur = 0; path = [0];
+      while (d[cur] > 0) {
+        cnt0 = 0;
+        for (j = 0; j < out[cur].length; j++) if (win[out[cur][j]]) cnt0++;
+        if (out[cur].length) { safeSum += cnt0 / out[cur].length; safeN++; }
+        nxt = -1;
+        for (j = 0; j < out[cur].length; j++) { k = out[cur][j]; if (d[k] === d[cur] - 1) { nxt = k; break; } }
+        if (nxt < 0) break;
+        cur = nxt; path.push(cur);
+      }
+    }
+    for (i = 0; i < states.length; i++) if (!win[i]) traps++;
+    // value iteration for the two random players
+    function iterate(adj) {
+      var val = [], q, n, m;
+      for (q = 0; q < states.length; q++) val.push(states[q][2 * nb] >= ctx.kinds ? 1 : 0);
+      for (it = 0; it < 400; it++) {
+        delta = 0;
+        for (q = 0; q < states.length; q++) {
+          if (states[q][2 * nb] >= ctx.kinds || !win[q]) continue;        // a losing state stays 0
+          n = adj[q].length;
+          if (!n) continue;
+          acc = 0;
+          for (m = 0; m < n; m++) acc += val[adj[q][m]];
+          nv = acc / n;
+          if (Math.abs(nv - val[q]) > delta) delta = Math.abs(nv - val[q]);
+          val[q] = nv;
+        }
+        if (delta < 1e-5) break;
+      }
+      return val[0];
+    }
+    if (capped) return estimate(level, layout, o, ctx, s0, states.length, edges);
+    pr = solved ? iterate(out) : 0;
+    pn = solved ? iterate(nat) : 0;
+    return {
+      solvable: solved, depth: depth, states: states.length, edges: edges, capped: false, estimated: false,
+      pRandom: pr, pNatural: pn, safe: safeN ? safeSum / safeN : (solved ? 1 : 0), traps: states.length ? traps / states.length : 0
+    };
+  }
+
+  // The graph was too big to enumerate: the two players are estimated by random playouts instead (seeded, so a level
+  // always gets the same numbers). A playout that has not won after 3 * (solution length) + 12 moves counts as lost.
+  function estimate(level, layout, o, ctx, s0, nStates, nEdges) {
+    var nb = ctx.nb, sol = solve(level, { layout: layout, maxNodes: o.maxNodes || 60000, improve: 0 }), playouts = o.playouts || 300,
+      cap, seed = 0x9E3779B1, wins, p, s, moves, ch, j, firstOf, nl, k, won, prA, prN, cnt;
+    if (!sol.solvable) return { solvable: false, depth: -1, states: nStates, edges: nEdges, capped: true, estimated: true, pRandom: 0, pNatural: 0, safe: 0, traps: 1 };
+    cap = 3 * sol.moves.length + 12;
+    function rnd() { seed = (seed + 0x6D2B79F5) | 0; var t = Math.imul(seed ^ (seed >>> 15), 1 | seed); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }
+    function play(natural) {
+      wins = 0;
+      for (p = 0; p < playouts; p++) {
+        s = s0; won = false;
+        for (moves = 0; moves < cap; moves++) {
+          if (s[2 * nb] >= ctx.kinds) { won = true; break; }
+          ch = expand(ctx, s);
+          if (!ch.length) break;
+          if (natural) {
+            firstOf = {}; nl = [];
+            for (j = 0; j < ch.length; j++) if (firstOf[ch[j].box] === undefined) { firstOf[ch[j].box] = 1; nl.push(ch[j]); }
+            k = nl[Math.floor(rnd() * nl.length)];
+          } else k = ch[Math.floor(rnd() * ch.length)];
+          s = k.s;
+        }
+        if (!won && s[2 * nb] >= ctx.kinds) won = true;
+        if (won) wins++;
+      }
+      return wins / playouts;
+    }
+    prA = play(false);
+    prN = play(true);
+    return { solvable: true, depth: sol.moves.length, states: nStates, edges: nEdges, capped: true, estimated: true, pRandom: prA, pNatural: prN, safe: -1, traps: -1 };
+  }
+
   PL.solver = {
-    solve: solve, applyMove: applyMove, downstream: downstream,
+    solve: solve, applyMove: applyMove, downstream: downstream, analyze: analyze,
     _internal: { compile: compile, fromState: fromState, expand: expand, keyOf: keyOf, lowerBound: lowerBound, score: score, cnt: cnt, pcAt: pcAt }
   };
   if (typeof module !== 'undefined' && module.exports) module.exports = PL.solver;

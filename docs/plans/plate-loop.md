@@ -71,6 +71,8 @@ needs a tap of its own; Alex, first playtest).
 - R11. A piece that finds no accepting box keeps riding. There is no limit on laps.
 - R12. When a landing makes 4 of a kind, the box **closes** at once (lid, stamp). Closed boxes stay in place,
   accept nothing, cannot be tapped, and are passed by the belt. Nothing replaces them.
+- R12b (2026-11-06, after the beta's level 54). The lid closes over everything inside: a hidden piece in a closing
+  box turns face up and a key on any piece inside is released (its shutter opens). A key can never be buried.
 
 ### 2.4 Losing
 - R13. The level is **lost** when all N plates are full and no plate's piece can land anywhere, now or after any
@@ -79,6 +81,12 @@ needs a tap of its own; Alex, first playtest).
   keeps moving under it.
 - R14. Not a loss: plates full but a piece can still land (it will). Plates not full: never a loss, the player can
   always tap something or wait.
+- R13b (2026-11-06, after a frozen box in Endless held the last pieces of every open kind). The level is also
+  **lost** when some kind can never be completed any more: one of its pieces sits under a cover that can never come
+  off. `rules.deadKinds` decides with an optimistic fixed point (a cloth comes off when its kind can still close, a
+  shutter opens when its key piece is not shut away, ice thaws when an open uncovered neighbour could still close
+  with some closable kind), so it only ever fires for positions that are really unwinnable. The lose card then says
+  "no way to finish" instead of "the belt is jammed". A level that is hopeless at the start fails validation.
 
 ### 2.5 Modifiers (a level uses any subset)
 - R15. **Hidden piece** (covered): a piece whose kind is not shown, drawn under a cloche. It is revealed the moment
@@ -109,6 +117,20 @@ needs a tap of its own; Alex, first playtest).
 - R21. Modifiers may combine on one box only as: hidden pieces and pairs inside any box; a one-way box may also
   be wrapped, frozen or locked (visible once uncovered). Wrapped, frozen and locked are mutually exclusive on
   one box. (Keeps the generator and the art manageable; revisit later.)
+
+### 2.5b Difficulty (2026-11-06)
+- R29. **Hardness** H of a level is minus the decimal logarithm of the chance that a player who taps a uniformly
+  random tappable box (and lets the run land where the belt takes it) wins, computed exactly on the abstract
+  position graph by `solver.analyze` (`generator.hardness`; Monte-Carlo when the graph exceeds 30,000 positions).
+  H 0 = random tapping always wins, 1 = one game in ten, 2 = one in a hundred, 3 = one in a thousand. Every level is
+  still solved by the solver and replayed by the bot before it is accepted; H says how much thinking it takes, not
+  whether it can be done.
+- R30. The 500 fixed levels follow the curve in `scripts/level-curve.mjs`: a gentle start (levels 1-15 under H 1.1),
+  a steep middle (from level 100 on the mean H is above 2), every 25th level a spike (the hardest of 200 candidates,
+  H 3 to 4.7) and nothing hidden from level 401 on or on a spike, so luck never decides at the top. Endless has ten
+  difficulties (`generator.DIFFICULTY`: structure tier plus an H window, a search budget of 2.5 to 20 s), 9 and 10
+  with "no luck" forced. A generated level is identified by its code `L<difficulty>[n]-<seed>`; the same code gives
+  everyone the same level.
 
 ### 2.6 Determinism and restarts
 - R22. A level is a fixed structure: layout, N, every box's piece sequence, modifiers. It never changes.

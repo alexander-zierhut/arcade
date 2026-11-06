@@ -2,8 +2,8 @@
 // response >= 400, no console or page error, and the game's own global is up. Catches what the file-level
 // checks cannot: a hashed script that 404s, a manifest that is not served, a game that throws on load.
 // Then the arcade kit (shared/) in every game: loading screen gone, home and share wired, news sheet, share
-// fallback, performance switch, campaign card, the once-only app hint on a phone, and the selector's backup
-// export / import round trip into a game.
+// fallback, performance switch, campaign card, the once-only app hint on a phone, the play time stored at once,
+// the selector's profile sheet on a phone, and the selector's backup export / import round trip into a game.
 import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
 import { createReadStream, existsSync, mkdtempSync, readdirSync, rmSync, statSync } from 'node:fs';
@@ -263,7 +263,7 @@ describe('built site in headless Chrome', () => {
       assert.equal(prof.title, 'Dein Fortschritt', 'the sheet follows the arcade language (de was stored)');
       assert.equal(prof.rows.length, games.length);
       assert.ok(prof.rows.some((r) => /^Penguin March\|1 h 20 min gespielt$/.test(r)), `play time per game: ${prof.rows}`);
-      assert.ok(prof.rows.some((r) => /^Supermarket Sorter\|Spielstand auf diesem Gerät$/.test(r)), `saved games: ${prof.rows}`);
+      assert.ok(prof.rows.some((r) => /^Supermarket Sorter\|Spielstand da, Spielzeit noch nicht erfasst$/.test(r)), `saved games: ${prof.rows}`);
       assert.ok(prof.rows.some((r) => /\|noch nicht gespielt$/.test(r)), `untouched games: ${prof.rows}`);
       assert.deepEqual(prof.buttons, ['Alle Spielstände sichern', 'Spielstände laden', 'Schließen']);
       const out = await page.evaluate(() => {
@@ -292,6 +292,64 @@ describe('built site in headless Chrome', () => {
       assert.deepEqual(problems, []);
     } finally { await ctx.close(); }
   });
+
+  it('a game stores play time the moment a level ends and its export carries the running session (no 30 s tick to wait for)', async () => {
+    // Before: the statistics were written by a 30 s timer and on pagehide / hidden only. A phone that kills the tab
+    // (or a player who closes it) between two ticks lost the time since the last tick, and a backup exported inside a
+    // game carried the stats as of the last tick. Now every screen change stores at once, and the export flushes first.
+    const game = 'penguin-march';
+    const { ctx, page, problems } = await load(`${base}/${game}/`);
+    try {
+      await page.waitForFunction(BOOT[game], null, { timeout: 5000 });
+      await page.evaluate(() => { Arcade.closeSheet(); Arcade.screen('play'); });
+      await page.waitForTimeout(1200);
+      const stored = (g) => JSON.parse(localStorage.getItem('arcade.stats') || '{"games":{}}').games[g] || null;
+      const before = await page.evaluate(stored, game);                   // the ready moment may have stored an empty session
+      assert.equal(before ? before.playMs : 0, 0, 'no play time written yet: the first tick is 10 s away');
+      await page.evaluate(() => Arcade.screen('pause'));
+      const after = await page.evaluate(stored, game);
+      assert.ok(after && after.playMs >= 1000 && after.playMs < 5000, `the level's time is stored when it ends: ${JSON.stringify(after)}`);
+      await page.evaluate(() => Arcade.screen('play'));
+      await page.waitForTimeout(1200);
+      const exported = await page.evaluate((g) => JSON.parse(JSON.parse(Arcade.backup.exportText()).keys['arcade.stats']).games[g], game);
+      assert.ok(exported.playMs >= after.playMs + 1000, `the export carries the minutes played right now: ${exported.playMs} vs ${after.playMs}`);
+      assert.deepEqual(problems, []);
+    } finally { await ctx.close(); }
+  });
+
+  for (const [w, h] of [[360, 678], [390, 844]]) {
+    it(`the selector's profile at ${w}x${h}: a bottom sheet, one stacked row per game, nothing cut off, buttons at least 44 px`, async () => {
+      const ctx = await browser.newContext({ viewport: { width: w, height: h }, deviceScaleFactor: 2, isMobile: true, hasTouch: true });
+      const page = await ctx.newPage();
+      try {
+        await page.goto(`${base}/`, { waitUntil: 'networkidle' });
+        await page.evaluate(() => {
+          localStorage.setItem('supermarketSorter.v1', '{"v":2}');
+          localStorage.setItem('arcade.stats', JSON.stringify({ v: 1, sessions: [], games: { 'cocktail-merge': { sessions: 12, playMs: 754 * 60000, last: 1, first: 1 } } }));
+        });
+        await page.click('#profile');
+        await page.waitForSelector('#arcade-ui .arcade-profile');
+        await page.waitForTimeout(300);                                   // the rise animation
+        const m = await page.evaluate(() => {
+          const card = document.querySelector('#arcade-ui .arcade-card').getBoundingClientRect();
+          const inside = (r) => r.left >= card.left - 0.5 && r.right <= card.right + 0.5 && r.top >= card.top - 0.5 && r.bottom <= card.bottom + 0.5;
+          const rows = [...document.querySelectorAll('.arcade-profile li')].map((li) => {
+            const b = li.querySelector('b').getBoundingClientRect(), s = li.querySelector('span').getBoundingClientRect();
+            return { stacked: s.top >= b.bottom - 0.5, inside: inside(b) && inside(s), text: li.textContent, played: li.querySelector('span').className };
+          });
+          return { card: { left: card.left, right: card.right, bottom: card.bottom, height: card.height }, rows, buttons: [...document.querySelectorAll('#arcade-ui .arcade-btn')].map((x) => ({ h: x.getBoundingClientRect().height, inside: inside(x.getBoundingClientRect()) })), pageWide: document.documentElement.scrollWidth > innerWidth };
+        });
+        assert.equal(m.card.left, 0); assert.equal(m.card.right, w); assert.equal(Math.round(m.card.bottom), h, 'a bottom sheet, full width');
+        assert.ok(m.card.height <= h - 12, 'the card fits the screen');
+        assert.equal(m.rows.length, games.length);
+        for (const r of m.rows) { assert.ok(r.stacked, `state under the title: ${r.text}`); assert.ok(r.inside, `nothing reaches past the card: ${r.text}`); }
+        assert.ok(m.rows.some((r) => r.played === 'played' && /12 h 34 min/.test(r.text)), 'play time stands out');
+        assert.equal(m.buttons.length, 3);
+        for (const b of m.buttons) { assert.ok(b.h >= 44, `button ${b.h}px tall`); assert.ok(b.inside); }
+        assert.equal(m.pageWide, false, 'no horizontal scroll');
+      } finally { await ctx.close(); }
+    });
+  }
 
   it('the selector page loads its images', async () => {
     const { ctx, page, problems, responses } = await load(`${base}/`);

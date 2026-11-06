@@ -10,14 +10,17 @@
 
   var MECHS = ['basics', 'hidden', 'pair', 'wrap', 'ice', 'lock', 'oneway'];
   var TIERS = ['easy', 'normal', 'hard', 'extreme'];
-  var CARDS = ['pause', 'settings', 'modes', 'howto', 'win', 'lose'];
+  var DIFF_TIER = ['', 'easy', 'normal', 'normal', 'hard', 'hard', 'hard', 'extreme', 'extreme', 'extreme', 'extreme'];   // fallback when the generator is absent
+  var CARDS = ['pause', 'settings', 'modes', 'howto', 'win', 'lose', 'favs'];
   var BELT_PIECES = ['salmon', 'kappa', 'ikura', 'tuna', 'tamago', 'ebi', 'tekka', 'unagi', 'california', 'inari', 'tako', 'uni'];
 
   var els = {};
   var shown = null;                 // the card on screen (name) or null
   var base = null;                  // 'title' | 'play'
   var data = {};                    // data of the card on screen
-  var modes = { tier: 'easy', noLuck: false };
+  var modes = { difficulty: 1, disabled: [] };     // disabled: the mechanics switched off in the chooser
+  var MECHANICS = ['hidden', 'pair', 'wrap', 'ice', 'lock', 'oneway'];
+  var huntTimer = null, huntState = null;
   var hw = { pages: MECHS.slice(), index: 0, back: 'title', onDone: null };
   var pillState = null;
   var kbd = false;                  // the last input was the keyboard: only then a card takes the focus (no focus ring after a tap)
@@ -28,6 +31,20 @@
   function levelsTotal() { return PL.levels && PL.levels.length ? PL.levels.length : 100; }
   function tierName(tier) { return t('tier_' + tier); }
   function sound() { return save ? save.get().sound !== false : true; }
+  function plain() { return save ? save.get().plain === true : false; }
+  function beltStyle() { return save ? save.get().belt : 'plates'; }
+  function diffSpec(d) { var g = PL.generator && PL.generator.DIFFICULTY ? PL.generator.DIFFICULTY[d] : null; return g || { tier: DIFF_TIER[d] || 'easy', noLuck: d >= 9 }; }
+  function disabledNow() {          // the chooser's list, plus hidden when the difficulty forces it
+    var list = modes.disabled.slice();
+    if (diffSpec(modes.difficulty).noLuck && list.indexOf('hidden') < 0) list.push('hidden');
+    return list;
+  }
+  function setMech(m, on) {
+    var i = modes.disabled.indexOf(m);
+    if (on && i >= 0) modes.disabled.splice(i, 1);
+    if (!on && i < 0) modes.disabled.push(m);
+  }
+  function tierOfDiff(d) { return diffSpec(d).tier; }
 
   // ------------------------------------------------------------------ mechanics of a level (for the how-to cards)
   function mechanics(level) {
@@ -117,9 +134,13 @@
     pillState = p || pillState;
     if (!pillState || !els.pill) return;
     var tier = pillState.tier || 'easy', text, aria;
-    if (pillState.mode === 'endless') {
-      text = t('pill_endless', { tier: tierName(tier), n: pillState.streak || 0 });
-      aria = t('pill_endless_aria', { tier: tierName(tier), n: pillState.streak || 0 });
+    if (pillState.mode === 'replay') {
+      text = t('replay_pill', { x: pillState.speed });
+      aria = t('replay_aria', { x: pillState.speed });
+    } else if (pillState.mode === 'endless') {
+      tier = tierOfDiff(pillState.difficulty || 1);
+      text = t('pill_endless', { tier: pillState.difficulty || 1, n: pillState.streak || 0 });
+      aria = t('pill_endless_aria', { tier: pillState.difficulty || 1, n: pillState.streak || 0 });
     } else {
       text = t('level', { n: pillState.level });
       aria = text + ', ' + tierName(tier);
@@ -156,17 +177,90 @@
     var on = sound();
     els.setSound.setAttribute('aria-pressed', on ? 'true' : 'false');
     els.setSoundLabel.textContent = t(on ? 'sound_on' : 'sound_off');
+    if (els.setPlain) {
+      els.setPlain.setAttribute('aria-pressed', plain() ? 'true' : 'false');
+      els.setPlainLabel.textContent = t(plain() ? 'graphics_plain' : 'graphics_sushi');
+    }
+    if (els.setBelt) {
+      var stream = plain() || beltStyle() === 'stream';          // plain graphics never show plates
+      els.setBelt.setAttribute('aria-pressed', stream ? 'true' : 'false');
+      els.setBelt.setAttribute('aria-disabled', plain() ? 'true' : 'false');
+      els.setBeltLabel.textContent = t(stream ? 'belt_stream' : 'belt_plates');
+    }
   }
 
   function renderModes() {
     var s = save ? save.get() : { endless: { best: {} } };
-    var btns = els.tiers.querySelectorAll('.tier');
+    var btns = els.diffs.querySelectorAll('.diff'), d = modes.difficulty, spec = diffSpec(d), forced = !!spec.noLuck, best = s.endless.best[d] || 0;
     for (var i = 0; i < btns.length; i++) {
-      var tier = btns[i].getAttribute('data-tier'), best = s.endless.best[tier] || 0;
-      btns[i].setAttribute('aria-checked', tier === modes.tier ? 'true' : 'false');
-      btns[i].querySelector('small').textContent = best > 0 ? t('best', { n: best }) : '';
+      var n = Number(btns[i].getAttribute('data-diff')), b = s.endless.best[n] || 0;
+      btns[i].setAttribute('aria-checked', n === d ? 'true' : 'false');
+      btns[i].setAttribute('aria-label', t('diff_aria', { n: n, tier: tierName(tierOfDiff(n)) }) + (b > 0 ? ', ' + t('best', { n: b }) : ''));
+      btns[i].setAttribute('data-best', b > 0 ? String(b) : '');
     }
-    els.noluck.setAttribute('aria-pressed', modes.noLuck ? 'true' : 'false');
+    els.diffText.innerHTML = '<b>' + t('diff_label', { n: d, tier: tierName(spec.tier) }) + '</b> · ' + t('diff_hint_' + d) + (best > 0 ? ' · ' + t('best', { n: best }) : '');
+    var noLuck = disabledNow().indexOf('hidden') >= 0;
+    els.noluck.setAttribute('aria-pressed', noLuck ? 'true' : 'false');
+    els.noluck.setAttribute('aria-disabled', forced ? 'true' : 'false');
+    els.noluckHint.textContent = t(forced ? 'noluck_forced' : 'noluck_hint');
+    var chips = els.mechs ? els.mechs.querySelectorAll('.mech') : [];
+    for (i = 0; i < chips.length; i++) {
+      var m = chips[i].getAttribute('data-mech');
+      chips[i].setAttribute('aria-pressed', disabledNow().indexOf(m) < 0 ? 'true' : 'false');
+      chips[i].setAttribute('aria-disabled', m === 'hidden' && forced ? 'true' : 'false');
+    }
+  }
+
+  // the hunt panel: huntStatus(null) hides it; { candidates, best, bestAt, since, ready } shows it and keeps the
+  // "x s ago" ticking once a second
+  function renderHunt() {
+    var h = huntState, now = Date.now();
+    if (!els.hunt) return;
+    if (!h) { els.hunt.hidden = true; if (huntTimer) { clearInterval(huntTimer); huntTimer = null; } return; }
+    els.hunt.hidden = false;
+    els.huntText.textContent = h.best >= 0 ? t('hunt_status', { n: h.candidates, h: h.best.toFixed(2), s: Math.max(0, Math.round((now - h.bestAt) / 1000)) }) : t('hunt_none', { n: h.candidates });
+    els.huntPlay.disabled = !h.ready;
+    if (!huntTimer) huntTimer = setInterval(renderHunt, 1000);
+  }
+  function huntStatus(h) { huntState = h; renderHunt(); }
+
+  // ------------------------------------------------------------------ favourites
+  // the entry for the level on screen: { level } for a fixed level, { code, hard } for a generated one, or null
+  function currentFav() {
+    var a = app(), lv = a.level;
+    if (!lv) return null;
+    if (a.mode === 'endless') return a.code ? { code: a.code, hard: lv.hard } : null;
+    return { level: lv.id, hard: lv.hard };
+  }
+  function renderStars() {
+    var e = currentFav(), on = !!(e && save && save.isFav(e)), ids = ['pauseFav', 'winFav', 'loseFav'], i, b;
+    for (i = 0; i < ids.length; i++) {
+      b = els[ids[i]];
+      if (!b) continue;
+      b.hidden = !e;
+      b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      b.querySelector('span').textContent = t(on ? 'fav_added' : 'fav_add');
+      b.setAttribute('aria-label', t(on ? 'fav_added' : 'fav_add'));
+    }
+  }
+  function toggleFav() {
+    var e = currentFav();
+    if (!e || !save) return;
+    save.toggleFav(e);
+    renderStars();
+  }
+  function favName(f) { return f.level ? t('fav_level', { n: f.level }) : t('fav_code', { d: (PL.generator && PL.generator.decodeCode(f.code) || { difficulty: '?' }).difficulty, code: f.code }); }
+  function renderFavs() {
+    var list = save ? save.get().favs : [], html = '', i, f, meta;
+    els.favsEmpty.hidden = list.length > 0;
+    for (i = 0; i < list.length; i++) {
+      f = list[i];
+      meta = typeof f.hard === 'number' ? t('fav_hard', { h: f.hard.toFixed(2) }) : '';
+      html += '<li data-i="' + i + '"><span><span class="fav-name">' + favName(f) + '</span>' + (meta ? '<span class="fav-meta">' + meta + '</span>' : '') + '</span>' +
+        '<button type="button" class="btn small primary" data-act="play">' + t('fav_play') + '</button>' +
+        '<button type="button" class="btn small ghost" data-act="remove" aria-label="' + t('fav_remove_aria', { name: favName(f) }).replace(/"/g, '&quot;') + '">✕</button></li>';
+    }
+    els.favsList.innerHTML = html;
   }
 
   function renderHowto() {
@@ -189,13 +283,33 @@
     show(hw.back || 'title', hw.backData);
   }
 
+  function codeLine(btn, code) {
+    var p = btn.parentNode;
+    if (!code) { p.hidden = true; return; }
+    p.hidden = false;
+    btn.textContent = t('code_line', { code: code });
+    btn.setAttribute('aria-label', t('code_aria', { code: code }));
+    btn.setAttribute('data-code', code);
+  }
+  function copyCode(code) {
+    var nav = root.navigator;
+    if (nav && nav.clipboard && nav.clipboard.writeText) {
+      nav.clipboard.writeText(code).then(function () { toast(t('code_copied')); }, function () { toast(code); });
+    } else toast(code);
+  }
+  function toast(msg) { try { root.Arcade.toast(msg); } catch (e) { /* no kit */ } }
+  function codeUrl(code) {
+    try { return root.location.origin + root.location.pathname + '?code=' + encodeURIComponent(code); } catch (e) { return ''; }
+  }
+
   function renderEnd() {
-    var d = data, line, total = levelsTotal();
+    var d = data, line, text = '', total = levelsTotal(), hopeless = d.reason === 'hopeless';
     if (shown === 'win') {
       if (d.mode === 'endless') {
-        els.winText.textContent = t('win_streak', { n: d.streak, tier: tierName(d.tier) });
+        els.winText.textContent = t('win_streak', { n: d.streak, tier: d.difficulty });
         els.winNext.textContent = t('next_round');
-        line = t('share_streak', { n: d.streak, tier: tierName(d.tier) });
+        line = t('share_code', { n: d.streak, tier: d.difficulty, code: d.code });
+        text = line + '\n' + codeUrl(d.code);
         els.winReplay.hidden = true;
       } else {
         var last = d.level >= total;
@@ -204,25 +318,29 @@
         line = t('share_level', { n: d.level });
         els.winReplay.hidden = false;
       }
+      codeLine(els.winCode, d.mode === 'endless' ? d.code : null);
     } else if (shown === 'lose') {
+      els.loseH.textContent = t(hopeless ? 'lose_title_hopeless' : 'lose_title');
       if (d.mode === 'endless') {
-        els.loseText.textContent = t('lose_streak', { n: d.streak, tier: tierName(d.tier) }) + '. ' + t('lose_text');
+        els.loseText.textContent = t('lose_streak', { n: d.streak, tier: d.difficulty }) + '. ' + t(hopeless ? 'lose_text_hopeless' : 'lose_text');
         els.loseRetry.textContent = t('new_run');
         els.loseModes.hidden = false;
         els.loseBest.hidden = !(d.newBest && d.streak > 0);
         els.loseBest.textContent = t('new_best') + ' ' + t('best', { n: d.streak });
-        line = d.streak > 0 ? t('share_streak', { n: d.streak, tier: tierName(d.tier) }) : '';
-        els.loseShare.hidden = d.streak <= 0;
+        line = d.streak > 0 ? t('share_code', { n: d.streak, tier: d.difficulty, code: d.code }) : t('share_code_lose', { tier: d.difficulty, code: d.code });
+        text = line + '\n' + codeUrl(d.code);
+        els.loseShare.hidden = false;
       } else {
-        els.loseText.textContent = t('lose_text');
+        els.loseText.textContent = t(hopeless ? 'lose_text_hopeless' : 'lose_text');
         els.loseRetry.textContent = t('retry');
         els.loseModes.hidden = true;
         els.loseBest.hidden = true;
         line = t('share_lose', { n: d.level });
         els.loseShare.hidden = false;
       }
+      codeLine(els.loseCode, d.mode === 'endless' ? d.code : null);
     }
-    if (line) { try { root.Arcade.share.set({ line: line }); } catch (e) { /* kit missing */ } }
+    if (line) { try { root.Arcade.share.set(text ? { line: line, text: text } : { line: line }); } catch (e) { /* kit missing */ } }
   }
 
   // ------------------------------------------------------------------ show / hide
@@ -236,14 +354,16 @@
     } else if (name === 'board') {
       showBase('play'); hideCards();                 // the board without telling the kit we are playing (a how-to card follows)
     } else if (name === 'pause') {
-      openCard('pause', d); arcade('pause');
+      renderStars(); openCard('pause', d); arcade('pause');
     } else if (name === 'settings') {
       renderSound(); openCard('settings', d);
       if (root.Arcade && root.Arcade.refresh) root.Arcade.refresh();
       arcade(d.back === 'pause' ? 'pause' : 'menu');
     } else if (name === 'modes') {
       var s = save ? save.get() : null;
-      if (s && !d.keep) { modes.tier = s.endless.tier; modes.noLuck = s.endless.noLuck; }
+      if (s && !d.keep) { modes.difficulty = s.endless.difficulty || 1; modes.disabled = (s.endless.disabled || []).slice(); }
+      if (els.code) els.code.value = '';
+      huntStatus(null);
       renderModes(); openCard('modes', d); arcade('menu');
     } else if (name === 'howto') {
       hw.pages = d.pages && d.pages.length ? d.pages.slice() : MECHS.slice();
@@ -251,7 +371,19 @@
       openCard('howto', d); renderHowto(); arcade(d.back === 'pause' ? 'pause' : 'menu');
     } else if (name === 'win' || name === 'lose') {
       shown = name; data = d;
-      renderEnd(); openCard(name, d); arcade(name);
+      renderEnd(); renderStars();
+      var canWatch = !!(app().hasReplay && app().hasReplay());
+      if (els.winWatch) els.winWatch.hidden = !canWatch;
+      if (els.loseWatch) els.loseWatch.hidden = !canWatch;
+      openCard(name, d); arcade(name);
+    } else if (name === 'favs') {
+      renderFavs(); openCard('favs', d); arcade('menu');
+    } else if (name === 'replay') {
+      showBase('play'); hideCards();
+      var keep = pillState;
+      setPill({ mode: 'replay', speed: d.speed, tier: keep && keep.tier });
+      pillState = keep ? Object.assign({}, keep) : pillState;   // the level's pill comes back after the replay
+      arcade('menu');
     }
   }
   function hide() { hideCards(); }
@@ -264,14 +396,21 @@
     updateTitle(); renderSound(); setPill();
     if (shown === 'modes') renderModes();
     if (shown === 'howto') renderHowto();
-    if (shown === 'win' || shown === 'lose') renderEnd();
+    if (shown === 'win' || shown === 'lose') { renderEnd(); renderStars(); }
+    if (shown === 'pause') renderStars();
+    if (shown === 'favs') renderFavs();
   }
 
   // ------------------------------------------------------------------ init
   function init() {
     if (!doc || els.title) return;
     var ids = { title: 'screen-title', play: 'screen-play', cards: 'cards', track: 'title-track', playLabel: 'play-label', pill: 'pill', pillText: 'pill-text', skull: 'pill-skull',
-      setSound: 'set-sound', setSoundLabel: 'set-sound-label', tiers: 'modes-tiers', noluck: 'modes-noluck',
+      setSound: 'set-sound', setSoundLabel: 'set-sound-label', setPlain: 'set-plain', setPlainLabel: 'set-plain-label', setBelt: 'set-belt', setBeltLabel: 'set-belt-label',
+      slots: 'slots', slotsText: 'slots-text',
+      diffs: 'modes-diffs', diffText: 'modes-diff-text', noluck: 'modes-noluck', noluckHint: 'modes-noluck-hint', code: 'modes-code', codeGo: 'modes-code-go',
+      adv: 'modes-adv', advanced: 'modes-advanced', mechs: 'modes-mechs', huntBtn: 'modes-hunt', hunt: 'hunt', huntText: 'hunt-text', huntPlay: 'hunt-play', huntStop: 'hunt-stop',
+      winCode: 'win-code', loseCode: 'lose-code', loseH: 'lose-h',
+      pauseFav: 'pause-fav', winFav: 'win-fav', loseFav: 'lose-fav', favsList: 'favs-list', favsEmpty: 'favs-empty', winWatch: 'win-watch', loseWatch: 'lose-watch',
       howtoIll: 'howto-ill', howtoH: 'howto-h', howtoText: 'howto-text', howtoDots: 'howto-dots', howtoPrev: 'howto-prev', howtoNext: 'howto-next',
       winText: 'win-text', winNext: 'win-next', winReplay: 'win-replay', loseText: 'lose-text', loseRetry: 'lose-retry', loseModes: 'lose-modes', loseBest: 'lose-best', loseShare: 'lose-share' };
     for (var k in ids) if (Object.prototype.hasOwnProperty.call(ids, k)) els[k] = $(ids[k]);
@@ -285,6 +424,18 @@
     on('btn-endless', function () { show('modes', { back: 'title' }); });
     on('chip-howto', function () { show('howto', { back: 'title' }); });
     on('chip-settings', function () { show('settings', { back: 'title' }); });
+    on('chip-favs', function () { show('favs', { back: 'title' }); });
+    on('favs-back', function () { show('title'); });
+    on('pause-fav', toggleFav); on('win-fav', toggleFav); on('lose-fav', toggleFav);
+    els.favsList.addEventListener('click', function (ev) {
+      var b = ev.target && ev.target.closest ? ev.target.closest('button[data-act]') : null, li = b && b.closest('li'), f, a = app();
+      if (!b || !li) return;
+      f = (save ? save.get().favs : [])[Number(li.getAttribute('data-i'))];
+      if (!f) return;
+      if (b.getAttribute('data-act') === 'remove') { if (save) save.toggleFav(f); renderFavs(); return; }
+      if (f.level && typeof a.start === 'function') a.start(f.level);
+      else if (f.code && typeof a.playCode === 'function' && !a.playCode(f.code)) toast(t('code_bad'));
+    });
     // play
     on('btn-pause', call('pause'));
     // pause
@@ -300,24 +451,66 @@
       renderSound();
       var a = app(); if (typeof a.setSound === 'function') a.setSound(next);
     });
+    on('set-plain', function () {
+      var next = !plain();
+      if (save) save.patch({ plain: next });
+      renderSound();
+      var a = app(); if (typeof a.setPlain === 'function') a.setPlain(next);
+    });
+    on('set-belt', function () {
+      if (plain()) return;                                        // forced to the stream by the plain graphics
+      var next = beltStyle() === 'stream' ? 'plates' : 'stream';
+      if (save) save.patch({ belt: next });
+      renderSound();
+      var a = app(); if (typeof a.setBelt === 'function') a.setBelt(next);
+    });
     on('settings-done', function () { show(data.back === 'pause' ? 'pause' : 'title'); });
     // endless chooser
-    els.tiers.addEventListener('click', function (ev) {
-      var b = ev.target && ev.target.closest ? ev.target.closest('.tier') : null;
+    els.diffs.addEventListener('click', function (ev) {
+      var b = ev.target && ev.target.closest ? ev.target.closest('.diff') : null;
       if (!b) return;
-      modes.tier = b.getAttribute('data-tier'); renderModes();
+      modes.difficulty = Number(b.getAttribute('data-diff')) || 1; renderModes();
     });
-    on('modes-noluck', function () { modes.noLuck = !modes.noLuck; renderModes(); });
+    on('modes-noluck', function () { if (diffSpec(modes.difficulty).noLuck) return; setMech('hidden', modes.disabled.indexOf('hidden') >= 0); renderModes(); });
+    function remember() { if (save) save.patch({ endless: { difficulty: modes.difficulty, noLuck: disabledNow().indexOf('hidden') >= 0, disabled: modes.disabled.slice() } }); }
     on('modes-start', function () {
-      if (save) save.patch({ endless: { tier: modes.tier, noLuck: modes.noLuck } });
-      var a = app(); if (typeof a.startEndless === 'function') a.startEndless(modes.tier, modes.noLuck);
+      remember();
+      var a = app(); if (typeof a.startEndless === 'function') a.startEndless(modes.difficulty, disabledNow());
     });
-    on('modes-back', function () { show('title'); });
+    // advanced: the mechanics and the hunt
+    on('modes-adv', function () {
+      var open = els.advanced.hidden;
+      els.advanced.hidden = !open;
+      els.adv.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    els.mechs.addEventListener('click', function (ev) {
+      var b = ev.target && ev.target.closest ? ev.target.closest('.mech') : null;
+      if (!b || b.getAttribute('aria-disabled') === 'true') return;
+      setMech(b.getAttribute('data-mech'), b.getAttribute('aria-pressed') !== 'true');
+      renderModes();
+    });
+    on('modes-hunt', function () {
+      remember();
+      var a = app(); if (typeof a.startHunt === 'function') a.startHunt(modes.difficulty, disabledNow());
+    });
+    on('hunt-play', function () { var a = app(); if (typeof a.huntPlay === 'function') a.huntPlay(); });
+    on('hunt-stop', function () { var a = app(); if (typeof a.huntStop === 'function') a.huntStop(); });
+    function playCode() {
+      var a = app(), code = els.code ? els.code.value : '';
+      if (typeof a.playCode !== 'function') return;
+      if (!a.playCode(code)) { toast(t('code_bad')); if (els.code) { els.code.focus(); } }
+    }
+    on('modes-code-go', playCode);
+    if (els.code) els.code.addEventListener('keydown', function (ev) { if (ev.key === 'Enter') { ev.preventDefault(); playCode(); } });
+    on('win-code', function () { copyCode(els.winCode.getAttribute('data-code')); });
+    on('lose-code', function () { copyCode(els.loseCode.getAttribute('data-code')); });
+    on('modes-back', function () { var a = app(); if (typeof a.huntStop === 'function') a.huntStop(); show('title'); });
     // how-to
     on('howto-prev', function () { if (hw.index > 0) { hw.index--; renderHowto(); } });
     on('howto-next', function () { if (hw.index < hw.pages.length - 1) { hw.index++; renderHowto(); } else closeHowto(); });
     // end cards
     on('win-next', call('next'));
+    on('win-watch', call('watchReplay')); on('lose-watch', call('watchReplay'));
     on('win-replay', call('replay'));
     on('win-title', call('toTitle'));
     on('lose-retry', call('retry'));
@@ -328,14 +521,24 @@
     doc.addEventListener('pointerdown', function () { kbd = false; }, true);
     buildBelt();
     var s = save ? save.get() : null;
-    if (s) { modes.tier = s.endless.tier; modes.noLuck = s.endless.noLuck; }
+    if (s) { modes.difficulty = s.endless.difficulty || 1; modes.disabled = (s.endless.disabled || []).slice(); }
     relabel();
     if (root.Arcade && root.Arcade.on) root.Arcade.on('lang', relabel);
     if (root.Arcade && root.Arcade.wire) root.Arcade.wire(doc);
   }
 
+  /** setSlots(free, total): the free-slot counter in the band (stream style); null hides it. */
+  function setSlots(free, total) {
+    if (!els.slots) return;
+    if (free === null || free === undefined) { els.slots.hidden = true; return; }
+    els.slots.hidden = false;
+    var txt = free + '/' + total;
+    if (els.slotsText.textContent !== txt) { els.slotsText.textContent = txt; els.slots.setAttribute('aria-label', t('slots_aria', { n: free, total: total })); }
+    els.slots.setAttribute('data-full', free === 0 ? '1' : '0');
+  }
+
   PL.screens = {
-    init: init, show: show, hide: hide, setPill: setPill, updateTitle: updateTitle, relabel: relabel,
+    init: init, show: show, hide: hide, setPill: setPill, setSlots: setSlots, huntStatus: huntStatus, updateTitle: updateTitle, relabel: relabel,
     mechanics: mechanics, unseen: unseen, MECHS: MECHS,
     /** current() -> the card on screen ('pause', 'settings', ...) or null. */
     current: function () { return shown; },
@@ -343,7 +546,8 @@
     /** back(): Escape on a card that has a way back (settings, how-to, endless chooser). Returns true when it did something. */
     back: function () {
       if (shown === 'settings') { show(data.back === 'pause' ? 'pause' : 'title'); return true; }
-      if (shown === 'modes') { show('title'); return true; }
+      if (shown === 'modes') { var a = app(); if (typeof a.huntStop === 'function') a.huntStop(); show('title'); return true; }
+      if (shown === 'favs') { show('title'); return true; }
       if (shown === 'howto') { closeHowto(); return true; }
       return false;
     }

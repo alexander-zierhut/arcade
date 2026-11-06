@@ -8,20 +8,28 @@
   var Arcade = root.Arcade;
   var END_DELAY_MS = 600;
   var AUDIO_OF = { eject: 'eject', land: 'land', close: 'close', refuse: 'refuse', reveal: 'reveal', unlock: 'unlock', unwrap: 'unwrap', thaw: 'thaw', won: 'win', lost: 'lose' };
-  var ALL_MECHS = ['hidden', 'pair', 'wrap', 'ice', 'lock', 'oneway'];
 
   var st = 'LOADING';
   var canvas = null, wrap = null;
   var running = false, lastTs = 0, dirty = false, ending = null, failed = false;
   var viewW = 0, viewH = 0, viewDpr = 0;
-  var runSeed = 0, roundNo = 0, runBest = false, warned = {};
+  var runSeed = 0, roundNo = 0, runBest = false, warned = {}, lostReason = 'jam';
+  var worker = null, workerBroken = false, pending = {}, msgId = 0, searchToken = 0, hunt = null;
+  // the recording of the round on screen (every frame's dt and the taps between frames: the sim is deterministic, so
+  // this replays the round bit for bit) and the replay in progress
+  var rec = { frames: [], taps: [] }, lastEnd = null, rp = null;
+  var REPLAY_SECONDS = 30, REPLAY_MAX_SPEED = 120, REPLAY_HOLD_MS = 1200, REPLAY_WORK_MS = 8;
+  var HUNT_CHUNK_MS = 2500;
+  var WORKER_URL = 'src/gen/worker.js';
 
   var app = PL.app = {
-    mode: 'level', tier: 'easy', noLuck: false, streak: 0,
+    mode: 'level', tier: 'easy', difficulty: 1, noLuck: false, disabled: [], streak: 0, code: null,
     sim: null, level: null, scene: null, assets: null, attempt: 0, kindMap: null,
-    start: start, tap: tap, loop: frame,
-    playLevels: playLevels, startEndless: startEndless, pause: pause, resume: resume, restart: restart,
-    toTitle: toTitle, next: next, replay: replay, retry: retry, setSound: setSound, resize: resize
+    start: start, tap: tap, loop: frame, step: step,
+    playLevels: playLevels, startEndless: startEndless, playCode: playCode, startHunt: startHunt, huntPlay: huntPlay, huntStop: huntStop,
+    pause: pause, resume: resume, restart: restart,
+    toTitle: toTitle, next: next, replay: replay, retry: retry, setSound: setSound, setPlain: setPlain, setBelt: setBelt, resize: resize,
+    watchReplay: watchReplay, stopReplay: stopReplay, hasReplay: function () { return !!(lastEnd && rec.frames.length); }
   };
   // app.state is a plain string, except that the endless chooser card counts as MODES
   Object.defineProperty(app, 'state', {
@@ -39,6 +47,17 @@
   function save() { return PL.save || null; }
   function soundOn() { return save() ? save().get().sound !== false : true; }
   function low() { try { return !!(Arcade && Arcade.perf && Arcade.perf.low()); } catch (e) { return false; } }
+  function plainOn() { return save() ? save().get().plain === true : false; }
+  function beltStyle() { return plainOn() ? 'stream' : (save() ? save().get().belt : 'plates'); }   // plain graphics never show plates
+  function updateSlots() {
+    var sc = app.scene, stream;
+    if (!PL.screens || !app.sim) return;
+    stream = sc && typeof sc.stream === 'function' ? sc.stream() : beltStyle() === 'stream';   // the scene knows the effective style
+    if (!stream) { PL.screens.setSlots(null); return; }
+    PL.screens.setSlots(PL.sim.freePlates(app.sim), app.sim.state.N);
+  }
+  function difficultyOf(d) { d = Math.round(Number(d) || 1); return d < 1 ? 1 : d > 10 ? 10 : d; }
+  function diffSpec(d) { return PL.generator && PL.generator.DIFFICULTY ? PL.generator.DIFFICULTY[difficultyOf(d)] : { tier: 'easy', H: [0, 1], budgetMs: 3000 }; }
   function toast(msg) { try { if (Arcade && Arcade.toast) Arcade.toast(msg); } catch (e) { /* no kit */ } }
   function levelsTotal() { return PL.levels && PL.levels.length ? PL.levels.length : 100; }
   function missing() {
@@ -67,7 +86,7 @@
   }
 
   // ------------------------------------------------------------------ the loop
-  function needsFrames() { return !!(app.sim && app.scene && (st === 'PLAY' || st === 'WIN' || st === 'LOSE' || dirty)); }
+  function needsFrames() { return !!(app.sim && app.scene && (st === 'PLAY' || st === 'WIN' || st === 'LOSE' || st === 'REPLAY' || dirty)); }
   function ensureLoop() {
     if (running || !root.requestAnimationFrame) return;
     running = true; lastTs = 0;
@@ -78,11 +97,19 @@
     var dt = lastTs ? Math.min(100, ts - lastTs) : 16;
     if (dt < 0) dt = 0;
     lastTs = ts;
+    step(dt);
+    if (running) root.requestAnimationFrame(frame);
+  }
+  // step(dt): one frame of the game with that many ms (the browser tests fast-forward with it; it never schedules a frame)
+  function step(dt) {
+    if (failed || !app.sim || !app.scene) return;
     var playing = st === 'PLAY' || st === 'WIN' || st === 'LOSE';
     // a kit sheet (changelog, campaign, app hint) over a running level pauses the game; the belt must not tick behind a card
     if (st === 'PLAY' && !ending && root.Arcade && typeof Arcade.sheetOpen === 'function' && Arcade.sheetOpen()) { pause(); playing = false; }
     try {
+      if (st === 'REPLAY') { replayFrame(dt); dirty = false; return; }
       if (playing) {
+        if (st === 'PLAY' || ending) rec.frames.push(dt);
         var events = PL.sim.tick(app.sim, dt) || [];
         for (var i = 0; i < events.length; i++) handleEvent(events[i]);
         if (st === 'PLAY' && !ending && app.sim.status && app.sim.status !== 'play') beginEnding(app.sim.status === 'won' ? 'won' : 'lost');
@@ -92,12 +119,12 @@
         }
       }
       app.scene.render(app.sim, playing ? dt : 0);
+      if (playing) updateSlots();
     } catch (e) {
       failed = true;
       warnOnce('frame', 'the game loop stopped', e);
     }
     dirty = false;
-    if (running) root.requestAnimationFrame(frame);
   }
 
   function handleEvent(ev) {
@@ -105,11 +132,11 @@
     if (app.scene && typeof app.scene.flash === 'function') app.scene.flash(ev);
     audio(ev.type);
     if (ev.type === 'won') beginEnding('won');
-    else if (ev.type === 'lost') beginEnding('lost');
+    else if (ev.type === 'lost') { lostReason = ev.reason === 'hopeless' ? 'hopeless' : 'jam'; beginEnding('lost'); }
   }
   function audio(type) {
     var name = AUDIO_OF[type];
-    if (!name || !PL.audio || typeof PL.audio.play !== 'function' || !soundOn()) return;
+    if (!name || !PL.audio || typeof PL.audio.play !== 'function' || !soundOn() || st === 'REPLAY') return;
     try { PL.audio.play(name); } catch (e) { warnOnce('audio', 'audio.play failed', e); }
   }
   function beginEnding(kind) {
@@ -160,13 +187,16 @@
       return false;
     }
     app.level = level; app.sim = sim; app.scene = scene; app.attempt = attempt;
+    rec = { frames: [], taps: [] }; lastEnd = null; rp = null;
     app.kindMap = PL.model.permutation(level.id || level.seed || 0, attempt);   // endless levels have id 0: their seed varies the look instead
     if (typeof scene.kindMap === 'function') scene.kindMap(app.kindMap); else scene.kindMap = app.kindMap;
     if (typeof scene.noLuck === 'function') scene.noLuck(!!app.noLuck);
+    if (typeof scene.plain === 'function') scene.plain(plainOn());
+    if (typeof scene.beltStyle === 'function') scene.beltStyle(beltStyle());
     if (typeof scene.lowPerf === 'function') scene.lowPerf(low());
     viewW = 0; resize();                                   // the new scene gets the canvas size
     ending = null; failed = false;
-    if (PL.screens) PL.screens.setPill(app.mode === 'endless' ? { mode: 'endless', tier: app.tier, streak: app.streak } : { mode: 'level', level: level.id, tier: level.tier });
+    if (PL.screens) PL.screens.setPill(app.mode === 'endless' ? { mode: 'endless', difficulty: app.difficulty, tier: app.tier, streak: app.streak } : { mode: 'level', level: level.id, tier: level.tier });
     var pages = PL.screens ? PL.screens.unseen(level) : [];
     if (app.mode === 'endless') pages = pages.filter(function (p) { return p === 'basics'; });
     dirty = true;
@@ -183,57 +213,276 @@
     dirty = true; ensureLoop();
   }
 
-  // ------------------------------------------------------------------ endless
-  function startEndless(tier, noLuck) {
-    var gone = missing();
-    if (gone.length || !PL.generator) { warnOnce('modules', 'cannot play endless yet, missing: ' + gone.concat(PL.generator ? [] : ['PlateLoop.generator']).join(', ')); return; }
-    app.mode = 'endless'; app.tier = tier || 'easy'; app.noLuck = !!noLuck; app.streak = 0; roundNo = 0; runBest = false;
+  // ------------------------------------------------------------------ endless: the level search off the main thread
+  // search(msg, onProgress) -> Promise of the worker's reply (src/gen/worker.js). A Web Worker when the browser has one
+  // (the phone stays responsive while the generator hunts for a hard level); the same code inline otherwise.
+  function post(msg) { var w = getWorker(); if (w) { w.postMessage(msg); return true; } return false; }
+  // the addresses of the engine scripts and of the worker file, as the page loaded them (content-hashed names included)
+  function scriptUrls() {
+    var tags = doc.querySelectorAll('script[src]'), engine = [], workerUrl = null, i, src, abs;
+    for (i = 0; i < tags.length; i++) {
+      src = tags[i].getAttribute('src') || '';
+      try { abs = new root.URL(src, root.location.href).href; } catch (e) { abs = src; }
+      if (/src\/gen\/worker(\.[0-9a-f]+)?\.js$/.test(src)) workerUrl = abs;
+      else if (/src\/(config|engine\/[a-z]+|gen\/[a-z]+|levels\/layouts)(\.[0-9a-f]+)?\.js$/.test(src)) engine.push(abs);
+    }
+    return { engine: engine, worker: workerUrl || WORKER_URL };
+  }
+  function getWorker() {
+    if (worker || workerBroken || !root.Worker) return worker;
+    var urls = scriptUrls();
+    try {
+      worker = new root.Worker(urls.worker);
+      worker.onmessage = function (ev) {
+        var r = ev.data || {}, cb = pending[r.id];
+        if (!cb) return;
+        if (r.progress !== undefined) { if (cb.progress) cb.progress(r.progress, r.hard); return; }
+        delete pending[r.id];
+        cb.done(r);
+      };
+      worker.onerror = function (e) {
+        warnOnce('worker', 'the level worker failed, searching inline instead', e && e.message);
+        workerBroken = true;
+        try { worker.terminate(); } catch (err) { /* already gone */ }
+        worker = null;
+        for (var id in pending) if (pending.hasOwnProperty(id)) { var cb = pending[id]; delete pending[id]; runInline(cb.msg, cb); }
+      };
+      worker.postMessage({ id: 0, cmd: 'init', scripts: urls.engine });
+    } catch (e) { warnOnce('worker', 'no level worker', e); workerBroken = true; worker = null; }
+    return worker;
+  }
+  function runInline(msg, cb) {
+    root.setTimeout(function () {
+      if (!PL.search) { cb.done({ ok: false, error: 'no search module' }); return; }
+      PL.search.run(msg, function (r) {
+        if (r.progress !== undefined) { if (cb.progress) cb.progress(r.progress, r.hard); return; }
+        cb.done(r);
+      });
+    }, 30);
+  }
+  function search(msg, onProgress) {
+    return new Promise(function (resolve) {
+      msg.id = ++msgId;
+      var cb = { msg: msg, progress: onProgress, done: resolve };
+      pending[msg.id] = cb;
+      if (!post(msg)) { delete pending[msg.id]; runInline(msg, cb); }
+    });
+  }
+
+  // setRun(difficulty, disabled): the settings of an endless run. `disabled` is the list of mechanics switched off (or
+  // a "no luck" boolean); difficulties that force "no luck" add hidden to it.
+  function setRun(difficulty, disabled) {
+    var g = PL.generator, list = g && g.disabledOf ? g.disabledOf(disabled) : [];
+    app.mode = 'endless'; app.difficulty = difficultyOf(difficulty); app.tier = diffSpec(app.difficulty).tier;
+    if (diffSpec(app.difficulty).noLuck && list.indexOf('hidden') < 0) list.push('hidden');
+    app.disabled = g && g.disabledOf ? g.disabledOf(list) : list;
+    app.noLuck = app.disabled.indexOf('hidden') >= 0;
+    app.streak = 0; app.code = null; roundNo = 0; runBest = false;
     runSeed = Math.floor(Math.random() * 1000000) * 31 + 7;
+  }
+  function ready() {
+    var gone = missing();
+    if (gone.length || !PL.generator) { warnOnce('modules', 'cannot play endless yet, missing: ' + gone.concat(PL.generator ? [] : ['PlateLoop.generator']).join(', ')); return false; }
+    return true;
+  }
+  function startEndless(difficulty, disabled) {
+    if (!ready()) return;
+    huntStop();
+    setRun(difficulty, disabled);
     nextRound(true);
   }
-  function generateLevel() {
-    var allow = app.noLuck ? ALL_MECHS.filter(function (m) { return m !== 'hidden'; }) : ALL_MECHS.slice();
-    var base = (runSeed + app.streak * 7919) >>> 0;
-    for (var i = 0; i < 12; i++) {
-      try {
-        var out = PL.generator.generate({ tier: app.tier, seed: (base + i * 104729) >>> 0, allow: allow });
-        if (out && out.level) { var lv = out.level; if (lv.id === undefined || lv.id === null) lv.id = (base + i * 104729) >>> 0; return lv; }
-      } catch (e) { warnOnce('gen', 'generator failed', e); }
-    }
-    return null;
+
+  // ------------------------------------------------------------------ the hunt: search without end, keep the hardest
+  // startHunt(difficulty, disabled): chunks of HUNT_CHUNK_MS in the worker, each returning its hardest candidate; the
+  // main thread keeps the overall best and reports { candidates, best, bestAt, ready } to the chooser after every
+  // candidate. huntPlay() starts the best level (after the running chunk returns, it may hold a better one),
+  // huntStop() drops everything.
+  function huntChunk() {
+    var h = hunt, spec, seed;
+    if (!h || h.stopped) return;
+    spec = diffSpec(h.difficulty);
+    seed = (runSeed + h.chunk * 7919) >>> 0;
+    h.chunk++;
+    h.running = true;
+    search({ cmd: 'search', tier: spec.tier, seed: seed, allow: PL.generator.allowOf(h.disabled), hardness: [0, 9], hardest: true,
+      candidates: 100000, budgetMs: HUNT_CHUNK_MS }, function (n, hh) {
+      if (h.stopped || h.token !== searchToken) return;
+      h.candidates++;
+      if (hh > h.bestH) { h.bestH = hh; h.bestAt = Date.now(); }
+      huntReport();
+    }).then(function (r) {
+      h.running = false;
+      if (h.stopped || h.token !== searchToken) return;
+      if (r.ok && r.level && (!h.best || r.hard > h.best.hard)) h.best = { level: r.level, hard: r.hard, seed: r.level.seed };
+      huntReport();
+      if (h.wantPlay) { huntStart(); return; }
+      huntChunk();
+    });
+  }
+  function huntReport() {
+    var h = hunt;
+    if (!h || !PL.screens || typeof PL.screens.huntStatus !== 'function') return;
+    PL.screens.huntStatus({ candidates: h.candidates, best: h.bestH, bestAt: h.bestAt, since: h.start, ready: !!h.best });
+  }
+  function huntStart() {
+    var h = hunt, lv;
+    if (!h || !h.best) return;
+    lv = h.best.level;
+    hunt = null;
+    if (PL.screens && typeof PL.screens.huntStatus === 'function') PL.screens.huntStatus(null);
+    if (lv.id === undefined || lv.id === null || lv.id === 0) lv.id = lv.seed >>> 0;
+    app.code = PL.generator.encodeCode(app.difficulty, app.disabled, lv.seed);
+    startRound(lv);
+  }
+  function startHunt(difficulty, disabled) {
+    if (!ready()) return false;
+    huntStop();
+    setRun(difficulty, disabled);
+    hunt = { token: ++searchToken, difficulty: app.difficulty, disabled: app.disabled, chunk: 0, candidates: 0, bestH: -1, bestAt: 0, best: null, start: Date.now(), stopped: false, wantPlay: false, running: false };
+    huntReport();
+    huntChunk();
+    return true;
+  }
+  function huntPlay() {
+    var h = hunt;
+    if (!h) return false;
+    if (h.running) { h.wantPlay = true; return true; }     // the running chunk may hold the best: start when it returns
+    huntStart();
+    return true;
+  }
+  function huntStop() {
+    if (!hunt) return;
+    hunt.stopped = true; searchToken++; hunt = null;
+    if (PL.screens && typeof PL.screens.huntStatus === 'function') PL.screens.huntStatus(null);
+  }
+  /** playCode(code): starts an endless run with the level behind a shared code; false when the code is not one. */
+  function playCode(code) {
+    var d = PL.generator && PL.generator.decodeCode ? PL.generator.decodeCode(code) : null;
+    if (!d || !ready()) return false;
+    huntStop();
+    setRun(d.difficulty, d.disabled);
+    var token = ++searchToken, btn = doc.getElementById('modes-code-go');
+    if (btn) { btn.disabled = true; btn.textContent = t('preparing'); }
+    search({ cmd: 'replay', code: PL.generator.encodeCode(d.difficulty, app.disabled, d.seed) }).then(function (r) {
+      if (btn) { btn.disabled = false; btn.textContent = t('code_go'); }
+      if (token !== searchToken) return;
+      if (!r.ok || !r.level) { toast(t('code_bad')); return; }
+      app.code = r.code;
+      if (!r.level.id) r.level.id = r.level.seed >>> 0;
+      startRound(r.level);
+    });
+    return true;
   }
   function nextRound(fromChooser) {
-    var btn = doc.getElementById(fromChooser ? 'modes-start' : 'win-next');
-    if (btn) { btn.disabled = true; btn.textContent = t('preparing'); }
-    root.setTimeout(function () {
-      var level = generateLevel();
+    var btn = doc.getElementById(fromChooser ? 'modes-start' : 'win-next'), d = app.difficulty, spec = diffSpec(d), token = ++searchToken;
+    var base = (runSeed + app.streak * 7919) >>> 0, best = -1;
+    if (btn) { btn.disabled = true; btn.textContent = t('searching', { n: 0 }); }
+    search({ cmd: 'search', tier: spec.tier, seed: base, allow: PL.generator.allowOf(app.disabled), hardness: spec.H, hardest: !!spec.hardest,
+      candidates: 150, budgetMs: low() ? Math.round(spec.budgetMs * 0.6) : spec.budgetMs }, function (n, h) {
+      if (token !== searchToken || !btn) return;
+      if (h > best) best = h;
+      btn.textContent = d >= 7 ? t('searching_best', { n: n, h: best.toFixed(1) }) : t('searching', { n: n });
+    }).then(function (r) {
       if (btn) { btn.disabled = false; btn.textContent = t(fromChooser ? 'start' : 'next_round'); }
-      if (!level) { toast(t('preparing')); warnOnce('gen0', 'no level could be generated for ' + app.tier); return; }
-      startRound(level);
-    }, 40);
+      if (token !== searchToken) return;                       // the player left the chooser or started something else
+      if (!r.ok || !r.level) { toast(t('preparing')); warnOnce('gen0', 'no level could be generated for difficulty ' + d + ': ' + r.error); return; }
+      var lv = r.level;
+      if (lv.id === undefined || lv.id === null || lv.id === 0) lv.id = lv.seed >>> 0;
+      app.code = PL.generator.encodeCode(d, app.disabled, lv.seed);
+      startRound(lv);
+    });
   }
 
   // ------------------------------------------------------------------ state changes
   function finish(kind) {
     var level = app.level, s = save();
+    lastEnd = { kind: kind };
     if (kind === 'won') {
       st = 'WIN';
       if (app.mode === 'endless') {
         app.streak++;
-        if (s && s.bestStreak(app.tier, app.streak)) runBest = true;
-        PL.screens.setPill({ mode: 'endless', tier: app.tier, streak: app.streak });
-        PL.screens.show('win', { mode: 'endless', tier: app.tier, streak: app.streak });
+        if (s && s.bestStreak(app.difficulty, app.streak)) runBest = true;
+        PL.screens.setPill({ mode: 'endless', difficulty: app.difficulty, tier: app.tier, streak: app.streak });
+        lastEnd.data = { mode: 'endless', difficulty: app.difficulty, tier: app.tier, streak: app.streak, code: app.code, hard: level.hard };
       } else {
         if (s) s.cleared(level.id);
-        PL.screens.show('win', { mode: 'level', level: level.id });
+        lastEnd.data = { mode: 'level', level: level.id, hard: level.hard };
       }
+      PL.screens.show('win', lastEnd.data);
     } else {
       st = 'LOSE';
-      if (app.mode === 'endless') PL.screens.show('lose', { mode: 'endless', tier: app.tier, streak: app.streak, newBest: runBest });
-      else PL.screens.show('lose', { mode: 'level', level: level.id });
+      lastEnd.data = app.mode === 'endless'
+        ? { mode: 'endless', difficulty: app.difficulty, tier: app.tier, streak: app.streak, newBest: runBest, reason: lostReason, code: app.code, hard: level.hard }
+        : { mode: 'level', level: level.id, reason: lostReason, hard: level.hard };
+      PL.screens.show('lose', lastEnd.data);
     }
   }
+
+  // ------------------------------------------------------------------ replays
+  // watchReplay(): the round just played, again, sped up so that it fits into REPLAY_SECONDS: a fresh sim of the same
+  // level and kind permutation, the recorded taps applied before the recorded frames, `speed` recorded frames per real
+  // frame. The end card comes back when the recording is over (or on the pause button).
+  function watchReplay() {
+    if (!lastEnd || !rec.frames.length || !app.level || (st !== 'WIN' && st !== 'LOSE')) return false;
+    var layout = PL.layouts[app.level.layout], sim, scene, total = 0, i;
+    try {
+      sim = PL.sim.create(app.level, { perimeter: layout.perimeter, lapMs: PL.config && PL.config.LAP_MS ? PL.config.LAP_MS : 8000, layout: layout });
+      scene = PL.scene.create(canvas, layout);
+    } catch (e) { warnOnce('replay', 'could not set up the replay', e); return false; }
+    for (i = 0; i < rec.frames.length; i++) total += rec.frames[i];
+    app.sim = sim; app.scene = scene;
+    if (typeof scene.kindMap === 'function') scene.kindMap(app.kindMap);
+    if (typeof scene.noLuck === 'function') scene.noLuck(!!app.noLuck);
+    if (typeof scene.plain === 'function') scene.plain(plainOn());
+    if (typeof scene.beltStyle === 'function') scene.beltStyle(beltStyle());
+    if (typeof scene.lowPerf === 'function') scene.lowPerf(low());
+    viewW = 0; resize();
+    rp = { i: 0, tap: 0, speed: Math.max(1, Math.min(REPLAY_MAX_SPEED, Math.ceil(total / (REPLAY_SECONDS * 1000)))), budget: 0, hold: 0 };
+    st = 'REPLAY';
+    if (PL.screens) PL.screens.show('replay', { speed: rp.speed });
+    lastTs = 0; dirty = true; ensureLoop();
+    return true;
+  }
+  // One real frame of the replay: `speed` recorded frames of engine time, ONE render. The engine steps are cheap (a
+  // belt advance and a few crossings), the render is not, so a fast replay costs no more frames per second than play;
+  // the pieces simply jump further between renders. REPLAY_WORK_MS caps the engine work per frame so a weak phone
+  // keeps its frame rate (the replay then takes a little longer than 30 s instead of stuttering).
+  function replayFrame(dt) {
+    var r = rp, before, events, i, res, t0 = (root.performance && root.performance.now) ? root.performance.now() : 0, steps = 0;
+    if (!r || !app.sim) return;
+    before = app.sim.time;
+    r.budget += dt * r.speed;
+    while (r.budget > 0 && r.i < rec.frames.length) {
+      if (t0 && (++steps & 7) === 0 && root.performance.now() - t0 > REPLAY_WORK_MS) { r.budget = 0; break; }
+      while (r.tap < rec.taps.length && rec.taps[r.tap].i === r.i) {
+        res = PL.sim.tap(app.sim, rec.taps[r.tap].box);
+        if (res && res.ok && app.scene) for (i = 0; i < res.events.length; i++) app.scene.flash(res.events[i]);
+        r.tap++;
+      }
+      events = PL.sim.tick(app.sim, rec.frames[r.i]) || [];
+      for (i = 0; i < events.length; i++) if (app.scene) app.scene.flash(events[i]);
+      r.budget -= rec.frames[r.i];
+      r.i++;
+    }
+    app.scene.render(app.sim, Math.max(dt, app.sim.time - before));
+    updateSlots();
+    if (r.i >= rec.frames.length) {
+      r.hold += dt;
+      if (r.hold >= REPLAY_HOLD_MS) stopReplay();
+    }
+  }
+  function stopReplay() {
+    if (st !== 'REPLAY' || !lastEnd) return;
+    rp = null;
+    st = lastEnd.kind === 'won' ? 'WIN' : 'LOSE';
+    if (PL.screens) {
+      PL.screens.setPill(app.mode === 'endless' ? { mode: 'endless', difficulty: app.difficulty, tier: app.tier, streak: app.streak } : { mode: 'level', level: app.level.id, tier: app.level.tier });
+      PL.screens.show(lastEnd.kind === 'won' ? 'win' : 'lose', lastEnd.data);
+    }
+    dirty = true; ensureLoop();
+  }
   function pause() {
+    if (st === 'REPLAY') { stopReplay(); return; }
     if (st !== 'PLAY' || ending) return;
     st = 'PAUSE';
     PL.screens.show('pause');
@@ -249,7 +498,8 @@
     startRound(app.level);
   }
   function toTitle() {
-    st = 'TITLE'; ending = null;
+    st = 'TITLE'; ending = null; searchToken++; huntStop();
+    if (PL.screens) PL.screens.setSlots(null);
     app.sim = null; app.scene = null; app.level = null;
     if (PL.screens) PL.screens.show('title');
   }
@@ -261,8 +511,20 @@
   }
   function replay() { if (app.level) startRound(app.level); }
   function retry() {
-    if (app.mode === 'endless') { startEndless(app.tier, app.noLuck); return; }
+    if (app.mode === 'endless') { startEndless(app.difficulty, app.disabled); return; }
     replay();
+  }
+  /** setPlain(on): plain graphics (flat coloured cubes, simple boxes) on or off; the scene redraws at once. */
+  function setPlain(on) {
+    var sc = app.scene;
+    if (sc && typeof sc.plain === 'function') { try { sc.plain(!!on); dirty = true; ensureLoop(); } catch (e) { warnOnce('scene.plain', 'scene.plain failed', e); } }
+    updateSlots();
+  }
+  /** setBelt(style): 'plates' or 'stream'; the scene redraws at once and the slot counter shows for the stream. */
+  function setBelt(style) {
+    var sc = app.scene;
+    if (sc && typeof sc.beltStyle === 'function') { try { sc.beltStyle(style); dirty = true; ensureLoop(); } catch (e) { warnOnce('scene.belt', 'scene.beltStyle failed', e); } }
+    updateSlots();
   }
   function setSound(on) {
     var a = PL.audio;
@@ -280,6 +542,7 @@
       if (app.scene && typeof app.scene.flash === 'function') app.scene.flash(ev);
       if (r.reason === 'full' || r.reason === 'pair' || r.reason === 'pending') audio('refuse');
     } else if (r && r.ok) {
+      rec.taps.push({ i: rec.frames.length, box: i });
       // the pieces leave the box at once onto teleported plates; the scene animates the trapdoors on the eject events
       if (app.scene && typeof app.scene.flash === 'function') {
         var evs = r.events && r.events.length ? r.events : [{ type: 'tapped', box: i, k: r.k }];   // tapped (with the departure plan), reveal, unlock
@@ -303,13 +566,25 @@
     }
     root.setTimeout(end, 2500);
   }
+  function codeInAddress() {
+    try {
+      var m = /[?&#]code=([^&#]+)/.exec(root.location.search + root.location.hash);
+      return m ? decodeURIComponent(m[1]) : null;
+    } catch (e) { return null; }
+  }
   function titleReady() {
     if (st !== 'LOADING') return;
-    var a = app.assets;
+    var a = app.assets, code;
     if (!a || !Array.isArray(a.failed)) { a = app.assets = a || {}; if (!Array.isArray(a.failed)) a.failed = []; }
     st = 'TITLE';
     PL.screens.show('title');
     try { if (Arcade) Arcade.ready(); } catch (e) { /* no kit */ }
+    try { if (save() && save().migrated()) warnOnce('migrated', 'save from the first beta: level number kept, levels rebuilt'); } catch (e) { /* storage */ }
+    code = codeInAddress();
+    if (code && PL.generator && PL.generator.decodeCode(code)) {
+      try { if (root.history && root.history.replaceState) root.history.replaceState(null, '', root.location.pathname); } catch (e) { /* file:// */ }
+      if (!playCode(code)) toast(t('code_bad'));
+    }
   }
   function boot() {
     if (!doc) return;
@@ -364,7 +639,7 @@
     root.addEventListener('pagehide', pause);
     doc.addEventListener('keydown', function (ev) {
       if (ev.key !== 'Escape' && ev.key !== 'Esc') return;
-      if (st === 'PLAY') { pause(); ev.preventDefault(); }
+      if (st === 'PLAY' || st === 'REPLAY') { pause(); ev.preventDefault(); }
       else if (st === 'PAUSE' && PL.screens.current() === 'pause') { resume(); ev.preventDefault(); }
       else if (PL.screens && PL.screens.back()) ev.preventDefault();
     });

@@ -315,19 +315,23 @@ test('(b) completeness: two shutters, the key of B lies in a box that A covers (
   assert.equal(bot.certify(level, res.moves, { layout: layouts['ring-2col'] }).won, true);
 });
 
-test('(b) completeness: a piece that unlocks a matching box on the way must land in it (and may trap a key): unsolvable here', function () {
+test('(b) completeness: a piece that unlocks a matching box on the way lands in it and closes it over key B: the lid releases the key (R12b)', function () {
   // R1 is the only tappable box; its 1 passes R2 first, which was uncovered the instant the piece left, and closes it with
-  // key B still inside. The real belt and the abstract model agree that this level is lost.
+  // key B inside. Since 2026-11-06 a closing lid releases every key inside (a key can never be buried), so the level is
+  // winnable, and the real belt and the abstract model agree on it.
   var level = H.level({
     N: 6, boxes: {
       R1: ['k:A:0', 1], R2: { pieces: ['k:B:1', 1, 1], mods: { lock: 'A' } }, R3: { pieces: [0, 0, 0], mods: { lock: 'B' } }, R4: []
     }
   });
-  assert.equal(solver.solve(level, { layout: layouts['ring-2col'] }).solvable, false);
+  var res = solver.solve(level, { layout: layouts['ring-2col'] });
+  assert.equal(res.solvable, true);
+  assert.equal(bot.certify(level, res.moves, { layout: layouts['ring-2col'] }).won, true);
   var s = H.sim({ N: 6, boxes: { R1: ['k:A:0', 1], R2: { pieces: ['k:B:1', 1, 1], mods: { lock: 'A' } }, R3: { pieces: [0, 0, 0], mods: { lock: 'B' } }, R4: [] } });
-  H.tapAndSettle(s, 0);
+  var ev = H.tapAndSettle(s, 0);
   assert.equal(s.state.boxes[1].closed, true);
-  assert.equal(s.state.boxes[2].lock, 'B', 'key B is trapped in the closed box');
+  assert.equal(s.state.boxes[2].lock, null, 'key B comes out with the lid');
+  assert.ok(ev.some(function (e) { return e.type === 'unlock' && e.lock === 'B'; }));
 });
 
 test('(b) completeness: wrapped and frozen boxes open when they should', function () {

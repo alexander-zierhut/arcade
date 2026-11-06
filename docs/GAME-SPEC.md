@@ -179,8 +179,9 @@ Nothing to build in the game: `shared/hooks.js` lists the campaigns (a card ever
 after M minutes of play), the kit shows them on quiet screens; the play statistics (sessions and play time per
 game, this device only, nothing sent anywhere) collect from `Arcade.screen`: time counts while the screen is
 `play` and the tab is visible, so report `play` only while the player is actually playing (not on the title, in
-menus, on the pause or end cards). The selector's profile shows the play time per game; the statistics travel
-with the backup.
+menus, on the pause or end cards). The kit stores the time on every screen change and every 10 s while playing, so
+a tab the phone kills loses seconds, not the session. The selector's profile shows the play time per game; the
+statistics travel with the backup (the export flushes the running session first).
 
 ## 14. Backup
 
