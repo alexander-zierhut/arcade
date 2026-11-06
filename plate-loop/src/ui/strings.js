@@ -16,6 +16,7 @@
     modes_title: 'Endlos', modes_sub: 'Wähle die Stufe. Deine Serie endet, wenn das Band klemmt.',
     best: 'Bestwert {n}', noluck: 'Kein Glück', noluck_hint: 'Alles ist sichtbar, nichts bleibt versteckt.',
     noluck_forced: 'Auf dieser Stufe immer an: hier entscheidet nichts Verstecktes.',
+    noluck_choice: 'Stufe 10 ist ohne Glück gebaut. Verdeckte Stücke kannst du dazuschalten.',
     diff_label: 'Stufe {n} · {tier}', diff_aria: 'Stufe {n}, {tier}',
     diff_hint_1: 'Zum Warmwerden.', diff_hint_2: 'Ein paar Fallen.', diff_hint_3: 'Planen hilft.', diff_hint_4: 'Jede Box zählt.',
     diff_hint_5: 'Wer wild tippt, verliert.', diff_hint_6: 'Reihenfolge ist alles.', diff_hint_7: 'Ein Fehler reicht.',
@@ -26,7 +27,7 @@
     advanced: 'Erweitert', mechs_label: 'Mechaniken', mech_hidden: 'Verdeckt', mech_pair: 'Paare', mech_wrap: 'Tücher', mech_ice: 'Eis', mech_lock: 'Schlösser', mech_oneway: 'Einbahn',
     look_label: 'Vorausschau der Suche', look_auto: 'Auto', look_hint: 'Wie viele Züge der gemessene Spieler vorausdenkt. Mehr Züge: nur Fallen zählen, die erst spät aufgehen.',
     hunt: 'Jagd: das Schwerste suchen', hunt_hint: 'Sucht ohne Ende auf dieser Stufe und behält das schwerste Level. Je länger, desto härter.',
-    hunt_status: 'Kandidaten {n} · beste Härte {h} · neuer Bestwert vor {s} s', hunt_none: 'Suche läuft … {n} Kandidaten', hunt_play: 'Beste spielen', hunt_stop: 'Abbrechen',
+    hunt_status: 'Kandidaten {n} · beste Härte {h} · neuer Bestwert vor {s} s', hunt_bot: 'Bot gewinnt {b} %', hunt_none: 'Suche läuft … {n} Kandidaten', hunt_play: 'Beste spielen', hunt_stop: 'Abbrechen',
     watch: 'Replay ansehen', replay_pill: 'Replay {x}×', replay_aria: 'Replay mit {x}-facher Geschwindigkeit, Pause beendet es',
     favs: 'Favoriten', favs_title: 'Favoriten', favs_empty: 'Noch keine Favoriten. Markiere ein Level mit dem Stern auf der Pause- oder Endkarte, dann findest du es hier wieder.',
     fav_add: 'Als Favorit merken', fav_added: 'Favorit', fav_play: 'Spielen', fav_remove: 'Entfernen', fav_remove_aria: 'Favorit {name} entfernen', fav_level: 'Level {n}', fav_code: 'Stufe {d} · {code}', fav_hard: 'Härte {h}',
@@ -63,6 +64,7 @@
     modes_title: 'Endless', modes_sub: 'Pick a difficulty. Your streak ends when the belt jams.',
     best: 'Best {n}', noluck: 'No luck', noluck_hint: 'Everything is visible, nothing stays hidden.',
     noluck_forced: 'Always on at this difficulty: nothing hidden decides here.',
+    noluck_choice: 'Difficulty 10 is built without luck. Hidden pieces are yours to add.',
     diff_label: 'Difficulty {n} · {tier}', diff_aria: 'Difficulty {n}, {tier}',
     diff_hint_1: 'A warm-up.', diff_hint_2: 'A few traps.', diff_hint_3: 'Planning helps.', diff_hint_4: 'Every box counts.',
     diff_hint_5: 'Wild tapping loses.', diff_hint_6: 'Order is everything.', diff_hint_7: 'One mistake is enough.',
@@ -73,7 +75,7 @@
     advanced: 'Advanced', mechs_label: 'Mechanics', mech_hidden: 'Hidden', mech_pair: 'Pairs', mech_wrap: 'Cloths', mech_ice: 'Ice', mech_lock: 'Locks', mech_oneway: 'One-way',
     look_label: 'Lookahead of the search', look_auto: 'Auto', look_hint: 'How many moves the measuring player thinks ahead. More moves: only traps that spring late count.',
     hunt: 'Hunt the hardest', hunt_hint: 'Searches without end at this difficulty and keeps the hardest level. The longer, the harder.',
-    hunt_status: 'Candidates {n} · best hardness {h} · new best {s} s ago', hunt_none: 'Searching … {n} candidates', hunt_play: 'Play the best', hunt_stop: 'Stop',
+    hunt_status: 'Candidates {n} · best hardness {h} · new best {s} s ago', hunt_bot: 'bot wins {b} %', hunt_none: 'Searching … {n} candidates', hunt_play: 'Play the best', hunt_stop: 'Stop',
     watch: 'Watch replay', replay_pill: 'Replay {x}×', replay_aria: 'Replay at {x} times the speed, pause ends it',
     favs: 'Favourites', favs_title: 'Favourites', favs_empty: 'No favourites yet. Mark a level with the star on the pause or end card and you will find it here.',
     fav_add: 'Add to favourites', fav_added: 'Favourite', fav_play: 'Play', fav_remove: 'Remove', fav_remove_aria: 'Remove favourite {name}', fav_level: 'Level {n}', fav_code: 'Difficulty {d} · {code}', fav_hard: 'Hardness {h}',
@@ -116,7 +118,7 @@
     var doc = root.document;
     if (!doc) return;
     var scope = rootEl || doc;
-    var v = (PL.config && PL.config.VERSION) || '0.2.1';
+    var v = (PL.config && PL.config.VERSION) || '0.2.2';
     var nodes = scope.querySelectorAll('[data-i18n],[data-i18n-aria],[data-i18n-title]');
     for (var i = 0; i < nodes.length; i++) {
       var n = nodes[i], k = n.getAttribute('data-i18n');

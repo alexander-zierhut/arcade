@@ -42,10 +42,12 @@ test('codes: the golden codes replay to the very same levels (fingerprint, plate
 
 test('codes: format 1 (letter L), difficulty 1-10, flags for the mechanics switched off, seed in the 32-symbol alphabet', () => {
   assert.equal(gen.CODE_VERSION, 1);
-  assert.deepEqual(gen.decodeCode('L7nk-C1S'), { version: 1, difficulty: 7, disabled: ['hidden', 'lock'], noLuck: true, seed: 12345 });
+  assert.deepEqual(gen.decodeCode('L7nk-C1S'), { version: 1, difficulty: 7, disabled: ['hidden', 'lock'], noLuck: true, tight: false, seed: 12345 });
+  assert.deepEqual(gen.decodeCode('L10nt-C1S'), { version: 1, difficulty: 10, disabled: ['hidden'], noLuck: true, tight: true, seed: 12345 }, 'the t flag: a tight deal');
+  assert.equal(gen.encodeCode(10, ['hidden'], 12345, true), 'L10nt-C1S', 'the t flag comes after the mechanics');
   assert.equal(gen.encodeCode(7, ['lock', 'hidden'], 12345), 'L7nk-C1S', 'flags in the canonical order');
   assert.equal(gen.encodeCode(10, true, 7), 'L10n-7', 'a boolean means no luck');
-  assert.deepEqual(gen.decodeCode(' l3 - 33 '), { version: 1, difficulty: 3, disabled: [], noLuck: false, seed: 99 }, 'case and spaces do not matter');
+  assert.deepEqual(gen.decodeCode(' l3 - 33 '), { version: 1, difficulty: 3, disabled: [], noLuck: false, tight: false, seed: 99 }, 'case and spaces do not matter');
   assert.deepEqual(gen.decodeCode('L3-O1I'), gen.decodeCode('L3-011'), 'O, I and L read as 0, 1, 1 in the seed');
   assert.equal(gen.decodeCode('L7npwiko-1').disabled.length, 6, 'every mechanic can be off');
   for (const bad of ['L11-1', 'L0-1', 'M7-1', 'L7x-1', 'L7-', '', null, 'L7-3ZZZZZZZ', 'L7-ABCDEFGH']) assert.equal(gen.decodeCode(bad), null, JSON.stringify(bad) + ' is refused');
@@ -55,15 +57,14 @@ test('codes: format 1 (letter L), difficulty 1-10, flags for the mechanics switc
   }
 });
 
-test('codes: difficulties 9 and 10 force hidden pieces off, whatever the code says', () => {
-  for (const d of [9, 10]) {
-    const spec = gen.DIFFICULTY[d], g = gen.generate({ tier: spec.tier, seed: 4242 + d, allow: gen.allowOf(['hidden']), candidates: 3, hardness: [0, 9], look: spec.look || 0 });
-    assert.ok(g && g.level, 'a level for difficulty ' + d);
-    const r = gen.replay(gen.encodeCode(d, [], g.level.seed));        // the code claims every mechanic, including hidden pieces
-    assert.ok(r && r.level, 'difficulty ' + d + ' replays');
-    assert.ok(r.code.indexOf('n') > 0 && r.disabled.indexOf('hidden') >= 0, 'difficulty ' + d + ' re-encodes with the n flag');
-    assert.equal(JSON.stringify(r.level).indexOf('"h:'), -1, 'nothing hidden at ' + d);
-  }
+test('codes: difficulty 9 forces hidden pieces off, whatever the code says; 10 leaves luck to the code', () => {
+  const spec = gen.DIFFICULTY[9], g = gen.generate({ tier: spec.tier, seed: 4251, allow: gen.allowOf(['hidden']), candidates: 3, hardness: [0, 9], look: spec.look || 0 });
+  assert.ok(g && g.level, 'a level for difficulty 9');
+  const r = gen.replay(gen.encodeCode(9, [], g.level.seed));        // the code claims every mechanic, including hidden pieces
+  assert.ok(r && r.level, 'difficulty 9 replays');
+  assert.ok(r.code.indexOf('n') > 0 && r.disabled.indexOf('hidden') >= 0, 'difficulty 9 re-encodes with the n flag');
+  assert.equal(JSON.stringify(r.level).indexOf('"h:'), -1, 'nothing hidden at 9');
+  assert.ok(gen.DIFFICULTY[10].noLuck && gen.DIFFICULTY[10].luckAllowed, 'difficulty 10: no luck by default, luck as the player\'s choice (Alex 2026-11-06)');
 });
 
 test('codes: allowOf and disabledOf agree and keep the canonical order', () => {

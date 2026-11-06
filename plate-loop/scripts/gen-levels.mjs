@@ -24,6 +24,7 @@ const layouts = require(src('levels/layouts.js'));
 const solver = require(src('gen/solver.js'));
 const bot = require(src('gen/bot.js'));
 const gen = require(src('gen/generator.js'));
+const simsolver = require(src('gen/simsolver.js'));
 const rng = require(src('gen/rng.js'));
 const seeds = require(src('levels/seeds.js'));
 
@@ -86,7 +87,7 @@ function build(e) {
   const t = target(e.id);
   let g;
   try {
-    g = gen.generate({ tier: t.tier, seed: e.seed, allow: allowOf(e), layout: e.layout, id: e.id, hardness: t.hard, look: t.look, candidates: t.candidates, hardest: t.hardest });
+    g = gen.generate({ tier: t.tier, seed: e.seed, allow: allowOf(e), layout: e.layout, id: e.id, hardness: t.hard, look: t.look, candidates: t.candidates, hardest: t.hardest, verify: t.verify || null, buffer: t.buffer || null, tight: !!t.tight });
   } catch (err) { return null; }   // e.g. 13 boxes on a 12-slot layout
   return g || null;
 }
@@ -104,7 +105,8 @@ function problem(e, g) {
   if (typeof level.hard !== 'number' || level.hard < 0 || !Array.isArray(level.h)) return 'no hardness';
   const hv = level.h[LOOK_INDEX[t.look] || 0];
   if (hv < t.hard[0] - BELOW) return 'too easy: H' + t.look + ' ' + hv + ' for ' + t.hard.join('-');
-  if (!t.hardest && hv > t.hard[1] + BELOW) return 'too hard: H' + t.look + ' ' + hv + ' for ' + t.hard.join('-');
+  if (!t.hardest && !level.buffer && hv > t.hard[1] + BELOW) return 'too hard: H' + t.look + ' ' + hv + ' for ' + t.hard.join('-');
+  if (t.verify && typeof level.bot === 'number' && level.bot > (t.verify.maxRate === undefined ? 0.25 : t.verify.maxRate) + 0.25) return 'too easy for the bot: wins ' + level.bot.toFixed(2) + ' for ' + t.verify.maxRate;
   const mechs = mechsOf(level);
   for (const k of mechs) if (allowOf(e).indexOf(k) < 0 || INTRO[k] > e.id) return k + ' not introduced yet';
   if (t.noHidden && mechs.indexOf('hidden') >= 0) return 'hidden piece at the top';
@@ -120,6 +122,14 @@ function problem(e, g) {
     const frozen = level.boxes.filter((b) => b.mods && b.mods.ice).length;
     if (frozen !== 1) return 'ice lesson with ' + frozen + ' frozen boxes';
   }
+  if (level.buffer) {                                      // a buffer level: guided play on the real belt is its certificate
+    if (t.buffer !== 'require' && t.buffer !== 'prefer') return 'a buffer level where the curve wants a strict one';
+    const gp = simsolver.playGuided(level, { layout });
+    if (!gp.won || !simsolver.certifyPlan(level, gp.plan, { layout }).won) return 'buffer certify failed: ' + gp.reason;
+    return null;
+  }
+  if (t.buffer === 'require') return 'a strict level where the curve wants a buffer level';
+  if (t.verify && t.verify.planner && typeof level.planner === 'number' && level.planner > (t.verify.planner.maxRate === undefined ? 0.25 : t.verify.planner.maxRate)) return 'the limited planner wins it (' + level.planner + ')';
   const c = bot.certify(level, g.solution, { layout });
   if (!c.won) return 'certify: ' + c.reason;
   return null;
@@ -216,9 +226,9 @@ function main() {
       if (tried > 1) { bumped.push(e.id); console.log('seed of level ' + e.id + ' bumped ' + e.seed + ' -> ' + (e.seed + tried - 1)); e.seed += tried - 1; }
       e.tier = g.level.tier;
       levels.push(g.level);
-      rows.push([e.id, g.level.tier, g.level.layout, g.level.N, g.level.kinds, g.level.boxes.length, g.metrics.moves, g.level.h.map((x) => x.toFixed(1)).join('/'), 'k' + t.look + ' ' + t.hard.join('-') + (t.hardest ? '*' : ''),
+      rows.push([e.id, g.level.tier + (g.level.buffer ? '+buf' : ''), g.level.layout, g.level.N, g.level.kinds, g.level.boxes.length, g.metrics.moves, g.level.h.map((x) => x.toFixed(1)).join('/'), 'k' + t.look + ' ' + t.hard.join('-') + (t.hardest ? '*' : ''),
         mechsOf(g.level).join('+') || '-', (g.candidates || g.attempts || 1) + (tried > 1 ? '+' + (tried - 1) : ''), Date.now() - tl]);
-      console.log('level ' + e.id + ' ' + g.level.tier + ' H' + t.look + ' ' + g.level.h[LOOK_INDEX[t.look] || 0].toFixed(2) + ' (' + t.hard.join('-') + ') h ' + g.level.h.join('/') + ' ' + (Date.now() - tl) + ' ms');
+      console.log('level ' + e.id + ' ' + g.level.tier + ' H' + t.look + ' ' + g.level.h[LOOK_INDEX[t.look] || 0].toFixed(2) + ' (' + t.hard.join('-') + ') h ' + g.level.h.join('/') + (typeof g.level.bot === 'number' ? ' bot ' + g.level.bot.toFixed(2) : '') + ' ' + (Date.now() - tl) + ' ms');
     }
   }
 

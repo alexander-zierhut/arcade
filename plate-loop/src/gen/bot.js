@@ -117,6 +117,34 @@
     return result(s.status === 'won', s.status === 'won' ? null : 'all moves played, level not won');
   }
 
+  // ---------------------------------------------------------------- certifyBelt: a tap plan of the belt solver in the real sim
+  // certifyBelt(level, taps, { layout }) -> { won, ticks, taps, reason }. The plan is a sequence of boxes to tap; each tap is
+  // made as soon as the sim accepts it (the belt may still carry pieces: that is the point of the belt solver). The sim's
+  // own landings decide where the riders go; the plan is a win when the sim says won before the taps run out or soon after.
+  function certifyBelt(level, plan, opts) {
+    deps();
+    var layout = layoutOf(level, opts), s = create(level, layout), ticks = 0, taps = 0, i, r, budget, lapTicks = Math.ceil(s.lapMs / TICK);
+    for (i = 0; i < plan.length; i++) {
+      budget = 6 * lapTicks;
+      for (;;) {
+        if (s.status !== 'play') break;
+        r = sim.tap(s, plan[i]);
+        if (r.ok) { taps++; break; }
+        if (r.reason !== 'full' && r.reason !== 'pending' && r.reason !== 'pair') return { won: false, ticks: ticks, taps: taps, reason: 'tap ' + i + ' on ' + s.state.boxes[plan[i]].id + ' refused (' + r.reason + ')' };
+        if (budget-- <= 0) return { won: false, ticks: ticks, taps: taps, reason: 'tap ' + i + ' never became possible' };
+        sim.tick(s, TICK); ticks++;
+      }
+      if (s.status === 'won') return { won: true, ticks: ticks, taps: taps, reason: null };
+      if (s.status === 'lost') return { won: false, ticks: ticks, taps: taps, reason: 'lost after tap ' + i };
+      // let the belt settle a little before the next tap, as the plan assumes (riders land where they can)
+      budget = lapTicks;
+      while (budget-- > 0 && s.status === 'play' && !beltEmpty(s)) { sim.tick(s, TICK); ticks++; }
+    }
+    budget = 4 * lapTicks;
+    while (budget-- > 0 && s.status === 'play') { sim.tick(s, TICK); ticks++; }
+    return { won: s.status === 'won', ticks: ticks, taps: taps, reason: s.status === 'won' ? null : 'all taps made, level not won (' + s.status + ')' };
+  }
+
   // ---------------------------------------------------------------- play
 
   // value of tapping box b now, judged on a copy: 3 closes a box, 2 lands on a matching box, 1 lands in an empty box,
@@ -270,6 +298,6 @@
     return { won: s.status === 'won', taps: taps, ticks: ticks };
   }
 
-  PL.bot = { certify: certify, play: play, beltEmpty: beltEmpty, juggle: juggle };
+  PL.bot = { certify: certify, certifyBelt: certifyBelt, play: play, beltEmpty: beltEmpty, juggle: juggle };
   if (typeof module !== 'undefined' && module.exports) module.exports = PL.bot;
 })(typeof window !== 'undefined' ? window : globalThis);

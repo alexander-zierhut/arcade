@@ -27,12 +27,12 @@
       if (!PL.generator) { post({ id: msg.id, ok: false, error: 'engine not loaded' }); return; }
       if (msg.cmd === 'search') {
         res = gen.generate({
-          tier: msg.tier, seed: msg.seed, allow: msg.allow, hardness: msg.hardness, look: msg.look || 0, hardest: !!msg.hardest, candidates: msg.candidates || 80,
+          tier: msg.tier, seed: msg.seed, allow: msg.allow, hardness: msg.hardness, look: msg.look || 0, hardest: !!msg.hardest, verify: msg.verify || null, buffer: msg.buffer || null, tight: !!msg.tight, candidates: msg.candidates || 80,
           budgetMs: msg.budgetMs || 12000, now: now,
           onCandidate: function (n, h) { post({ id: msg.id, progress: n, hard: h }); }
         });
         if (!res) { post({ id: msg.id, ok: false, error: 'no level' }); return; }
-        post({ id: msg.id, ok: true, level: res.level, hard: res.hard, candidates: res.candidates || 1, outside: !!res.outside, ms: now() - t0 });
+        post({ id: msg.id, ok: true, level: res.level, hard: res.hard, bot: res.botRate, candidates: res.candidates || 1, outside: !!res.outside, ms: now() - t0 });
       } else if (msg.cmd === 'replay') {
         res = gen.replay(msg.code);
         if (!res) { post({ id: msg.id, ok: false, error: 'bad code' }); return; }

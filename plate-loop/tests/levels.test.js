@@ -16,6 +16,7 @@ const rules = require('../src/engine/rules.js');
 const layouts = require('../src/levels/layouts.js');
 const solver = require('../src/gen/solver.js');
 const bot = require('../src/gen/bot.js');
+const simsolver = require('../src/gen/simsolver.js');
 const gen = require('../src/gen/generator.js');
 const seeds = require('../src/levels/seeds.js');
 const first = require('../src/levels/levels-001-100.js');      // sets PL.levels (1-100); the next file appends 101-500 to it
@@ -50,8 +51,14 @@ function mechsOf(level) {
 const certified = {};          // id -> { solve, cert }, filled by the first test and reused (keeps the suite fast)
 function check(level) {
   if (!certified[level.id]) {
-    const layout = layouts[level.layout], solve = solver.solve(level, { layout });
-    certified[level.id] = { solve, cert: solve.solvable ? bot.certify(level, solve.moves, { layout }) : null };
+    const layout = layouts[level.layout];
+    if (level.buffer) {                                      // a buffer level: no one-run solution by design, guided play on the real belt is the certificate
+      const gp = simsolver.playGuided(level, { layout });
+      certified[level.id] = { solve: { solvable: gp.won, moves: gp.plan }, cert: { won: gp.won && simsolver.certifyPlan(level, gp.plan, { layout }).won, reason: gp.reason } };
+    } else {
+      const solve = solver.solve(level, { layout });
+      certified[level.id] = { solve, cert: solve.solvable ? bot.certify(level, solve.moves, { layout }) : null };
+    }
   }
   return certified[level.id];
 }
@@ -132,7 +139,10 @@ test('levels: every level follows the difficulty curve (tier, hardness window at
     assert.equal(typeof level.hard, 'number', label + ' carries its hardness');
     assert.ok(Array.isArray(level.h) && level.h.length === 7, label + ' carries the hardness at every lookahead');
     assert.ok(hv >= t.hard[0] - BELOW, label + ' hardness H' + t.look + ' ' + hv + ' under its window ' + t.hard.join('-'));
-    if (!t.hardest) assert.ok(hv <= t.hard[1] + BELOW, label + ' hardness H' + t.look + ' ' + hv + ' over its window ' + t.hard.join('-'));
+    if (!t.hardest && !level.buffer) assert.ok(hv <= t.hard[1] + BELOW, label + ' hardness H' + t.look + ' ' + hv + ' over its window ' + t.hard.join('-'));
+    if (t.buffer === 'require') assert.equal(level.buffer, true, label + ' must need the belt as a buffer');
+    if (t.tight) assert.equal(level.tight, true, label + ' must be a tight deal (the difficulty-10 recipe)');
+    if (!t.buffer) assert.notEqual(level.buffer, true, label + ' is a buffer level where the curve wants a strict one');
     if (t.noHidden) assert.equal(mechsOf(level).indexOf('hidden'), -1, label + ' has a hidden piece at the top');
     // the rules of 2026-11-06: no front run of three at the start of a hard or extreme level, never a pair of one kind
     const st = model.parse(level, { layout: layouts[level.layout], raw: true });
@@ -151,7 +161,8 @@ test('levels: every level follows the difficulty curve (tier, hardness window at
   assert.ok(mean(51, 100) > mean(1, 50) + 0.5, 'the second fifty is clearly harder than the first');
   assert.ok(mean(101, 500) >= 1.8, 'from level 100 on a random tapper wins about one game in a hundred or fewer (mean H ' + mean(101, 500).toFixed(2) + ')');
   for (let id = 125; id <= 500; id += 25) assert.ok(levels[id - 1].h[LOOK_INDEX[target(id).look]] >= 1.0, 'spike ' + id + ' is hard for a player with its lookahead');
-  assert.ok(levels.filter((l) => deep(l.id) >= 1.5).length >= 10, 'at least ten levels where a player who looks six moves ahead wins fewer than one game in thirty');
+  assert.ok(levels.filter((l) => !l.buffer && deep(l.id) >= 1.5).length >= 10, 'at least ten strict levels where a player who looks six moves ahead wins fewer than one game in thirty');
+  assert.ok(levels.filter((l) => l.buffer).length >= 12, 'at least a dozen buffer levels (the loop must be used as a buffer)');
 });
 
 test('levels: the introduction schedule (hidden 6, pairs 12, wraps 18, one-way 28, ice 35, locks 42), nothing before its time', () => {

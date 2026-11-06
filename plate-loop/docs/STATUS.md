@@ -1,6 +1,10 @@
 # Plate Loop: status
 
-**Version 0.2.1, beta.** 0.1.0 went live on 2026-11-04; the first players found two bugs within a day and the game
+**Version 0.2.2, beta.** 0.2.2 (late 2026-11-06): buffer levels (plan R29c, parksolver + simsolver: levels without a
+one-run-at-a-time solution, certified by guided play on the real belt) at difficulty 10, in the hunt and on the spikes
+from 225 on, the real-time bot stage (R29b) on the top difficulties and the top of the curve, the tight recipe
+(R29d) with the grip ranking at difficulty 10 and 497-500, hidden pieces as a choice at 10, and the lookahead
+measure of 0.2.1. Earlier: 0.1.0 went live on 2026-11-04; the first players found two bugs within a day and the game
 was far too easy. 0.2.0 (2026-11-06) fixed the bugs, rebuilt all 500 levels on a measured difficulty curve, gave
 Endless ten difficulties with shareable level codes, and added two looks (plain graphics, stream belt), favourites
 and replays. 0.2.1 (the same evening, after Alex beat a "4.7" first try) changed the measure to lookahead players

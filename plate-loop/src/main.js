@@ -274,7 +274,7 @@
   function setRun(difficulty, disabled) {
     var g = PL.generator, list = g && g.disabledOf ? g.disabledOf(disabled) : [];
     app.mode = 'endless'; app.difficulty = difficultyOf(difficulty); app.tier = diffSpec(app.difficulty).tier;
-    if (diffSpec(app.difficulty).noLuck && list.indexOf('hidden') < 0) list.push('hidden');
+    if (diffSpec(app.difficulty).noLuck && !diffSpec(app.difficulty).luckAllowed && list.indexOf('hidden') < 0) list.push('hidden');   // 10 allows luck as the chooser's choice
     app.disabled = g && g.disabledOf ? g.disabledOf(list) : list;
     app.noLuck = app.disabled.indexOf('hidden') >= 0;
     app.streak = 0; app.code = null; roundNo = 0; runBest = false;
@@ -305,7 +305,7 @@
     h.chunk++;
     h.running = true;
     search({ cmd: 'search', tier: spec.tier, seed: seed, allow: PL.generator.allowOf(h.disabled), hardness: [0, 9], look: h.look, hardest: true,
-      candidates: 100000, budgetMs: HUNT_CHUNK_MS }, function (n, hh) {
+      verify: { games: 12, maxRate: 0, top: 3 }, buffer: spec.buffer || 'prefer', tight: !!spec.tight, candidates: 100000, budgetMs: HUNT_CHUNK_MS }, function (n, hh) {
       if (h.stopped || h.token !== searchToken) return;
       h.candidates++;
       if (hh > h.bestH) { h.bestH = hh; h.bestAt = Date.now(); }
@@ -313,7 +313,10 @@
     }).then(function (r) {
       h.running = false;
       if (h.stopped || h.token !== searchToken) return;
-      if (r.ok && r.level && (!h.best || r.hard > h.best.hard)) h.best = { level: r.level, hard: r.hard, seed: r.level.seed };
+      if (r.ok && r.level) {
+        var br = typeof r.bot === 'number' ? r.bot : 1;
+        if (!h.best || br < h.best.bot || (br === h.best.bot && r.hard > h.best.hard)) h.best = { level: r.level, hard: r.hard, bot: br, seed: r.level.seed };
+      }
       huntReport();
       if (h.wantPlay) { huntStart(); return; }
       huntChunk();
@@ -322,7 +325,7 @@
   function huntReport() {
     var h = hunt;
     if (!h || !PL.screens || typeof PL.screens.huntStatus !== 'function') return;
-    PL.screens.huntStatus({ candidates: h.candidates, best: h.bestH, bestAt: h.bestAt, since: h.start, ready: !!h.best });
+    PL.screens.huntStatus({ candidates: h.candidates, best: h.bestH, bestAt: h.bestAt, since: h.start, ready: !!h.best, bot: h.best ? h.best.bot : null });
   }
   function huntStart() {
     var h = hunt, lv;
@@ -331,7 +334,7 @@
     hunt = null;
     if (PL.screens && typeof PL.screens.huntStatus === 'function') PL.screens.huntStatus(null);
     if (lv.id === undefined || lv.id === null || lv.id === 0) lv.id = lv.seed >>> 0;
-    app.code = PL.generator.encodeCode(app.difficulty, app.disabled, lv.seed);
+    app.code = PL.generator.encodeCode(app.difficulty, app.disabled, lv.seed, !!lv.tight);
     startRound(lv);
   }
   function startHunt(difficulty, disabled, look) {
@@ -378,7 +381,7 @@
     var btn = doc.getElementById(fromChooser ? 'modes-start' : 'win-next'), d = app.difficulty, spec = diffSpec(d), token = ++searchToken;
     var base = (runSeed + app.streak * 7919) >>> 0, best = -1;
     if (btn) { btn.disabled = true; btn.textContent = t('searching', { n: 0 }); }
-    search({ cmd: 'search', tier: spec.tier, seed: base, allow: PL.generator.allowOf(app.disabled), hardness: spec.H, look: spec.look || 0, hardest: !!spec.hardest,
+    search({ cmd: 'search', tier: spec.tier, seed: base, allow: PL.generator.allowOf(app.disabled), hardness: spec.H, look: spec.look || 0, hardest: !!spec.hardest, verify: spec.verify || null, buffer: spec.buffer || null, tight: !!spec.tight,
       candidates: 150, budgetMs: low() ? Math.round(spec.budgetMs * 0.6) : spec.budgetMs }, function (n, h) {
       if (token !== searchToken || !btn) return;
       if (h > best) best = h;
@@ -389,7 +392,7 @@
       if (!r.ok || !r.level) { toast(t('preparing')); warnOnce('gen0', 'no level could be generated for difficulty ' + d + ': ' + r.error); return; }
       var lv = r.level;
       if (lv.id === undefined || lv.id === null || lv.id === 0) lv.id = lv.seed >>> 0;
-      app.code = PL.generator.encodeCode(d, app.disabled, lv.seed);
+      app.code = PL.generator.encodeCode(d, app.disabled, lv.seed, !!lv.tight);
       startRound(lv);
     });
   }

@@ -119,6 +119,31 @@ needs a tap of its own; Alex, first playtest).
   one box. (Keeps the generator and the art manageable; revisit later.)
 
 ### 2.5b Difficulty (2026-11-06)
+- R29c. **Buffer levels.** The strict solver (one run in flight, an empty belt between moves) accepts only levels
+  that never need the loop; in the original's super-hard levels the loop is a buffer from the first move to the last
+  ("it never gets back to zero until the end", Alex, from his 4.5-minute recording of level 199: 5-6 of 6 in transit
+  almost all the time, riders without a home circling for a minute while a key is exposed or a truck emptied). A
+  **buffer level** is one the strict solver cannot solve but guided play can: `parksolver.solve` (the strict model
+  plus a parking lot of up to N riders that land whenever a box accepts them) re-planned after every tap on the real
+  belt (`simsolver.playGuided`); its tap plan with sim times replays identically (R24, `certifyPlan`). Difficulty 10,
+  the hunt and the spikes from 225 on require buffer levels; 9 and 401-500 prefer them. Levels with a free 3+1 / 1+3
+  swap are strict levels and thus excluded from the top by construction.
+- R29d. **Tight levels (the difficulty-10 recipe).** Alex's target for a 10: a level played for a week or two before
+  it falls, seen once or twice among the fixed levels, and hard *without* luck (hidden pieces are a choice at 10, off
+  by default, never a lever). A tight level: twelve kinds, every open box full at the start, the only free slots behind
+  two locks, two ice and two wraps; the deal is random with at most two of a kind per box (nothing pre-sorted, no free
+  close, no 3+1 mirror; the reverse-play dealer leaves runs behind); buffer level (R29c) with buffer depth N (the
+  smallest lot at which the parking solver still wins, `parksolver.depth`), the bot never wins. Code flag `t`.
+  Observed on the way (Alex and a second player, 2026-11-06): buffer-required alone with an empty box left at the end
+  was "a 7.5", "easy" for the other player; every box in use is necessary for a 10.
+  **Grip** (`generator.grip`): the structural score the top search ranks buffer levels by (their H is 9 by
+  definition): 10 × buffer depth + 2 × covered boxes + keys buried (pieces above them) − 2 × free slots outside
+  covers + planned taps / 10. Calibrated on Alex's codes: easy −1.5 and 2.9, his 7.5 at 46, the level he found
+  "really difficult" (L10n-1X4CC2E: depth 4, 6 covered, 1 free slot, keys 4 deep, 6 runs of three all under covers)
+  at 56 (Alex: "a 9… maybe a 9.5 honestly"), the first tight level at 61. Runs of three are harmless under a lock: they are bait, not gifts.
+  Bot yardsticks on the same codes: the tapping bot loses almost every game from his 7 upwards and cannot tell a 7.5
+  from a 9; a *limited planner* (guided play with 200 search nodes, noisy move order, a greedy tap when it sees no
+  plan) wins the 7.5 ten times of ten and the 9 never, and the 9 falls to the same planner with 2,000 nodes.
 - R29. **Hardness** H_k of a level is minus the decimal logarithm of the chance that a player who looks k moves ahead
   wins: the player never makes a move that is provably lost within k moves (no move left, or every move leads to
   such a position) and picks uniformly among the rest, letting runs land where the belt takes them; computed exactly
@@ -130,6 +155,16 @@ needs a tap of its own; Alex, first playtest).
   accepted; H says how much thinking it takes, not whether it can be done. Deal rules that keep H honest: on Hard
   and Extreme no box starts with a front run longer than two, bound pairs are never two of a kind, hidden pieces
   prefer a kind that differs from the piece in front.
+- R29b. **The real-time bot stage.** Every abstract model makes a run land at once; on the real belt a player taps
+  while pieces ride (several runs in flight) and steers landings by timing, and that slack made levels with H_8
+  above 4 first-try wins (Alex, 2026-11-06), while a crude real-time bot with in-flight taps (`bot.play` sloppy
+  without random taps) won 50-58 % of them. So the top difficulties and the top of the curve verify a candidate
+  with that bot (`generator.botRate`, 8-20 games): the candidate must stay under the difficulty's win share (0 at 10
+  and on the spikes), and the hunt keeps the candidate the bot beats least. The first level the bot lost 19 of 20
+  games felt like "a 7 of 10" to Alex: thinking needed, no retries. Hidden pieces are a different kind of hard (the
+  original's super-hard levels are mostly hidden cubes plus ice and shutters: you cannot plan, and the loop sits at
+  capacity with riders that have no home); the top of this game is deliberately luck-free, so its hardness must come
+  from depth and from the bot stage.
 - R30. The 500 fixed levels follow the curve in `scripts/level-curve.mjs`: a gentle start (levels 1-15 under H_0
   1.1), windows on H_0 to level 50, on H_2 to 200, H_4 to 400, H_6 beyond, every 25th level a spike (the hardest of
   1,500 candidates at H_4 / H_6 / H_8) and nothing hidden from level 401 on or on a spike, so luck never decides at

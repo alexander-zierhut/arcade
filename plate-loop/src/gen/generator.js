@@ -5,11 +5,12 @@
   var config = PL.config || (typeof require === 'function' ? require('../config.js') : null);
   var model = PL.model || (typeof require === 'function' ? require('../engine/model.js') : null);
   // gen/* files may load in any order in the browser: neighbours are looked up when first needed
-  var rng, solver, bot;
+  var rng, solver, bot, simsolver;
   function deps() {
     rng = rng || PL.rng || (typeof require === 'function' ? require('./rng.js') : null);
     solver = solver || PL.solver || (typeof require === 'function' ? require('./solver.js') : null);
     bot = bot || PL.bot || (typeof require === 'function' ? require('./bot.js') : null);
+    simsolver = simsolver || PL.simsolver || (typeof require === 'function' ? require('./simsolver.js') : null);
   }
 
   function layoutsMod() { return PL.layouts || (typeof require === 'function' ? require('../levels/layouts.js') : null); }
@@ -55,7 +56,13 @@
     return best;
   }
   var RUN_RULE = 'front';     // 'front': the run a tap takes (the pieces at the front) is limited; 'any': every run inside a box
-  function dealt(piles, oneway, lo, hi, maxRun) {
+  function countOf(pile, c) { var n = 0, i; for (i = 0; i < pile.length; i++) if (pile[i] === c) n++; return n; }
+  function mostOfOne(pile) {
+    var counts = {}, best = 0, i;
+    for (i = 0; i < pile.length; i++) { counts[pile[i]] = (counts[pile[i]] || 0) + 1; if (counts[pile[i]] > best) best = counts[pile[i]]; }
+    return best;
+  }
+  function dealt(piles, oneway, lo, hi, maxRun, maxSame) {
     var e = emptiesOf(piles), i, nonEmpty = 0, mix = 0;
     if (e < lo || e > hi) return false;
     for (i = 0; i < piles.length; i++) {
@@ -63,6 +70,7 @@
       nonEmpty++;
       if (piles[i].length === 4 && !mixed(piles[i])) return false;
       if (maxRun && (RUN_RULE === 'any' ? longestRun(piles[i]) : topRun(piles[i])) > maxRun) return false;
+      if (maxSame && mostOfOne(piles[i]) > maxSame) return false;        // three of one kind in a box is a free completion (Alex)
       if (oneway[i] && piles[i].length > 1) return false;
       if (mixed(piles[i])) mix++;
     }
@@ -83,12 +91,40 @@
 
   function deal(o) {
     var tries = o.tries === undefined ? 6 : o.tries, res = null;
+    if (o.random) { while (tries-- > 0 && !res) res = dealRandom(o); return res; }
     while (tries-- > 0 && !res) res = deal1(o);
     return res;
   }
 
+  // dealRandom({ kinds, boxes, rng, maxSame = 2 }): every piece to a random box, no box over 4, at most maxSame of a kind
+  // per box, no empty box. Nothing is pre-sorted (reverse play leaves runs behind; Alex 2026-11-06). Solvability is not
+  // built in: the solver and the certification decide afterwards.
+  function dealRandom(o) {
+    var K = o.kinds, nb = o.boxes, r = o.rng, maxSame = o.maxSame || 2, piles = [], pieces = [], i, j, k, placed, cand, b, guard;
+    for (i = 0; i < nb; i++) piles.push([]);
+    for (k = 0; k < K; k++) for (j = 0; j < 4; j++) pieces.push(k);
+    r.shuffle(pieces);
+    for (i = 0; i < pieces.length; i++) {
+      k = pieces[i];
+      cand = [];
+      for (b = 0; b < nb; b++) {
+        if (piles[b].length >= 4) continue;
+        placed = 0;
+        for (j = 0; j < piles[b].length; j++) if (piles[b][j] === k) placed++;
+        if (placed >= maxSame) continue;
+        cand.push(b);
+      }
+      if (!cand.length) return null;
+      cand.sort(function (a, c) { return piles[a].length - piles[c].length; });          // the emptiest boxes first: no box stays empty
+      guard = cand.filter(function (x) { return piles[x].length === piles[cand[0]].length; });
+      piles[guard[r.int(guard.length)]].push(k);
+    }
+    for (b = 0; b < nb; b++) if (!piles[b].length) return null;
+    return { piles: piles, oneway: [] };
+  }
+
   function deal1(o) {
-    var K = o.kinds, nb = o.boxes, r = o.rng, lo = o.empties[0], hi = o.empties[1], piles = [], oneway = [], idx = [], i, j, steps = 0, maxRun = o.maxRun || 0,
+    var K = o.kinds, nb = o.boxes, r = o.rng, lo = o.empties[0], hi = o.empties[1], piles = [], oneway = [], idx = [], i, j, steps = 0, maxRun = o.maxRun || 0, maxSame = o.maxSame || 0,
       minSteps = o.minSteps === undefined ? 2 * K : o.minSteps, cap = o.maxSteps === undefined ? 60 * K + 200 : o.maxSteps,
       cands, c, D, S, m, run, w, total, pick, e, list = [], eT, e0, sp0, e1, sp1, u0, u1, lenD, lenS;
     for (i = 0; i < nb; i++) { piles.push(i < K ? [i, i, i, i] : []); oneway.push(false); idx.push(i); }
@@ -96,7 +132,7 @@
     for (i = 0; i < (o.oneway || 0) && i < nb; i++) { oneway[idx[i]] = true; list.push(idx[i]); }
     eT = lo + r.int(hi - lo + 1);                     // the number of empty boxes the walk steers to
     while (steps < cap) {
-      if (steps >= minSteps && dealt(piles, oneway, lo, hi, maxRun)) return { piles: piles, oneway: list.slice().sort(function (a, b) { return a - b; }) };
+      if (steps >= minSteps && dealt(piles, oneway, lo, hi, maxRun, maxSame)) return { piles: piles, oneway: list.slice().sort(function (a, b) { return a - b; }) };
       e0 = emptiesOf(piles);
       sp0 = spreadOf(piles);
       u0 = 4 * Math.abs(e0 - eT) + sp0;
@@ -116,6 +152,10 @@
             if (!lenS && m === lenD) continue;                 // a whole box into an empty one: the same position
             w = m === 1 ? 3 : (m < run ? 2 : 1);
             if (oneway[D]) w *= lenD > 1 ? (steps >= minSteps ? 8 : 0.3) : 0.2;
+            if (maxSame) {                                  // spread every kind: leave a crowd, do not join one
+              if (countOf(piles[D], c) > maxSame) w *= 4;
+              if (countOf(piles[S], c) + m > maxSame) w *= 0.15;
+            }
             e1 = e0 + (m === lenD ? 1 : 0) - (lenS ? 0 : 1);
             sp1 = sp0 - ((lenD < 4 ? 1 : 0) + (lenS > 0 && lenS < 4 ? 1 : 0)) + ((lenD - m > 0 && lenD - m < 4) ? 1 : 0) + ((lenS + m < 4) ? 1 : 0);
             u1 = 4 * Math.abs(e1 - eT) + sp1;
@@ -125,7 +165,7 @@
           }
         }
       }
-      if (!cands.length) return steps >= minSteps && dealt(piles, oneway, lo, hi, maxRun) ? { piles: piles, oneway: list.slice().sort(function (a, b) { return a - b; }) } : null;
+      if (!cands.length) return steps >= minSteps && dealt(piles, oneway, lo, hi, maxRun, maxSame) ? { piles: piles, oneway: list.slice().sort(function (a, b) { return a - b; }) } : null;
       pick = r.next() * total;
       for (j = 0; j < cands.length - 1; j++) {
         pick -= cands[j].w;
@@ -227,6 +267,12 @@
       for (var q = 0; q < n; q++) if (boxes[q].pcs.length && !cover[q] && !boxes[q].mods.oneway) out.push(q);
       return out;
     }
+    // tight levels (plan R29c): the free slots of the deal must lie behind covers, so every open box starts full and the
+    // belt is the only room. Candidate lists for covers are narrowed to the not-full boxes while any is left.
+    function tightFirst(list) {
+      var short = list.filter(function (q) { return boxes[q].pcs.length < 4; });
+      return o.tight && short.length ? short : list;
+    }
 
     // one-way boxes were chosen when dealing
     if (contains(mods, 'oneway')) {
@@ -235,12 +281,12 @@
 
     // locks: 1-2 adjacent boxes under a shutter, the key on a piece elsewhere
     if (contains(mods, 'lock')) {
-      cnt = tier === 'hard' || tier === 'extreme' ? 1 + (r.next() < 0.3 ? 1 : 0) : 1;
+      cnt = o.full ? 2 : (tier === 'hard' || tier === 'extreme' ? 1 + (r.next() < 0.3 ? 1 : 0) : 1);
       for (t = 0; t < cnt; t++) {
-        cand = plainBoxes();
+        cand = tightFirst(plainBoxes());
         if (!cand.length) break;
         g = [cand[r.int(cand.length)]];
-        if (r.next() < 0.45) {
+        if (r.next() < (o.full ? 0.8 : 0.45)) {
           kinds = neighboursIn(layout, slots, slots[g[0]]).map(function (x) { return slots.indexOf(x); }).filter(function (x) { return contains(cand, x); });
           if (kinds.length) g.push(kinds[r.int(kinds.length)]);
         }
@@ -266,12 +312,12 @@
     }
     // ice: a box that keeps at least one plain neighbour (the one that can close and thaw it); two neighbours preferred
     if (contains(mods, 'ice')) {
-      cnt = rint(r, 1, 2);
+      cnt = o.full ? 2 : rint(r, 1, 2);
       for (t = 0; t < cnt; t++) {
         kinds = keep();
-        cand = plainBoxes().filter(function (q) { return !kinds[q] && plainNeighbours(q).length > 0; });
+        cand = tightFirst(plainBoxes().filter(function (q) { return !kinds[q] && plainNeighbours(q).length > 0; }));
         g = cand.filter(function (q) { return plainNeighbours(q).length > 1; });
-        if (g.length && r.next() < 0.7) cand = g;
+        if (g.length && r.next() < 0.7 && !o.tight) cand = g;
         if (!cand.length) break;
         i = cand[r.int(cand.length)];
         boxes[i].mods.ice = true;
@@ -281,10 +327,10 @@
     }
     // wrap: a kind that the box does not hold
     if (contains(mods, 'wrap')) {
-      cnt = rint(r, 1, 2);
+      cnt = o.full ? 2 : rint(r, 1, 2);
       for (t = 0; t < cnt; t++) {
         g = keep();
-        cand = plainBoxes().filter(function (q) { return !g[q]; });
+        cand = tightFirst(plainBoxes().filter(function (q) { return !g[q]; }));
         if (!cand.length) break;
         i = cand[r.int(cand.length)];
         kinds = [];
@@ -350,7 +396,10 @@
       for (t = 0; t < cnt; t++) { boxes[cand[t].i].pcs[cand[t].j].hidden = true; placed.hidden++; }
     }
 
+    var tight = true;
+    for (i = 0; i < n; i++) if (!cover[i] && !boxes[i].mods.oneway && boxes[i].pcs.length < 4) tight = false;
     return {
+      tight: tight,
       boxes: boxes.map(function (bx) {
         var pieces = [], q = 0, e = {}, x;
         while (q < bx.pcs.length) {
@@ -436,7 +485,7 @@
   function attempt(tier, seed, opts, band, layoutObj, name) {
     deps();
     var r = rng.create(seed), allow = opts.allow || ALL, K, extra, nb, N, dir, T, modKinds, nOne, hiddenCnt, slots, dl, perm, piles, i,
-      pl, level, errs, sol, m, cert, total, lo, hi, modPool, mm, layoutNames, avail, ids;
+      pl, level, errs, sol, m, cert, total, lo, hi, modPool, mm, layoutNames, avail, ids, guided;
     // size of the level
     if (opts.layoutSlots) {
       nb = opts.layoutSlots.length;
@@ -450,6 +499,7 @@
       extra = rint(r, band.extraBoxes[0], band.extraBoxes[1]);
       nb = K + extra;
     }
+    if (opts.tight) { K = Math.min(band.kinds[1], config.KIND_NAMES.length); extra = band.extraBoxes[1]; nb = K + extra; }   // tight: the biggest board
     if (K > config.KIND_NAMES.length) return { fail: 'kinds' };
     if (layoutObj && !opts.layoutSlots && nb > Object.keys(layoutObj.slots).length) {    // a fixed layout too small: fewer kinds
       nb = Object.keys(layoutObj.slots).length;
@@ -470,6 +520,7 @@
     modPool = r.shuffle(MODS.filter(function (x) { return contains(allow, x); }));
     mm = Math.min(rint(r, band.mods[0], band.mods[1]), modPool.length);
     modKinds = modPool.slice(0, mm);
+    if (opts.tight) { modKinds = ['lock', 'ice', 'wrap'].filter(function (x) { return contains(allow, x); }); if (contains(allow, 'pair') && r.next() < 0.5) modKinds.push('pair'); }
     nOne = contains(modKinds, 'oneway') ? Math.min(rint(r, 1, 2), band.emptyBoxes[1]) : 0;   // a one-way box starts empty: it is one of the band's empty boxes
     total = 4 * K;
     hiddenCnt = 0;
@@ -479,7 +530,7 @@
       hiddenCnt = rint(r, lo, Math.max(lo, hi));
     }
     // deal
-    dl = deal({ kinds: K, boxes: nb, empties: [band.emptyBoxes[0], band.emptyBoxes[1]], oneway: nOne, rng: r, minSteps: opts.scramble ? Math.round(2 * K * opts.scramble) : undefined, maxRun: band.maxRun || 0 });
+    dl = deal({ kinds: K, boxes: nb, empties: opts.tight ? [0, 0] : [band.emptyBoxes[0], band.emptyBoxes[1]], oneway: nOne, rng: r, minSteps: opts.scramble ? Math.round(2 * K * opts.scramble) : undefined, maxRun: band.maxRun || 0, maxSame: band.maxSame || 0, random: !!opts.tight });
     if (!dl) return { fail: 'deal' };
     perm = [];
     for (i = 0; i < nb; i++) perm.push(i);
@@ -487,12 +538,27 @@
     piles = [];
     for (i = 0; i < nb; i++) piles.push(dl.piles[perm[i]]);
     ids = dl.oneway.map(function (x) { return perm.indexOf(x); });
-    pl = place({ piles: piles, slots: slots, layout: layoutObj, oneway: ids, rng: r, mods: modKinds, hidden: hiddenCnt, tier: tier, kinds: K });
+    pl = place({ piles: piles, slots: slots, layout: layoutObj, oneway: ids, rng: r, mods: modKinds, hidden: hiddenCnt, tier: tier, kinds: K, tight: !!opts.tight, full: !!opts.tight });
+    if (opts.tight && !pl.tight) return { fail: 'tight' };
     level = { id: opts.id || 0, tier: tier, seed: seed, layout: layoutObj.name, dir: dir, N: N, kinds: K, boxes: pl.boxes };
+    if (opts.tight) level.tight = true;
     errs = model.validate(level, { layout: layoutObj });
     if (errs.length) return { fail: 'validate', errs: errs };
     sol = solver.solve(level, { layout: layoutObj, maxNodes: opts.maxNodes || SOLVE_NODES, improve: IMPROVE_NODES });
-    if (!sol.solvable) return { fail: sol.unknown ? 'unknown' : 'unsolvable' };
+    if (!sol.solvable) {
+      // no one-run-at-a-time solution: the level may still be winnable with the belt as a buffer (plan R29c). Guided
+      // play (parksolver + the real sim) is the judge; such a level is marked `buffer` and is what the top asks for.
+      if (!opts.buffer || opts.buffer === 'never' || !simsolver) return { fail: sol.unknown ? 'unknown' : 'unsolvable' };
+      guided = simsolver.playGuided(level, { layout: layoutObj });
+      if (!guided.won) return { fail: 'buffer', reason: guided.reason };
+      if (!simsolver.certifyPlan(level, guided.plan, { layout: layoutObj }).won) return { fail: 'buffer-replay' };
+      level.buffer = true;
+      m = metrics(level, [], layoutObj);
+      m.moves = guided.plan.length;
+      if (!inBand(m, tier, allow)) return { fail: 'band' };
+      return { level: level, solution: null, plan: guided.plan, metrics: m };
+    }
+    if (opts.buffer === 'require') return { fail: 'strict' };
     m = metrics(level, sol.moves, layoutObj);
     if (!inBand(m, tier, allow)) return { fail: 'band' };
     cert = bot.certify(level, sol.moves, { layout: layoutObj });
@@ -511,7 +577,7 @@
   function hardness(level, layout) {
     deps();
     var a = solver.analyze(level, { layout: layout || layoutsMod()[level.layout], maxStates: 30000 }), h = [], ks = LOOKS, i, v;
-    if (!a.solvable) return { H: -1, h: [-1, -1, -1, -1, -1, -1, -1], analysis: a };
+    if (!a.solvable) return { H: level.buffer ? 9 : -1, h: level.buffer ? [9, 9, 9, 9, 9, 9, 9] : [-1, -1, -1, -1, -1, -1, -1], buffer: !!level.buffer, analysis: a };
     for (i = 0; i < ks.length; i++) {
       v = Math.min(6, Math.round(100 * -Math.log10(Math.max(1e-6, a.look && a.look[ks[i]] !== undefined ? a.look[ks[i]] : a.pNatural))) / 100);
       h.push(v === 0 ? 0 : v);                 // never -0 (JSON writes 0, strict equality would not)
@@ -520,11 +586,53 @@
   }
   var LOOKS = [0, 2, 4, 6, 8, 12, 16], LOOK_INDEX = { 0: 0, 2: 1, 4: 2, 6: 3, 8: 4, 12: 5, 16: 6 };
 
+  // botRate(level, layout, games) -> the share of games the real-time bot wins (bot.play 'sloppy' with no random taps: a
+  // greedy player who also taps while pieces are riding). Abstract hardness misses the slack of real-time play (several
+  // runs in flight, steering by timing): Alex beat levels with H8 above 4 first try, and found the first level this bot
+  // lost 19 of 20 games "a 7 of 10". About 80 ms per game, so this is the second stage of a search, not the first.
+  // grip(level, layout, plan) -> a structural score of how little room a buffer level leaves (plan R29d). Calibrated on
+  // Alex's codes of 2026-11-06: the level he found "really difficult" (L10n-1X4CC2E) needed all 4 loop slots, had 6
+  // covered boxes, 1 free slot outside covers and both keys buried 4 deep in total; his "easy" ones needed no loop
+  // slot and had 0-2 covered boxes. The top search ranks buffer levels by this (their H is 9 by definition).
+  function grip(level, layout, plan) {
+    var parksolver = PL.parksolver || (typeof require === 'function' ? require('./parksolver.js') : null), i, j, b, m, p, cov, covered = 0, freeOpen = 0, keysUnder = 0, depth;
+    for (i = 0; i < level.boxes.length; i++) {
+      b = level.boxes[i]; m = b.mods || {}; cov = !!(m.lock || m.ice || m.wrap !== undefined);
+      if (cov) covered++;
+      else if (!m.oneway) freeOpen += 4 - b.pieces.length;
+      for (j = 0; j < b.pieces.length; j++) { p = b.pieces[j]; if (typeof p === 'string' && p.indexOf('k:') === 0) keysUnder += b.pieces.length - 1 - j; }
+    }
+    depth = parksolver ? parksolver.depth(level, { layout: layout }) : 0;
+    return { depth: depth, covered: covered, freeOpen: freeOpen, keysUnder: keysUnder, taps: plan ? plan.length : 0,
+      score: Math.max(depth, 0) * 10 + covered * 2 + keysUnder - freeOpen * 2 + (plan ? plan.length / 10 : 0) };
+  }
+
+  // plannerRate(level, layout, games, nodes) -> the share of games a limited planner wins: guided play on the real belt
+  // with a small search (nodes), a noisy move order and a greedy tap when it sees no plan. The one yardstick that
+  // agreed with Alex across his rated codes (2026-11-06): 200 nodes win his 7.5 ten of ten and his 9 never.
+  function plannerRate(level, layout, games, nodes) {
+    deps();
+    var w = 0, s;
+    for (s = 1; s <= games; s++) if (simsolver.playGuided(level, { layout: layout, maxNodes: nodes || 200, rng: rng.create(s * 7 + 1), noise: 3, fallback: true, maxPlans: 60 }).won) w++;
+    return w / games;
+  }
+
+  function botRate(level, layout, games) {
+    deps();
+    var w = 0, s;
+    for (s = 1; s <= games; s++) if (bot.play(level, { layout: layout, skill: 'sloppy', randomShare: 0, seed: s }).won) w++;
+    return w / games;
+  }
+
   // The ten difficulty levels of the endless chooser (and of the level codes): the structure band, the hardness window and
   // the time the live search may spend. 9 and 10 play with nothing hidden (luck must not decide); 10 has no upper
   // bound: the search keeps the hardest candidate it finds within its budget.
   // look = how many moves ahead the measuring player thinks (the window is on that H): 0 for the low difficulties
   // (random tapping must fail), 2 and 4 in the middle, 6 at the top (deep traps that cost days, plan R29).
+  // verify = the real-time bot stage: a candidate inside the window is accepted only when the bot wins at most that
+  // share of `games` (with `hardest`, the best of the top candidates by bot wins, then by H).
+  // buffer = 'require' (only levels without a one-run-at-a-time solution: the loop must be used as a buffer, plan R29c),
+  // 'prefer' (such levels rank first) or absent (strict levels only, as attempt() rejects buffer levels then).
   var DIFFICULTY = [
     null,
     { tier: 'easy',    look: 0, H: [0, 0.3],    budgetMs: 2500 },
@@ -533,13 +641,13 @@
     { tier: 'hard',    look: 2, H: [0.6, 1.0],  budgetMs: 5000 },
     { tier: 'hard',    look: 2, H: [1.0, 1.5],  budgetMs: 6000 },
     { tier: 'hard',    look: 4, H: [0.8, 1.3],  budgetMs: 8000 },
-    { tier: 'extreme', look: 4, H: [1.2, 2.0],  budgetMs: 10000 },
-    { tier: 'extreme', look: 6, H: [1.0, 1.6],  budgetMs: 12000, noLuck: true },
-    { tier: 'extreme', look: 6, H: [1.5, 2.5],  budgetMs: 15000, noLuck: true },
-    { tier: 'extreme', look: 8, H: [1.5, 9],    budgetMs: 20000, noLuck: true, hardest: true }
+    { tier: 'extreme', look: 4, H: [1.2, 2.0],  budgetMs: 10000, verify: { games: 8, maxRate: 0.5 } },
+    { tier: 'extreme', look: 6, H: [1.0, 1.6],  budgetMs: 12000, noLuck: true, verify: { games: 12, maxRate: 0.25 } },
+    { tier: 'extreme', look: 6, H: [1.5, 9],    budgetMs: 15000, noLuck: true, verify: { games: 16, maxRate: 0.07 }, buffer: 'prefer' },
+    { tier: 'extreme', look: 8, H: [1.0, 9],    budgetMs: 14000, noLuck: true, luckAllowed: true, hardest: true, verify: { games: 16, maxRate: 0, top: 4, planner: { games: 8, nodes: 200, maxRate: 0 } }, buffer: 'require', tight: true }   // the bot stage adds ~15 s: the whole search stays near 30 s
   ];
 
-  // generate({ tier, seed, layout?, allow?, layoutSlots?, id?, maxNodes?, scramble?, hardness?, look?, hardest?, candidates?, budgetMs?, now?, onCandidate? })
+  // generate({ tier, seed, layout?, allow?, layoutSlots?, id?, maxNodes?, scramble?, hardness?, look?, hardest?, verify?, candidates?, budgetMs?, now?, onCandidate? })
   //   -> { level, solution, metrics, attempts, hard, analysis, candidates } or null
   // Without `hardness`: deterministic for (tier, seed, allow, layout, layoutSlots): up to 40 seeds derived from `seed`,
   // the first that yields a solvable, in-band, certified level wins.
@@ -552,7 +660,7 @@
   function generate(opts) {
     deps();
     var tier = opts.tier, band = config.TIERS[tier], r, j, seed, layoutObj, res, name, fails = {}, win = opts.hardness || null,
-      limit, best = null, bestScore = Infinity, h, hv, score, t0, now = opts.now || null, made = 0;
+      limit, best = null, bestScore = Infinity, h, hv, score, t0, now = opts.now || null, made = 0, verify = opts.verify || null, pool = [];
     if (!band) throw new Error('generator: unknown tier ' + tier);
     if (opts.layout) {
       layoutObj = typeof opts.layout === 'string' ? layoutsMod()[opts.layout] : opts.layout;
@@ -571,17 +679,46 @@
       made++;
       hv = h.h[LOOK_INDEX[opts.look || 0] || 0];   // the H the window refers to (the measuring player's lookahead)
       res.hard = hv; res.h = h.h; res.analysis = h.analysis; res.level.hard = h.H; res.level.h = h.h;
+      if (res.level.buffer) { res.grip = grip(res.level, layoutsMod()[res.level.layout], res.plan); res.level.grip = Math.round(res.grip.score * 10) / 10; }
       if (opts.onCandidate) opts.onCandidate(made, hv);
-      if (!opts.hardest && hv >= win[0] && hv <= win[1]) { res.attempts = j + 1; res.candidates = made; return res; }
+      if (!opts.hardest && hv >= win[0] && hv <= win[1]) {
+        if (verify) {                                   // the real-time bot must fail often enough, or the candidate is just a fallback
+          res.botRate = botRate(res.level, layoutsMod()[res.level.layout], verify.games || 12);
+          res.level.bot = res.botRate;
+          if (res.botRate <= (verify.maxRate === undefined ? 0.25 : verify.maxRate)) { res.attempts = j + 1; res.candidates = made; return res; }
+          score = 2 + res.botRate;                       // outside the bot limit: a weak fallback, ranked by how often the bot won
+          if (score < bestScore) { bestScore = score; best = res; best.attempts = j + 1; }
+          if (made >= (opts.candidates || 60)) break;
+          if (now && now() - t0 > (opts.budgetMs || 1e12)) break;
+          continue;
+        }
+        res.attempts = j + 1; res.candidates = made; return res;
+      }
       score = opts.hardest ? (h.estimated ? Infinity : -hv) : (hv > win[1] ? (hv - win[1]) : (win[0] - hv) * 4);     // below the window costs four times as much as above it; `hardest` keeps the maximum (never an estimate)
-      if (score < bestScore) { bestScore = score; best = res; best.attempts = j + 1; }
+      if (opts.hardest && verify) { if (score < Infinity) pool.push({ res: res, hv: hv, j: j }); }
+      else if (score < bestScore) { bestScore = score; best = res; best.attempts = j + 1; }
       if (made >= (opts.candidates || 60)) break;
       if (now && now() - t0 > (opts.budgetMs || 1e12)) break;
     }
     generate.lastFails = fails;
-    if (best) { best.candidates = made; best.outside = !(best.hard >= win[0] && best.hard <= win[1]); }
+    if (opts.hardest && verify && pool.length) {        // the top candidates by H meet the bot: fewest bot wins first, then the deepest traps
+      pool.sort(function (a, b) { return (b.hv - a.hv) || ((b.res.level.grip || 0) - (a.res.level.grip || 0)); });   // buffer levels (H 9) by grip
+      pool = pool.slice(0, verify.top || 6);
+      for (j = 0; j < pool.length; j++) {
+        pool[j].res.botRate = botRate(pool[j].res.level, layoutsMod()[pool[j].res.level.layout], verify.games || 12);
+        pool[j].res.level.bot = pool[j].res.botRate;
+        if (verify.planner) {                             // the limited planner (plannerRate): fewest wins first, before grip
+          pool[j].res.plannerRate = plannerRate(pool[j].res.level, layoutsMod()[pool[j].res.level.layout], verify.planner.games || 10, verify.planner.nodes || 200);
+          pool[j].res.level.planner = pool[j].res.plannerRate;
+        }
+        if (!best || rank(pool[j].res) > rank(best) || (rank(pool[j].res) === rank(best) && pool[j].hv > best.hard)) { best = pool[j].res; best.attempts = pool[j].j + 1; }
+      }
+    }
+    if (best) { best.candidates = made; best.outside = !(best.hard >= win[0] && best.hard <= win[1]) || (verify && best.botRate > (verify.maxRate === undefined ? 0.25 : verify.maxRate)) || (verify && verify.planner && best.plannerRate > (verify.planner.maxRate === undefined ? 0.25 : verify.planner.maxRate)); }
     return best;
   }
+  // the order of the top candidates: fewest bot wins, then fewest planner wins, then grip (higher = better)
+  function rank(res) { return -(res.botRate || 0) * 1000 - (res.plannerRate || 0) * 100 + (res.level.grip || 0) / 100; }
 
   // ---------------------------------------------------------------- level codes
   //
@@ -604,20 +741,22 @@
     for (i = 0; i < ALL.length; i++) if (contains(x, ALL[i])) out.push(ALL[i]);
     return out;
   }
-  function encodeCode(difficulty, disabled, seed) {
+  // encodeCode(difficulty, disabled, seed, tight?): the flag t marks a tight deal (every open box full at the start)
+  function encodeCode(difficulty, disabled, seed, tight) {
     var v = seed >>> 0, out = '', list = disabledOf(disabled), flags = '', i;
     for (i = 0; i < ALL.length; i++) if (contains(list, ALL[i])) flags += FLAG_OF[ALL[i]];
+    if (tight) flags += 't';
     do { out = ALPHABET.charAt(v % 32) + out; v = Math.floor(v / 32); } while (v > 0);
     return CODE_LETTER + difficulty + flags + '-' + out;
   }
   function decodeCode(code) {
     var str = String(code || '').toUpperCase().replace(/\s+/g, ''), m, i, v = 0, d, seedPart, flags, disabled = [];
-    m = /^L(10|[1-9])([NPWIKO]*)-([0-9A-Z]{1,7})$/.exec(str) || /^L(10|[1-9])()([0-9A-Z]{1,7})$/.exec(str);
+    m = /^L(10|[1-9])([NPWIKOT]*)-([0-9A-Z]{1,7})$/.exec(str) || /^L(10|[1-9])()([0-9A-Z]{1,7})$/.exec(str);
     if (!m) return null;
     flags = m[2];
     for (i = 0; i < flags.length; i++) {
       d = MECH_OF[flags.charAt(i).toLowerCase()];
-      if (!contains(disabled, d)) disabled.push(d);
+      if (d && !contains(disabled, d)) disabled.push(d);
     }
     seedPart = m[3].replace(/O/g, '0').replace(/[IL]/g, '1').replace(/U/g, 'V');     // read from a photo: O is 0, I and L are 1, U is V
     for (i = 0; i < seedPart.length; i++) {
@@ -626,7 +765,7 @@
       v = v * 32 + d;
     }
     if (v > 4294967295) return null;
-    return { version: CODE_VERSION, difficulty: Number(m[1]), disabled: disabledOf(disabled), noLuck: contains(disabled, 'hidden'), seed: v >>> 0 };
+    return { version: CODE_VERSION, difficulty: Number(m[1]), disabled: disabledOf(disabled), noLuck: contains(disabled, 'hidden'), tight: flags.indexOf('T') >= 0, seed: v >>> 0 };
   }
   // allowOf(disabled | noLuck) -> the mechanics a level may use
   function allowOf(x) {
@@ -640,19 +779,19 @@
     diff = DIFFICULTY[d.difficulty];
     band = config.TIERS[diff.tier];
     disabled = disabledOf(d.disabled || (d.noLuck ? ['hidden'] : []));
-    if (diff.noLuck && !contains(disabled, 'hidden')) disabled.push('hidden');
-    res = attempt(diff.tier, d.seed, { allow: allowOf(disabled) }, band, null, null);
+    if (diff.noLuck && !diff.luckAllowed && !contains(disabled, 'hidden')) disabled.push('hidden');
+    res = attempt(diff.tier, d.seed, { allow: allowOf(disabled), buffer: 'prefer', tight: !!d.tight }, band, null, null);   // a code names a seed: strict or buffer, whatever that seed makes
     if (!res.level) return null;
     h = hardness(res.level);
     res.level.hard = h.H; res.level.h = h.h; res.hard = h.h[LOOK_INDEX[diff.look || 0] || 0];
     res.disabled = disabled;
-    res.code = encodeCode(d.difficulty, disabled, d.seed);
+    res.code = encodeCode(d.difficulty, disabled, d.seed, !!d.tight);
     return res;
   }
 
   PL.generator = {
     generate: generate, metrics: metrics, inBand: inBand, deal: deal, place: place, pickSlots: pickSlots, attempt: attempt,
-    hardness: hardness, DIFFICULTY: DIFFICULTY, LOOKS: LOOKS, LOOK_INDEX: LOOK_INDEX, _runRule: function (v) { if (v) RUN_RULE = v; return RUN_RULE; }, encodeCode: encodeCode, decodeCode: decodeCode, replay: replay, allowOf: allowOf, disabledOf: disabledOf,
+    hardness: hardness, botRate: botRate, plannerRate: plannerRate, grip: grip, DIFFICULTY: DIFFICULTY, LOOKS: LOOKS, LOOK_INDEX: LOOK_INDEX, _runRule: function (v) { if (v) RUN_RULE = v; return RUN_RULE; }, encodeCode: encodeCode, decodeCode: decodeCode, replay: replay, allowOf: allowOf, disabledOf: disabledOf,
     CODE_VERSION: CODE_VERSION, MECHANICS: ALL.slice(),
     ATTEMPTS: ATTEMPTS
   };

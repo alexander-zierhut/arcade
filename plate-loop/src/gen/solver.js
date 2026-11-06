@@ -722,7 +722,7 @@
 
   PL.solver = {
     solve: solve, applyMove: applyMove, downstream: downstream, analyze: analyze,
-    _internal: { compile: compile, fromState: fromState, expand: expand, keyOf: keyOf, lowerBound: lowerBound, score: score, cnt: cnt, pcAt: pcAt }
+    _internal: { compile: compile, fromState: fromState, expand: expand, keyOf: keyOf, lowerBound: lowerBound, score: score, cnt: cnt, pcAt: pcAt, land: land, settleBox: settleBox }
   };
   if (typeof module !== 'undefined' && module.exports) module.exports = PL.solver;
 })(typeof window !== 'undefined' ? window : globalThis);

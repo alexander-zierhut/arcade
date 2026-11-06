@@ -98,7 +98,15 @@ hardness H_k for a player who looks k moves ahead (plan R29, `generator.hardness
 budget in ms, `noLuck` forced on 9 and 10, `hardest` on 10). The deeper the lookahead, the lower the numbers: the
 windows of one k are not comparable with another's. Yields (extreme structure, 2026-11-06): H_6 above 1 about one
 candidate in ten, above 2 about one in a hundred, above 3 one in several hundred, so the top is a matter of search
-volume (the hunt). The fixed levels follow
+volume (the hunt). The second stage, `verify` (`generator.botRate`, plan R29b): the real-time bot with in-flight taps
+plays 8-20 games and the candidate must stay under the difficulty's win share; about 80 ms per game, so it runs only
+on candidates that passed the window (or on the top few of a hardest-search). The third lever, `buffer` (plan R29c):
+with 'require' only levels without a one-run-at-a-time solution are accepted, certified by guided play on the real
+belt (`simsolver.playGuided` + `certifyPlan`, about 0.1-0.3 s); these are the levels where the loop is a buffer from
+start to end. Difficulty 10 and levels 497-500 add `tight` (plan R29d: every open box full, two of every cover, a
+random deal, twelve kinds) and rank the survivors by `generator.grip` (buffer depth, covers, buried keys, free slots,
+planned taps), the score calibrated on Alex's rated codes; change its weights there, and re-check the order of the
+codes listed in the plan. The fixed levels follow
 `scripts/level-curve.mjs`. The fixed levels are not regenerated at play time, so a new band or difficulty table only
 changes Endless and future levels; after changing either run the generator tests. The pill colour of a tier is CSS
 (`--tier-*`), its name a string (`tier_easy` ...); the chooser colours the difficulties by their structure tier.

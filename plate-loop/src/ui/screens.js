@@ -18,7 +18,7 @@
   var shown = null;                 // the card on screen (name) or null
   var base = null;                  // 'title' | 'play'
   var data = {};                    // data of the card on screen
-  var modes = { difficulty: 1, disabled: [], look: null };     // disabled: the mechanics switched off in the chooser; look: the hunt's lookahead (null = auto)
+  var modes = { difficulty: 1, disabled: [], look: null, luck: false };   // luck: at a difficulty that allows it (10), hidden pieces on by choice     // disabled: the mechanics switched off in the chooser; look: the hunt's lookahead (null = auto)
   var MECHANICS = ['hidden', 'pair', 'wrap', 'ice', 'lock', 'oneway'];
   var huntTimer = null, huntState = null;
   var hw = { pages: MECHS.slice(), index: 0, back: 'title', onDone: null };
@@ -35,8 +35,12 @@
   function beltStyle() { return save ? save.get().belt : 'plates'; }
   function diffSpec(d) { var g = PL.generator && PL.generator.DIFFICULTY ? PL.generator.DIFFICULTY[d] : null; return g || { tier: DIFF_TIER[d] || 'easy', noLuck: d >= 9 }; }
   function disabledNow() {          // the chooser's list, plus hidden when the difficulty forces it
-    var list = modes.disabled.slice();
-    if (diffSpec(modes.difficulty).noLuck && list.indexOf('hidden') < 0) list.push('hidden');
+    var list = modes.disabled.slice(), sp = diffSpec(modes.difficulty), i;
+    if (sp.noLuck && sp.luckAllowed) {                                      // 10: luck is one switch, whatever the chips said at another difficulty
+      i = list.indexOf('hidden');
+      if (modes.luck && i >= 0) list.splice(i, 1);
+      if (!modes.luck && i < 0) list.push('hidden');
+    } else if (sp.noLuck && list.indexOf('hidden') < 0) list.push('hidden');
     return list;
   }
   function setMech(m, on) {
@@ -191,7 +195,7 @@
 
   function renderModes() {
     var s = save ? save.get() : { endless: { best: {} } };
-    var btns = els.diffs.querySelectorAll('.diff'), d = modes.difficulty, spec = diffSpec(d), forced = !!spec.noLuck, best = s.endless.best[d] || 0;
+    var btns = els.diffs.querySelectorAll('.diff'), d = modes.difficulty, spec = diffSpec(d), forced = !!spec.noLuck && !spec.luckAllowed, best = s.endless.best[d] || 0;
     for (var i = 0; i < btns.length; i++) {
       var n = Number(btns[i].getAttribute('data-diff')), b = s.endless.best[n] || 0;
       btns[i].setAttribute('aria-checked', n === d ? 'true' : 'false');
@@ -202,7 +206,7 @@
     var noLuck = disabledNow().indexOf('hidden') >= 0;
     els.noluck.setAttribute('aria-pressed', noLuck ? 'true' : 'false');
     els.noluck.setAttribute('aria-disabled', forced ? 'true' : 'false');
-    els.noluckHint.textContent = t(forced ? 'noluck_forced' : 'noluck_hint');
+    els.noluckHint.textContent = t(forced ? 'noluck_forced' : (spec.noLuck && spec.luckAllowed ? 'noluck_choice' : 'noluck_hint'));
     var looks = els.looks ? els.looks.querySelectorAll('.look') : [], lv;
     for (i = 0; i < looks.length; i++) {
       lv = looks[i].getAttribute('data-look');
@@ -223,7 +227,8 @@
     if (!els.hunt) return;
     if (!h) { els.hunt.hidden = true; if (huntTimer) { clearInterval(huntTimer); huntTimer = null; } return; }
     els.hunt.hidden = false;
-    els.huntText.textContent = h.best >= 0 ? t('hunt_status', { n: h.candidates, h: h.best.toFixed(2), s: Math.max(0, Math.round((now - h.bestAt) / 1000)) }) : t('hunt_none', { n: h.candidates });
+    els.huntText.textContent = (h.best >= 0 ? t('hunt_status', { n: h.candidates, h: h.best.toFixed(2), s: Math.max(0, Math.round((now - h.bestAt) / 1000)) }) : t('hunt_none', { n: h.candidates })) +
+      (typeof h.bot === 'number' ? ' · ' + t('hunt_bot', { b: Math.round(h.bot * 100) }) : '');
     els.huntPlay.disabled = !h.ready;
     if (!huntTimer) huntTimer = setInterval(renderHunt, 1000);
   }
@@ -476,7 +481,12 @@
       if (!b) return;
       modes.difficulty = Number(b.getAttribute('data-diff')) || 1; renderModes();
     });
-    on('modes-noluck', function () { if (diffSpec(modes.difficulty).noLuck) return; setMech('hidden', modes.disabled.indexOf('hidden') >= 0); renderModes(); });
+    on('modes-noluck', function () {
+      var sp = diffSpec(modes.difficulty);
+      if (sp.noLuck && !sp.luckAllowed) return;
+      if (sp.noLuck) { modes.luck = !modes.luck; renderModes(); return; }        // difficulty 10: luck is the player's choice, off by default
+      setMech('hidden', modes.disabled.indexOf('hidden') >= 0); renderModes();
+    });
     function remember() { if (save) save.patch({ endless: { difficulty: modes.difficulty, noLuck: disabledNow().indexOf('hidden') >= 0, disabled: modes.disabled.slice(), look: modes.look } }); }
     els.looks.addEventListener('click', function (ev) {
       var b = ev.target && ev.target.closest ? ev.target.closest('.look') : null;
@@ -497,7 +507,9 @@
     els.mechs.addEventListener('click', function (ev) {
       var b = ev.target && ev.target.closest ? ev.target.closest('.mech') : null;
       if (!b || b.getAttribute('aria-disabled') === 'true') return;
-      setMech(b.getAttribute('data-mech'), b.getAttribute('aria-pressed') !== 'true');
+      var sp = diffSpec(modes.difficulty);
+      if (b.getAttribute('data-mech') === 'hidden' && sp.noLuck && sp.luckAllowed) modes.luck = !modes.luck;   // 10: the chip and the switch are one choice
+      else setMech(b.getAttribute('data-mech'), b.getAttribute('aria-pressed') !== 'true');
       renderModes();
     });
     on('modes-hunt', function () {
